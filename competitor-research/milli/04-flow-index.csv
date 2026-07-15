@@ -1,0 +1,17 @@
+Flow ID,Flow Name,Start,End,Status,Real Completion,Screenshot Count,Blocking Reason
+FL-DASH-001,داشبورد,login,home,مشاهده‌شده,yes,1,
+FL-BUY-001,خرید طلا,home buy,preview/direct gateway,مشاهده‌شده,no,3,bank payment not performed
+FL-SELL-001,فروش طلا,home sell,success receipt,مشاهده‌شده,yes,8,
+FL-DEPOSIT-001,واریز ریالی,wallet,deposit form,مشاهده‌شده,no,4,bank transfer/payment not performed
+FL-WITHDRAW-001,برداشت ریالی,wallet,success receipt,مشاهده‌شده,yes,8,
+FL-BANK-001,حساب بانکی,profile,registered card/shaba,مشاهده‌شده,yes,2,user entered real bank data
+FL-HISTORY-001,تاریخچه و رسید,bottom nav,receipt/filter,مشاهده‌شده,yes,3,filter screenshot unavailable
+FL-TRANSFER-001,انتقال طلا,services,recipient input,قابل‌دسترسی‌نبود,no,0,recipient account required
+FL-PHYSICAL-001,تحویل فیزیکی,services,insufficient balance/request list,قابل‌دسترسی‌نبود,no,4,minimum 5g plus fees
+FL-GIFTCARD-001,کارت هدیه,services,catalog/delivery choice,قابل‌دسترسی‌نبود,no,4,user skipped ordering
+FL-INSTALLMENT-001,خرید اقساطی,services,provider result,مشاهده‌شده,no,7,user skipped external provider continuation
+FL-COLLATERAL-001,اعتبار با وثیقه,services,disabled confirmation,قابل‌دسترسی‌نبود,no,3,insufficient gold
+FL-MILLICARD-001,میلی‌کارت,services,onboarding,قابل‌دسترسی‌نبود,no,1,request not submitted
+FL-STOREPAY-001,پرداخت فروشگاهی,services,QR scan prompt,قابل‌دسترسی‌نبود,no,1,store QR required
+FL-REFERRAL-001,دعوت دوستان,profile,code/progress,مشاهده‌شده,no,1,invite not sent
+FL-SUPPORT-001,پشتیبانی,home/profile,chat start,مشاهده‌شده,no,0,message not sent
