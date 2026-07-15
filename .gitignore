@@ -1,9 +1,19 @@
 .DS_Store
+**/.DS_Store
 Thumbs.db
 
-# Local temporary work products
+# Local and temporary working files
 tmp/
+_discarded-system-captures/
 
 # OS/editor noise
 *.tmp
 *.log
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local Codex settings and logs
+.codex/
+.codex-log/
