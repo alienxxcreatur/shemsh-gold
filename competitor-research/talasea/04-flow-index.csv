@@ -1,0 +1,15 @@
+Flow ID,Flow Name,Category,Start Point,End Point,Status,Completion,Blocker,Evidence,Screenshot ID
+FL-AUTH-001,ورود,Auth,/login,/dashboard,مشاهده‌شده,توسط کاربر,OTP توسط پژوهشگر وارد نشد,داشبورد لاگین‌شده,talasea-auth-01-login.png
+FL-DASH-001,داشبورد,Dashboard,/dashboard,میانبر سرویس,مشاهده‌شده,بله,ندارد,صفحه پنل,talasea-FL-DASH-001-01-dashboard.png
+FL-TRADE-001,خرید و فروش,Trade,/dashboard/trades,تأیید/رسید,مشاهده‌شده,خیر,ثبت سفارش واقعی,فرم و راهنما,talasea-FL-TRADE-001-01-buy-sell-entry.png
+FL-LIMIT-001,سفارش با قیمت,Order,/dashboard/limit-order,ثبت سفارش,مشاهده‌شده,خیر,موجودی و تأیید واقعی,فرم و راهنما,talasea-FL-LIMIT-001-01-entry.png
+FL-MARGIN-001,سفارش تعهدی,High Risk,/dashboard/margin-trade,موقعیت باز,مشاهده‌شده,خیر,پذیرش قوانین و معامله واقعی,صفحه و قوانین,talasea-FL-MARGIN-001-01-entry.png
+FL-WALLET-001,دارایی‌ها,Wallet,/dashboard/wallet,جزئیات تراکنش,مشاهده‌شده,جزئی,حساب خالی,صفحه دارایی,talasea-FL-WALLET-001-01-assets.png
+FL-IRT-001,واریز و برداشت,Money,/dashboard/irt-transaction,تراکنش/رسید,مشاهده‌شده,خیر,پرداخت یا برداشت واقعی,راهنمای کامل,talasea-FL-IRT-001-01-deposit-withdrawal.png
+FL-BANK-001,کارت بانکی,Bank,/dashboard/bank-card,کارت ثبت‌شده,مشاهده‌شده,خیر,کارت واقعی,فرم صفحه,talasea-FL-BANK-001-01-bank-cards.png
+FL-PHYS-001,تحویل فیزیکی,Physical,/dashboard/gold-receive,تحویل ثبت‌شده,مشاهده‌شده,خیر,آدرس و موجودی واقعی,فرم صفحه,talasea-FL-PHYSICAL-001-01-entry.png
+FL-GIFT-001,کارت هدیه,Gift,/dashboard/gift-card-menu,سفارش/فعال‌سازی,مشاهده‌شده,خیر,پرداخت یا کد واقعی,راهنمای صفحه,talasea-FL-GIFT-002-01-order-form.png
+FL-CREDIT-001,خرید اقساطی,Credit,/dashboard/credit-menu,خرید اعتباری,مشاهده‌شده,خیر,درخواست اعتبار واقعی,صفحات تأمین‌کننده,talasea-FL-CREDIT-001-01-provider-menu.png
+FL-LOAN-001,اعتبار خرید کالا,Loan,/dashboard/loan,اعتبار فعال,مشاهده‌شده,خیر,تأیید درخواست,هاب اعتبار,talasea-FL-LOAN-001-01-dashboard-entry.png
+FL-STK-001,سرمایه‌گذاری طلایی,Saving,/dashboard/staking,طرح فعال,مشاهده‌شده,خیر,موجودی طلا و تأیید,صفحه سرمایه‌گذاری,talasea-FL-STAKING-001-01-entry.png
+FL-CLUB-001,کلاب,Loyalty,/dashboard/club,جایزه,مشاهده‌شده,جزئی,امتیاز صفر,صفحه کلاب,talasea-FL-CLUB-001-01-entry.png

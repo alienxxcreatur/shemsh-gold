@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>وایرفریم تعاملی فلو ورود و ثبت نام شمش</title>
+  <style>
+    @font-face {
+      font-family: YekanBakh;
+      src: url("brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh FaNum/webfonts/woff2/YekanBakhFaNum-Regular.woff2") format("woff2");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: YekanBakh;
+      src: url("brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh FaNum/webfonts/woff2/YekanBakhFaNum-SemiBold.woff2") format("woff2");
+      font-weight: 700;
+    }
+    :root {
+      --ink: #171717;
+      --muted: #6a6a6a;
+      --line: #dedbd4;
+      --soft: #f7f4ee;
+      --paper: #fffdf8;
+      --gold: #c89a2b;
+      --gold-soft: #fff2cc;
+      --green: #11704b;
+      --blue: #2f5fbd;
+      --red: #d94242;
+      --shadow: 0 18px 54px rgba(41, 35, 24, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: YekanBakh, Tahoma, sans-serif;
+      background: #f2f0eb;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+    button, input, select {
+      font: inherit;
+    }
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr) 360px;
+      gap: 24px;
+      padding: 24px;
+    }
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(25, 22, 18, .06);
+    }
+    .flow-panel {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: calc(100vh - 48px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: #151515;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+    .brand-mark img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      filter: invert(1);
+    }
+    .brand strong { display: block; font-size: 17px; }
+    .brand span { color: var(--muted); font-size: 12px; }
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: auto;
+      padding-left: 4px;
+    }
+    .flow-step {
+      width: 100%;
+      text-align: right;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      color: var(--ink);
+    }
+    .flow-step:hover { background: #faf8f3; border-color: var(--line); }
+    .flow-step.active {
+      background: var(--gold-soft);
+      border-color: #e4c56c;
+    }
+    .flow-step.done .num {
+      background: var(--green);
+      color: #fff;
+    }
+    .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #eee8db;
+      color: #62543d;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .flow-step b {
+      display: block;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .flow-step small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+      margin-top: 2px;
+    }
+    .stage {
+      min-height: calc(100vh - 48px);
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      overflow: hidden;
+    }
+    .stage-shell {
+      width: min(100%, 900px);
+      display: grid;
+      grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+      direction: ltr;
+    }
+    .phone {
+      width: min(100%, 390px);
+      height: 780px;
+      background: #111;
+      border-radius: 34px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+      direction: rtl;
+    }
+    .screen {
+      height: 100%;
+      border-radius: 26px;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid #d2d2d2;
+    }
+    .status {
+      height: 34px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 18px;
+      font-size: 11px;
+      color: #333;
+      flex: 0 0 auto;
+    }
+    .topbar {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: 1px solid #eee;
+      flex: 0 0 auto;
+    }
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #f5f3ef;
+      color: #333;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #1d1d1d;
+    }
+    .wordmark .mini {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: #151515;
+      display: grid;
+      place-items: center;
+    }
+    .wordmark img {
+      width: 15px;
+      height: 15px;
+      filter: invert(1);
+    }
+    .screen-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 18px;
+      overflow: auto;
+    }
+    .screen-body.centered {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .wire-card {
+      border: 1px solid #e2ded4;
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .hero-box {
+      min-height: 162px;
+      border: 1px solid #e7d59c;
+      background: #fff8e6;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .chart {
+      height: 78px;
+      border-radius: 6px;
+      background:
+        linear-gradient(135deg, transparent 48%, rgba(47,95,189,.36) 50%, transparent 52%) 0 28px / 42px 42px repeat-x,
+        linear-gradient(#f7f0db, #fff);
+      border: 1px solid #ead9a7;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 24px; line-height: 1.45; }
+    h2 { font-size: 21px; line-height: 1.45; margin-bottom: 8px; }
+    h3 { font-size: 16px; line-height: 1.5; margin-bottom: 6px; }
+    p { color: var(--muted); line-height: 1.75; font-size: 13px; }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 13px 0;
+    }
+    label {
+      color: #373737;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    input, select {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #ddd6ca;
+      background: #fff;
+      border-radius: 8px;
+      padding: 0 13px;
+      color: #222;
+      outline: none;
+      direction: rtl;
+    }
+    input:focus, select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200, 154, 43, .14);
+    }
+    .input-error {
+      border-color: var(--red) !important;
+      box-shadow: 0 0 0 3px rgba(217, 66, 66, .08) !important;
+    }
+    .hint { color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .error { color: var(--red); font-size: 11px; line-height: 1.7; }
+    .action {
+      min-height: 48px;
+      width: 100%;
+      border-radius: 8px;
+      background: #171717;
+      color: #fff;
+      font-weight: 700;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      margin-top: 8px;
+    }
+    .action.gold { background: var(--gold); color: #1c1609; }
+    .action.green { background: var(--green); }
+    .action.ghost {
+      background: #fff;
+      color: #222;
+      border: 1px solid #d9d3c8;
+    }
+    .action:disabled {
+      background: #efede9;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+    .link-btn {
+      background: transparent;
+      color: var(--blue);
+      font-weight: 700;
+      padding: 0;
+      font-size: 12px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .row.wrap { flex-wrap: wrap; }
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      color: #424242;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .check-row input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+      flex: 0 0 auto;
+    }
+    .otp-grid {
+      direction: ltr;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin: 18px 0 12px;
+    }
+    .otp-grid input {
+      text-align: center;
+      direction: ltr;
+      padding: 0;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .progress {
+      height: 5px;
+      border-radius: 99px;
+      background: #eee8dc;
+      overflow: hidden;
+      margin: 10px 0 18px;
+    }
+    .progress i {
+      display: block;
+      height: 100%;
+      width: var(--w, 30%);
+      background: var(--green);
+    }
+    .quote {
+      border-right: 3px solid var(--gold);
+      background: #fff9e9;
+      padding: 10px 12px;
+      border-radius: 6px;
+      color: #5d4714;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .tile {
+      min-height: 86px;
+      border: 1px solid #e3ded4;
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+    .tile b { font-size: 13px; display: block; margin-bottom: 6px; }
+    .tile small { color: var(--muted); line-height: 1.6; }
+    .bottom-nav {
+      height: 64px;
+      border-top: 1px solid #eee;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      padding: 8px 10px;
+      flex: 0 0 auto;
+      background: #fff;
+    }
+    .nav-item {
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #777;
+      font-size: 11px;
+    }
+    .nav-item.active {
+      color: var(--green);
+      background: #f2faf6;
+      font-weight: 700;
+    }
+    .toast {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 42px;
+      background: #171717;
+      color: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.6;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+      z-index: 4;
+    }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.42);
+      display: grid;
+      align-items: end;
+      z-index: 3;
+    }
+    .sheet {
+      background: #fff;
+      border-radius: 18px 18px 0 0;
+      padding: 18px;
+      max-height: 72%;
+      overflow: auto;
+    }
+    .stage-note {
+      direction: rtl;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .note-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .note-card ul {
+      margin: 10px 0 0;
+      padding: 0 18px 0 0;
+      color: #333;
+      line-height: 1.9;
+      font-size: 13px;
+    }
+    .meta-panel {
+      padding: 18px;
+      min-height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .persona {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .seg {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      min-height: 42px;
+      font-size: 12px;
+      color: #333;
+    }
+    .seg.active {
+      border-color: #d5ab45;
+      background: var(--gold-soft);
+      color: #2f2309;
+      font-weight: 700;
+    }
+    .decision {
+      border: 1px solid #e4ded2;
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+    .decision b { display: block; font-size: 13px; margin-bottom: 6px; }
+    .decision p { font-size: 12px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: #eee8dc;
+      color: #5e523f;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge.ok { background: #e9f7ef; color: #11633f; }
+    .badge.warn { background: #fff1d6; color: #8a5a00; }
+    .footer-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .footer-controls button {
+      min-height: 44px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #222;
+      font-weight: 700;
+    }
+    .footer-controls .primary {
+      background: #171717;
+      color: #fff;
+      border-color: #171717;
+    }
+    @media (max-width: 1500px) {
+      .stage-shell {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+      .stage-note { display: none; }
+    }
+    @media (max-width: 1120px) {
+      .app {
+        grid-template-columns: 280px minmax(0, 1fr);
+      }
+      .meta-panel { display: none; }
+    }
+    @media (max-width: 760px) {
+      .app {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+      .flow-panel {
+        min-height: auto;
+        max-height: 330px;
+      }
+      .stage {
+        min-height: auto;
+        padding: 14px;
+      }
+      .phone {
+        height: 720px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <aside class="panel flow-panel">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="brand/logo/sign/white sign/SVG/Asset 52.svg" alt="">
+        </div>
+        <div>
+          <strong>شمش</strong>
+          <span>فلو پیشنهادی ورود، ثبت نام و احراز</span>
+        </div>
+      </div>
+      <div class="step-list" id="stepList"></div>
+    </aside>
+
+    <section class="panel stage">
+      <div class="stage-shell">
+        <div class="phone">
+          <div class="screen">
+            <div class="status"><span>9:41</span><span>LTE 100%</span></div>
+            <div id="screenContent"></div>
+          </div>
+        </div>
+        <div class="stage-note" id="stageNote"></div>
+      </div>
+    </section>
+
+    <aside class="panel meta-panel">
+      <h2>کنترل سناریو</h2>
+      <p>برای تست مسیرها، نوع کاربر و خطاهای رایج را عوض کن. همه چیز داخل همین فایل و بدون سرور اجرا می‌شود.</p>
+      <div class="persona">
+        <button class="seg active" data-persona="new">کاربر جدید</button>
+        <button class="seg" data-persona="existing">کاربر قبلی</button>
+      </div>
+      <div class="decision">
+        <b>اصل طراحی</b>
+        <p>ورود اولیه باید با موبایل و OTP انجام شود. احراز هویت فقط هنگام خرید، فروش یا برداشت اجباری شود.</p>
+      </div>
+      <div class="decision">
+        <b>کاهش اصطکاک</b>
+        <p>رمز عبور و کپچا در ثبت نام اجباری نیستند. رمز فقط به عنوان لایه امنیتی اختیاری بعد از ورود پیشنهاد می‌شود.</p>
+      </div>
+      <div class="decision">
+        <b>وضعیت فعلی</b>
+        <p id="stateSummary"></p>
+      </div>
+      <div class="row wrap">
+        <span class="badge ok">OTP محور</span>
+        <span class="badge warn">KYC موقع معامله</span>
+        <span class="badge">رمز اختیاری</span>
+      </div>
+      <div class="footer-controls">
+        <button id="prevBtn">مرحله قبل</button>
+        <button id="nextBtn" class="primary">مرحله بعد</button>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const state = {
+      index: 0,
+      persona: "new",
+      phone: "09123456789",
+      otp: "",
+      accepted: false,
+      kycDone: false,
+      passwordMode: false
+    };
+
+    const steps = [
+      {
+        id: "guest",
+        title: "خانه مهمان",
+        caption: "محصول قابل دیدن، معامله محدود",
+        noteTitle: "شروع بدون دیوار ثبت نام",
+        note: [
+          "قیمت و ارزش پیشنهادی قبل از ورود دیده می‌شود.",
+          "CTA اصلی فقط یک تصمیم دارد: ورود / ثبت نام.",
+          "برای خرید، فروش و برداشت، احراز هویت بعدا فعال می‌شود."
+        ]
+      },
+      {
+        id: "phone",
+        title: "شماره موبایل",
+        caption: "ورود و ثبت نام یکپارچه",
+        noteTitle: "فرم اول باید سبک باشد",
+        note: [
+          "فقط شماره موبایل اجباری است.",
+          "کد دعوت collapsed و اختیاری می‌ماند.",
+          "قوانین با چک‌باکس روشن و متن کوتاه دیده می‌شود."
+        ]
+      },
+      {
+        id: "otp",
+        title: "تایید کد",
+        caption: "OTP شش رقمی و ویرایش شماره",
+        noteTitle: "تایید سریع",
+        note: [
+          "کد شش رقمی با paste خودکار و فوکوس بعدی.",
+          "ارسال مجدد بعد از تایمر.",
+          "کاربر می‌تواند شماره را برگردد و اصلاح کند."
+        ]
+      },
+      {
+        id: "created",
+        title: "نتیجه ورود",
+        caption: "ورود قبلی یا ساخت حساب جدید",
+        noteTitle: "انشعاب بعد از OTP",
+        note: [
+          "کاربر قبلی مستقیم وارد خانه می‌شود.",
+          "کاربر جدید پیام ساخت حساب می‌بیند، نه فرم اضافه.",
+          "رمز عبور در این نقطه اجباری نیست."
+        ]
+      },
+      {
+        id: "limited",
+        title: "خانه محدود",
+        caption: "استفاده آزاد، معامله قفل شده",
+        noteTitle: "احراز در لحظه نیاز",
+        note: [
+          "کاربر حس ورود موفق دارد و محصول را می‌بیند.",
+          "خرید/فروش/برداشت CTA احراز هویت را باز می‌کند.",
+          "این مدل ریزش ثبت نام را کم می‌کند."
+        ]
+      },
+      {
+        id: "kycPrompt",
+        title: "درخواست احراز",
+        caption: "قبل از معامله یا برداشت",
+        noteTitle: "توضیح دلیل، نه اجبار خام",
+        note: [
+          "به کاربر گفته می‌شود چرا احراز لازم است.",
+          "گزینه بعدا انجام می‌دهم حفظ می‌شود تا حس گیر افتادن ایجاد نشود.",
+          "CTA اصلی مستقیم به فرم احراز می‌رود."
+        ]
+      },
+      {
+        id: "kycForm",
+        title: "فرم احراز",
+        caption: "فقط داده‌های ضروری",
+        noteTitle: "کوتاه و مرحله‌ای",
+        note: [
+          "نام، نام خانوادگی، کد ملی و تاریخ تولد کافی است.",
+          "شماره موبایل از OTP تایید شده و دوباره پرسیده نمی‌شود.",
+          "استان و شهر فقط اگر بعدا واقعا لازم شد."
+        ]
+      },
+      {
+        id: "verified",
+        title: "خانه تایید شده",
+        caption: "دسترسی کامل به معامله",
+        noteTitle: "پایان فلو اصلی",
+        note: [
+          "بعد از تایید، CTA معامله فعال است.",
+          "پیشنهاد ساخت رمز یا ورود بیومتریک به صورت اختیاری نمایش داده می‌شود.",
+          "حساب فعال است و محدودیت‌ها شفاف برداشته شده‌اند."
+        ]
+      },
+      {
+        id: "forgot",
+        title: "فراموشی رمز",
+        caption: "مسیر فرعی فقط برای کاربران رمزدار",
+        noteTitle: "کپچا پیش‌فرض لازم نیست",
+        note: [
+          "شماره موبایل، OTP، تعیین رمز جدید.",
+          "کپچا فقط بعد از چند تلاش ناموفق یا رفتار مشکوک.",
+          "این مسیر از ثبت نام جداست و کاربر جدید را درگیر نمی‌کند."
+        ]
+      }
+    ];
+
+    const $ = (selector) => document.querySelector(selector);
+
+    function render() {
+      renderSteps();
+      renderScreen();
+      renderNote();
+      renderMeta();
+    }
+
+    function renderSteps() {
+      const list = $("#stepList");
+      list.innerHTML = steps.map((step, i) => `
+        <button class="flow-step ${i === state.index ? "active" : ""} ${i < state.index ? "done" : ""}" data-step="${i}">
+          <span class="num">${i < state.index ? "✓" : i + 1}</span>
+          <span>
+            <b>${step.title}</b>
+            <small>${step.caption}</small>
+          </span>
+        </button>
+      `).join("");
+      list.querySelectorAll("[data-step]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.index = Number(button.dataset.step);
+          render();
+        });
+      });
+    }
+
+    function renderNote() {
+      const step = steps[state.index];
+      $("#stageNote").innerHTML = `
+        <div class="note-card">
+          <h2>${step.noteTitle}</h2>
+          <p>${step.caption}</p>
+          <ul>${step.note.map((item) => `<li>${item}</li>`).join("")}</ul>
+        </div>
+        <div class="note-card">
+          <h3>رفتار تعاملی</h3>
+          <p>${interactionCopy(step.id)}</p>
+        </div>
+      `;
+    }
+
+    function renderMeta() {
+      $("#stateSummary").textContent = `${state.persona === "new" ? "کاربر جدید" : "کاربر قبلی"}، مرحله ${state.index + 1} از ${steps.length}`;
+      document.querySelectorAll("[data-persona]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.persona === state.persona);
+      });
+      $("#prevBtn").disabled = state.index === 0;
+      $("#nextBtn").disabled = state.index === steps.length - 1;
+    }
+
+    function interactionCopy(id) {
+      const copy = {
+        guest: "روی ورود / ثبت نام بزن تا فرم موبایل باز شود. دکمه خرید هم عمدا احراز را در لحظه نیاز نشان می‌دهد.",
+        phone: "با شماره معتبر و پذیرش قوانین، ادامه فعال می‌شود. کد دعوت فقط با کلیک باز می‌شود.",
+        otp: "کد 123456 را وارد کن یا روی پرکردن کد تستی بزن. شماره قابل ویرایش است.",
+        created: "این صفحه بسته به سناریوی سمت راست، پیام کاربر جدید یا قبلی را نمایش می‌دهد.",
+        limited: "روی خرید طلا بزن تا درخواست احراز هویت باز شود.",
+        kycPrompt: "می‌توانی احراز را شروع کنی یا موقتا رد کنی و به خانه محدود برگردی.",
+        kycForm: "اطلاعات ضروری را تکمیل کن تا حساب تایید شود.",
+        verified: "معامله فعال است و پیشنهاد امنیتی به صورت غیر اجباری نمایش داده می‌شود.",
+        forgot: "مسیر فرعی فراموشی رمز را با OTP و تعیین رمز جدید نشان می‌دهد."
+      };
+      return copy[id];
+    }
+
+    function shell(body, opts = {}) {
+      const title = opts.title || "شمش";
+      const back = opts.back ? `<button class="icon-btn" data-action="back" aria-label="بازگشت">‹</button>` : `<span style="width:34px"></span>`;
+      return `
+        <div class="topbar">
+          ${back}
+          <div class="wordmark"><span class="mini"><img src="brand/logo/sign/white sign/SVG/Asset 52.svg" alt=""></span><span>${title}</span></div>
+          <button class="icon-btn" data-action="menu" aria-label="منو">☰</button>
+        </div>
+        <div class="screen-body ${opts.centered ? "centered" : ""}">
+          ${body}
+        </div>
+        ${opts.nav ? bottomNav(opts.activeNav) : ""}
+        ${opts.toast ? `<div class="toast">${opts.toast}</div>` : ""}
+      `;
+    }
+
+    function bottomNav(active = "home") {
+      const items = [
+        ["home", "خانه"],
+        ["trade", "معامله"],
+        ["wallet", "کیف پول"],
+        ["profile", "پروفایل"]
+      ];
+      return `<div class="bottom-nav">${items.map(([id, label]) => `<div class="nav-item ${active === id ? "active" : ""}">${label}</div>`).join("")}</div>`;
+    }
+
+    function renderScreen() {
+      const step = steps[state.index].id;
+      const screens = {
+        guest: guestScreen,
+        phone: phoneScreen,
+        otp: otpScreen,
+        created: createdScreen,
+        limited: limitedScreen,
+        kycPrompt: kycPromptScreen,
+        kycForm: kycFormScreen,
+        verified: verifiedScreen,
+        forgot: forgotScreen
+      };
+      $("#screenContent").innerHTML = screens[step]();
+      bindScreenActions();
+    }
+
+    function guestScreen() {
+      return shell(`
+        <div class="hero-box">
+          <div>
+            <p>قیمت لحظه‌ای طلای ۱۸ عیار</p>
+            <h1>۷,۱۷۵,۰۰۰ تومان</h1>
+          </div>
+          <div class="chart"></div>
+        </div>
+        <button class="action gold" data-action="go" data-target="phone">ورود / ثبت نام</button>
+        <div class="tiles" style="margin-top:14px">
+          <div class="tile"><b>خرید طلا</b><small>برای معامله احراز لازم است.</small></div>
+          <div class="tile"><b>فروش طلا</b><small>بعد از تایید هویت فعال می‌شود.</small></div>
+        </div>
+        <button class="action ghost" data-action="go" data-target="kycPrompt">تست CTA خرید قبل از احراز</button>
+      `, { nav: true });
+    }
+
+    function phoneScreen() {
+      return shell(`
+        <h2>ورود یا ثبت نام</h2>
+        <p>شماره موبایل خود را وارد کنید. اگر حساب داشته باشید وارد می‌شوید، در غیر این صورت حساب شمش برای شما ساخته می‌شود.</p>
+        <div class="field">
+          <label>شماره موبایل</label>
+          <input id="phoneInput" inputmode="numeric" maxlength="11" value="${state.phone}" placeholder="مثلا 09123456789">
+          <span class="hint">شماره باید با کد ملی شما همخوان باشد.</span>
+        </div>
+        <button class="link-btn" data-action="toggleReferral">کد دعوت دارید؟ اختیاری</button>
+        <div id="referralBox" class="field" style="display:none">
+          <label>کد دعوت</label>
+          <input placeholder="مثلا SHM123">
+        </div>
+        <label class="check-row">
+          <input id="termsInput" type="checkbox" ${state.accepted ? "checked" : ""}>
+          <span>قوانین و مقررات شمش را خوانده‌ام و می‌پذیرم.</span>
+        </label>
+        <button class="action" data-action="submitPhone">دریافت کد تایید</button>
+        <button class="link-btn" style="margin-top:18px" data-action="go" data-target="forgot">رمز ساخته‌اید و فراموش کرده‌اید؟</button>
+      `, { back: true, centered: true });
+    }
+
+    function otpScreen() {
+      return shell(`
+        <h2>کد تایید را وارد کنید</h2>
+        <p>کد شش رقمی ارسال شده به ${state.phone} را وارد کنید.</p>
+        <button class="link-btn" data-action="go" data-target="phone">ویرایش شماره موبایل</button>
+        <div class="otp-grid">
+          ${Array.from({ length: 6 }).map((_, i) => `<input class="otp" maxlength="1" inputmode="numeric" value="${state.otp[i] || ""}">`).join("")}
+        </div>
+        <div class="row">
+          <span class="hint">ارسال مجدد تا ۰۱:۲۴</span>
+          <button class="link-btn" data-action="fillOtp">پر کردن کد تستی</button>
+        </div>
+        <button class="action green" data-action="submitOtp">تایید و ادامه</button>
+      `, { back: true, centered: true });
+    }
+
+    function createdScreen() {
+      const isNew = state.persona === "new";
+      return shell(`
+        <div class="wire-card" style="text-align:center; padding:24px 16px">
+          <div style="font-size:42px; margin-bottom:10px">${isNew ? "✓" : "↩"}</div>
+          <h2>${isNew ? "حساب شما ساخته شد" : "خوش برگشتید"}</h2>
+          <p>${isNew ? "بدون فرم اضافه وارد شمش شدید. برای معامله فقط احراز هویت لازم است." : "حساب شما شناسایی شد و به خانه منتقل می‌شوید."}</p>
+        </div>
+        <button class="action" data-action="go" data-target="limited">${isNew ? "ورود به خانه" : "ادامه به خانه"}</button>
+        <button class="action ghost" data-action="go" data-target="kycPrompt">تکمیل احراز همین حالا</button>
+      `, { centered: true, toast: isNew ? "ثبت نام با موفقیت انجام شد." : "ورود موفق بود." });
+    }
+
+    function limitedScreen() {
+      return shell(`
+        <div class="wire-card">
+          <div class="row">
+            <div>
+              <p>موجودی طلای شما</p>
+              <h2>۰ گرم</h2>
+            </div>
+            <span class="badge warn">احراز نشده</span>
+          </div>
+        </div>
+        <div class="hero-box">
+          <div>
+            <p>قیمت لحظه‌ای طلا</p>
+            <h1>۷,۱۷۵,۰۰۰ تومان</h1>
+          </div>
+          <div class="chart"></div>
+        </div>
+        <div class="tiles" style="margin-top:12px">
+          <button class="tile" data-action="go" data-target="kycPrompt"><b>خرید طلا</b><small>نیازمند احراز</small></button>
+          <button class="tile" data-action="go" data-target="kycPrompt"><b>برداشت</b><small>نیازمند احراز</small></button>
+        </div>
+      `, { nav: true });
+    }
+
+    function kycPromptScreen() {
+      return shell(`
+        <div class="wire-card" style="padding:18px">
+          <span class="badge warn">قبل از معامله</span>
+          <h2 style="margin-top:12px">احراز هویت را تکمیل کنید</h2>
+          <p>برای خرید، فروش و برداشت طلا باید هویت شما طبق مقررات مالی تایید شود. این مرحله کمتر از یک دقیقه زمان می‌برد.</p>
+          <div class="quote" style="margin-top:14px">شماره موبایل شما قبلا تایید شده و دوباره پرسیده نمی‌شود.</div>
+        </div>
+        <button class="action green" data-action="go" data-target="kycForm">شروع احراز هویت</button>
+        <button class="action ghost" data-action="go" data-target="limited">بعدا انجام می‌دهم</button>
+      `, { back: true, centered: true });
+    }
+
+    function kycFormScreen() {
+      return shell(`
+        <div class="progress" style="--w:66%"><i></i></div>
+        <h2>اطلاعات هویتی</h2>
+        <p>فقط اطلاعات ضروری را وارد کنید.</p>
+        <div class="field"><label>نام</label><input id="firstName" placeholder="مثلا سپیده"></div>
+        <div class="field"><label>نام خانوادگی</label><input id="lastName" placeholder="مثلا رضایی"></div>
+        <div class="field"><label>کد ملی</label><input id="nationalId" inputmode="numeric" maxlength="10" placeholder="۱۰ رقم"></div>
+        <div class="field"><label>تاریخ تولد</label><input id="birthDate" placeholder="مثلا ۱۳۷۲/۰۶/۲۱"></div>
+        <button class="action green" data-action="submitKyc">تایید و ثبت اطلاعات</button>
+      `, { back: true });
+    }
+
+    function verifiedScreen() {
+      return shell(`
+        <div class="wire-card">
+          <div class="row">
+            <div>
+              <p>وضعیت حساب</p>
+              <h2>تایید شده</h2>
+            </div>
+            <span class="badge ok">معامله فعال</span>
+          </div>
+        </div>
+        <div class="tiles">
+          <div class="tile"><b>خرید سریع</b><small>بدون مانع اضافه</small></div>
+          <div class="tile"><b>فروش طلا</b><small>تسویه امن</small></div>
+        </div>
+        <div class="wire-card" style="margin-top:12px">
+          <h3>امنیت حساب</h3>
+          <p>برای ورودهای بعدی می‌توانید رمز یا ورود بیومتریک فعال کنید.</p>
+          <button class="action ghost" data-action="togglePasswordMode">${state.passwordMode ? "رمز فعال شد" : "فعالسازی رمز اختیاری"}</button>
+        </div>
+      `, { nav: true, toast: "احراز هویت با موفقیت تکمیل شد." });
+    }
+
+    function forgotScreen() {
+      return shell(`
+        <div class="progress" style="--w:80%"><i></i></div>
+        <h2>بازیابی رمز عبور</h2>
+        <p>این مسیر فقط برای کاربرانی است که قبلا رمز عبور ساخته‌اند.</p>
+        <div class="field">
+          <label>شماره موبایل</label>
+          <input value="${state.phone}" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>کد تایید</label>
+          <input value="123456" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>رمز عبور جدید</label>
+          <input type="password" value="12345678">
+          <span class="hint">حداقل ۸ کاراکتر. کپچا فقط پس از تلاش ناموفق نمایش داده می‌شود.</span>
+        </div>
+        <button class="action" data-action="go" data-target="phone">ثبت رمز جدید و بازگشت به ورود</button>
+      `, { back: true });
+    }
+
+    function bindScreenActions() {
+      document.querySelectorAll("[data-action='go']").forEach((button) => {
+        button.addEventListener("click", () => goTo(button.dataset.target));
+      });
+      document.querySelectorAll("[data-action='back']").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.index = Math.max(0, state.index - 1);
+          render();
+        });
+      });
+      const terms = $("#termsInput");
+      if (terms) {
+        terms.addEventListener("change", () => {
+          state.accepted = terms.checked;
+        });
+      }
+      const phone = $("#phoneInput");
+      if (phone) {
+        phone.addEventListener("input", () => {
+          state.phone = phone.value.replace(/\D/g, "").slice(0, 11);
+          phone.value = state.phone;
+        });
+      }
+      const referral = document.querySelector("[data-action='toggleReferral']");
+      if (referral) {
+        referral.addEventListener("click", () => {
+          const box = $("#referralBox");
+          box.style.display = box.style.display === "none" ? "flex" : "none";
+        });
+      }
+      const submitPhone = document.querySelector("[data-action='submitPhone']");
+      if (submitPhone) submitPhone.addEventListener("click", submitPhoneForm);
+      const fillOtp = document.querySelector("[data-action='fillOtp']");
+      if (fillOtp) fillOtp.addEventListener("click", () => {
+        state.otp = "123456";
+        render();
+      });
+      document.querySelectorAll(".otp").forEach((input, index, all) => {
+        input.addEventListener("input", () => {
+          input.value = input.value.replace(/\D/g, "").slice(0, 1);
+          state.otp = Array.from(all).map((item) => item.value).join("");
+          if (input.value && all[index + 1]) all[index + 1].focus();
+        });
+      });
+      const submitOtp = document.querySelector("[data-action='submitOtp']");
+      if (submitOtp) submitOtp.addEventListener("click", () => {
+        if (state.otp.length < 6) {
+          document.querySelectorAll(".otp").forEach((input) => input.classList.add("input-error"));
+          return;
+        }
+        goTo("created");
+      });
+      const submitKyc = document.querySelector("[data-action='submitKyc']");
+      if (submitKyc) submitKyc.addEventListener("click", submitKycForm);
+      const togglePassword = document.querySelector("[data-action='togglePasswordMode']");
+      if (togglePassword) togglePassword.addEventListener("click", () => {
+        state.passwordMode = !state.passwordMode;
+        render();
+      });
+    }
+
+    function submitPhoneForm() {
+      const input = $("#phoneInput");
+      const terms = $("#termsInput");
+      const validPhone = /^09\d{9}$/.test(state.phone);
+      input.classList.toggle("input-error", !validPhone);
+      if (!validPhone) return;
+      if (!terms.checked) {
+        terms.closest(".check-row").style.color = "var(--red)";
+        return;
+      }
+      state.accepted = true;
+      goTo("otp");
+    }
+
+    function submitKycForm() {
+      const required = ["firstName", "lastName", "nationalId", "birthDate"];
+      let ok = true;
+      required.forEach((id) => {
+        const input = $("#" + id);
+        const valid = input.value.trim().length >= (id === "nationalId" ? 10 : 2);
+        input.classList.toggle("input-error", !valid);
+        ok = ok && valid;
+      });
+      if (!ok) return;
+      state.kycDone = true;
+      goTo("verified");
+    }
+
+    function goTo(id) {
+      const index = steps.findIndex((step) => step.id === id);
+      if (index >= 0) {
+        state.index = index;
+        render();
+      }
+    }
+
+    document.querySelectorAll("[data-persona]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.persona = button.dataset.persona;
+        render();
+      });
+    });
+    $("#prevBtn").addEventListener("click", () => {
+      state.index = Math.max(0, state.index - 1);
+      render();
+    });
+    $("#nextBtn").addEventListener("click", () => {
+      state.index = Math.min(steps.length - 1, state.index + 1);
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
