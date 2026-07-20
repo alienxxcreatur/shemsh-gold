@@ -10,6 +10,6 @@
 | Iconography | یک خانواده و Stroke ثابت | باز | Label و کنتراست |
 | Motion | Duration و Easing معنایی | باز | Reduced Motion |
 | Grid | Mobile-first و Breakpointها | باز | کوچک، بزرگ، تبلت، Landscape |
-| Number format | ریال/تومان، سوت/گرم، جداکننده | باز | بدون ابهام واحد |
+| Number format | تومان، گرم/سوت، جداکننده، تاریخ شمسی و شناسه LTR | Draft؛ قرارداد در `foundations/rtl-and-localization.md` | بدون ابهام واحد و شکست BiDi |
 
 رنگ خام یا مقدار پراکنده داخل کامپوننت‌ها نباید جای توکن را بگیرد.
