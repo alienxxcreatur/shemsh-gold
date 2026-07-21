@@ -652,4 +652,4 @@ Return the required Output manifest.
 
 وضعیت: `Sufficient to proceed for Step 8`
 
-توضیح: قرارداد اجرایی Agentها، Prompt Packet، مرز Sandbox، Stop condition، Proposal، Audit و Manifest ثبت شدند. قدم بعدی بازچینی Component inventory براساس موج‌های Release اول و نیاز واقعی Flowهاست.
+توضیح: قرارداد اجرایی Agentها، Prompt Packet، مرز Sandbox، Stop condition، Proposal، Audit و Manifest ثبت شدند. این قرارداد اکنون مبنای ساخت Draftهای انتخاب‌شده در `component-inventory.md` است.

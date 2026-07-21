@@ -471,6 +471,6 @@ Definition of Done:
 
 ## گیت وضعیت فعلی
 
-وضعیت این سند: `Sufficient to proceed for Step 8`
+وضعیت این سند: `Sufficient to proceed for Step 9`
 
-توضیح: قدم‌های ۱ تا ۷ به‌عنوان Draft اولیه ثبت شده‌اند. `agent-guidelines.md` اکنون Prompt Packet، سطح ریسک، Sandbox، Stop condition، Proposal، Self-audit، Human audit و Output manifest را برای Figma AI Agent و Codex تعریف می‌کند. قدم بعدی، بازچینی Component inventory براساس موج‌های Release اول و Flowهای واقعی است. پیش از رسمی‌سازی در منابع مدیریتی پروژه، باید تصمیم گرفته شود آیا این مسیر فقط یک سند کاری داخل `07-design-system` می‌ماند یا به‌عنوان Workstream موازی در `project-status.md` هم ثبت می‌شود.
+توضیح: قدم‌های ۱ تا ۸ به‌عنوان Draft اولیه ثبت شده‌اند. `component-inventory.md` نیازها را به Base component، Data component، Domain pattern، Feature module و Utility تفکیک و به هشت موج Release متصل می‌کند. ده Component کم‌ریسک برای Draft قدم ۹ مشخص شده‌اند و Patternهای وابسته به Flow یا تصمیم بیرونی در وضعیت `Inventory only` یا `Blocked` مانده‌اند. قدم بعدی ساخت Draft همین Shortlist در Sandbox است. پیش از رسمی‌سازی در منابع مدیریتی پروژه، باید تصمیم گرفته شود آیا این مسیر فقط یک سند کاری داخل `07-design-system` می‌ماند یا به‌عنوان Workstream موازی در `project-status.md` هم ثبت می‌شود.

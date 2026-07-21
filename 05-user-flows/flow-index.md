@@ -2,7 +2,7 @@
 
 | شناسه | فلو | اولویت | سند | قوانین رسمی | State coverage | وضعیت |
 |---|---|---|---|---|---|---|
-| FL-AUTH-001 | ورود و ثبت‌نام | Critical | ایجاد شود | جزئی | ناقص | اولیه |
+| FL-AUTH-001 | ورود و ثبت‌نام | Critical | `core-flows/FL-AUTH-001-login-registration.md` | BR-003، BR-006، BR-007، BR-008 | جزئی | Sufficient to proceed |
 | FL-KYC-001 | احراز هویت | Critical | ایجاد شود | جزئی | ناقص | اولیه |
 | FL-BUY-001 | خرید طلا | Critical | ایجاد شود | باز | ناقص | شروع نشده |
 | FL-SELL-001 | فروش طلا | Critical | ایجاد شود | باز | ناقص | شروع نشده |
