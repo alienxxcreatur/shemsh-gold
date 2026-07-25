@@ -336,6 +336,18 @@ Proposal بدون مصرف‌کننده واقعی یا دلیل Semantic رد �
 - Variant بدون نمونه مصرف واقعی وارد Proposal نمی‌شود.
 - Component مالی بدون Flow، Stateهای شکست و داده واقعی حتی `Candidate` نمی‌شود.
 - Instance موجود Detach نمی‌شود؛ کمبود API یا ساختار به‌عنوان Issue گزارش می‌شود.
+- Agent پیش از عبور یک Pilot از Visual QA حق ساخت ماتریس کامل Variant را ندارد.
+
+### گیت اجرای Component
+
+هر Component طبق D-086 با ترتیب `Pilot → Technical preflight → Visual QA → Stress test → Expand → Final dual audit` ساخته می‌شود.
+
+- Pilot باید قبل از توسعه Variantها هم به‌صورت Master و هم Instance در Light/Dark دیده شود.
+- Visual QA باید Screenshot یا رندر واقعی داشته باشد؛ بررسی property و binding به‌تنهایی کافی نیست.
+- تست اجباری شامل RTL، متن بلند فارسی، Hug/Fill، Focus، Disabled، Loading، Icon و Sizeهای مرتبط است.
+- اگر رندر واقعی با مقدار resolved یا Audit فنی تناقض داشت، Agent باید توقف کند و نتیجه را `Needs revision` گزارش دهد.
+- Paint متصل به Variable نباید fallback تصادفی مشکی یا سفید داشته باشد.
+- پس از تکمیل Component Set، همان بررسی فنی و بصری دوباره اجرا می‌شود و تأیید انسانی لازم است.
 
 ## قالب Proposed component
 

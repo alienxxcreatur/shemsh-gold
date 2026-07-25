@@ -288,6 +288,16 @@ Definition of Done:
 - هر Draft در RTL، Light و Dark نمونه داشته باشد.
 - Stateهای پایه مشخص باشند.
 - خروجی در Library اصلی Stable نشود.
+- هر Component طبق D-086 ابتدا به‌صورت Pilot ساخته و فقط پس از Visual QA در Master و Instance به Component Set کامل توسعه داده شود.
+- تکمیل Component فقط با پاس‌شدن هم‌زمان Audit فنی و بررسی بصری واقعی مجاز باشد.
+
+وضعیت اجرای فعلی Button:
+
+- Pilot `Primary / Medium` برای Stateهای default، hover، pressed، focus، disabled و loading تعمیر شده است.
+- Master و Instance در Light/Dark همراه با RTL، متن بلند، Icon و Hug/Fill تست شده‌اند.
+- Audit فنی ۷۹ Paint متصل به Variable اختلاف fallback پیدا نکرده است.
+- گسترش اصلاح به ۶۶ Variant باقی‌مانده طبق D-086 تا تأیید بصری مالک محصول متوقف است.
+- Gate کل Button: `Needs revision`؛ Gate Pilot: `Awaiting human visual approval`.
 
 ### قدم ۱۰ — تغذیه سیستم از مرحله ۴
 

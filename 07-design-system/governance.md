@@ -137,6 +137,33 @@
 | Content constraints | طول متن، عدد، واحد، Empty، Error |
 | وضعیت بلوغ | وضعیت فعلی |
 
+## گیت اجباری ساخت و تأیید کامپوننت
+
+طبق D-086، ساخت هر Component Draft باید با مسیر زیر انجام شود:
+
+1. `Pilot`: ابتدا فقط یک Variant نماینده با Anatomy، Token binding و Propertyهای اصلی ساخته شود.
+2. `Technical preflight`: ساختار، Token binding، Auto Layout، Property، RTL و منبع Icon بررسی شوند.
+3. `Visual QA`: خود Master Component و Instance آن جداگانه در Light و Dark با رندر یا Screenshot واقعی بررسی شوند.
+4. `Stress test`: متن بلند فارسی، Hug/Fill، RTL، Focus، Disabled، Loading، Icon و اندازه‌های لازم تست شوند.
+5. `Expand`: فقط پس از عبور Pilot از بررسی فنی و بصری، باقی Variantها ساخته شوند.
+6. `Final dual audit`: Component Set کامل دوباره هم فنی و هم بصری بررسی شود و سپس برای Review انسانی ارائه شود.
+
+قواعد این گیت:
+
+- ساخت یک‌باره ماتریس کامل Variant پیش از تأیید Pilot ممنوع است.
+- پاس‌شدن Token binding یا Audit برنامه‌ای به‌تنهایی کافی نیست.
+- اگر داده‌ی resolved با رندر واقعی تناقض داشته باشد، خروجی بصری معیار پذیرش است و وضعیت Component باید `Needs revision` باشد.
+- Paint متصل به Variable باید fallback منطبق با Mode فعال داشته باشد؛ fallback تصادفی مشکی، سفید یا مقدار خام نامرتبط مجاز نیست.
+- هیچ Component بدون مشاهده Master و Instance در Light/Dark «تکمیل‌شده» اعلام نمی‌شود.
+- تأیید نهایی بصری باید انسانی باشد؛ Self-audit سازنده جای Reviewer را نمی‌گیرد.
+
+معیار عبور از گیت:
+
+- Pilot در Master و Instance بدون اختلاف رندر شده باشد.
+- تست‌های RTL، متن بلند، Theme، State، Icon و Layout پاس شده باشند.
+- Component Set کامل بعد از توسعه دوباره Screenshot و Audit شده باشد.
+- ایراد بصری شناخته‌شده باقی نمانده یا صریحاً با وضعیت `Needs revision` ثبت شده باشد.
+
 ## قانون Variant و Property
 
 - Variant برای تفاوت معنایی یا رفتاری استفاده می‌شود، نه هر تفاوت ظاهری کوچک.

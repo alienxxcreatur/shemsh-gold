@@ -53,7 +53,7 @@
 
 | ID | Component | اولین موج | مصرف واقعی | Stateهای پایه | وضعیت نیاز | اقدام ساخت |
 |---|---|---:|---|---|---|---|
-| BASE-ACT-01 | Button | ۱ | ورود، احراز و همه اقدام‌ها | default, hover, pressed, focus, loading, disabled | Confirmed | Draft امن در قدم ۹ |
+| BASE-ACT-01 | Button | ۱ | ورود، احراز و همه اقدام‌ها | default, hover, pressed, focus, loading, disabled | Confirmed | Pilot `Primary / Medium` تعمیر و در Light/Dark تست شد؛ توسعه کل Set منتظر تأیید بصری مالک محصول است |
 | BASE-ACT-02 | Icon Button | ۱ | Back، Close، Copy، ابزارهای Header | default, hover, pressed, focus, disabled | Confirmed | Draft امن در قدم ۹ |
 | BASE-ACT-03 | Text Link | ۱ | قوانین، راهنما، اقدام ثانویه | default, hover, focus, visited در صورت نیاز | Confirmed | پس از قرارداد Navigation/Content |
 | BASE-INP-01 | Text Input / Form Field | ۱ | موبایل، کد ملی، متن و شناسه | empty, filled, focus, error, disabled, read-only | Confirmed | Draft امن در قدم ۹ |
@@ -104,6 +104,14 @@
 10. Dialog
 
 این Shortlist اجازه ساخت Library کامل نیست. هر مورد با Prompt Packet مستقل، RTL، Light/Dark، Stateهای پایه و داده واقعی ساخته می‌شود.
+
+### وضعیت اجرای Button
+
+- Pilot محدود `Primary / Medium` برای شش State ساخته و طبق D-086 بازبینی شد.
+- ۷۹ Paint متصل به Variable از نظر برابری fallback و مقدار resolve‌شده Audit شدند؛ اختلاف ثبت‌شده صفر است.
+- QA مستقل روی Master و Instance، Light/Dark، RTL، متن بلند فارسی، Icon، Loading و Hug/Fill انجام شد.
+- Focus از Stroke چسبیده به کنترل به حلقه بیرونی ۲px با فاصله ۲px اصلاح شد.
+- وضعیت کل Component Set: `Needs revision`؛ ۶۶ Variant خارج از Pilot تا تأیید بصری مالک محصول توسعه یا اصلاح نمی‌شوند.
 
 ## Data componentها و Utilityها
 
