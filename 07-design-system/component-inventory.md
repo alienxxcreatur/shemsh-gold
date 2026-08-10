@@ -53,10 +53,10 @@
 
 | ID | Component | اولین موج | مصرف واقعی | Stateهای پایه | وضعیت نیاز | اقدام ساخت |
 |---|---|---:|---|---|---|---|
-| BASE-ACT-01 | Button | ۱ | ورود، احراز و همه اقدام‌ها | default, hover, pressed, focus, loading, disabled | Confirmed | Pilot `Primary / Medium` تعمیر و در Light/Dark تست شد؛ توسعه کل Set منتظر تأیید بصری مالک محصول است |
-| BASE-ACT-02 | Icon Button | ۱ | Back، Close، Copy، ابزارهای Header | default, hover, pressed, focus, disabled | Confirmed | Draft امن در قدم ۹ |
+| BASE-ACT-01 | Button | ۱ | ورود، احراز و همه اقدام‌ها | default, hover, pressed, focus, loading, disabled | Confirmed | `Candidate v0.3`؛ Set تازه ۱۰۸تایی D-122 ساخته و Final technical/agent visual audit پاس شد؛ Set قبلی ۷۲تایی فقط مرجع تاریخی `Needs revision` است؛ تأیید بصری نهایی مالک محصول باز است |
+| BASE-ACT-02 | Icon Button | ۱ | Back، Close، Copy، ابزارهای Header | default, hover, pressed, focus, disabled, loading مشروط به Action async | Confirmed | `Candidate v0.1`؛ Set کامل ۷۲تایی ساخته و Final audit بدون Issue پاس شد؛ تأیید بصری نهایی باز است — D-129/D-132/D-133 |
 | BASE-ACT-03 | Text Link | ۱ | قوانین، راهنما، اقدام ثانویه | default, hover, focus, visited در صورت نیاز | Confirmed | پس از قرارداد Navigation/Content |
-| BASE-INP-01 | Text Input / Form Field | ۱ | موبایل، کد ملی، متن و شناسه | empty, filled, focus, error, disabled, read-only | Confirmed | Draft امن در قدم ۹ |
+| BASE-INP-01 | Text Input / Form Field | ۱ | موبایل، کد ملی، متن و شناسه | empty, filled, hover, focus, error, disabled, read-only | Confirmed | `Candidate v0.1` با ۱۴ Variant، ده Property عمومی، ارتفاع‌های ۴۸/۵۶ و Final audit صفر Issue ساخته شد؛ منتظر تأیید بصری |
 | BASE-INP-02 | Amount Input پایه | ۱ | تومان، وزن و قیمت هدف | empty, filled, focus, invalid, disabled, loading | Confirmed | Draft امن در قدم ۹؛ بدون قانون مالی نهایی |
 | BASE-INP-03 | OTP Input | ۱ | ورود و احراز مجدد | empty, filled, focus, invalid, expired, loading, throttled | Confirmed | Draft امن در قدم ۹؛ OQ-029 برای Throttle |
 | BASE-INP-04 | Date Input | ۱ | تاریخ تولد و انقضای سفارش | empty, filled, focus, error, disabled | Confirmed | پس از Flow احراز؛ Calendar جدا هنوز قطعی نیست |
@@ -64,14 +64,14 @@
 | BASE-INP-06 | Select / Combobox | ۲ | روش واریز، مقصد و گزینه‌های بلند | closed, open, focus, selected, error, disabled | Conditional | پس از مشخص شدن الگوی انتخاب هر Flow |
 | BASE-INP-07 | Textarea | ۳ | پشتیبانی، اعتراض و پیام هدیه | empty, filled, focus, error, disabled | Confirmed | هنگام Flow پشتیبانی؛ موج ۷ برای پیام هدیه |
 | BASE-INP-08 | File Upload | ۳ | مدرک پشتیبانی، واریز کلان، تحویل و اقساط | empty, uploading, success, failed, disabled | Conditional | پس از قرارداد فایل، امنیت و Flow |
-| BASE-CTL-01 | Checkbox | ۱ | پذیرش یا انتخاب چندگزینه‌ای واقعی | unchecked, checked, mixed, focus, disabled, error | Conditional | فقط پس از مصرف واقعی؛ نه برای متن قوانین به‌صورت پیش‌فرض |
-| BASE-CTL-02 | Radio Group | ۲ | انتخاب یک روش یا مقصد محدود | default, selected, focus, disabled, error | Confirmed | پس از Flow واریز |
-| BASE-CTL-03 | Switch | ۵ | فعال/غیرفعال‌کردن هشدار یا تنظیم دودویی | off, on, focus, disabled, loading | Confirmed | هنگام موج ۵ |
+| BASE-CTL-01 | Checkbox | ۱ | پذیرش یا انتخاب چندگزینه‌ای واقعی | unchecked, checked, mixed, focus, disabled, error | Conditional | `Candidate v0.1` با ۱۲ Variant ساخته و audit شد؛ Error تا مصرف واقعی Flow باز است و استفاده برای متن قوانین پیش‌فرض نیست |
+| BASE-CTL-02 | Radio Group | ۲ | انتخاب یک روش یا مقصد محدود | default, selected, focus, disabled, error | Confirmed | Primitive Radio در `Tested Candidate v0.1` با ۸ Variant، audit و تأیید بصری شد؛ قرارداد Group و Error هنگام Flow واریز تکمیل می‌شود — D-134 |
+| BASE-CTL-03 | Switch | ۵ | فعال/غیرفعال‌کردن هشدار یا تنظیم دودویی | off, on, focus, disabled, loading | Confirmed | `Tested Candidate v0.1` با ۱۰ Variant، Touch target ۴۸، Loading، Final audit و تأیید بصری — D-136 |
 | BASE-CTL-04 | Segmented Control | ۱ | خرید/فروش و انتخاب حالت محدود | default, selected, focus, disabled | Confirmed | پس از Wireframe ماشین‌حساب |
 | BASE-FDB-01 | Alert | ۱ | خطا، هشدار، محدودیت و Context مالی | info, warning, danger, success, neutral | Confirmed | Draft امن در قدم ۹ |
-| BASE-FDB-02 | Status Badge | ۱ | احراز، تراکنش، سرویس و تحویل | neutral, info, warning, danger, success | Confirmed | Draft امن در قدم ۹؛ Label نوع‌محور در Pattern |
+| BASE-FDB-02 | Status Badge | ۱ | احراز، تراکنش، سرویس و تحویل | neutral, info, warning, danger, success | Confirmed | `Candidate v0.2` در Figma؛ ۵ Tone × ۲ Emphasis، Label نوع‌محور در Pattern |
 | BASE-FDB-03 | Toast | ۱ | Copy، ذخیره و بازخورد کوتاه غیرحیاتی | info, success, warning, error | Confirmed | Draft امن در قدم ۹ |
-| BASE-FDB-04 | Progress Indicator | ۱ | Loading کنترل‌شده و پردازش | indeterminate, determinate در صورت داده واقعی | Confirmed | پس از قرارداد Motion |
+| BASE-FDB-04 | Progress Indicator | ۱ | Loading کنترل‌شده و پردازش | indeterminate, determinate در صورت داده واقعی | Confirmed | `Candidate v0.2`؛ Spinner شش Variant و Progress چهار Variant پس از ساخت Motion tokenها |
 | BASE-FDB-05 | Skeleton | ۱ | بارگذاری Layout پایدار | loading | Conditional | فقط برای داده با ساختار معلوم |
 | BASE-FDB-06 | Empty State | ۱ | نبود داده، نتیجه یا سابقه | first-use, no-data, no-result | Confirmed | Pattern محتوایی؛ تصویر الزامی نیست |
 | BASE-OVR-01 | Bottom Sheet | ۱ | انتخاب و اقدام موبایل | closed, open, loading, error | Confirmed | Draft امن در قدم ۹ |
@@ -111,7 +111,7 @@
 - ۷۹ Paint متصل به Variable از نظر برابری fallback و مقدار resolve‌شده Audit شدند؛ اختلاف ثبت‌شده صفر است.
 - QA مستقل روی Master و Instance، Light/Dark، RTL، متن بلند فارسی، Icon، Loading و Hug/Fill انجام شد.
 - Focus از Stroke چسبیده به کنترل به حلقه بیرونی ۲px با فاصله ۲px اصلاح شد.
-- وضعیت کل Component Set: `Needs revision`؛ ۶۶ Variant خارج از Pilot تا تأیید بصری مالک محصول توسعه یا اصلاح نمی‌شوند.
+- وضعیت Set قبلی ۷۲تایی: مرجع تاریخی `Needs revision` و دست‌نخورده. وضعیت Set تازه ۱۰۸تایی: `Candidate / Final technical and agent visual audit pass / Awaiting final owner visual review` — D-122.
 
 ## Data componentها و Utilityها
 

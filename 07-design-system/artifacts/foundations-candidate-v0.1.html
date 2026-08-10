@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>شمش — Foundations Candidate v0.1</title>
+  <style>
+    @font-face {
+      font-family: "Yekan Bakh FaNum";
+      src: url("../legacy-brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh FaNum/webfonts/woff2/YekanBakhFaNum-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Yekan Bakh FaNum";
+      src: url("../legacy-brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh FaNum/webfonts/woff2/YekanBakhFaNum-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Yekan Bakh FaNum";
+      src: url("../legacy-brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh FaNum/webfonts/woff2/YekanBakhFaNum-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Yekan Bakh NoEn";
+      src: url("../legacy-brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh NoEn/webfonts/woff2/YekanBakhNoEn-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --surface-canvas: #F8F7F4;
+      --surface-base: #FFFFFF;
+      --surface-subtle: #F2F0EA;
+      --surface-raised: #FFFFFF;
+      --surface-brand-tint: #FDF7EB;
+      --text-primary: #1A191D;
+      --text-secondary: #5F5B66;
+      --text-tertiary: #746F7B;
+      --border-subtle: #D9D4DE;
+      --border-interactive: #8D8696;
+      --action-primary: #7C5DD9;
+      --action-primary-hover: #6946C3;
+      --action-primary-pressed: #5635A5;
+      --action-on-primary: #FFFFFF;
+      --action-secondary: #FFFFFF;
+      --action-on-secondary: #5635A5;
+      --focus-ring: #6946C3;
+      --gold-accent: #806015;
+      --gold-container: #F9EDC8;
+      --gold-on-container: #40300D;
+      --success: #176B43;
+      --success-container: #E7F6EE;
+      --warning: #765108;
+      --warning-container: #FFF4D6;
+      --danger: #A62B2B;
+      --danger-container: #FDEEEE;
+      --info: #385AA8;
+      --info-container: #EBF1FF;
+      --disabled-container: #D8D3E3;
+      --disabled-content: #76717D;
+      --scrim: rgba(17, 16, 15, .52);
+      --shadow-raised: 0 16px 42px rgba(38, 30, 48, .10);
+    }
+
+    .theme-dark {
+      color-scheme: dark;
+      --surface-canvas: #141319;
+      --surface-base: #1D1B23;
+      --surface-subtle: #27232F;
+      --surface-raised: #27232F;
+      --surface-brand-tint: #2B210A;
+      --text-primary: #F6F3FA;
+      --text-secondary: #C9C4D1;
+      --text-tertiary: #A29DAD;
+      --border-subtle: #3C3745;
+      --border-interactive: #81778C;
+      --action-primary: #B99EF2;
+      --action-primary-hover: #C7AFF7;
+      --action-primary-pressed: #A889E7;
+      --action-on-primary: #24143B;
+      --action-secondary: #27232F;
+      --action-on-secondary: #D4C3FF;
+      --focus-ring: #B99EF2;
+      --gold-accent: #DEBB5E;
+      --gold-container: #40300D;
+      --gold-on-container: #F9EDC8;
+      --success: #73D5A5;
+      --success-container: #143D2B;
+      --warning: #F2CD6A;
+      --warning-container: #40310F;
+      --danger: #FF9B9B;
+      --danger-container: #4A1D20;
+      --info: #AFC5FF;
+      --info-container: #1A2D58;
+      --disabled-container: #3C3745;
+      --disabled-content: #918B9B;
+      --scrim: rgba(0, 0, 0, .64);
+      --shadow-raised: 0 20px 52px rgba(0, 0, 0, .34);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #E9E6EE; }
+    body {
+      margin: 0;
+      min-width: 280px;
+      color: #1A191D;
+      background: #E9E6EE;
+      font-family: "Yekan Bakh FaNum", Tahoma, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    button, input { font: inherit; }
+    button { touch-action: manipulation; }
+    .latin { direction: ltr; unicode-bidi: isolate; font-family: Arial, sans-serif; }
+    .machine-number { direction: ltr; unicode-bidi: isolate; font-family: "Yekan Bakh NoEn", Arial, sans-serif; font-variant-numeric: tabular-nums; }
+    .numeric { font-variant-numeric: tabular-nums; }
+
+    .document-header {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 40px 24px 24px;
+    }
+    .eyebrow { margin: 0 0 6px; color: #6946C3; font-weight: 700; }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.35; }
+    .document-header p { max-width: 760px; margin: 12px 0 0; color: #5F5B66; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .legend span { padding: 5px 10px; border: 1px solid #D9D4DE; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; }
+
+    .specimens {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px;
+      direction: ltr;
+    }
+    .specimen-group {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      min-width: 0;
+    }
+    .specimen-label { margin: 0; color: #46404D; font: 600 13px/1.5 Arial, sans-serif; direction: ltr; }
+    .phone {
+      width: var(--phone-width);
+      max-width: 100%;
+      min-height: 720px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      border-radius: 28px;
+      color: var(--text-primary);
+      background: var(--surface-canvas);
+      box-shadow: var(--shadow-raised);
+      direction: rtl;
+    }
+    .app-header {
+      display: flex;
+      min-height: 68px;
+      padding: 12px 16px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--surface-base);
+    }
+    .brand-lockup { display: flex; align-items: center; gap: 9px; font-weight: 700; }
+    .brand-sign { width: 26px; height: 30px; color: var(--gold-accent); }
+    .icon-button {
+      display: inline-grid;
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      color: var(--text-primary);
+      background: var(--surface-base);
+      cursor: pointer;
+    }
+    .app-content { display: grid; gap: 16px; padding: 18px 16px 112px; }
+    .section-heading { margin: 0; font-size: 20px; line-height: 30px; font-weight: 600; }
+    .muted { color: var(--text-secondary); }
+    .meta { color: var(--text-tertiary); font-size: 12px; line-height: 18px; }
+    .card {
+      padding: 16px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      background: var(--surface-base);
+    }
+    .gold-card {
+      border-color: color-mix(in srgb, var(--gold-accent) 34%, transparent);
+      color: var(--gold-on-container);
+      background: var(--gold-container);
+    }
+    .theme-dark .gold-card { color: var(--gold-on-container); }
+    .balance { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+    .balance strong { display: block; font-size: 28px; line-height: 38px; }
+    .balance small { font-size: 13px; font-weight: 600; }
+    .trend { display: inline-flex; min-height: 30px; padding: 4px 9px; align-items: center; gap: 5px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .trend.up { color: var(--success); background: var(--success-container); }
+    .trend.down { color: var(--danger); background: var(--danger-container); }
+    .form-field { display: grid; gap: 7px; }
+    .form-field label { font-size: 14px; line-height: 20px; font-weight: 600; }
+    .input-wrap {
+      display: flex;
+      min-height: 52px;
+      padding: 0 14px;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-interactive);
+      border-radius: 12px;
+      background: var(--surface-base);
+    }
+    .input-wrap:focus-within { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+    .input-wrap input { width: 100%; min-width: 0; min-height: 44px; border: 0; outline: 0; color: var(--text-primary); background: transparent; font-size: 18px; font-weight: 600; }
+    .input-wrap span { color: var(--text-secondary); font-size: 13px; font-weight: 600; }
+    .field-error { margin: 0; color: var(--danger); font-size: 13px; line-height: 20px; }
+    .summary-list { display: grid; gap: 10px; margin: 0; }
+    .summary-row { display: flex; justify-content: space-between; gap: 12px; }
+    .summary-row dt { color: var(--text-secondary); }
+    .summary-row dd { margin: 0; font-weight: 600; text-align: left; }
+    .status {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 9px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 24px;
+    }
+    .status svg { width: 22px; height: 22px; margin-top: 1px; }
+    .status.warning { color: var(--warning); background: var(--warning-container); }
+    .status.danger { color: var(--danger); background: var(--danger-container); }
+    .status.success { color: var(--success); background: var(--success-container); }
+    .status.info { color: var(--info); background: var(--info-container); }
+    .button-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .button {
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+    .button.primary { color: var(--action-on-primary); background: var(--action-primary); }
+    .button.primary:hover { background: var(--action-primary-hover); }
+    .button.primary:active { background: var(--action-primary-pressed); }
+    .button.secondary { border-color: var(--border-interactive); color: var(--action-on-secondary); background: var(--action-secondary); }
+    .button:focus-visible, .icon-button:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+    .button:disabled { color: var(--disabled-content); background: var(--disabled-container); cursor: not-allowed; }
+    .sticky-action {
+      position: sticky;
+      bottom: 0;
+      z-index: 20;
+      display: grid;
+      gap: 10px;
+      margin-top: -96px;
+      padding: 12px 16px max(16px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border-subtle);
+      background: color-mix(in srgb, var(--surface-base) 96%, transparent);
+      backdrop-filter: blur(12px);
+    }
+    .otp { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; direction: ltr; }
+    .otp span { display: grid; min-width: 0; height: 46px; place-items: center; border: 1px solid var(--border-interactive); border-radius: 10px; background: var(--surface-base); font: 600 16px/1 "Yekan Bakh NoEn", Arial, sans-serif; }
+    .type-sample { display: grid; gap: 8px; }
+    .type-sample p { margin: 0; }
+    .type-display { font-size: 32px; line-height: 44px; font-weight: 700; }
+    .type-title { font-size: 20px; line-height: 30px; font-weight: 600; }
+    .type-body { font-size: 16px; line-height: 28px; }
+    .type-label { font-size: 14px; line-height: 20px; font-weight: 600; }
+    .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .swatch { min-height: 54px; padding: 8px; border: 1px solid var(--border-subtle); border-radius: 10px; font-size: 11px; line-height: 16px; }
+    .swatch.purple { color: var(--action-on-primary); background: var(--action-primary); }
+    .swatch.gold { color: var(--gold-on-container); background: var(--gold-container); }
+    .swatch.neutral { color: var(--text-primary); background: var(--surface-subtle); }
+
+    @media (max-width: 760px) {
+      .document-header { padding: 28px 16px 14px; }
+      .specimens { grid-template-columns: 1fr; padding: 16px; }
+      .phone { width: min(var(--phone-width), calc(100vw - 32px)); border-radius: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="document-header">
+    <p class="eyebrow latin">FOUNDATIONS / CANDIDATE V0.1</p>
+    <h1>آزمایش رنگ و تایپوگرافی شمش</h1>
+    <p>نمونه‌ی آزمون برای جریان‌های واقعی موج ۱؛ همه مقادیر در وضعیت Candidate هستند و برای انتشار یا Library رسمی تأیید نشده‌اند.</p>
+    <div class="legend" aria-label="معیارهای نمونه">
+      <span>RTL</span><span>Light + Dark</span><span>۳۲۰ + ۳۶۰ پیکسل</span><span>متن واقعی فارسی</span><span>اعداد مالی</span>
+    </div>
+  </header>
+
+  <main class="specimens">
+    <section class="specimen-group">
+      <p class="specimen-label">LIGHT · 320PX · TRADE</p>
+      <article class="phone theme-light" style="--phone-width: 320px">
+        <header class="app-header">
+          <div class="brand-lockup"><svg class="brand-sign" viewBox="0 0 28 34" fill="none" aria-hidden="true"><path d="M16.5 1.5 27 7.4 11.3 22.7.8 16.8 16.5 1.5Z" fill="currentColor"/><path d="m11.5 12.2 10.7 6L11.7 32.5 1 26.5l10.5-14.3Z" fill="currentColor" opacity=".78"/></svg><span>شمش</span></div>
+          <button class="icon-button" aria-label="حساب کاربری"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.7"/><path d="M5 20c.6-4 3.1-6 7-6s6.4 2 7 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+        </header>
+        <div class="app-content">
+          <div><h2 class="section-heading">خرید طلا</h2><div class="meta">نرخ معتبر تا ۲۸ ثانیه دیگر</div></div>
+          <section class="card gold-card balance"><div><small>صندوق طلای من</small><strong class="numeric">۲٫۳۴ <small>گرم</small></strong></div><span class="trend up"><span aria-hidden="true">↗</span> ۱٫۸٪ افزایش</span></section>
+          <div class="form-field"><label for="amount-light">پرداخت نهایی</label><div class="input-wrap"><input id="amount-light" inputmode="numeric" value="۱۲٬۵۰۰٬۰۰۰" aria-describedby="amount-light-help"><span>تومان</span></div><div id="amount-light-help" class="meta">شامل کارمزد معامله</div></div>
+          <dl class="card summary-list"><div class="summary-row"><dt>مقدار طلا</dt><dd class="numeric">۱٫۸۹۷ گرم</dd></div><div class="summary-row"><dt>کارمزد</dt><dd class="numeric">۱۸۷٬۵۰۰ تومان</dd></div><div class="summary-row"><dt>مبلغ اصلی</dt><dd class="numeric">۱۲٬۳۱۲٬۵۰۰ تومان</dd></div></dl>
+          <div class="status warning"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 21 20H3L12 3Z" stroke="currentColor" stroke-width="1.8"/><path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>نرخ تا زمان تأیید نهایی دوباره بررسی می‌شود.</span></div>
+          <div class="button-row"><button class="button primary">بررسی نهایی خرید</button><button class="button secondary">انصراف</button></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="specimen-group">
+      <p class="specimen-label">LIGHT · 360PX · AUTH / KYC</p>
+      <article class="phone theme-light" style="--phone-width: 360px">
+        <header class="app-header"><div class="brand-lockup"><span>احراز هویت</span></div><button class="icon-button" aria-label="بستن"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></header>
+        <div class="app-content">
+          <div><h2 class="section-heading">اطلاعات هویتی</h2><p class="muted">برای انجام عملیات مالی، اطلاعات زیر باید با شماره موبایل شما مطابقت داشته باشد.</p></div>
+          <div class="status info"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>ساخت حساب به تکمیل احراز هویت وابسته نیست و می‌توانید بعداً ادامه دهید.</span></div>
+          <div class="form-field"><label for="national-id">کد ملی</label><div class="input-wrap"><input class="machine-number" id="national-id" inputmode="numeric" value="0012345678" aria-invalid="true" aria-describedby="national-id-error"></div><p class="field-error" id="national-id-error">کد ملی با شماره موبایل مطابقت ندارد.</p></div>
+          <div class="form-field"><label>کد تأیید شش‌رقمی</label><div class="otp" role="group" aria-label="کد تأیید"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><div class="meta">ارسال دوباره تا ۰۰:۴۲</div></div>
+          <div class="card type-sample"><p class="type-title">نمونه تایپوگرافی</p><p class="type-body">متن اصلی با اندازه ۱۶ و فاصله خطوط مناسب برای خواندن مداوم.</p><p class="type-label">برچسب و اقدام مهم</p><p class="machine-number">IR820540102680020817909002</p></div>
+          <button class="button primary" disabled>تأیید و ادامه</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="specimen-group">
+      <p class="specimen-label">DARK · 320PX · TRADE RESULT</p>
+      <article class="phone theme-dark" style="--phone-width: 320px">
+        <header class="app-header"><div class="brand-lockup"><span>رسید خرید</span></div><button class="icon-button" aria-label="بستن رسید"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></header>
+        <div class="app-content">
+          <div class="status success"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="m8 12.3 2.5 2.5L16.5 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>خرید با موفقیت ثبت شد.</span></div>
+          <section class="card"><div class="meta">پرداخت نهایی</div><div class="type-display numeric">۱۲٬۵۰۰٬۰۰۰</div><div class="muted">تومان</div></section>
+          <dl class="card summary-list"><div class="summary-row"><dt>نوع عملیات</dt><dd>خرید طلا</dd></div><div class="summary-row"><dt>مقدار</dt><dd class="numeric">۱٫۸۹۷ گرم</dd></div><div class="summary-row"><dt>وضعیت</dt><dd>موفق</dd></div><div class="summary-row"><dt>کد پیگیری</dt><dd class="machine-number">SHM-482951</dd></div></dl>
+          <section class="card"><div class="type-title">وضعیت‌های مالی</div><div class="swatches" style="margin-top:12px"><div class="swatch purple">Action<br><span class="latin">Purple</span></div><div class="swatch gold">Gold<br>Accent</div><div class="swatch neutral">Neutral<br>Surface</div></div></section>
+          <div class="status danger"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v7m0 3h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>نمونه خطا: دارایی شما تغییر نکرده است.</span></div>
+          <button class="button primary">مشاهده تاریخچه عملیات</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="specimen-group">
+      <p class="specimen-label">DARK · 360PX · TYPOGRAPHY</p>
+      <article class="phone theme-dark" style="--phone-width: 360px">
+        <header class="app-header"><div class="brand-lockup"><span>راهنمای Foundations</span></div><button class="icon-button" aria-label="تغییر تم"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 15.5A8 8 0 0 1 8.5 5 7.2 7.2 0 1 0 19 15.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button></header>
+        <div class="app-content">
+          <section class="card type-sample"><p class="meta latin">DISPLAY / 32–44 / 700</p><p class="type-display numeric">۶٬۵۲۰٬۰۰۰</p><p class="muted">تومان برای هر گرم طلای ۱۸ عیار</p></section>
+          <section class="card type-sample"><p class="meta latin">TITLE / 20–30 / 600</p><p class="type-title">دارایی و عملیات مالی</p><p class="type-body">اطلاعات اصلی، واحد و وضعیت باید بدون اتکا به رنگ قابل فهم باشند.</p><p class="type-label">آخرین به‌روزرسانی: ۱۴:۳۲</p></section>
+          <section class="card"><div class="balance"><div><div class="meta">تغییر امروز</div><strong class="numeric">−۲٫۴٪</strong></div><span class="trend down"><span aria-hidden="true">↘</span> کاهش قیمت</span></div></section>
+          <div class="status warning"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 21 20H3L12 3Z" stroke="currentColor" stroke-width="1.8"/><path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>رنگ Warning از نوسان بازار جداست؛ این پیام نیازمند اقدام کاربر است.</span></div>
+          <div class="status info"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>این نمونه فقط برای تست Candidateهاست و منبع نهایی UI محسوب نمی‌شود.</span></div>
+          <button class="button primary">اقدام اصلی</button>
+          <button class="button secondary">اقدام ثانویه</button>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

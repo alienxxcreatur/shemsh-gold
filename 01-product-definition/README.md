@@ -30,4 +30,4 @@
 
 ## وضعیت
 
-🟡 Gate 1 با نتیجه **Sufficient to proceed** تأیید شد؛ شروط باز در `open-questions.md` پیگیری می‌شوند.
+🟡 Gate 1 پس از D-105 به‌صورت هدفمند باز شد. جهت، سه فلز، مدل مالکیت/پشتوانه، تصمیم‌های طراحی پایه و Impact Map قطعی‌اند و وضعیت برای اصلاح مدل محصول `Sufficient to proceed` است. Gate 1 هنوز `Complete` نیست و تعریف محصول/ارزش پیشنهادی نهایی باید با `multi-metal-scope-rebaseline.md` و `multi-metal-impact-map.md` همگام شود.

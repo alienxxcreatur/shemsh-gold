@@ -23,4 +23,17 @@
 - [x] اولویت طراحی و انتشار مشخص باشد.
 - [x] وابستگی‌های حقوقی، فنی و عملیاتی مالک داشته باشند.
 
-وضعیت: `Sufficient to proceed` — Gate 3 با تصمیم D-084 بسته شده و پروژه وارد مرحله ۴ «معماری تجربه» شده است. پاسخ‌های تخصصی باز طبق رجیستر ریسک و موعد قابلیت مربوط پیگیری می‌شوند.
+وضعیت: **`Needs revision` فقط برای ماتریس Feature-specific؛ هسته `Sufficient to proceed`**. Domain، Capability، Permission، Rules، Priority و Risks با D-127 از انحصار فلزی تأییدنشده پاک شده‌اند؛ دامنه هدیه/اقساط/سفارش و سایر Featureها در OQ-054 باز است. OQ-058 و OQ-059 بسته‌اند. فرمول نهایی عددهای پورتفوی فقط تا تأیید مالی/حسابداری OQ-055 `Blocked by external decision` است.
+
+### چک‌لیست اصلاح چندفلزی
+
+- [x] تعریف `AssetDefinition`، `AssetCatalog` و قرارداد توسعه تا حدود ۱۶ فلز
+- [x] جایگزینی Gold Wallet با `MetalPortfolio` و `MetalPosition`
+- [x] Asset-aware شدن Ledger، Quote، Order، Receipt، پشتوانه و دریافت فیزیکی
+- [ ] Review ماتریس `Feature × Asset` برای طلا/نقره/مس بدون فرض انحصار؛ کنترل نبود انتقال قطعی است — D-127/OQ-054
+- [x] اصلاح `roles-and-permissions.md`، `business-rules-source-of-truth.md` و `feature-prioritization.md`
+- [x] اصلاح `dependencies-and-risks.md` و پرسش‌نامه مالی برای قواعد مستقل هر فلز
+- [x] آماده‌سازی بسته تصمیم، گزینه‌ها و سناریوهای عددی OQ-055
+- [x] تأیید شش تصمیم محصول ارزش‌گذاری، Cost Basis و نمایش P&L — D-116
+- [ ] بستن فرمول ارزش‌گذاری، Cost Basis و سود/زیان — OQ-055
+- [x] انتخاب الگوی دسترسی معامله/نمودار — D-120/D-121/D-123، OQ-058 Complete

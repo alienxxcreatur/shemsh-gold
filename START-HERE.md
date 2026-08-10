@@ -4,10 +4,12 @@
 
 ## وضعیت فعلی
 
-- مرحله فعال: **مرحله ۵ — فلوهای کاربر**
-- زیرمرحله فعال: **Gate Check فلوهای Release اول**
-- وضعیت: **اکثر فلوهای مرحله ۵ با فایل سیاست‌های تکمیلی به Sufficient to proceed رسیده‌اند؛ انتقال طلا از نسخه فعلی حذف شده و اقساط هنوز Blocked by external decision است**
-- قدم بعدی: دریافت پاسخ‌های باقی‌مانده اقساط، قیمت/اعداد مالی، VIP و تأیید حقوقی پیش از ورود به وایرفریم‌های نهایی
+- مرحله فعال داخلی: **مرحله ۶ — وایرفریم کل اپ چندفلزی**
+- زیرمرحله فعال: **Review و اصلاح جزئی Prototype کامل `MM-W0..MM-W8` — D-133**
+- مسیر موازی بیرونی: **تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی اعداد پورتفوی**
+- قدم بعدی قطعی: Review و اصلاح جزئی موج‌به‌موج روی Prototype کامل ۳۳State؛ پوشش ساخت و QA افقی همه `MM-W0..MM-W8` انجام شده و بلوغ هر موج ۷۵٪ است. Featureهای باز Capability-gated و OQ-054 موازی می‌مانند — D-127/D-130/D-131/D-133
+- مسیر موازی داخلی: **Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند؛ Text Input ۱۴تایی Final audit صفر Issue را پاس کرده و منتظر تأیید بصری مالک محصول است؛ Icon Button و Checkbox نیز هنوز منتظر تأیید بصری‌اند و اجزای فلزمحور از `Candidate` فراتر نمی‌روند — D-134/D-136**
+- جریان‌های حفظ‌شده: **خروجی‌های Auth/KYC و زیرساخت ریالی حفظ می‌شوند؛ App Shell، معامله، دارایی و نمودار تا بازتنظیم `Needs revision` هستند**
 
 برای جزئیات روز، `00-project-management/project-status.md` را بخوانید.
 
@@ -18,8 +20,9 @@
 3. `00-project-management/product-roadmap.md`
 4. `00-project-management/decision-log.md`
 5. `00-project-management/open-questions.md`
-6. `README.md` پوشه مرحله فعال
-7. سند فعال همان مرحله
+6. `01-product-definition/multi-metal-impact-map.md`
+7. `README.md` پوشه مرحله فعال
+8. سند فعال همان مرحله
 
 ## نقشه پوشه‌ها
 

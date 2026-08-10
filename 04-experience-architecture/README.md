@@ -10,6 +10,7 @@
 - `information-architecture.md`
 - `navigation-model.md`
 - `content-model.md`
+- `oq-059-history-filter-models.md` — بسته فعال تصمیم فیلتر تاریخچه
 
 ## Gate 4
 
@@ -19,4 +20,4 @@
 - [x] اعتماد و پشتیبانی در لحظه مناسب قابل دسترسی باشند.
 - [x] بازگشت، حفظ وضعیت و دسترسی نقش‌ها تعریف شده باشند.
 
-وضعیت: `Sufficient to proceed` — Gate 4 طبق D-085 بسته شد و مرحله ۵ فعال است. `journey-map.md`، `information-architecture.md`، `navigation-model.md` و `content-model.md` مبنای فلوهای کاربر هستند؛ بازبینی سبک مالک محصول روی نام‌گذاری، سطح اول ناوبری و جزئیات محتوا می‌تواند موازی ادامه یابد.
+وضعیت: `Sufficient to proceed`. گزینه ۱ با D-120، معامله/نمودار با D-121/D-123 و قرارداد کامل U2 تاریخچه با D-124 تا D-128 قطعی‌اند؛ OQ-059 `Complete` است. طبق D-127 هیچ Feature تا Review OQ-054 تک‌فلزی فرض نمی‌شود. OQ-055 و Foundations مرحله ۷ موازی ادامه دارند.

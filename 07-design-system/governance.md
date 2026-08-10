@@ -141,6 +141,8 @@
 
 طبق D-086، ساخت هر Component Draft باید با مسیر زیر انجام شود:
 
+جزئیات عملیاتی، Artifactهای اجباری، Stop conditionها و روش Audit در `component-set-workflow-v1.0.md` مرجع اجرایی است.
+
 1. `Pilot`: ابتدا فقط یک Variant نماینده با Anatomy، Token binding و Propertyهای اصلی ساخته شود.
 2. `Technical preflight`: ساختار، Token binding، Auto Layout، Property، RTL و منبع Icon بررسی شوند.
 3. `Visual QA`: خود Master Component و Instance آن جداگانه در Light و Dark با رندر یا Screenshot واقعی بررسی شوند.

@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>وایرفریم سرتاسری چندفلزی شمش — MM-W0 تا MM-W8</title>
+  <style>
+    @font-face {
+      font-family: "Yekan Bakh";
+      src: url("../../07-design-system/legacy-brand/typogaphy/YekanBakh3%20-%20Pro%20%20Plus/Yekan%20Bakh%20Variable/webfonts/YekanBakhFaNum-VF.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+    :root {
+      color-scheme: light;
+      --canvas:#eef0f2; --surface:#fff; --subtle:#f6f7f8; --strong:#eceff1;
+      --text:#17191c; --muted:#626870; --border:#d6dae0; --border-strong:#aeb4bc;
+      --primary:#1d2530; --primary-pressed:#0e1217; --focus:#1d64d8;
+      --danger:#a92820; --danger-bg:#fff1f0; --warning:#815600; --warning-bg:#fff8e7;
+      --success:#176b47; --success-bg:#edf8f2; --info:#eef3f7;
+      --r-sm:10px; --r-md:14px; --r-lg:18px; --shadow:0 18px 60px rgba(26,31,38,.13);
+      font-family:"Yekan Bakh",Tahoma,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{min-width:320px;background:var(--canvas)}
+    body{margin:0;min-width:320px;min-height:100dvh;background:var(--canvas);color:var(--text);font:16px/1.55 inherit}
+    button,input{font:inherit;color:inherit}
+    button{cursor:pointer;touch-action:manipulation}
+    button:focus-visible,input:focus-visible{outline:3px solid color-mix(in srgb,var(--focus) 35%,transparent);outline-offset:2px}
+    button:active{opacity:.76}
+    .skip{position:fixed;inset-inline-start:12px;top:-60px;z-index:1000;background:var(--primary);color:#fff;padding:10px 14px;border-radius:8px}
+    .skip:focus{top:12px}
+    .workspace{direction:ltr;min-height:100dvh;display:grid;grid-template-columns:minmax(260px,320px) 390px;justify-content:center;align-items:start;gap:28px;padding:28px}
+    .review-panel,.phone{direction:rtl;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+    .review-panel{position:sticky;top:28px;border-radius:var(--r-lg);padding:20px;max-height:calc(100dvh - 56px);overflow:auto}
+    .review-panel h1{font-size:21px;line-height:1.4;margin:0 0 6px}
+    .review-panel p{font-size:13px;color:var(--muted);margin:0 0 16px}
+    .wave-label{display:inline-flex;min-height:28px;align-items:center;padding:2px 9px;background:var(--strong);border-radius:999px;font-size:12px;margin-bottom:10px}
+    .scenario-list{display:grid;gap:8px}
+    .scenario{min-height:48px;text-align:right;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:9px 11px;display:grid;grid-template-columns:74px 1fr;gap:8px;align-items:center}
+    .scenario span{font-size:12px;color:var(--muted);direction:ltr;text-align:left}
+    .scenario strong{font-size:13px;font-weight:650}
+    .scenario.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .scenario.active span{color:#d7dbe0}
+    .legend{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+    .phone{width:390px;height:820px;border-radius:28px;overflow:hidden;position:relative;display:grid;grid-template-rows:auto 1fr auto}
+    .statusbar{height:26px;background:var(--surface);display:flex;align-items:end;justify-content:space-between;padding:0 18px 3px;font-size:10px;direction:ltr}
+    .app-header{min-height:58px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:48px 1fr 48px;align-items:center;padding:0 10px;background:var(--surface);z-index:10}
+    .app-header h2{font-size:18px;margin:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .icon-button{width:48px;height:48px;border:0;background:transparent;display:grid;place-items:center;border-radius:12px}
+    .icon-button svg,.nav-item svg,.row-chevron svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .app-main{overflow-y:auto;overscroll-behavior:contain;background:var(--subtle);padding:16px 16px 28px;scrollbar-width:thin}
+    .app-main:has(.sticky-action){display:flex;flex-direction:column;padding-bottom:0}
+    .bottom-nav{min-height:74px;background:var(--surface);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding:7px 8px max(7px,env(safe-area-inset-bottom));z-index:10}
+    .bottom-nav.hidden{display:none}
+    .nav-item{min-height:56px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;align-content:center;gap:2px;font-size:11px;border-radius:12px}
+    .nav-item.active{color:var(--text);background:var(--strong);font-weight:650}
+    .section{margin-top:16px}
+    .section:first-child{margin-top:0}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+    .section-head h3{font-size:15px;margin:0}
+    .text-button{min-height:44px;border:0;background:transparent;padding:6px;color:var(--primary);font-weight:650}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px}
+    .summary-card{background:var(--primary);color:#fff;border-color:var(--primary);padding:18px}
+    .summary-label{font-size:12px;color:#d6d9dd}
+    .summary-value{font-size:25px;font-weight:750;line-height:1.4;margin:4px 0;font-variant-numeric:tabular-nums}
+    .summary-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:#e9ebed}
+    .summary-meta strong{color:#fff}
+    .portfolio-rail{direction:rtl;display:flex;gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;padding:2px 0 8px;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent}
+    .portfolio-rail::-webkit-scrollbar{height:4px}
+    .portfolio-rail::-webkit-scrollbar-track{background:transparent}
+    .portfolio-rail::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:999px}
+    .portfolio-card{flex:0 0 calc(100% - 42px);min-height:164px;scroll-snap-align:start;scroll-snap-stop:always;border:1px solid var(--border);border-radius:var(--r-md);padding:16px;text-align:right;display:grid;align-content:space-between;gap:14px;background:var(--surface)}
+    button.portfolio-card{width:auto;cursor:pointer}
+    .portfolio-total{background:var(--primary);border-color:var(--primary);color:#fff}
+    .portfolio-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .portfolio-card-title{display:flex;align-items:center;gap:9px;min-width:0}
+    .portfolio-card-title .metal-symbol{width:38px;height:38px;flex:0 0 38px}
+    .portfolio-card-title-copy{display:grid;gap:1px;min-width:0}
+    .portfolio-card-title-copy strong{font-size:15px}
+    .portfolio-card-title-copy small{font-size:11px;color:var(--muted)}
+    .portfolio-card-balance{display:grid;gap:2px}
+    .portfolio-card-balance span{font-size:11px;color:var(--muted)}
+    .portfolio-card-balance strong{font-size:22px;line-height:1.35;font-variant-numeric:tabular-nums}
+    .portfolio-card-foot{display:flex;align-items:end;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--border);font-size:11px}
+    .portfolio-card-foot span{color:var(--muted)}
+    .portfolio-card-foot strong{text-align:left;font-size:12px;font-variant-numeric:tabular-nums}
+    .portfolio-total .portfolio-card-title-copy small,.portfolio-total .portfolio-card-balance span,.portfolio-total .portfolio-card-foot span{color:#d6d9dd}
+    .portfolio-total .portfolio-card-foot{border-top-color:rgba(255,255,255,.2)}
+    .portfolio-total .portfolio-card-foot strong{color:#fff}
+    .portfolio-card[data-detail]:hover{border-color:var(--border-strong)}
+    .portfolio-card[data-detail]:active{background:var(--strong)}
+    .portfolio-hint{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:11px;margin-top:2px}
+    .portfolio-mix-hero{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .portfolio-mix-hero .muted{color:#d6d9dd}.mix-total{display:grid;gap:3px}.mix-total strong{font-size:26px;font-variant-numeric:tabular-nums}.mix-total span{font-size:12px}
+    .mix-bar{height:14px;border-radius:999px;overflow:hidden;display:flex;background:rgba(255,255,255,.16);margin-top:14px}.mix-bar span{height:100%}
+    .mix-card-list{display:grid;gap:8px}
+    .mix-card{min-height:76px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:12px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:10px}
+    .mix-mark{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:var(--text);background:var(--strong)}
+    .mix-copy{display:grid;gap:2px}.mix-copy strong{font-size:14px}.mix-copy small{font-size:11px;color:var(--muted)}
+    .mix-share{text-align:left;display:grid;gap:2px}.mix-share strong{font-size:15px;font-variant-numeric:tabular-nums}.mix-share span{font-size:11px;color:var(--muted)}
+    .inline-status{display:inline-flex;align-items:center;min-height:28px;padding:3px 8px;border-radius:999px;background:var(--strong);font-size:12px;white-space:nowrap}
+    .inline-status.success{background:var(--success-bg);color:var(--success)}
+    .inline-status.warning{background:var(--warning-bg);color:var(--warning)}
+    .inline-status.danger{background:var(--danger-bg);color:var(--danger)}
+    .alert{display:flex;gap:10px;align-items:flex-start;background:var(--warning-bg);color:#5e4105;border:1px solid #ead59c;border-radius:var(--r-md);padding:12px;font-size:13px;margin-bottom:12px}
+    .alert.danger{background:var(--danger-bg);border-color:#efc4c0;color:#6f1c16}
+    .alert svg{width:20px;flex:0 0 20px;margin-top:1px;fill:none;stroke:currentColor;stroke-width:1.8}
+    .metal-list,.activity-list{display:grid;gap:8px}
+    .metal-row,.activity-row,.menu-row{width:100%;min-height:76px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:11px 12px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:right}
+    .metal-row[disabled]{cursor:not-allowed;opacity:.66}
+    .metal-symbol{width:44px;height:44px;border-radius:50%;background:var(--strong);border:1px solid var(--border-strong);display:grid;place-items:center;font-weight:750;font-size:14px}
+    .row-main{min-width:0;display:grid;gap:2px}
+    .row-main strong{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .row-main small,.row-side small{font-size:11px;color:var(--muted)}
+    .row-side{text-align:left;display:grid;gap:2px;justify-items:end;font-variant-numeric:tabular-nums}
+    .row-side strong{font-size:13px;white-space:nowrap}
+    .positive{color:var(--success)}
+    .negative{color:var(--danger)}
+    .muted{color:var(--muted)}
+    .wallet-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .wallet-row strong{font-size:17px;font-variant-numeric:tabular-nums}
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .quick-action{min-height:76px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:12px;text-align:right;display:grid;gap:3px;align-content:center}
+    .quick-action strong{font-size:14px}
+    .quick-action span{font-size:11px;color:var(--muted)}
+    .service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .service-tile{min-width:0;min-height:132px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:13px;text-align:right;display:grid;align-content:space-between;gap:12px}
+    .service-tile:hover{border-color:var(--border-strong)}
+    .service-tile .service-copy{display:grid;gap:3px;min-width:0}
+    .service-tile strong{font-size:14px;line-height:1.45}
+    .service-tile small{font-size:11px;line-height:1.5;color:var(--muted)}
+    .service-icon{width:42px;height:42px;border-radius:12px;background:var(--strong);border:1px solid var(--border);display:grid;place-items:center;color:var(--primary)}
+    .service-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .feature-grid{display:grid;gap:8px}
+    .feature-card{width:100%;min-height:88px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:13px;text-align:right;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+    .feature-card strong{font-size:14px}.feature-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.feature-card .inline-status{align-self:start}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .choice{min-height:48px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:8px;font-size:12px}
+    .choice.selected{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:700}
+    .assumption{margin:0 0 12px;padding:10px 12px;border:1px dashed var(--border-strong);border-radius:var(--r-sm);background:var(--info);color:var(--muted);font-size:12px}
+    .code-box{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--strong);border-radius:var(--r-sm);padding:10px 12px;margin-top:10px}
+    .code-box strong{font-variant-numeric:tabular-nums;letter-spacing:1px}
+    .status-list{display:grid;gap:8px}.status-item{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:9px 0;border-bottom:1px solid var(--border)}.status-item:last-child{border-bottom:0}
+    .page-lead{margin-bottom:14px}
+    .page-lead h3{font-size:20px;margin:0 0 4px}
+    .page-lead p{margin:0;color:var(--muted);font-size:13px}
+    .search{position:relative;margin-bottom:12px}
+    .search input{width:100%;height:48px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:0 42px 0 12px;font-size:15px}
+    .search svg{position:absolute;inset-inline-start:14px;top:14px;width:20px;height:20px;fill:none;stroke:var(--muted);stroke-width:1.8}
+    .market-note{font-size:12px;color:var(--muted);margin:8px 2px 12px}
+    .detail-position{display:grid;gap:10px}
+    .detail-position .weight{font-size:27px;font-weight:750;font-variant-numeric:tabular-nums}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .metric{background:var(--subtle);border-radius:var(--r-sm);padding:10px;display:grid;gap:3px}
+    .metric span{font-size:11px;color:var(--muted)}
+    .metric strong{font-size:14px;font-variant-numeric:tabular-nums}
+    .trade-selector{width:100%;min-height:62px;border:1px solid var(--border-strong);background:var(--surface);border-radius:var(--r-md);padding:9px 12px;display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;text-align:right}
+    .trade-selector .selector-copy{display:grid;gap:1px}
+    .trade-selector .selector-copy small{font-size:11px;color:var(--muted)}
+    .trade-selector .selector-copy strong{font-size:15px}
+    .segment{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--strong);border-radius:var(--r-sm);padding:4px}
+    .segment button{height:44px;border:0;background:transparent;border-radius:8px;font-size:13px}
+    .segment button.selected{background:var(--surface);box-shadow:0 1px 3px rgba(18,23,29,.12);font-weight:700}
+    .field{display:grid;gap:6px;margin-top:14px}
+    .field label{font-size:13px;font-weight:650}
+    .input-wrap{height:52px;border:1px solid var(--border-strong);background:var(--surface);border-radius:var(--r-sm);display:flex;align-items:center;gap:8px;padding:0 12px}
+    .input-wrap input{min-width:0;flex:1;border:0;outline:0;background:transparent;font-size:17px;font-variant-numeric:tabular-nums;text-align:right}
+    .input-wrap span{font-size:12px;color:var(--muted);white-space:nowrap}
+    .field-help{font-size:11px;color:var(--muted)}
+    .quote-card{margin-top:12px;background:var(--subtle);border-radius:var(--r-sm);padding:11px;display:grid;gap:4px}
+    .quote-row{display:flex;justify-content:space-between;gap:12px;font-size:12px}
+    .quote-row span{color:var(--muted)}
+    .quote-row strong{font-variant-numeric:tabular-nums}
+    .chart-asset-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+    .chart-asset-button{min-height:48px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:7px 10px;display:flex;align-items:center;gap:8px}
+    .dialog-wrap{align-items:center;padding:20px}
+    .dialog{width:100%;background:var(--surface);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow)}
+    .dialog h3{font-size:18px;margin:0 0 6px}
+    .dialog p{font-size:13px;color:var(--muted);margin:0 0 14px}
+    .chart-card{padding:12px}
+    .periods{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+    .period{height:44px;border:1px solid var(--border);background:var(--surface);border-radius:9px;font-size:12px}
+    .period.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .chart{width:100%;height:138px;display:block}
+    .chart .grid{stroke:var(--border);stroke-width:1}
+    .chart .line{stroke:var(--primary);stroke-width:2.4;fill:none}
+    .chart text{font:10px "Yekan Bakh";fill:var(--muted)}
+    .action-stack{display:grid;gap:8px;margin-top:12px}
+    .primary-button,.secondary-button{min-height:48px;border-radius:var(--r-sm);font-weight:700;padding:10px 14px}
+    .primary-button{border:1px solid var(--primary);background:var(--primary);color:#fff}
+    .primary-button:disabled{opacity:.45;cursor:not-allowed}
+    .secondary-button{border:1px solid var(--border-strong);background:var(--surface)}
+    .empty{text-align:center;padding:28px 16px}
+    .empty-mark{width:58px;height:58px;margin:0 auto 12px;border-radius:50%;background:var(--strong);display:grid;place-items:center;font-weight:750}
+    .empty h3{font-size:17px;margin:0 0 6px}
+    .empty p{font-size:13px;color:var(--muted);margin:0 auto 16px;max-width:270px}
+    .operation-rail{direction:rtl;display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:thin;scroll-snap-type:x proximity}
+    .chip{flex:0 0 auto;min-height:44px;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:12px;scroll-snap-align:start;white-space:nowrap}
+    .chip.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .filter-row{display:flex;gap:8px;margin-bottom:12px}
+    .filter-control{min-height:44px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:7px 11px;display:inline-flex;align-items:center;gap:6px;font-size:12px}
+    .filter-control.hidden{display:none}
+    .filter-control .count{min-width:20px;height:20px;border-radius:10px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:10px}
+    .reset{margin-inline-start:auto;border:0;background:transparent;color:var(--muted);font-size:12px;min-height:44px}
+    .activity-row{grid-template-columns:44px minmax(0,1fr) auto;min-height:82px}
+    .activity-icon{width:44px;height:44px;border-radius:12px;background:var(--strong);display:grid;place-items:center;font-size:12px;font-weight:750}
+    .activity-row .row-side strong{font-size:12px}
+    .activity-row .row-side small{font-size:10px}
+    .receipt-head{text-align:center;padding:18px 10px 10px}
+    .receipt-mark{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;margin:0 auto 10px;background:var(--success-bg);color:var(--success);font-size:23px;font-weight:800}
+    .receipt-head h3{font-size:18px;margin:0 0 4px}
+    .receipt-head p{font-size:12px;color:var(--muted);margin:0}
+    .receipt-grid{display:grid;margin-top:12px;border-top:1px solid var(--border)}
+    .receipt-row{min-height:46px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}
+    .receipt-row span{color:var(--muted)}
+    .receipt-row strong{text-align:left;font-variant-numeric:tabular-nums}
+    .asset-proof{display:flex;align-items:center;gap:10px;background:var(--subtle);border-radius:var(--r-sm);padding:10px;margin-top:12px}
+    .asset-proof .metal-symbol{width:38px;height:38px}
+    .asset-proof div{display:grid}
+    .asset-proof small{color:var(--muted);font-size:11px}
+    .physical-segment{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--strong);border:1px solid var(--border);border-radius:var(--r-md);padding:4px;margin-bottom:12px}
+    .physical-segment button{min-height:44px;border:0;background:transparent;border-radius:10px;font-size:13px}
+    .physical-segment button.selected{background:var(--surface);box-shadow:0 1px 4px rgba(18,23,29,.14);font-weight:750}
+    .physical-balance{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .physical-balance-copy{display:grid;gap:2px}.physical-balance-copy span{font-size:12px;color:var(--muted)}.physical-balance-copy strong{font-size:22px;font-variant-numeric:tabular-nums}
+    .physical-balance.compact{min-height:60px;padding-block:10px}.physical-balance.compact .physical-balance-copy strong{font-size:18px}
+    .info-banner{width:100%;border:1px solid #cbd7e1;background:var(--info);border-radius:var(--r-md);padding:12px;display:grid;grid-template-columns:24px minmax(0,1fr);gap:9px;text-align:right;margin-top:12px}
+    .info-banner svg,.context-row-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .info-banner-copy{display:grid;gap:3px}.info-banner-copy strong{font-size:13px}.info-banner-copy span{font-size:11px;color:var(--muted)}.info-banner-copy u{font-size:12px;font-weight:700;text-underline-offset:3px}
+    .physical-state{margin-top:14px}.physical-state .empty-mark svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8}
+    .bullion-grid{display:grid;grid-template-columns:1fr;gap:8px}
+    .bullion-card{min-width:0;min-height:92px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:10px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}
+    .bullion-card.unavailable{opacity:.5;background:var(--strong)}
+    .bullion-card-main{display:grid;grid-template-columns:50px minmax(0,1fr);align-items:center;gap:10px}
+    .bullion-visual{width:50px;height:38px;border:1px solid var(--border-strong);border-radius:8px 8px 5px 5px;background:linear-gradient(145deg,var(--surface),var(--strong));display:grid;place-items:center;color:var(--muted)}
+    .bullion-visual svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .bullion-copy{display:grid;gap:2px}.bullion-copy span{font-size:10px;color:var(--muted)}.bullion-copy strong{font-size:15px;font-variant-numeric:tabular-nums}.bullion-copy small{font-size:10px;color:var(--warning)}
+    .bullion-add{width:44px;height:44px;border:1px solid var(--border-strong);background:var(--surface);border-radius:10px;font-size:23px;justify-self:end;line-height:1}
+    .stepper{display:grid;grid-template-columns:44px minmax(24px,1fr) 44px;gap:4px;align-items:center;direction:ltr}
+    .stepper button{width:44px;height:44px;border:1px solid var(--border-strong);background:var(--surface);border-radius:10px;font-size:20px;line-height:1}.stepper strong{text-align:center;font-size:14px;font-variant-numeric:tabular-nums}
+    .bullion-add:disabled,.stepper button:disabled{opacity:.38;cursor:not-allowed}
+    .sticky-action{position:sticky;z-index:9;bottom:0;margin:auto -16px -28px;padding:12px 16px calc(16px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--surface) 96%,transparent);border-top:1px solid var(--border);box-shadow:0 -10px 24px rgba(26,31,38,.08)}
+    .sticky-summary{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:10px}.sticky-summary-copy{display:grid;gap:2px}.sticky-summary-copy span{font-size:11px;color:var(--muted)}.sticky-summary-copy strong{font-size:15px;font-variant-numeric:tabular-nums}.sticky-summary-copy:last-child{text-align:left}
+    .context-card{display:grid;gap:12px}.context-row{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px}.context-row-icon{width:32px;height:32px;border-radius:9px;background:var(--strong);display:grid;place-items:center}.context-row-copy{display:grid;gap:3px}.context-row-copy strong{font-size:14px}.context-row-copy p{font-size:12px;color:var(--muted);margin:0}.context-row-copy small{font-size:11px;color:var(--muted)}
+    .selected-bullion-rail{display:grid;grid-template-columns:1fr;gap:8px;padding:2px 0 6px}.selected-bullion{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:10px;display:grid;gap:3px}.selected-bullion strong{font-size:13px}.selected-bullion span{font-size:11px;color:var(--muted)}
+    .physical-sheet{max-height:78%}.rules-list{margin:0;padding:0 20px 0 0;display:grid;gap:10px;font-size:13px}.rules-list li::marker{font-weight:750}.receipt-row.emphasis{background:var(--strong);margin-inline:-8px;padding-inline:8px;border-radius:8px}.receipt-row.emphasis span,.receipt-row.emphasis strong{color:var(--text);font-weight:750}
+    .result-mark-error{background:var(--danger-bg);color:var(--danger)}
+    .scrim{position:absolute;inset:84px 0 0;background:rgba(16,20,24,.48);z-index:30;display:flex;align-items:end}
+    .sheet{width:100%;max-height:72%;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(0,0,0,.18)}
+    .sheet.physical-confirm-sheet{max-height:92%;overflow:auto}
+    .handle{width:44px;height:4px;background:var(--border-strong);border-radius:4px;margin:2px auto 12px}
+    .sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .sheet-head h3{font-size:17px;margin:0}
+    .sheet-list{display:grid;gap:8px}
+    .sheet-choice{min-height:52px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:9px 12px;text-align:right;display:flex;justify-content:space-between;align-items:center}
+    .sheet-choice.selected{border-color:var(--primary);background:var(--strong);font-weight:700}
+    .sheet-footer{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));display:grid;grid-template-columns:2fr 1fr;gap:8px;margin:14px -16px calc(-18px - env(safe-area-inset-bottom));padding:12px 16px calc(18px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--border)}
+    .processing{min-height:520px;display:grid;place-items:center;text-align:center}
+    .processing-card{display:grid;justify-items:center;gap:10px;max-width:260px}
+    .spinner{width:46px;height:46px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+    .processing-card h3{margin:0;font-size:18px}.processing-card p{margin:0;color:var(--muted);font-size:13px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .toast{position:absolute;z-index:100;inset-inline:16px;bottom:92px;min-height:48px;background:var(--primary);color:#fff;border-radius:var(--r-sm);padding:11px 14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;box-shadow:var(--shadow);pointer-events:none}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:780px){
+      .workspace{grid-template-columns:1fr;padding:12px;gap:14px}
+      .review-panel{position:static;max-height:none}
+      .scenario-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .phone{width:min(390px,100%);margin:0 auto;height:760px;border-radius:22px}
+    }
+    @media(max-width:430px){
+      .workspace{padding:0;gap:0}
+      .review-panel{border:0;border-radius:0;box-shadow:none;border-bottom:1px solid var(--border);padding:12px}
+      .review-panel h1,.review-panel p,.legend{display:none}
+      .wave-label{margin:0 0 8px}
+      .scenario-list{display:flex;overflow-x:auto;gap:6px}
+      .scenario{flex:0 0 174px;min-height:44px;padding:7px 9px}
+      .phone{width:100%;height:780px;border:0;border-radius:0;box-shadow:none}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.spinner{animation:none;border-top-color:var(--border);box-shadow:inset 0 0 0 8px var(--strong)}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#app-main">پرش به محتوای اپ</a>
+  <div class="workspace">
+    <aside class="review-panel" aria-label="انتخاب سناریوی وایرفریم">
+      <span class="wave-label">MM-W0 → MM-W8</span>
+      <h1>وایرفریم کل اپ چندفلزی</h1>
+      <p>۲۹ State هدف + ۵ اتصال زیرساختی + ۴ حالت دریافت فیزیکی؛ داده‌های وزن و کارمزد دریافت فعلاً نمونه‌اند.</p>
+      <div class="scenario-list" id="scenario-list"></div>
+      <div class="legend">شل سه‌تبی قبلی حفظ شده است. رنگ شناسه فلز نیست و هیچ مسیر انتقال دارایی در این Prototype وجود ندارد.</div>
+    </aside>
+    <section class="phone" aria-label="نمونه تعاملی موبایل شمش">
+      <div>
+        <div class="statusbar"><span>9:41</span><span>● ● ●</span></div>
+        <header class="app-header">
+          <button class="icon-button" id="header-back" type="button" aria-label="بازگشت"></button>
+          <h2 id="header-title">خانه</h2>
+          <button class="icon-button" id="header-action" type="button" aria-label="اعلان‌ها"></button>
+        </header>
+      </div>
+      <main class="app-main" id="app-main"></main>
+      <nav class="bottom-nav" id="bottom-nav" aria-label="ناوبری اصلی"></nav>
+      <div id="overlay-root"></div>
+      <div id="toast-root" aria-live="polite"></div>
+    </section>
+  </div>
+  <script>
+    const icons = {
+      back:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>`,
+      bell:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>`,
+      user:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>`,
+      home:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg>`,
+      trade:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 3-3 3 3M10 4v12M17 17l-3 3-3-3M14 20V8"/></svg>`,
+      service:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>`,
+      warn:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5M12 17h.01"/></svg>`,
+      search:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>`,
+      physical:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="m4 7v10l8 4 8-4V7M12 11v10"/></svg>`,
+      alert:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 6-3 7-3 9h18c0-2-3-3-3-9"/><path d="M10 21h4"/></svg>`,
+      target:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>`,
+      installment:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>`,
+      giftSend:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m17 3 3 3-3 3"/></svg>`,
+      giftReceive:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m7 3-3 3 3 3"/></svg>`,
+      referral:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 16a5 5 0 0 1 7 4"/></svg>`,
+      withdraw:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 15h4M17 2v6M14 5l3 3 3-3"/></svg>`,
+      info:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg>`,
+      location:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>`,
+      clock:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>`,
+      idCard:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M5 16c.8-2 5.2-2 6 0M14 10h4M14 14h4"/></svg>`
+    };
+
+    const metals = {
+      gold:{name:'طلا',symbol:'AU',mark:'ط',weight:'۱۲٫۴۸۳',value:'۸۹۲٬۴۰۰٬۰۰۰',pnl:'+۸۴٬۲۰۰٬۰۰۰',grade:'۱۸ عیار',rate:'۷۱٬۴۹۰٬۰۰۰'},
+      silver:{name:'نقره',symbol:'AG',mark:'ن',weight:'۲۶۴٫۳۵',value:'۲۷۴٬۸۰۰٬۰۰۰',pnl:'+۱۹٬۶۰۰٬۰۰۰',grade:'۹۹۹',rate:'۱٬۰۳۹٬۵۰۰'},
+      copper:{name:'مس',symbol:'CU',mark:'م',weight:'۱٬۸۴۰',value:'۷۸٬۳۰۰٬۰۰۰',pnl:'−۳٬۱۰۰٬۰۰۰',grade:'کاتد استاندارد',rate:'۴۲٬۵۵۰'}
+    };
+    const physicalCatalog = {
+      gold:{purity:'۱۸ عیار',minGrams:.2,feeRate:.02,feeLabel:'۲٪',balance:12.483,skus:[
+        {id:'g-200',grams:.2,label:'۲۰۰ سوت'},{id:'g-500',grams:.5,label:'۵۰۰ سوت'},{id:'g-1000',grams:1,label:'۱٬۰۰۰ سوت'},{id:'g-2500',grams:2.5,label:'۲٬۵۰۰ سوت'},{id:'g-5000',grams:5,label:'۵٬۰۰۰ سوت'},{id:'g-10000',grams:10,label:'۱۰٬۰۰۰ سوت'},{id:'g-20000',grams:20,label:'۲۰٬۰۰۰ سوت',available:false}
+      ]},
+      silver:{purity:'۹۹۹',minGrams:10,feeRate:.015,feeLabel:'۱٫۵٪',balance:264.35,skus:[
+        {id:'s-10',grams:10,label:'۱۰ گرم'},{id:'s-20',grams:20,label:'۲۰ گرم'},{id:'s-50',grams:50,label:'۵۰ گرم'},{id:'s-100',grams:100,label:'۱۰۰ گرم'},{id:'s-250',grams:250,label:'۲۵۰ گرم'},{id:'s-500',grams:500,label:'۵۰۰ گرم',available:false}
+      ]},
+      copper:{purity:'۹۹۹',minGrams:100,feeRate:.01,feeLabel:'۱٪',balance:1840,skus:[
+        {id:'c-100',grams:100,label:'۱۰۰ گرم'},{id:'c-250',grams:250,label:'۲۵۰ گرم'},{id:'c-500',grams:500,label:'۵۰۰ گرم'},{id:'c-1000',grams:1000,label:'۱ کیلوگرم'},{id:'c-2000',grams:2000,label:'۲ کیلوگرم',available:false}
+      ]}
+    };
+    const futureMetals = [
+      ['platinum','پلاتین','PT','پ'],['palladium','پالادیوم','PD','پ'],['zinc','روی','ZN','ر'],
+      ['aluminium','آلومینیوم','AL','آ'],['nickel','نیکل','NI','ن'],['lead','سرب','PB','س'],
+      ['tin','قلع','SN','ق'],['iron','آهن','FE','آ'],['cobalt','کبالت','CO','ک'],
+      ['lithium','لیتیوم','LI','ل'],['rhodium','رودیوم','RH','ر'],['titanium','تیتانیوم','TI','ت'],
+      ['magnesium','منیزیم','MG','م']
+    ].map(([id,name,symbol,mark],i)=>({id,name,symbol,mark,status:i===1?'داده در دسترس نیست':'آزمایشی؛ عرضه نشده'}));
+
+    const operations = [
+      ['all','همه'],['buy','خرید'],['sell','فروش'],['deposit','واریز'],['withdraw','برداشت'],
+      ['physical','دریافت فیزیکی'],['target','سفارش قیمت'],['alert','هشدار قیمت'],
+      ['installment','خرید قسطی'],['installment-pay','پرداخت قسط'],['gift-send','صدور هدیه'],['gift-receive','دریافت هدیه']
+    ];
+    const activities = [
+      {id:'r1',op:'buy',title:'خرید نقره',asset:'silver',amount:'۲۵٬۰۰۰٬۰۰۰ تومان',weight:'۲۴٫۰۵ گرم',status:'موفق',statusKey:'final',dateKey:'month',time:'امروز، ۱۰:۲۴',tracking:'SH-AG-248051'},
+      {id:'r2',op:'sell',title:'فروش مس',asset:'copper',amount:'۸٬۴۰۰٬۰۰۰ تومان',weight:'۱۹۸ گرم',status:'در حال انجام',statusKey:'pending',dateKey:'month',time:'امروز، ۰۹:۱۲',tracking:'SH-CU-248046'},
+      {id:'r3',op:'deposit',title:'واریز به کیف تومان',asset:null,amount:'۵۰٬۰۰۰٬۰۰۰ تومان',weight:'درگاه بانکی',status:'موفق',statusKey:'final',dateKey:'month',time:'دیروز، ۱۸:۴۰',tracking:'SH-IRR-247980'},
+      {id:'r4',op:'withdraw',title:'برداشت از کیف تومان',asset:null,amount:'۱۲٬۰۰۰٬۰۰۰ تومان',weight:'به شبا ثبت‌شده',status:'در حال بررسی',statusKey:'pending',dateKey:'month',time:'دیروز، ۱۳:۱۵',tracking:'SH-IRR-247941'},
+      {id:'r5',op:'physical',title:'درخواست دریافت فیزیکی طلا',asset:'gold',amount:'۵ گرم',weight:'شمش ضرب شمش',status:'آماده دریافت',statusKey:'final',dateKey:'month',time:'۱۶ مرداد',tracking:'SH-AU-247702'},
+      {id:'r6',op:'target',title:'سفارش قیمت نقره',asset:'silver',amount:'۱۰٬۰۰۰٬۰۰۰ تومان',weight:'جهت خرید',status:'فعال',statusKey:'pending',dateKey:'month',time:'۱۵ مرداد',tracking:'SH-AG-247661'},
+      {id:'r7',op:'alert',title:'هشدار قیمت مس',asset:'copper',amount:'۴۳٬۰۰۰ تومان',weight:'بیشتر از قیمت هدف',status:'فعال',statusKey:'pending',dateKey:'month',time:'۱۴ مرداد',tracking:'SH-CU-247530'},
+      {id:'r8',op:'installment',title:'خرید قسطی نقره',asset:'silver',amount:'۶۰٬۰۰۰٬۰۰۰ تومان',weight:'قرارداد ۶ ماهه',status:'فعال',statusKey:'pending',dateKey:'month',time:'۱۲ مرداد',tracking:'SH-AG-247381'},
+      {id:'r9',op:'installment-pay',title:'پرداخت قسط نقره',asset:'silver',amount:'۵٬۰۰۰٬۰۰۰ تومان',weight:'قسط دوم',status:'موفق',statusKey:'final',dateKey:'month',time:'۱۰ مرداد',tracking:'SH-AG-247228'},
+      {id:'r10',op:'gift-send',title:'صدور هدیه مس',asset:'copper',amount:'۱۰۰ گرم',weight:'ارسال به گیرنده',status:'ارسال‌شده',statusKey:'final',dateKey:'older',time:'۲۸ تیر',tracking:'SH-CU-247091'},
+      {id:'r11',op:'gift-receive',title:'دریافت هدیه طلا',asset:'gold',amount:'۰٫۰۵۰ گرم',weight:'به دارایی افزوده شد',status:'موفق',statusKey:'final',dateKey:'older',time:'۲۲ تیر',tracking:'SH-AU-246810'},
+      {id:'r12',op:'deposit',title:'پاداش معرفی دوست',asset:null,amount:'۲۵٬۰۰۰ تومان',weight:'اعتبار هدیه؛ غیرقابل برداشت',status:'موفق',statusKey:'final',dateKey:'month',time:'۳ روز پیش',tracking:'SH-REF-247811'}
+    ];
+
+    const scenarios = [
+      ['WF-MM-R01','auth-login','اتصال ورود'],['WF-MM-R02','kyc','اتصال احراز هویت'],
+      ['WF-MM-R03','wallet','کیف تومان'],['WF-MM-R04','deposit','واریز متصل'],['WF-MM-R05','withdraw','برداشت متصل'],
+      ['WF-MM-001','home','خانه — سه فلز'],['WF-MM-002','home-partial','خانه — نرخ ناقص'],['WF-MM-002A','portfolio-mix','ترکیب دارایی'],
+      ['WF-MM-003','market3','همه فلزها — ۳'],['WF-MM-004','market16','همه فلزها — ۱۶'],
+      ['WF-MM-005','detail-gold','جزئیات طلا'],['WF-MM-006','detail-silver','جزئیات نقره'],
+      ['WF-MM-007','detail-copper','جزئیات مس'],['WF-MM-008','trade-gold','معامله — طلای پیش‌فرض'],
+      ['WF-MM-009','trade-selector3','انتخاب‌گر معامله — ۳'],['WF-MM-010','trade-selector16','انتخاب‌گر معامله — ۱۶'],
+      ['WF-MM-011','trade-quote-switch','تغییر فلز با Quote'],['WF-MM-012','chart-single','نمودار تک‌فلز'],
+      ['WF-MM-013','services','Hub خدمات'],['WF-MM-014','physical-select','دریافت فیزیکی — ورود'],
+      ['WF-MM-014A','physical-insufficient','دریافت — موجودی ناکافی'],['WF-MM-014B','physical-unavailable','دریافت — سرویس غیرفعال'],
+      ['WF-MM-014C','physical-failed','دریافت — ناموفق'],['WF-MM-014D','physical-success','دریافت — موفق'],
+      ['WF-MM-015','history','تاریخچه یکپارچه'],['WF-MM-016','history-filtered','فیلتر تاریخچه U2'],
+      ['WF-MM-017','receipt','رسید چندفلزی'],['WF-MM-018','zero','پورتفوی خالی'],
+      ['WF-MM-019','guest','مهمان / احرازنشده'],['WF-MM-020','outage','اختلال یک فلز'],
+      ['WF-MM-021','market-services','خدمات قیمت'],['WF-MM-022','target-setup','تنظیم هشدار / سفارش'],
+      ['WF-MM-023','installment-hub','اقساط — مدیریت و پرداخت'],['WF-MM-024','installment-setup','خرید قسطی جدید'],
+      ['WF-MM-025','gift-hub','هدیه — Hub'],['WF-MM-026','gift-setup','هدیه — صدور / دریافت'],
+      ['WF-MM-027','referral','معرفی دوستان'],['WF-MM-028','referral-history','پیگیری دعوت و پاداش']
+    ];
+
+    const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeAmount:'',quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,
+      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyDestination:'bank-1',featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',installmentTerm:'6',installmentAmount:'',installmentPaid:false,giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null};
+    const appMain=document.getElementById('app-main'), headerTitle=document.getElementById('header-title');
+    const headerBack=document.getElementById('header-back'), headerAction=document.getElementById('header-action');
+    const bottomNav=document.getElementById('bottom-nav'), overlayRoot=document.getElementById('overlay-root');
+    let overlayTrigger=null;
+
+    function renderScenarioList(){
+      document.getElementById('scenario-list').innerHTML=scenarios.map(([id,key,label])=>`<button type="button" class="scenario ${state.scenario===key?'active':''}" data-scenario="${key}"><span>${id}</span><strong>${label}</strong></button>`).join('');
+    }
+    function setScenario(key){
+      state.processingToken++;
+      state.scenario=key; state.stack=[]; state.sheet=null; state.period='month';
+      state.operation=key==='history-filtered'?'buy':'all'; state.metal=key==='history-filtered'?'silver':'all'; state.status='all'; state.date='all';
+      state.draftStatus=state.status;state.draftDate=state.date;
+      if(key.startsWith('trade-')){
+        state.tradeAsset='gold';state.tradeMode='buy';state.tradeAmount='';state.quoteActive=false;state.pendingTradeAsset=null;
+        if(key==='trade-selector3')state.sheet='trade-asset-3';
+        if(key==='trade-selector16')state.sheet='trade-asset-16';
+        if(key==='trade-quote-switch'){state.tradeAmount='۲۵٬۰۰۰٬۰۰۰';state.quoteActive=true;state.pendingTradeAsset='copper';state.sheet='quote-confirm'}
+      }
+      if(key==='chart-single'){state.chartAsset='silver';state.period='month'}
+      if(key==='receipt') state.receipt=activities[0];
+      if(key==='auth-login'){state.authMobile='';state.authPassword=''}
+      if(key==='kyc'){state.kycNationalId='';state.kycBirth=''}
+      if(key==='deposit'||key==='withdraw'){state.moneyMode=key;state.moneyAmount='';state.moneyMethod='gateway';state.moneyDestination='bank-1'}
+      if(key.startsWith('physical-')){
+        state.featureAsset=['physical-insufficient','physical-unavailable','physical-failed','physical-success'].includes(key)?'silver':'gold';
+        state.physicalItems={gold:{},silver:{},copper:{}};state.physicalUnavailableAsset=null;state.physicalBalanceOverrides={};state.physicalCenter='tehran-1';
+        if(key==='physical-insufficient')state.physicalBalanceOverrides={silver:5};
+        if(key==='physical-unavailable')state.physicalUnavailableAsset='silver';
+        if(key==='physical-failed'||key==='physical-success')state.physicalItems.silver={'s-100':1,'s-20':2};
+        if(key==='physical-success')state.receipt={id:'demo-physical',op:'physical',title:'درخواست دریافت فیزیکی نقره',asset:'silver',amount:'۱۴۰ گرم',weight:'شمش ۱۰۰ گرم × ۱، شمش ۲۰ گرم × ۲',status:'ثبت‌شده',statusKey:'pending',dateKey:'month',time:'۱۹ مرداد ۱۴۰۵، ۱۰:۴۵',tracking:'6548921400'};
+      }
+      if(key==='target-setup'){state.featureAsset='gold';state.targetKind='alert';state.targetDirection='buy';state.targetPrice='';state.targetAmount='';state.targetExpiry='7'}
+      if(key==='installment-setup'){state.featureAsset='gold';state.installmentTerm='6';state.installmentAmount=''}
+      if(key==='gift-setup'){state.featureAsset='gold';state.giftMode='send';state.giftSource='toman';state.giftAmount='';state.giftRecipient='';state.giftCode=''}
+      render(); appMain.scrollTop=0;
+    }
+    function captureView(){
+      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyDestination:state.moneyDestination,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,giftMode:state.giftMode,giftSource:state.giftSource,giftAmount:state.giftAmount,giftRecipient:state.giftRecipient,giftCode:state.giftCode,resultKind:state.resultKind,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
+    }
+    function restoreView(view){
+      const scrollTop=view.scrollTop||0,portfolioScrollLeft=view.portfolioScrollLeft||0;Object.assign(state,view,{sheet:null,pendingTradeAsset:null});render();
+      requestAnimationFrame(()=>{appMain.scrollTop=scrollTop;const rail=appMain.querySelector('.portfolio-rail');if(rail)rail.scrollLeft=portfolioScrollLeft});
+    }
+    function navigate(key,{replace=false}={}){
+      state.processingToken++;
+      if(!replace)state.stack.push(captureView());
+      state.scenario=key;state.sheet=null;state.pendingTradeAsset=null;render();appMain.scrollTop=0;
+    }
+    function closeOverlay({canonical=true}={}){
+      const trigger=overlayTrigger;overlayTrigger=null;
+      state.pendingTradeAsset=null;state.sheet=null;
+      const scenarioChanged=canonical&&['trade-selector3','trade-selector16','trade-quote-switch'].includes(state.scenario);
+      if(scenarioChanged){state.scenario='trade-gold';render()}else{overlayRoot.innerHTML='';renderScenarioList()}
+      requestAnimationFrame(()=>{if(trigger&&document.contains(trigger))trigger.focus()});
+    }
+    function openOverlay(sheet,trigger){
+      overlayTrigger=trigger||document.activeElement;state.sheet=sheet;
+      if(sheet==='filters'){state.draftStatus=state.status;state.draftDate=state.date}
+      renderScenarioList();overlay();
+    }
+    function back(){
+      if(state.sheet){closeOverlay();return}
+      if(state.stack.length){restoreView(state.stack.pop());return}
+      if(state.scenario==='receipt'){
+        state.operation=state.receipt.op;state.metal=state.receipt.asset||'all';state.status='all';state.date='all';state.scenario='history';state.sheet=null;render();appMain.scrollTop=0;return;
+      }
+      setScenario('home');
+    }
+    function showToast(message){
+      clearTimeout(state.toastTimer);document.getElementById('toast-root').innerHTML=`<div class="toast">${message}</div>`;
+      state.toastTimer=setTimeout(()=>document.getElementById('toast-root').innerHTML='',2600);
+    }
+    function setChrome(title,backVisible=false,navVisible=false,activeNav='خانه'){
+      headerTitle.textContent=title;headerBack.innerHTML=backVisible?icons.back:'';headerBack.style.visibility=backVisible?'visible':'hidden';
+      headerAction.innerHTML=backVisible?icons.user:icons.bell;headerAction.setAttribute('aria-label',backVisible?'حساب کاربری':'اعلان‌ها');
+      bottomNav.classList.toggle('hidden',!navVisible);
+      bottomNav.innerHTML=navVisible?[
+        ['خانه',icons.home],['معامله',icons.trade],['خدمات',icons.service]
+      ].map(([label,icon])=>`<button type="button" class="nav-item ${label===activeNav?'active':''}" data-nav="${label}">${icon}<span>${label}</span></button>`).join(''):'';
+    }
+    function summary(partial=false){
+      return `<article class="portfolio-card portfolio-total" aria-label="خلاصه کل دارایی‌های فلزی">
+        <div class="summary-label">ارزش تقریبی فروش کل فلزها</div>
+        <div class="summary-value">${partial?'۱٬۰۴۹٬۰۰۰٬۰۰۰':'۱٬۲۴۵٬۵۰۰٬۰۰۰'} تومان</div>
+        <div class="summary-meta"><span>${partial?'برآورد ناقص؛ نرخ نقره موجود نیست':'سود/زیان تحقق‌نیافته کل'}</span><strong>${partial?'—':'+۱۰۰٬۷۰۰٬۰۰۰ · +۸٫۸٪'}</strong></div>
+      </article>`;
+    }
+    function portfolioAssetCard(key,variant='normal'){
+      const m=metals[key],missing=variant==='missing'||variant==='outage';
+      const status=variant==='outage'?'معامله متوقف':missing?'نرخ ناموجود':m.pnl+' ('+(m.pnl.startsWith('+')?'+۷٫۴٪':'−۳٫۸٪')+')';
+      return `<button type="button" class="portfolio-card" data-detail="${key}" aria-label="مشاهده جزئیات ${m.name}، موجودی ${m.weight} گرم، ${missing?'ارزش فعلاً ناموجود':m.value+' تومان'}">
+        <span class="portfolio-card-head"><span class="portfolio-card-title"><span class="metal-symbol" aria-hidden="true">${m.mark}</span><span class="portfolio-card-title-copy"><strong>${m.name} <span class="muted" dir="ltr">${m.symbol}</span></strong><small>${m.grade}</small></span></span><span class="inline-status ${variant==='outage'?'danger':missing?'warning':'success'}">${variant==='outage'?'متوقف':missing?'نرخ ناقص':'فعال'}</span></span>
+        <span class="portfolio-card-balance"><span>موجودی من</span><strong>${m.weight} گرم</strong></span>
+        <span class="portfolio-card-foot"><span>ارزش تقریبی فروش</span><strong class="${missing?'muted':m.pnl.startsWith('+')?'positive':'negative'}">${missing?'—':m.value+' تومان'}<br>${status}</strong></span>
+      </button>`;
+    }
+    function home(kind='normal'){
+      setChrome('خانه',false,true); const partial=kind==='partial'||kind==='outage';
+      const alert=kind==='partial'?`<div class="alert">${icons.warn}<span>نرخ معتبر نقره دریافت نشد. وزن دارایی حفظ شده و جمع پورتفوی «برآورد ناقص» است.</span></div>`:
+        kind==='outage'?`<div class="alert danger">${icons.warn}<span>معامله نقره موقتاً متوقف است. طلا و مس همچنان فعال‌اند و سوابق نقره قابل مشاهده است.</span></div>`:'';
+      return `${alert}<section><div class="section-head"><h3>دارایی‌های من</h3><button class="icon-button" type="button" data-go="portfolio-mix" aria-label="مشاهده ترکیب دارایی‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button></div>
+          <div class="portfolio-rail" role="region" aria-label="کارت‌های دارایی؛ برای دیدن فلزهای بعدی افقی پیمایش کنید">${summary(partial)}${portfolioAssetCard('gold')}${portfolioAssetCard('silver',kind==='normal'?'normal':kind==='partial'?'missing':'outage')}${portfolioAssetCard('copper')}</div>
+          </section>
+        <section class="section card wallet-row"><div><div class="muted" style="font-size:12px">کیف پول تومان</div><strong>۳۸٬۶۰۰٬۰۰۰ تومان</strong></div><button class="secondary-button" type="button" data-go="wallet">واریز / برداشت</button></section>
+        <section class="section"><button type="button" class="menu-row" data-go="history"><span class="activity-icon">س</span><span class="row-main"><strong>تاریخچه عملیات</strong><small>همه تراکنش‌ها، درخواست‌ها و رسیدها</small></span><span class="row-chevron">${icons.back}</span></button></section>
+        <section class="section quick-grid"><button class="quick-action" data-go="physical-select"><strong>دریافت فیزیکی</strong><span>برای طلا، نقره و مس</span></button><button class="quick-action" data-go="market-services"><strong>سفارش و هشدار</strong><span>قیمت دلخواهتان را تنظیم کنید</span></button></section>`;
+    }
+    function portfolioMix(){
+      setChrome('ترکیب دارایی',true,false);
+      const rows=[
+        ['#d6aa52','ط','طلا','۸۹۲٬۴۰۰٬۰۰۰ تومان','۶۹٫۵٪','69.5%','دارایی فلزی'],
+        ['#aeb7c2','ن','نقره','۲۷۴٬۸۰۰٬۰۰۰ تومان','۲۱٫۴٪','21.4%','دارایی فلزی'],
+        ['#b97442','م','مس','۷۸٬۳۰۰٬۰۰۰ تومان','۶٫۱٪','6.1%','دارایی فلزی'],
+        ['#48a06d','ت','کیف تومان','۳۸٬۶۰۰٬۰۰۰ تومان','۳٫۰٪','3%','موجودی ریالی']
+      ];
+      return `<section class="card portfolio-mix-hero" aria-label="خلاصه ترکیب دارایی"><div class="mix-total"><span class="muted">جمع دارایی‌ها</span><strong>۱٫۲۸۴ میلیارد تومان</strong><span class="muted">فلزها همراه با موجودی کیف تومان</span></div><div class="mix-bar" role="img" aria-label="سهم دارایی‌ها: طلا ۶۹٫۵ درصد، نقره ۲۱٫۴ درصد، مس ۶٫۱ درصد، کیف تومان ۳ درصد">${rows.map(([color,,,,,width])=>`<span style="width:${width};background:${color}"></span>`).join('')}</div></section>
+        <section class="section mix-card-list">${rows.map(([color,mark,name,value,share,,type])=>`<article class="mix-card"><span class="mix-mark" style="background:color-mix(in srgb,${color} 24%,var(--surface));border:1px solid ${color}">${mark}</span><span class="mix-copy"><strong>${name}</strong><small>${type} · ${value}</small></span><span class="mix-share"><strong>${share}</strong><span>از کل</span></span></article>`).join('')}</section>`;
+    }
+    function market(count){
+      setChrome('همه فلزها',true,false); const stress=count===16;
+      const base=Object.entries(metals).map(([id,m])=>({id,...m,status:'فعال'}));
+      const list=stress?[...base,...futureMetals]:base;
+      return `<div class="page-lead"><h3>همه فلزها</h3><p>${stress?'Stress state برای سنجش مقیاس ۱۶ دارایی':'فلزهای فعال Release اول'}</p></div>
+        ${stress?`<div class="search"><label class="sr-only" for="market-search">جست‌وجوی فلز</label>${icons.search}<input id="market-search" type="search" inputmode="search" placeholder="جست‌وجوی نام یا نماد فلز" autocomplete="off"></div><p class="market-note">فلزهای بعد از مس صرفاً داده آزمایشی ساختارند و وعده عرضه نیستند.</p>`:''}
+        <div class="metal-list" id="market-list">${list.map(item=>marketRow(item)).join('')}</div>`;
+    }
+    function marketRow(item){
+      const active=!!metals[item.id], unavailable=item.status==='داده در دسترس نیست';
+      return `<button type="button" class="metal-row" ${active?`data-detail="${item.id}"`:'disabled'} data-search="${item.name} ${item.symbol}" aria-label="${item.name}، ${item.symbol}، ${item.status}">
+        <span class="metal-symbol" aria-hidden="true">${item.mark}</span><span class="row-main"><strong>${item.name} <span dir="ltr" class="muted">${item.symbol}</span></strong><small>${active?item.rate+' تومان برای هر گرم':item.status}</small></span>
+        <span class="row-side"><span class="inline-status ${unavailable?'danger':active?'success':''}">${item.status}</span></span></button>`;
+    }
+    function chart(period){
+      const paths={day:'M8 102 C38 100 45 72 76 78 S118 43 146 58 S193 39 232 23 S267 34 300 18',month:'M8 100 C33 87 50 96 78 74 S118 86 147 52 S190 61 218 38 S263 48 300 17',year:'M8 112 C38 115 51 88 80 94 S119 67 148 73 S192 39 220 49 S262 24 300 17'};
+      return `<svg class="chart" viewBox="0 0 308 138" role="img" aria-label="نمودار آزمایشی روند قیمت در بازه ${period==='day'?'روزانه':period==='month'?'ماهانه':'سالانه'}"><line class="grid" x1="8" y1="20" x2="300" y2="20"/><line class="grid" x1="8" y1="68" x2="300" y2="68"/><line class="grid" x1="8" y1="116" x2="300" y2="116"/><path class="line" d="${paths[period]}"/><text x="8" y="132">ابتدای بازه</text><text x="254" y="132">امروز</text></svg>`;
+    }
+    function detail(key){
+      const m=metals[key];setChrome(`جزئیات ${m.name}`,true,false);
+      return `<section class="card detail-position"><div class="asset-proof"><span class="metal-symbol" aria-hidden="true">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade} · دارایی واقعی و پشتوانه‌دار</small></div></div>
+        <div><div class="muted" style="font-size:12px">موجودی من</div><div class="weight">${m.weight} گرم</div></div>
+        <div class="detail-grid"><div class="metric"><span>ارزش تقریبی فروش</span><strong>${m.value} تومان</strong></div><div class="metric"><span>سود/زیان جاری</span><strong class="${m.pnl.startsWith('+')?'positive':'negative'}">${m.pnl}</strong></div></div></section>
+        <section class="section card chart-card"><div class="section-head"><h3>روند قیمت ${m.name}</h3><button class="text-button" type="button" data-open-full-chart="${key}">نمودار کامل</button></div>
+          <div class="periods">${[['day','روزانه'],['month','ماهانه'],['year','سالانه']].map(([id,label])=>`<button class="period ${state.period===id?'selected':''}" type="button" data-period="${id}" aria-pressed="${state.period===id}">${label}</button>`).join('')}</div>${chart(state.period)}</section>
+        <section class="section card"><div class="receipt-row"><span>نرخ خرید از کاربر</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>سود تحقق‌یافته</span><strong>نمایش در جزئیات مالی</strong></div><div class="receipt-row"><span>قابلیت‌ها</span><strong>براساس وضعیت ${m.name}</strong></div></section>
+        <div class="action-stack"><button class="primary-button" type="button" data-trade-asset="${key}">معامله ${m.name}</button><button class="secondary-button" type="button" data-physical-start="${key}">دریافت فیزیکی ${m.name}</button><button class="text-button" type="button" data-go="history" data-history-metal="${key}">سوابق این فلز</button></div>`;
+    }
+    function quotedWeight(key){
+      return key==='gold'?'۰٫۳۴۷':key==='silver'?'۲۴٫۰۵':'۵۸۸';
+    }
+    function trade(){
+      const m=metals[state.tradeAsset],hasAmount=state.tradeAmount.trim().length>0,selectorSize=state.scenario==='trade-selector16'?'16':'3';
+      setChrome('معامله',state.stack.length>0,true,'معامله');
+      return `<div class="page-lead"><h3>${state.tradeMode==='buy'?'خرید':'فروش'} فلز</h3><p>فلز، مقدار و قواعد همان دارایی پیش از تأیید صریح‌اند.</p></div>
+        <button type="button" class="trade-selector" data-open-trade-assets="${selectorSize}" aria-label="فلز معامله ${m.name}، بازکردن انتخاب‌گر">
+          <span class="metal-symbol" aria-hidden="true">${m.mark}</span><span class="selector-copy"><small>فلز انتخاب‌شده</small><strong>${m.name} <span dir="ltr" class="muted">${m.symbol}</span></strong></span><span aria-hidden="true">⌄</span>
+        </button>
+        <section class="section card"><div class="segment" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div>
+          <div class="field"><label for="trade-amount">${state.tradeMode==='buy'?'مبلغ پرداخت':'مقدار فروش'}</label><div class="input-wrap"><input id="trade-amount" inputmode="numeric" autocomplete="off" value="${state.tradeAmount}" placeholder="۰"><span>${state.tradeMode==='buy'?'تومان':m.name==='copper'?'گرم بدون اعشار':'گرم'}</span></div><div class="field-help">دقت وزن ${m.name}: ${state.tradeAsset==='gold'?'سه رقم اعشار':state.tradeAsset==='silver'?'دو رقم اعشار':'بدون اعشار'}</div></div>
+          ${hasAmount?`<div class="quote-card" aria-label="پیش‌نمایش آزمایشی نرخ"><div class="quote-row"><span>${state.tradeMode==='buy'?'مقدار تقریبی':'دریافتی تقریبی'}</span><strong>${state.tradeMode==='buy'?quotedWeight(state.tradeAsset)+' گرم':'۲۴٬۶۷۵٬۰۰۰ تومان'}</strong></div><div class="quote-row"><span>نرخ هر گرم ${m.name}</span><strong>${m.rate} تومان</strong></div><div class="quote-row"><span>اعتبار نرخ</span><strong>۲۰ ثانیه · داده آزمایشی</strong></div></div>`:`<div class="market-note">ورودی معامله به‌صورت پیش‌فرض خالی است.</div>`}
+          <button type="button" class="text-button" data-toast="جزئیات محاسبه، کارمزد و محدودیت‌های ${m.name} باز می‌شود.">جزئیات محاسبه و محدودیت‌ها</button>
+        </section>
+        <section class="section card wallet-row"><div><div class="muted" style="font-size:12px">${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی '+m.name}</div><strong>${state.tradeMode==='buy'?'۳۸٬۶۰۰٬۰۰۰ تومان':m.weight+' گرم'}</strong></div><span class="inline-status">${m.grade}</span></section>
+        <div class="action-stack"><button class="primary-button" type="button" ${hasAmount?'':'disabled'} data-trade-preview>${hasAmount?'بررسی '+(state.tradeMode==='buy'?'خرید':'فروش'):'مبلغ را وارد کنید'}</button></div>`;
+    }
+    function tradePreview(){
+      const m=metals[state.tradeAsset];setChrome('تأیید معامله',true,false);
+      const action=state.tradeMode==='buy'?'خرید':'فروش',weight=state.tradeMode==='buy'?quotedWeight(state.tradeAsset)+' گرم':state.tradeAmount+' گرم';
+      return `<div class="page-lead"><h3>جزئیات ${action} ${m.name}</h3><p>پیش از ثبت، فلز، مقدار و مبلغ را بررسی کنید.</p></div>
+        <section class="card"><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade}</small></div></div>
+          <div class="receipt-grid"><div class="receipt-row"><span>نوع عملیات</span><strong>${action}</strong></div><div class="receipt-row"><span>مبلغ واردشده</span><strong>${state.tradeAmount} ${state.tradeMode==='buy'?'تومان':'گرم'}</strong></div><div class="receipt-row"><span>وزن تقریبی</span><strong>${weight}</strong></div><div class="receipt-row"><span>نرخ هر گرم</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>پرداخت نهایی شامل کارمزد</span><strong>${state.tradeMode==='buy'?state.tradeAmount+' تومان':'پس از ثبت محاسبه می‌شود'}</strong></div></div>
+          <p class="market-note">نرخ و محاسبات این Prototype آزمایشی‌اند.</p></section>
+        <div class="action-stack"><button class="primary-button" type="button" data-confirm-trade>تأیید و ثبت ${action}</button><button class="secondary-button" type="button" data-edit-trade>ویرایش معامله</button></div>`;
+    }
+    function tradeProcessing(){
+      setChrome('ثبت معامله',false,false);
+      return `<section class="processing" aria-live="polite"><div class="processing-card"><span class="spinner" aria-hidden="true"></span><h3>در حال ثبت معامله</h3><p>لطفاً این صفحه را نبندید. نتیجه تا چند لحظه دیگر نمایش داده می‌شود.</p></div></section>`;
+    }
+    function completeTrade(){
+      const m=metals[state.tradeAsset],isBuy=state.tradeMode==='buy';
+      const demo={id:'demo-trade',op:isBuy?'buy':'sell',title:`${isBuy?'خرید':'فروش'} ${m.name}`,asset:state.tradeAsset,amount:`${state.tradeAmount} ${isBuy?'تومان':'گرم'}`,weight:isBuy?quotedWeight(state.tradeAsset)+' گرم':state.tradeAmount+' گرم',status:'موفق',statusKey:'final',dateKey:'month',time:'همین حالا',tracking:`SH-${m.symbol}-DEMO`};
+      const old=activities.findIndex(a=>a.id===demo.id);if(old>=0)activities.splice(old,1);activities.unshift(demo);
+      state.receipt=demo;state.operation=demo.op;state.metal=demo.asset;state.status='all';state.date='all';state.tradeAmount='';state.quoteActive=false;state.stack=[];state.scenario='receipt';render();appMain.scrollTop=0;showToast('معامله با موفقیت ثبت شد.');
+    }
+    function assetChoices(){
+      return `<div class="choice-grid" aria-label="انتخاب فلز">${Object.entries(metals).map(([id,m])=>`<button type="button" class="choice ${state.featureAsset===id?'selected':''}" data-feature-asset="${id}" aria-pressed="${state.featureAsset===id}">${m.name}</button>`).join('')}</div>`;
+    }
+    function authLogin(){
+      const ready=state.authMobile.trim().length>=10&&state.authPassword.trim().length>=8;setChrome('ورود',true,false);
+      return `<div class="page-lead"><h3>ورود به شمش</h3><p>ورود روزمره با شماره موبایل و رمز انجام می‌شود.</p></div><section class="card"><div class="field"><label for="auth-mobile">شماره موبایل</label><div class="input-wrap"><input id="auth-mobile" inputmode="numeric" autocomplete="tel" value="${state.authMobile}" placeholder="۰۹۱۲۱۲۳۴۵۶۷"><span>موبایل</span></div></div><div class="field"><label for="auth-password">رمز عبور</label><div class="input-wrap"><input id="auth-password" type="password" autocomplete="current-password" value="${state.authPassword}" placeholder="حداقل ۸ کاراکتر"><span>رمز</span></div></div><button class="text-button" type="button" data-toast="بازیابی رمز با OTP و ساخت رمز تازه انجام می‌شود.">رمز را فراموش کرده‌ام</button></section><div class="action-stack"><button class="primary-button" type="button" data-auth-submit ${ready?'':'disabled'}>ورود</button><button class="secondary-button" type="button" data-start-kyc>ساخت حساب آزمایشی</button></div>`;
+    }
+    function kyc(){
+      const ready=state.kycNationalId.trim().length===10&&state.kycBirth.trim().length>5;setChrome('احراز هویت',true,false);
+      return `<div class="page-lead"><h3>تکمیل اطلاعات هویتی</h3><p>برای فعال‌شدن عملیات مالی، اطلاعات با شماره موبایل تطبیق داده می‌شوند.</p></div><section class="card"><div class="field"><label for="kyc-national">کد ملی</label><div class="input-wrap"><input id="kyc-national" inputmode="numeric" value="${state.kycNationalId}" placeholder="۱۰ رقم"><span>کد ملی</span></div></div><div class="field"><label for="kyc-birth">تاریخ تولد شمسی</label><div class="input-wrap"><input id="kyc-birth" inputmode="numeric" value="${state.kycBirth}" placeholder="۱۳۷۰/۰۵/۱۲"><span>تاریخ</span></div><div class="field-help">Date picker نهایی از فلو Auth/KYC حفظ‌شده Reuse می‌شود.</div></div></section><div class="action-stack"><button class="primary-button" type="button" data-kyc-submit ${ready?'':'disabled'}>تأیید اطلاعات</button><button class="text-button" type="button" data-go-home>بعداً انجام می‌دهم</button></div>`;
+    }
+    function wallet(){
+      setChrome('کیف تومان',true,false);
+      return `<section class="card summary-card"><div class="summary-label">موجودی قابل استفاده</div><div class="summary-value">۳۸٬۶۰۰٬۰۰۰ تومان</div><div class="summary-meta"><span>مبلغ درراه یا مسدود</span><strong>۰ تومان</strong></div></section><section class="section quick-grid"><button class="quick-action" data-go="deposit"><strong>واریز</strong><span>پنج روش پرداخت</span></button><button class="quick-action" data-go="withdraw"><strong>برداشت</strong><span>به مقصد بانکی خودم</span></button></section><section class="section"><button class="menu-row" data-go="history"><span class="activity-icon">س</span><span class="row-main"><strong>سوابق کیف تومان</strong><small>واریز، برداشت و پاداش معرفی</small></span><span class="row-chevron">‹</span></button></section><p class="assumption">کیف تومان از پورتفوی فلزها مستقل است و هیچ فیلتر فلزی ندارد.</p>`;
+    }
+    function moneyFlow(mode=state.moneyMode){
+      const deposit=mode==='deposit',ready=state.moneyAmount.trim().length>0;state.moneyMode=mode;setChrome(deposit?'واریز تومان':'برداشت تومان',true,false);
+      const methods=[['gateway','درگاه'],['card','کارت‌به‌کارت'],['bridge','پل'],['paya','پایا'],['open','Open Banking']];
+      return `<div class="page-lead"><h3>${deposit?'افزایش موجودی کیف':'برداشت از کیف'}</h3><p>${deposit?'روش مناسب را پس از واردکردن مبلغ انتخاب کنید.':'مبلغ به مقصد بانکی متعلق به خودتان واریز می‌شود.'}</p></div><section class="card"><div class="field"><label for="money-amount">مبلغ</label><div class="input-wrap"><input id="money-amount" inputmode="numeric" value="${state.moneyAmount}" placeholder="۰"><span>تومان</span></div><div class="field-help">${deposit?'حداقل ۱۰٬۰۰۰ تومان؛ کارمزد شمش صفر':'حداقل ۲۰۰٬۰۰۰ تومان؛ هزینه برداشت صفر'}</div></div>${deposit?`<div class="field"><label>روش واریز</label><div class="choice-grid">${methods.slice(0,3).map(([id,label])=>`<button class="choice ${state.moneyMethod===id?'selected':''}" type="button" data-money-method="${id}">${label}</button>`).join('')}</div><button class="text-button" data-toast="پایا و Open Banking نیز در لیست کامل روش‌ها حضور دارند.">دو روش دیگر</button></div>`:`<div class="field"><label>مقصد بانکی</label><button class="sheet-choice selected" type="button" data-money-destination="bank-1"><span>بانک ملت · IR•••۴۸۲۱</span><span>تأییدشده</span></button><button class="text-button" data-toast="حداکثر پنج مقصد متعلق به کاربر قابل ثبت است.">افزودن مقصد</button></div>`}</section><div class="action-stack"><button class="primary-button" type="button" data-money-preview ${ready?'':'disabled'}>بررسی ${deposit?'واریز':'برداشت'}</button></div>`;
+    }
+    function moneyPreview(){
+      const deposit=state.moneyMode==='deposit';setChrome('بررسی نهایی',true,false);
+      return `<div class="page-lead"><h3>تأیید ${deposit?'واریز':'برداشت'}</h3><p>قبل از ثبت، مبلغ و ${deposit?'روش':'مقصد'} را بررسی کنید.</p></div><section class="card receipt-grid"><div class="receipt-row"><span>مبلغ</span><strong>${state.moneyAmount} تومان</strong></div><div class="receipt-row"><span>${deposit?'روش':'مقصد'}</span><strong>${deposit?'روش انتخاب‌شده':'بانک ملت · •۴۸۲۱'}</strong></div><div class="receipt-row"><span>کارمزد شمش</span><strong>صفر</strong></div><div class="receipt-row"><span>اثر روی کیف</span><strong>${deposit?'پس از تأیید بانک':'پس از ثبت کسر می‌شود'}</strong></div></section><div class="action-stack"><button class="primary-button" data-confirm-money>تأیید و ثبت</button><button class="secondary-button" data-edit-money>ویرایش</button></div>`;
+    }
+    function faNumber(value,maxDigits=2){
+      return new Intl.NumberFormat('fa-IR',{maximumFractionDigits:maxDigits,minimumFractionDigits:0}).format(Math.max(0,Number(value)||0));
+    }
+    function resetPhysical(asset='gold'){
+      state.featureAsset=asset;state.physicalItems={gold:{},silver:{},copper:{}};state.physicalUnavailableAsset=null;state.physicalBalanceOverrides={};state.physicalCenter='tehran-1';
+    }
+    function physicalBalance(asset=state.featureAsset){
+      return state.physicalBalanceOverrides[asset]??physicalCatalog[asset].balance;
+    }
+    function physicalMeasure(grams,asset=state.featureAsset){
+      if(asset==='gold')return `${faNumber(grams*1000,2)} سوت`;
+      if(asset==='copper')return `${faNumber(grams,0)} گرم`;
+      return `${faNumber(grams,2)} گرم`;
+    }
+    function physicalEntries(asset=state.featureAsset){
+      const quantities=state.physicalItems[asset]||{};
+      return physicalCatalog[asset].skus.map(sku=>({...sku,qty:Number(quantities[sku.id]||0)})).filter(item=>item.qty>0);
+    }
+    function physicalSummary(asset=state.featureAsset){
+      const selected=physicalEntries(asset).reduce((sum,item)=>sum+item.grams*item.qty,0),fee=selected*physicalCatalog[asset].feeRate;
+      return {selected,fee,total:selected+fee,balance:physicalBalance(asset),after:physicalBalance(asset)-selected-fee};
+    }
+    function physicalCanAdd(sku,asset=state.featureAsset){
+      const summary=physicalSummary(asset);
+      return sku.available!==false&&(summary.selected+sku.grams)*(1+physicalCatalog[asset].feeRate)<=summary.balance+.000001;
+    }
+    function physicalSelectionText(asset=state.featureAsset){
+      const m=metals[asset];
+      return physicalEntries(asset).map(item=>`شمش ${m.name} ${item.label} × ${faNumber(item.qty,0)}`).join('، ');
+    }
+    function physicalInfoButton(compact=false){
+      const m=metals[state.featureAsset],config=physicalCatalog[state.featureAsset];
+      return `<button class="info-banner" type="button" data-open-physical-rules aria-label="مشاهده قوانین دریافت فیزیکی ${m.name}">${icons.info}<span class="info-banner-copy"><strong>${compact?`هر شمش انتخابی از موجودی ${m.name} کسر می‌شود.`:`دریافت فیزیکی ${m.name} از ${physicalMeasure(config.minGrams)} امکان‌پذیر است.`}</strong><span>کارمزد ضرب و تحویل ${config.feeLabel} به مقدار انتخابی اضافه می‌شود.</span><u>${compact?'قوانین دریافت':'مشاهده قوانین دریافت'}</u></span></button>`;
+    }
+    function physicalSelect(){
+      const asset=state.featureAsset,m=metals[asset],config=physicalCatalog[asset],balance=physicalBalance(asset),minTotal=config.minGrams*(1+config.feeRate);
+      const unavailable=state.physicalUnavailableAsset===asset,insufficient=!unavailable&&balance<minTotal;
+      setChrome('دریافت فیزیکی',true,false);
+      const content=unavailable
+        ?`<section class="card empty physical-state"><div class="empty-mark">${icons.physical}</div><h3>دریافت فیزیکی ${m.name} موقتاً غیرفعال است</h3><p>در حال حاضر امکان ثبت درخواست دریافت ${m.name} وجود ندارد. می‌توانید فلز دیگری را انتخاب کنید.</p></section><div class="sticky-action"><button class="secondary-button" style="width:100%" type="button" data-physical-back>بازگشت</button></div>`
+        :insufficient
+          ?`${physicalInfoButton()}<div class="alert danger physical-state">${icons.warn}<span><strong>موجودی ${m.name} شما برای دریافت فیزیکی کافی نیست.</strong><br>برای دریافت حداقل شمش ${physicalMeasure(config.minGrams)}، با احتساب کارمزد به ${physicalMeasure(minTotal)} ${m.name} نیاز دارید.</span></div><div class="sticky-action"><button class="primary-button" style="width:100%" type="button" data-trade-asset="${asset}">خرید ${m.name}</button></div>`
+          :`${physicalInfoButton()}<div class="sticky-action"><button class="primary-button" style="width:100%" type="button" data-physical-catalog>انتخاب شمش</button></div>`;
+      return `<div class="physical-segment" role="tablist" aria-label="انتخاب فلز">${Object.entries(metals).map(([id,item])=>`<button type="button" role="tab" aria-selected="${asset===id}" class="${asset===id?'selected':''}" data-physical-tab="${id}">${item.name}</button>`).join('')}</div>
+        <section class="card physical-balance"><span class="physical-balance-copy"><span>موجودی ${m.name}</span><strong>${physicalMeasure(balance)}</strong></span><span class="service-icon" aria-hidden="true">${icons.physical}</span></section>${content}`;
+    }
+    function physicalConfig(){
+      const asset=state.featureAsset,m=metals[asset],config=physicalCatalog[asset],summary=physicalSummary(asset),hasSelection=summary.selected>0;
+      setChrome(`انتخاب شمش ${m.name}`,true,false);
+      const cards=config.skus.map(sku=>{
+        const qty=Number(state.physicalItems[asset]?.[sku.id]||0),available=sku.available!==false,canAdd=physicalCanAdd(sku,asset),atMax=available&&qty>0&&!canAdd;
+        return `<article class="bullion-card ${available?'':'unavailable'}" aria-label="شمش ${m.name} ${sku.label}${available?'':'، ناموجود'}"><div class="bullion-card-main"><div class="bullion-visual" aria-hidden="true">${icons.physical}</div><div class="bullion-copy"><span>شمش ${m.name}</span><strong>${sku.label}</strong>${!available?'<small>ناموجود</small>':atMax?'<small>حداکثر قابل انتخاب</small>':''}</div></div>${available?(qty?`<div class="stepper" aria-label="تعداد شمش ${sku.label}"><button type="button" data-physical-minus="${sku.id}" aria-label="کم‌کردن شمش ${sku.label}">−</button><strong>${faNumber(qty,0)}</strong><button type="button" data-physical-plus="${sku.id}" aria-label="افزودن شمش ${sku.label}" ${canAdd?'':'disabled'}>+</button></div>`:`<button class="bullion-add" type="button" data-physical-plus="${sku.id}" aria-label="افزودن شمش ${sku.label}" ${canAdd?'':'disabled'}>+</button>`):'<button class="bullion-add" type="button" disabled aria-label="این شمش ناموجود است">+</button>'}</article>`;
+      }).join('');
+      return `<section class="card physical-balance compact"><span class="physical-balance-copy"><span>موجودی ${m.name}</span><strong>${physicalMeasure(summary.balance)}</strong></span><span class="metal-symbol" aria-hidden="true">${m.mark}</span></section>${physicalInfoButton(true)}
+        <section class="section"><div class="section-head"><div><h3>شمش موردنظر خود را انتخاب کنید</h3><p class="market-note" style="margin:2px 0 0">می‌توانید یک یا چند وزن را هم‌زمان انتخاب کنید.</p></div></div><div class="bullion-grid">${cards}</div></section>
+        <div class="sticky-action"><div class="sticky-summary">${hasSelection?`<span class="sticky-summary-copy"><span>مقدار شمش‌ها</span><strong>${physicalMeasure(summary.selected)}</strong></span><span class="sticky-summary-copy"><span>با احتساب کارمزد</span><strong>${physicalMeasure(summary.total)}</strong></span>`:`<span class="sticky-summary-copy"><strong>هنوز شمشی انتخاب نکرده‌اید</strong><span>برای ادامه یک وزن را اضافه کنید.</span></span>`}</div><button class="primary-button" style="width:100%" type="button" data-physical-preview ${hasSelection?'':'disabled'}>ادامه</button></div>`;
+    }
+    function physicalPreview(){
+      const asset=state.featureAsset,m=metals[asset],entries=physicalEntries(asset);setChrome(`دریافت فیزیکی ${m.name}`,true,false);
+      return `<section class="card context-card"><div class="context-row"><span class="context-row-icon">${icons.location}</span><span class="context-row-copy"><strong>محل دریافت</strong><p>تهران، محله پونک، خیابان اشرفی اصفهانی، بلوار همیلا، برج اداری تجاری همیلا سنتر، طبقه اول، واحد ۱۱۵</p><button class="text-button" style="justify-self:start;padding-inline:0" type="button" data-toast="موقعیت مرکز دریافت روی نقشه باز می‌شود.">مشاهده روی نقشه</button></span></div><div class="context-row"><span class="context-row-icon">${icons.clock}</span><span class="context-row-copy"><strong>زمان دریافت</strong><p>زمان دقیق دریافت پس از آماده‌شدن سفارش به شما اعلام می‌شود.</p><small>وضعیت درخواست و زمان مراجعه از بخش «درخواست‌های من» قابل پیگیری است.</small></span></div></section>
+        <div class="info-banner" role="note">${icons.idCard}<span class="info-banner-copy"><strong>برای دریافت حضوری، همراه داشتن کارت ملی صاحب حساب الزامی است.</strong></span></div>
+        <section class="section"><div class="section-head"><h3>شمش‌های انتخابی</h3></div><div class="selected-bullion-rail">${entries.map(item=>`<article class="selected-bullion"><strong>شمش ${m.name} ${item.label}</strong><span>تعداد ${faNumber(item.qty,0)}</span></article>`).join('')}</div></section>
+        <div class="sticky-action"><button class="primary-button" style="width:100%" type="button" data-open-physical-confirm>تأیید و ادامه</button></div>`;
+    }
+    function physicalFailed(){
+      const m=metals[state.featureAsset];setChrome('نتیجه درخواست',true,false);
+      return `<section class="card"><div class="receipt-head"><div class="receipt-mark result-mark-error">!</div><span class="inline-status danger">ناموفق</span><h3>ثبت درخواست دریافت ${m.name} ناموفق بود</h3><p>موجودی شما تغییری نکرده است. دوباره تلاش کنید.</p></div><div class="action-stack"><button class="primary-button" type="button" data-physical-retry>تلاش مجدد</button><button class="secondary-button" type="button" data-physical-back>بازگشت</button></div></section>`;
+    }
+    function physicalSuccess(){
+      const a=state.receipt,m=metals[state.featureAsset],summary=physicalSummary();setChrome('درخواست ثبت شد',false,false);
+      return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><span class="inline-status success">ثبت‌شده</span><h3>درخواست دریافت ${m.name} با موفقیت ثبت شد</h3><p>پس از آماده‌شدن سفارش، زمان مراجعه به شما اعلام می‌شود.</p></div><div class="receipt-grid"><div class="receipt-row"><span>مقدار فیزیکی درخواستی</span><strong>${physicalMeasure(summary.selected)}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a?.tracking||'6548921400'}</strong></div><div class="receipt-row"><span>تاریخ ثبت</span><strong>${a?.time||'۱۹ مرداد ۱۴۰۵، ۱۰:۴۵'}</strong></div></div><div class="info-banner" role="note">${icons.info}<span class="info-banner-copy"><strong>پس از آماده‌شدن سفارش، زمان مراجعه در بخش «درخواست‌های من» نمایش داده می‌شود.</strong></span></div><div class="action-stack"><button class="primary-button" type="button" data-physical-request>مشاهده درخواست</button><button class="secondary-button" type="button" data-go-home>بازگشت به خانه</button></div></section>`;
+    }
+    function marketServices(){
+      setChrome('خدمات قیمت',true,false);
+      return `<div class="page-lead"><h3>خدمات قیمت</h3><p>خدمت موردنظر را انتخاب کنید.</p></div><div class="service-grid"><button class="service-tile" data-target-kind="alert"><span class="service-icon" aria-hidden="true">${icons.alert}</span><span class="service-copy"><strong>هشدار قیمت</strong><small>اعلان رسیدن قیمت به مقدار دلخواه</small></span></button><button class="service-tile" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><span class="service-copy"><strong>سفارش قیمت</strong><small>خرید یا فروش در قیمت تعیین‌شده</small></span></button></div>`;
+    }
+    function targetSetup(){
+      const order=state.targetKind==='order',ready=state.targetPrice.trim().length>0&&(!order||state.targetAmount.trim().length>0);setChrome(order?'سفارش قیمت هدف':'هشدار قیمت',true,false);
+      return `<section class="card"><div class="field"><label>فلز</label>${assetChoices()}</div><div class="field"><label>جهت قیمت</label><div class="segment"><button class="${state.targetDirection==='buy'?'selected':''}" data-target-direction="buy">خرید</button><button class="${state.targetDirection==='sell'?'selected':''}" data-target-direction="sell">فروش</button></div></div><div class="field"><label for="target-price">قیمت هدف هر گرم</label><div class="input-wrap"><input id="target-price" inputmode="numeric" value="${state.targetPrice}" placeholder="۰"><span>تومان</span></div></div>${order?`<div class="field"><label for="target-amount">مبلغ / مقدار سفارش</label><div class="input-wrap"><input id="target-amount" inputmode="numeric" value="${state.targetAmount}" placeholder="۰"><span>${state.targetDirection==='buy'?'تومان':'گرم'}</span></div></div><div class="field"><label>انقضا</label><div class="choice-grid">${[['1','امروز'],['7','۷ روز'],['30','۳۰ روز']].map(([id,label])=>`<button class="choice ${state.targetExpiry===id?'selected':''}" data-target-expiry="${id}">${label}</button>`).join('')}</div></div>`:''}</section><div class="action-stack"><button class="primary-button" data-target-preview ${ready?'':'disabled'}>بررسی ${order?'سفارش':'هشدار'}</button></div>`;
+    }
+    function targetPreview(){
+      const m=metals[state.featureAsset],order=state.targetKind==='order';setChrome('بررسی نهایی',true,false);
+      return `<div class="page-lead"><h3>${order?'سفارش':'هشدار'} ${m.name}</h3><p>${order?'پس از ثبت، موجودی لازم رزرو می‌شود.':'ثبت هشدار معامله‌ای اجرا نمی‌کند.'}</p></div><section class="card receipt-grid"><div class="receipt-row"><span>فلز / جهت</span><strong>${m.name} · ${state.targetDirection==='buy'?'خرید':'فروش'}</strong></div><div class="receipt-row"><span>قیمت هدف</span><strong>${state.targetPrice} تومان</strong></div>${order?`<div class="receipt-row"><span>مقدار</span><strong>${state.targetAmount} ${state.targetDirection==='buy'?'تومان':'گرم'}</strong></div><div class="receipt-row"><span>انقضا</span><strong>${state.targetExpiry} روز</strong></div>`:''}<div class="receipt-row"><span>اثر فعلی</span><strong>${order?'رزرو پس از تأیید':'بدون اثر مالی'}</strong></div></section><div class="action-stack"><button class="primary-button" data-confirm-feature="${order?'target':'alert'}">ثبت ${order?'سفارش':'هشدار'}</button><button class="secondary-button" data-edit-feature>ویرایش</button></div>`;
+    }
+    function installmentHub(){
+      setChrome('خرید اقساطی',true,false);
+      return `<div class="page-lead"><h3>خرید اقساطی فلز</h3><p>قراردادها و پرداخت‌های خود را مدیریت کنید.</p></div><section class="card"><div class="section-head"><h3>قرارداد فعال من</h3><span class="inline-status success">فعال</span></div><div class="status-item"><span>خرید قسطی نقره</span><strong>${state.installmentPaid?'۵':'۴'} از ۶ قسط</strong></div><div class="status-item"><span>قسط بعدی</span><strong>۵٬۰۰۰٬۰۰۰ تومان</strong></div><div class="status-item"><span>سررسید</span><strong>${state.installmentPaid?'۲۵ شهریور':'۲۵ مرداد'}</strong></div><div class="status-item"><span>دارایی قرارداد</span><strong>۲۴٫۰۵ گرم</strong></div></section><div class="action-stack"><button class="primary-button" data-installment-pay>پرداخت قسط</button><button class="secondary-button" data-go="installment-history">تاریخچه اقساط</button><button class="secondary-button" data-go="installment-setup">خرید قسطی جدید</button></div>`;
+    }
+    function installmentHistory(){
+      setChrome('تاریخچه اقساط',true,false);
+      const rows=activities.filter(a=>['installment','installment-pay'].includes(a.op));
+      return `<div class="page-lead"><h3>سوابق خرید و پرداخت</h3><p>تمام قراردادها و پرداخت‌های اقساطی اینجا ثبت می‌شوند.</p></div><section class="card"><div class="status-item"><span>قرارداد فعال نقره</span><strong>${state.installmentPaid?'۵':'۴'} از ۶ قسط</strong></div><div class="status-item"><span>مبلغ باقی‌مانده</span><strong>${state.installmentPaid?'۵٬۰۰۰٬۰۰۰':'۱۰٬۰۰۰٬۰۰۰'} تومان</strong></div></section><div class="section activity-list">${rows.map(activityRow).join('')}</div><div class="action-stack"><button class="primary-button" data-installment-pay>پرداخت قسط بعدی</button></div>`;
+    }
+    function installmentPayment(){
+      const m=metals.silver;setChrome('پرداخت قسط',true,false);
+      return `<div class="page-lead"><h3>قسط ${state.installmentPaid?'ششم':'پنجم'} از ۶</h3><p>جزئیات پرداخت را پیش از تأیید بررسی کنید.</p></div><section class="card"><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>خرید قسطی ${m.name}</strong><small>قرارداد ۶ ماهه · ${m.weight} گرم</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>مبلغ قسط</span><strong>۵٬۰۰۰٬۰۰۰ تومان</strong></div><div class="receipt-row"><span>سررسید</span><strong>${state.installmentPaid?'۲۵ شهریور':'۲۵ مرداد'}</strong></div><div class="receipt-row"><span>پرداخت از</span><strong>کیف تومان</strong></div><div class="receipt-row"><span>موجودی کیف</span><strong>۳۸٬۶۰۰٬۰۰۰ تومان</strong></div></div></section><div class="action-stack"><button class="primary-button" data-confirm-feature="installment-pay">پرداخت ۵٬۰۰۰٬۰۰۰ تومان</button><button class="secondary-button" data-go="installment-history">مشاهده تاریخچه</button></div>`;
+    }
+    function installmentSetup(){
+      const ready=state.installmentAmount.trim().length>0;setChrome('درخواست اقساط',true,false);
+      return `<section class="card"><div class="field"><label>فلز</label>${assetChoices()}</div><div class="field"><label for="installment-amount">مبلغ خرید</label><div class="input-wrap"><input id="installment-amount" inputmode="numeric" value="${state.installmentAmount}" placeholder="۰"><span>تومان</span></div></div><div class="field"><label>دوره بازپرداخت</label><div class="choice-grid">${['3','6','12'].map(v=>`<button class="choice ${state.installmentTerm===v?'selected':''}" data-installment-term="${v}">${v} ماه</button>`).join('')}</div></div><div class="quote-card"><div class="quote-row"><span>وضعیت دارایی</span><strong>قفل تا تسویه کامل</strong></div><div class="quote-row"><span>مبلغ هر قسط</span><strong>پس از واردکردن مبلغ</strong></div></div></section><div class="action-stack"><button class="primary-button" data-installment-preview ${ready?'':'disabled'}>ادامه</button></div>`;
+    }
+    function installmentPreview(){
+      const m=metals[state.featureAsset];setChrome('Preview قرارداد',true,false);
+      return `<div class="page-lead"><h3>${m.name} · ${state.installmentTerm} ماهه</h3><p>جزئیات خرید قسطی را پیش از ثبت بررسی کنید.</p></div><section class="card receipt-grid"><div class="receipt-row"><span>فلز</span><strong>${m.name}</strong></div><div class="receipt-row"><span>مبلغ خرید</span><strong>${state.installmentAmount} تومان</strong></div><div class="receipt-row"><span>دوره بازپرداخت</span><strong>${state.installmentTerm} ماه</strong></div><div class="receipt-row"><span>وضعیت دارایی</span><strong>قفل تا تسویه کامل</strong></div><div class="receipt-row"><span>شروع قرارداد</span><strong>پس از تأیید درخواست</strong></div></section><div class="action-stack"><button class="primary-button" data-confirm-feature="installment">ثبت درخواست خرید قسطی</button><button class="secondary-button" data-edit-feature>ویرایش</button></div>`;
+    }
+    function giftHub(){
+      setChrome('هدیه فلزی',true,false);
+      return `<div class="page-lead"><h3>هدیه فلزی</h3><p>خدمت موردنظر را انتخاب کنید.</p></div><div class="service-grid"><button class="service-tile" data-gift-mode="send"><span class="service-icon" aria-hidden="true">${icons.giftSend}</span><span class="service-copy"><strong>صدور هدیه</strong><small>انتخاب فلز، مقدار و گیرنده</small></span></button><button class="service-tile" data-gift-mode="receive"><span class="service-icon" aria-hidden="true">${icons.giftReceive}</span><span class="service-copy"><strong>دریافت هدیه</strong><small>دریافت هدیه با کد</small></span></button></div>`;
+    }
+    function giftSetup(){
+      const send=state.giftMode==='send',ready=send?state.giftAmount.trim().length>0&&state.giftRecipient.trim().length>0:state.giftCode.trim().length>3;setChrome(send?'صدور هدیه':'دریافت هدیه',true,false);
+      return `<section class="card">${send?`<div class="field"><label>فلز هدیه</label>${assetChoices()}</div><div class="field"><label>منبع تأمین</label><div class="segment"><button class="${state.giftSource==='toman'?'selected':''}" data-gift-source="toman">کیف تومان</button><button class="${state.giftSource==='metal'?'selected':''}" data-gift-source="metal">دارایی فلزی</button></div></div><div class="field"><label for="gift-amount">مقدار</label><div class="input-wrap"><input id="gift-amount" inputmode="decimal" value="${state.giftAmount}" placeholder="۰"><span>گرم</span></div></div><div class="field"><label for="gift-recipient">شماره موبایل گیرنده</label><div class="input-wrap"><input id="gift-recipient" inputmode="numeric" value="${state.giftRecipient}" placeholder="۰۹۱۲۱۲۳۴۵۶۷"><span>موبایل</span></div></div>`:`<div class="field"><label for="gift-code">کد هدیه</label><div class="input-wrap"><input id="gift-code" value="${state.giftCode}" placeholder="SH-GIFT-••••"><span>کد</span></div></div><p class="market-note">برای دریافت هدیه، ورود و احراز هویت لازم است.</p>`}</section><div class="action-stack"><button class="primary-button" data-gift-preview ${ready?'':'disabled'}>بررسی ${send?'صدور':'دریافت'}</button></div>`;
+    }
+    function giftPreview(){
+      const send=state.giftMode==='send',m=metals[state.featureAsset];setChrome('بررسی هدیه',true,false);
+      return `<div class="page-lead"><h3>${send?'صدور':'دریافت'} هدیه</h3><p>اثر مالی فقط پس از تأیید قطعی ثبت می‌شود.</p></div><section class="card receipt-grid">${send?`<div class="receipt-row"><span>فلز / مقدار</span><strong>${m.name} · ${state.giftAmount} گرم</strong></div><div class="receipt-row"><span>گیرنده</span><strong>${state.giftRecipient}</strong></div><div class="receipt-row"><span>منبع</span><strong>${state.giftSource==='toman'?'کیف تومان':'دارایی '+m.name}</strong></div>`:`<div class="receipt-row"><span>کد</span><strong dir="ltr">${state.giftCode}</strong></div><div class="receipt-row"><span>اثر</span><strong>افزایش یک‌باره دارایی</strong></div>`}</section><div class="action-stack"><button class="primary-button" data-confirm-feature="${send?'gift-send':'gift-receive'}">تأیید ${send?'صدور':'دریافت'}</button><button class="secondary-button" data-edit-feature>ویرایش</button></div>`;
+    }
+    function referral(){
+      setChrome('معرفی دوستان',true,false);
+      return `<div class="page-lead"><h3>دوستانت را دعوت کن</h3><p>با دعوت هر دوست، نتیجه و پاداش خود را پیگیری کنید.</p></div><section class="card summary-card"><div class="summary-label">پاداش دریافت‌شده</div><div class="summary-value">۷۵٬۰۰۰ تومان</div><div class="summary-meta"><span>۳ دعوت موفق</span><strong>۲ در انتظار</strong></div><div class="code-box"><strong dir="ltr">SHEMSH-7K2P</strong><button class="secondary-button" data-copy="SHEMSH-7K2P">کپی کد</button></div></section><section class="section quick-grid"><button class="quick-action" data-toast="لینک دعوت برای اشتراک آماده شد."><strong>اشتراک لینک</strong><span>ارسال برای دوستان</span></button><button class="quick-action" data-go="referral-history"><strong>پیگیری دعوت‌ها</strong><span>موفق، در انتظار، ناموفق</span></button></section>`;
+    }
+    function referralHistory(){
+      setChrome('پیگیری دعوت‌ها',true,false);
+      return `<div class="page-lead"><h3>وضعیت دعوت‌ها</h3><p>پاداش پرداخت‌شده در تاریخچه عملیات زیر Tab واریز دیده می‌شود.</p></div><section class="card status-list"><div class="status-item"><span>کاربر ••۴۲۱۳</span><span class="inline-status success">محقق</span></div><div class="status-item"><span>کاربر ••۸۹۰۱</span><span class="inline-status warning">در انتظار KYC</span></div><div class="status-item"><span>کاربر ••۱۵۳۰</span><span class="inline-status danger">ناموفق</span></div></section><div class="action-stack"><button class="primary-button" data-referral-deposits>مشاهده پاداش‌ها در واریز</button><button class="secondary-button" data-go="referral">بازگشت به دعوت</button></div>`;
+    }
+    function recordFeature(kind){
+      const m=metals[state.featureAsset],physical=physicalSummary(),map={physical:['physical',`درخواست دریافت فیزیکی ${m.name}`,physicalMeasure(physical.selected),'ثبت‌شده'],alert:['alert',`هشدار قیمت ${m.name}`,`${state.targetPrice} تومان`,'فعال'],target:['target',`سفارش قیمت ${m.name}`,`${state.targetAmount} ${state.targetDirection==='buy'?'تومان':'گرم'}`,'فعال'],installment:['installment',`درخواست خرید قسطی ${m.name}`,`${state.installmentAmount} تومان`,'ثبت‌شده'],['installment-pay']:['installment-pay',`پرداخت قسط ${m.name}`,'۵٬۰۰۰٬۰۰۰ تومان','موفق'],['gift-send']:['gift-send',`صدور هدیه ${m.name}`,`${state.giftAmount} گرم`,'صادرشده'],['gift-receive']:['gift-receive','دریافت هدیه','کد هدیه','دریافت‌شده'],deposit:['deposit','واریز به کیف تومان',`${state.moneyAmount} تومان`,'ثبت‌شده'],withdraw:['withdraw','برداشت از کیف تومان',`${state.moneyAmount} تومان`,'ثبت‌شده']};
+      const [op,title,amount,status]=map[kind],asset=['deposit','withdraw','gift-receive'].includes(kind)?null:state.featureAsset;
+      const detail=kind==='physical'?physicalSelectionText():kind==='installment-pay'?(state.installmentPaid?'قسط ششم از ۶':'قسط پنجم از ۶'):kind==='installment'?state.installmentTerm+' ماهه':kind==='alert'||kind==='target'?(state.targetDirection==='buy'?'جهت خرید':'جهت فروش'):kind==='gift-send'?'ارسال به گیرنده':asset?m.name:kind==='deposit'?'روش انتخاب‌شده':'بانک ملت · •۴۸۲۱';
+      if(kind==='installment-pay')state.installmentPaid=true;
+      const demo={id:`demo-${kind}`,op,title,asset,amount,weight:detail,status,statusKey:status==='فعال'||status==='ثبت‌شده'?'pending':'final',dateKey:'month',time:kind==='physical'?'۱۹ مرداد ۱۴۰۵، ۱۰:۴۵':'همین حالا',tracking:kind==='physical'?'6548921400':`SH-${kind.toUpperCase()}-248021`};
+      const old=activities.findIndex(a=>a.id===demo.id);if(old>=0)activities.splice(old,1);activities.unshift(demo);state.receipt=demo;state.resultKind=kind;state.scenario='feature-result';state.sheet=null;render();appMain.scrollTop=0;
+    }
+    function beginFeature(kind){
+      state.pendingFeatureKind=kind;navigate('feature-processing');const token=state.processingToken;
+      setTimeout(()=>{if(state.processingToken===token&&state.scenario==='feature-processing'){const pending=state.pendingFeatureKind;state.pendingFeatureKind=null;recordFeature(pending);showToast('درخواست با موفقیت ثبت شد.')}},700);
+    }
+    function featureProcessing(){
+      setChrome('ثبت درخواست',false,false);
+      return `<section class="processing" aria-live="polite"><div class="processing-card"><span class="spinner" aria-hidden="true"></span><h3>در حال ثبت درخواست</h3><p>نتیجه قطعی تا چند لحظه دیگر نمایش داده می‌شود.</p></div></section>`;
+    }
+    function featureResult(){
+      const a=state.receipt,m=a.asset?metals[a.asset]:null;setChrome('نتیجه درخواست',true,false);
+      if(a.op==='physical')return physicalSuccess();
+      return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><span class="inline-status ${a.statusKey==='final'?'success':'warning'}">${a.status}</span><h3>${a.title}</h3><p>جزئیات این عملیات از تاریخچه قابل پیگیری است.</p></div>${m?`<div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name}</strong><small>${m.grade}</small></div></div>`:''}<div class="receipt-grid"><div class="receipt-row"><span>مقدار</span><strong>${a.amount}</strong></div><div class="receipt-row"><span>زمان</span><strong>${a.time}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a.tracking}</strong></div></div><div class="action-stack"><button class="primary-button" data-open-result-receipt>مشاهده رسید کامل</button><button class="secondary-button" data-result-history>رفتن به تاریخچه</button></div></section>`;
+    }
+    function singleChart(){
+      const m=metals[state.chartAsset];setChrome(`نمودار ${m.name}`,true,false);
+      return `<div class="page-lead"><h3>روند قیمت ${m.name}</h3><p>این Context مستقل از فلز انتخاب‌شده در تب معامله است.</p></div>
+        <section class="card chart-card"><div class="chart-asset-bar"><button type="button" class="chart-asset-button" data-open-chart-assets><span class="metal-symbol" style="width:34px;height:34px">${m.mark}</span><strong>${m.name}</strong><span>⌄</span></button><span class="inline-status">${m.rate} تومان</span></div>
+          <div class="periods">${[['day','روزانه'],['month','ماهانه'],['year','سالانه']].map(([id,label])=>`<button class="period ${state.period===id?'selected':''}" type="button" data-period="${id}" aria-pressed="${state.period===id}">${label}</button>`).join('')}</div>${chart(state.period)}
+          <p class="market-note">خلاصه متنی: قیمت ${m.name} در این داده آزمایشی نسبت به ابتدای بازه افزایش داشته است.</p></section>
+        <section class="section card"><div class="receipt-row"><span>فلز نمودار</span><strong>${m.name}</strong></div><div class="receipt-row"><span>فلز فعلی معامله</span><strong>${metals[state.tradeAsset].name}</strong></div><p class="market-note">تغییر نمودار، انتخاب معامله را بی‌صدا تغییر نمی‌دهد.</p></section>
+        <div class="action-stack"><button class="primary-button" type="button" data-trade-from-chart>معامله ${m.name}</button><button class="secondary-button" type="button" data-detail="${state.chartAsset}">جزئیات ${m.name}</button></div>`;
+    }
+    function zero(){
+      setChrome('خانه',false,true);
+      return `<section class="card summary-card"><div class="summary-label">ارزش تقریبی فروش کل فلزها</div><div class="summary-value">۰ تومان</div><div class="summary-meta"><span>هنوز دارایی فلزی ندارید</span><strong>—</strong></div></section>
+        <section class="section card empty"><div class="empty-mark">۰</div><h3>پورتفوی شما خالی است</h3><p>برای شروع می‌توانید فلزها را ببینید یا کیف تومان را شارژ کنید. دارایی نمونه به‌جای دارایی واقعی نمایش داده نمی‌شود.</p><div class="action-stack"><button class="primary-button" data-go="market3">مشاهده همه فلزها</button><button class="secondary-button" data-toast="مسیر واریز قبلی باز می‌شود.">واریز به کیف تومان</button></div></section>
+        <section class="section"><div class="section-head"><h3>فلزهای قابل معامله</h3></div><div class="metal-list">${Object.entries(metals).map(([key,m])=>`<button class="metal-row" data-detail="${key}"><span class="metal-symbol">${m.mark}</span><span class="row-main"><strong>${m.name}</strong><small>${m.grade}</small></span><span class="row-side"><strong>${m.rate}</strong><small>تومان/گرم</small></span></button>`).join('')}</div></section>`;
+    }
+    function guest(){
+      setChrome('خانه',false,true);
+      return `<div class="alert"><span class="metal-symbol" style="width:34px;height:34px;flex:0 0 34px">!</span><span>برای مشاهده دارایی و تاریخچه شخصی وارد شوید. قیمت‌ها و کاتالوگ عمومی در دسترس‌اند.</span></div>
+        <section class="card empty"><div class="empty-mark">ش</div><h3>به شمش خوش آمدید</h3><p>سه فلز واقعی و پشتوانه‌دار را ببینید؛ عملیات مالی پس از ورود و احراز مجاز می‌شود.</p><button class="primary-button" data-go="auth-login">ورود یا ساخت حساب</button></section>
+        <section class="section"><div class="section-head"><h3>قیمت فلزها</h3><button class="text-button" data-go="market3">همه فلزها</button></div><div class="metal-list">${Object.entries(metals).map(([key,m])=>`<button class="metal-row" data-detail="${key}"><span class="metal-symbol">${m.mark}</span><span class="row-main"><strong>${m.name}</strong><small>${m.grade}</small></span><span class="row-side"><strong>${m.rate}</strong><small>تومان/گرم</small></span></button>`).join('')}</div></section>`;
+    }
+    function services(){
+      setChrome('خدمات',false,true,'خدمات');
+      return `<div class="page-lead"><h3>خدمات</h3><p>خدمت موردنظر را انتخاب کنید.</p></div><div class="service-grid">
+        <button class="service-tile" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><span class="service-copy"><strong>دریافت فیزیکی</strong><small>تبدیل دارایی به محصول فیزیکی</small></span></button>
+        <button class="service-tile" data-target-kind="alert"><span class="service-icon" aria-hidden="true">${icons.alert}</span><span class="service-copy"><strong>هشدار قیمت</strong><small>اعلان رسیدن قیمت به مقدار دلخواه</small></span></button>
+        <button class="service-tile" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><span class="service-copy"><strong>سفارش قیمت</strong><small>خرید یا فروش در قیمت تعیین‌شده</small></span></button>
+        <button class="service-tile" data-go="installment-hub"><span class="service-icon" aria-hidden="true">${icons.installment}</span><span class="service-copy"><strong>خرید اقساطی</strong><small>خرید جدید و مدیریت اقساط</small></span></button>
+        <button class="service-tile" data-gift-mode="send"><span class="service-icon" aria-hidden="true">${icons.giftSend}</span><span class="service-copy"><strong>صدور هدیه</strong><small>ارسال هدیه فلزی</small></span></button>
+        <button class="service-tile" data-gift-mode="receive"><span class="service-icon" aria-hidden="true">${icons.giftReceive}</span><span class="service-copy"><strong>دریافت هدیه</strong><small>دریافت با کد هدیه</small></span></button>
+        <button class="service-tile" data-go="referral"><span class="service-icon" aria-hidden="true">${icons.referral}</span><span class="service-copy"><strong>معرفی دوستان</strong><small>دعوت و پیگیری پاداش‌ها</small></span></button>
+        <button class="service-tile" data-go="withdraw"><span class="service-icon" aria-hidden="true">${icons.withdraw}</span><span class="service-copy"><strong>برداشت</strong><small>واریز موجودی کیف به حساب بانکی</small></span></button>
+      </div>`;
+    }
+    function history(){
+      setChrome('تاریخچه عملیات',true,false); const moneyOnly=['deposit','withdraw'].includes(state.operation);
+      const filterCount=(state.status!=='all'?1:0)+(state.date!=='all'?1:0);
+      let rows=activities.filter(a=>state.operation==='all'||a.op===state.operation);
+      if(state.metal!=='all'&&!moneyOnly) rows=rows.filter(a=>a.asset===state.metal);
+      if(state.status!=='all') rows=rows.filter(a=>a.statusKey===state.status);
+      if(state.date==='month') rows=rows.filter(a=>a.dateKey==='month');
+      return `<div class="page-lead"><h3>همه عملیات</h3><p>نوع عملیات و فلز دو فیلتر مستقل‌اند.</p></div>
+        <div class="operation-rail" role="tablist" aria-label="نوع عملیات">${operations.map(([id,label])=>`<button type="button" role="tab" aria-selected="${state.operation===id}" class="chip ${state.operation===id?'selected':''}" data-operation="${id}">${label}</button>`).join('')}</div>
+        <div class="filter-row"><button type="button" class="filter-control ${moneyOnly?'hidden':''}" data-sheet="asset">${state.metal==='all'?'همه فلزها':metals[state.metal].name} ▾</button><button type="button" class="filter-control" data-sheet="filters">فیلترها ${filterCount?`<span class="count">${filterCount}</span>`:''}</button><button type="button" class="reset" data-reset>پاک‌کردن فیلترها</button></div>
+        ${moneyOnly?`<p class="market-note">واریز و برداشت فقط مربوط به کیف تومان‌اند؛ فیلتر فلز در این Tab نمایش داده نمی‌شود.</p>`:''}
+        <div class="activity-list">${rows.length?rows.map(activityRow).join(''):`<section class="card empty"><div class="empty-mark">—</div><h3>عملیاتی پیدا نشد</h3><p>فیلتر فلز، وضعیت یا تاریخ را تغییر دهید.</p><button class="secondary-button" data-reset>پاک‌کردن فیلترها</button></section>`}</div>`;
+    }
+    function activityRow(a){
+      const m=a.asset?metals[a.asset]:null;
+      return `<button type="button" class="activity-row" data-receipt="${a.id}" aria-label="${a.title}، ${a.amount}، ${a.status}"><span class="activity-icon">${m?m.mark:a.op==='deposit'?'و':'ب'}</span><span class="row-main"><strong>${a.title}</strong><small>${m?m.name+' · '+a.weight:a.weight}</small></span><span class="row-side"><strong>${a.amount}</strong><small>${a.status} · ${a.time}</small></span></button>`;
+    }
+    function receipt(){
+      const a=state.receipt,m=a.asset?metals[a.asset]:null,financial=['buy','sell'].includes(a.op);setChrome('رسید عملیات',true,false);
+      return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><span class="inline-status success">${a.status}</span><h3>${a.title}</h3><p>این رسید هویت فلز و نوع عملیات را صریح نگه می‌دارد.</p></div>
+        ${m?`<div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade} · وزن با دقت مصوب همین فلز</small></div></div>`:''}
+        <div class="receipt-grid"><div class="receipt-row"><span>نوع عملیات</span><strong>${a.title}</strong></div><div class="receipt-row"><span>${m?'وزن / شرح':'مبلغ'}</span><strong>${m?a.weight:a.amount}</strong></div><div class="receipt-row"><span>مبلغ نهایی</span><strong>${a.amount}</strong></div>${financial?`<div class="receipt-row"><span>نرخ ثبت‌شده</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>کارمزد</span><strong>در مبلغ نهایی محاسبه شده</strong></div>`:''}<div class="receipt-row"><span>زمان</span><strong>${a.time}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a.tracking}</strong></div></div>
+        <div class="action-stack"><button class="secondary-button" type="button" data-copy="${a.tracking}">کپی کد پیگیری</button>${m?`<button class="secondary-button" type="button" data-detail="${a.asset}">جزئیات ${m.name}</button>`:''}<button class="text-button" type="button" data-back-history>بازگشت به تاریخچه</button><button class="text-button" type="button" data-toast="پشتیبانی با کد پیگیری باز می‌شود.">پشتیبانی</button></div></section>`;
+    }
+    function overlay(focus=true){
+      if(!state.sheet){overlayRoot.innerHTML='';return}
+      if(state.sheet==='quote-confirm'){
+        const current=metals[state.tradeAsset],next=metals[state.pendingTradeAsset];
+        overlayRoot.innerHTML=`<div class="scrim dialog-wrap"><section class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="quote-dialog-title" aria-describedby="quote-dialog-copy"><h3 id="quote-dialog-title">فلز معامله تغییر کند؟</h3><p id="quote-dialog-copy">با تغییر از ${current.name} به ${next.name}، مبلغ، وزن و نرخ فعلی پاک می‌شوند. جهت ${state.tradeMode==='buy'?'خرید':'فروش'} حفظ خواهد شد.</p><div class="action-stack"><button class="primary-button" type="button" data-confirm-trade-switch>تغییر به ${next.name}</button><button class="secondary-button" type="button" data-cancel-switch>ادامه معامله ${current.name}</button></div></section></div>`;
+      }else{
+        let title='فیلترها',label='فیلترهای وضعیت و تاریخ',body='',sheetClass='';
+        if(state.sheet==='physical-rules'){
+          const m=metals[state.featureAsset],config=physicalCatalog[state.featureAsset];title=`قوانین دریافت فیزیکی ${m.name}`;label=title;sheetClass='physical-sheet';
+          body=`<ol class="rules-list"><li>${m.name} تحویلی به صورت شمش با خلوص ${config.purity} است.</li><li>حداقل مقدار دریافت فیزیکی ${physicalMeasure(config.minGrams)} است.</li><li>کارمزد ضرب، بسته‌بندی و تحویل ${config.feeLabel} است.</li><li>دریافت فعلاً به صورت حضوری از مرکز تحویل شمش انجام می‌شود.</li><li>هنگام دریافت همراه داشتن کارت ملی صاحب حساب الزامی است.</li><li>زمان آماده‌شدن سفارش پس از ثبت درخواست مشخص می‌شود.</li><li>فروش مجدد شمش در پلتفرم مطابق قوانین خرید فیزیکی انجام می‌شود.</li></ol><div class="sheet-footer" style="grid-template-columns:1fr"><button class="secondary-button" type="button" data-close-sheet>متوجه شدم</button></div>`;
+        }else if(state.sheet==='physical-confirm'){
+          const m=metals[state.featureAsset],config=physicalCatalog[state.featureAsset],summary=physicalSummary();title=`نهایی‌کردن دریافت ${m.name}`;label=title;sheetClass='physical-sheet physical-confirm-sheet';
+          body=`<div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name}</strong><small>${config.purity} · ${physicalEntries().length} وزن انتخاب‌شده</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>مقدار شمش‌های انتخابی</span><strong>${physicalMeasure(summary.selected)}</strong></div><div class="receipt-row"><span>کارمزد ضرب و تحویل – ${config.feeLabel}</span><strong>${physicalMeasure(summary.fee)}</strong></div><div class="receipt-row emphasis"><span>مقدار کل کسر از موجودی</span><strong>${physicalMeasure(summary.total)}</strong></div><div class="receipt-row"><span>موجودی فعلی ${m.name}</span><strong>${physicalMeasure(summary.balance)}</strong></div><div class="receipt-row"><span>موجودی پس از ثبت درخواست</span><strong>${physicalMeasure(summary.after)}</strong></div><div class="receipt-row"><span>مقدار فیزیکی دریافتی</span><strong>${physicalMeasure(summary.selected)}</strong></div></div><div class="alert" style="margin-top:12px">${icons.warn}<span>پس از ثبت درخواست، مقدار ${physicalMeasure(summary.total)} ${m.name} از موجودی شما کسر می‌شود.<br>ثبت درخواست به معنی آماده‌بودن فوری سفارش برای تحویل نیست.</span></div><div class="sheet-footer" style="grid-template-columns:1fr"><button class="primary-button" type="button" data-confirm-feature="physical">ثبت درخواست</button></div>`;
+        }else if(state.sheet==='asset'){
+          title='انتخاب فلز';label=title;body=`<div class="sheet-list">${[['all','همه فلزها'],['gold','طلا'],['silver','نقره'],['copper','مس']].map(([id,name])=>`<button class="sheet-choice ${state.metal===id?'selected':''}" data-metal="${id}"><span>${name}</span><span>${state.metal===id?'انتخاب‌شده':''}</span></button>`).join('')}</div>`;
+        }else if(state.sheet==='filters'){
+          body=`<div class="sheet-list"><div><strong style="font-size:13px">وضعیت</strong></div>${[['all','همه وضعیت‌ها'],['final','نهایی / موفق'],['pending','در حال انجام']].map(([id,name])=>`<button class="sheet-choice ${state.draftStatus===id?'selected':''}" data-draft-status="${id}"><span>${name}</span><span>${state.draftStatus===id?'انتخاب‌شده':''}</span></button>`).join('')}<div style="margin-top:8px"><strong style="font-size:13px">تاریخ</strong></div>${[['all','همه تاریخ‌ها'],['month','ماه جاری']].map(([id,name])=>`<button class="sheet-choice ${state.draftDate===id?'selected':''}" data-draft-date="${id}"><span>${name}</span><span>${state.draftDate===id?'انتخاب‌شده':''}</span></button>`).join('')}</div><div class="sheet-footer"><button class="primary-button" type="button" data-apply-filters>اعمال فیلترها</button><button class="secondary-button" type="button" data-clear-filter-draft>پاک‌کردن</button></div>`;
+        }else if(state.sheet==='chart-asset'){
+          title='فلز نمودار';label=title;body=`<div class="sheet-list">${Object.entries(metals).map(([id,m])=>`<button class="sheet-choice ${state.chartAsset===id?'selected':''}" data-chart-asset="${id}"><span>${m.name} <span dir="ltr" class="muted">${m.symbol}</span></span><span>${state.chartAsset===id?'انتخاب‌شده':''}</span></button>`).join('')}</div>`;
+        }else if(state.sheet==='notifications'){
+          title='اعلان‌ها';label=title;body=`<div class="sheet-list"><section class="card"><strong>نرخ نقره دوباره در دسترس است</strong><p class="market-note">اکنون می‌توانید نمودار و معامله نقره را ادامه دهید.</p><button class="secondary-button" type="button" data-detail="silver">مشاهده نقره</button></section><section class="card"><strong>خرید شما ثبت شد</strong><p class="market-note">رسید عملیات از تاریخچه قابل پیگیری است.</p><button class="secondary-button" type="button" data-go="history">مشاهده تاریخچه</button></section></div>`;
+        }else if(state.sheet==='account'){
+          title='حساب کاربری';label=title;body=`<div class="sheet-list"><section class="card"><strong>سپیده</strong><p class="market-note">احراز هویت تکمیل‌شده</p></section><button class="sheet-choice" type="button" data-go="history"><span>تاریخچه عملیات</span><span>‹</span></button><button class="sheet-choice" type="button" data-toast="تنظیمات حساب از App Shell قبلی Reuse می‌شود."><span>تنظیمات حساب</span><span>‹</span></button></div>`;
+        }else if(state.sheet.startsWith('trade-asset-')){
+          const stress=state.sheet==='trade-asset-16',base=Object.entries(metals).map(([id,m])=>({id,...m,status:'فعال'})),list=stress?[...base,...futureMetals]:base;
+          title='انتخاب فلز معامله';label=title;
+          body=`${stress?`<div class="search"><label class="sr-only" for="trade-asset-search">جست‌وجوی فلز معامله</label>${icons.search}<input id="trade-asset-search" type="search" placeholder="جست‌وجوی نام یا نماد فلز" autocomplete="off"></div><p class="market-note">فلزهای بعد از مس فقط برای Stress test ساختارند.</p>`:''}<div class="sheet-list" id="trade-asset-list">${list.map(item=>{const active=!!metals[item.id];return `<button class="sheet-choice ${state.tradeAsset===item.id?'selected':''}" ${active?`data-select-trade-asset="${item.id}"`:'disabled'} data-search="${item.name} ${item.symbol}"><span>${item.name} <span dir="ltr" class="muted">${item.symbol}</span></span><span>${active?(state.tradeAsset===item.id?'انتخاب‌شده':'فعال'):item.status}</span></button>`}).join('')}</div>`;
+        }
+        overlayRoot.innerHTML=`<div class="scrim" data-close-sheet><section class="sheet ${sheetClass}" role="dialog" aria-modal="true" aria-label="${label}"><div class="handle"></div><div class="sheet-head"><h3>${title}</h3><button class="icon-button" data-close-sheet aria-label="بستن">×</button></div>${body}</section></div>`;
+      }
+      if(focus){const first=overlayRoot.querySelector('button');if(first)first.focus()}
+    }
+    function render(){
+      renderScenarioList();let html='';
+      if(state.scenario==='auth-login')html=authLogin();
+      else if(state.scenario==='kyc')html=kyc();
+      else if(state.scenario==='wallet')html=wallet();
+      else if(state.scenario==='deposit')html=moneyFlow('deposit');
+      else if(state.scenario==='withdraw')html=moneyFlow('withdraw');
+      else if(state.scenario==='money-preview')html=moneyPreview();
+      else if(state.scenario==='physical-select')html=physicalSelect();
+      else if(state.scenario==='physical-insufficient'||state.scenario==='physical-unavailable')html=physicalSelect();
+      else if(state.scenario==='physical-config')html=physicalConfig();
+      else if(state.scenario==='physical-preview')html=physicalPreview();
+      else if(state.scenario==='physical-failed')html=physicalFailed();
+      else if(state.scenario==='physical-success')html=physicalSuccess();
+      else if(state.scenario==='market-services')html=marketServices();
+      else if(state.scenario==='target-setup')html=targetSetup();
+      else if(state.scenario==='target-preview')html=targetPreview();
+      else if(state.scenario==='installment-hub')html=installmentHub();
+      else if(state.scenario==='installment-history')html=installmentHistory();
+      else if(state.scenario==='installment-payment')html=installmentPayment();
+      else if(state.scenario==='installment-setup')html=installmentSetup();
+      else if(state.scenario==='installment-preview')html=installmentPreview();
+      else if(state.scenario==='gift-hub')html=giftHub();
+      else if(state.scenario==='gift-setup')html=giftSetup();
+      else if(state.scenario==='gift-preview')html=giftPreview();
+      else if(state.scenario==='referral')html=referral();
+      else if(state.scenario==='referral-history')html=referralHistory();
+      else if(state.scenario==='feature-processing')html=featureProcessing();
+      else if(state.scenario==='feature-result')html=featureResult();
+      else if(state.scenario==='home')html=home();
+      else if(state.scenario==='home-partial')html=home('partial');
+      else if(state.scenario==='outage')html=home('outage');
+      else if(state.scenario==='portfolio-mix')html=portfolioMix();
+      else if(state.scenario==='market3')html=market(3);
+      else if(state.scenario==='market16')html=market(16);
+      else if(state.scenario.startsWith('detail-'))html=detail(state.scenario.replace('detail-',''));
+      else if(state.scenario==='trade-preview')html=tradePreview();
+      else if(state.scenario==='trade-processing')html=tradeProcessing();
+      else if(state.scenario.startsWith('trade-'))html=trade();
+      else if(state.scenario==='chart-single')html=singleChart();
+      else if(state.scenario==='services')html=services();
+      else if(state.scenario==='zero')html=zero();
+      else if(state.scenario==='guest')html=guest();
+      else if(state.scenario==='history'||state.scenario==='history-filtered')html=history();
+      else if(state.scenario==='receipt')html=receipt();
+      appMain.innerHTML=html;overlay();
+      requestAnimationFrame(()=>{const selected=appMain.querySelector('[role="tab"][aria-selected="true"]');if(selected)selected.scrollIntoView({block:'nearest',inline:'center'})});
+    }
+
+    document.addEventListener('click',async e=>{
+      const closeButton=e.target.closest('button[data-close-sheet]');
+      if(closeButton||e.target.matches('.scrim[data-close-sheet]')){closeOverlay();return}
+      const t=e.target.closest('button');if(!t)return;
+      if(t.dataset.scenario){setScenario(t.dataset.scenario);return}
+      if(t===headerBack){back();return}
+      if(t===headerAction){openOverlay(headerBack.style.visibility==='visible'?'account':'notifications',t);return}
+      if(t.hasAttribute('data-auth-submit')){setScenario('home');showToast('ورود موفق بود.');return}
+      if(t.hasAttribute('data-start-kyc')){navigate('kyc');return}
+      if(t.hasAttribute('data-kyc-submit')){setScenario('home');showToast('احراز هویت آزمایشی تکمیل شد.');return}
+      if(t.hasAttribute('data-go-home')){setScenario('home');return}
+      if(t.dataset.moneyMethod){state.moneyMethod=t.dataset.moneyMethod;render();return}
+      if(t.dataset.moneyDestination){state.moneyDestination=t.dataset.moneyDestination;render();return}
+      if(t.hasAttribute('data-money-preview')){navigate('money-preview');return}
+      if(t.hasAttribute('data-edit-money')){back();return}
+      if(t.hasAttribute('data-confirm-money')){beginFeature(state.moneyMode);return}
+      if(t.dataset.physicalStart){resetPhysical(t.dataset.physicalStart);navigate('physical-select');return}
+      if(t.dataset.physicalTab){state.featureAsset=t.dataset.physicalTab;render();return}
+      if(t.hasAttribute('data-open-physical-rules')){openOverlay('physical-rules',t);return}
+      if(t.hasAttribute('data-physical-catalog')){navigate('physical-config');return}
+      if(t.dataset.physicalPlus){
+        const asset=state.featureAsset,sku=physicalCatalog[asset].skus.find(item=>item.id===t.dataset.physicalPlus);
+        if(!sku||!physicalCanAdd(sku,asset)){showToast('موجودی شما برای اضافه‌کردن این شمش کافی نیست.');return}
+        state.physicalItems[asset]??={};state.physicalItems[asset][sku.id]=Number(state.physicalItems[asset][sku.id]||0)+1;render();return;
+      }
+      if(t.dataset.physicalMinus){
+        const asset=state.featureAsset,id=t.dataset.physicalMinus,current=Number(state.physicalItems[asset]?.[id]||0);
+        if(current<=1)delete state.physicalItems[asset][id];else state.physicalItems[asset][id]=current-1;render();return;
+      }
+      if(t.hasAttribute('data-physical-preview')){navigate('physical-preview');return}
+      if(t.hasAttribute('data-open-physical-confirm')){openOverlay('physical-confirm',t);return}
+      if(t.hasAttribute('data-physical-retry')){state.scenario='physical-preview';state.stack=[];state.sheet=null;render();return}
+      if(t.hasAttribute('data-physical-back')){back();return}
+      if(t.hasAttribute('data-physical-request')){state.operation='physical';state.metal=state.featureAsset;state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();return}
+      if(t.dataset.targetKind){state.targetKind=t.dataset.targetKind;state.targetPrice='';state.targetAmount='';navigate('target-setup');return}
+      if(t.dataset.featureAsset){state.featureAsset=t.dataset.featureAsset;render();return}
+      if(t.dataset.targetDirection){state.targetDirection=t.dataset.targetDirection;render();return}
+      if(t.dataset.targetExpiry){state.targetExpiry=t.dataset.targetExpiry;render();return}
+      if(t.hasAttribute('data-target-preview')){navigate('target-preview');return}
+      if(t.dataset.installmentTerm){state.installmentTerm=t.dataset.installmentTerm;render();return}
+      if(t.hasAttribute('data-installment-pay')){state.featureAsset='silver';navigate('installment-payment');return}
+      if(t.hasAttribute('data-installment-preview')){navigate('installment-preview');return}
+      if(t.dataset.giftMode){state.giftMode=t.dataset.giftMode;state.giftAmount='';state.giftRecipient='';state.giftCode='';navigate('gift-setup');return}
+      if(t.dataset.giftSource){state.giftSource=t.dataset.giftSource;render();return}
+      if(t.hasAttribute('data-gift-preview')){navigate('gift-preview');return}
+      if(t.dataset.confirmFeature){beginFeature(t.dataset.confirmFeature);return}
+      if(t.hasAttribute('data-edit-feature')){back();return}
+      if(t.hasAttribute('data-open-result-receipt')){navigate('receipt');return}
+      if(t.hasAttribute('data-result-history')){state.operation=state.receipt.op;state.metal=state.receipt.asset||'all';state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();return}
+      if(t.hasAttribute('data-referral-deposits')){state.operation='deposit';state.metal='all';state.status='all';state.date='all';navigate('history-filtered');return}
+      if(t.dataset.go){if(t.dataset.go==='physical-select')resetPhysical('gold');if(t.dataset.historyMetal){state.operation='all';state.metal=t.dataset.historyMetal}navigate(t.dataset.go);return}
+      if(t.dataset.detail){navigate('detail-'+t.dataset.detail);return}
+      if(t.dataset.tradeAsset){state.tradeAsset=t.dataset.tradeAsset;state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
+      if(t.dataset.toast){showToast(t.dataset.toast);return}
+      if(t.dataset.period){state.period=t.dataset.period;render();return}
+      if(t.dataset.tradeMode){state.tradeMode=t.dataset.tradeMode;state.tradeAmount='';state.quoteActive=false;render();return}
+      if(t.dataset.openFullChart){state.chartAsset=t.dataset.openFullChart;navigate('chart-single');return}
+      if(t.dataset.openTradeAssets){const size=t.dataset.openTradeAssets==='16'?'16':'3';state.scenario=size==='16'?'trade-selector16':'trade-selector3';openOverlay(`trade-asset-${size}`,t);return}
+      if(t.dataset.selectTradeAsset){
+        if(state.quoteActive&&t.dataset.selectTradeAsset!==state.tradeAsset){state.pendingTradeAsset=t.dataset.selectTradeAsset;state.scenario='trade-quote-switch';state.sheet='quote-confirm';overlay()}
+        else{state.tradeAsset=t.dataset.selectTradeAsset;state.pendingTradeAsset=null;state.sheet=null;state.scenario='trade-gold';render()}
+        return;
+      }
+      if(t.hasAttribute('data-confirm-trade-switch')){state.tradeAsset=state.pendingTradeAsset;state.pendingTradeAsset=null;state.tradeAmount='';state.quoteActive=false;state.sheet=null;state.scenario='trade-gold';render();showToast('فلز تغییر کرد؛ مبلغ و نرخ قبلی پاک شدند.');return}
+      if(t.hasAttribute('data-cancel-switch')){closeOverlay();return}
+      if(t.hasAttribute('data-trade-preview')){navigate('trade-preview');return}
+      if(t.hasAttribute('data-edit-trade')){back();return}
+      if(t.hasAttribute('data-confirm-trade')){navigate('trade-processing');const token=state.processingToken;setTimeout(()=>{if(state.processingToken===token&&state.scenario==='trade-processing')completeTrade()},800);return}
+      if(t.hasAttribute('data-open-chart-assets')){openOverlay('chart-asset',t);return}
+      if(t.dataset.chartAsset){state.chartAsset=t.dataset.chartAsset;state.sheet=null;render();return}
+      if(t.hasAttribute('data-trade-from-chart')){state.tradeAsset=state.chartAsset;state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
+      if(t.dataset.operation){state.operation=t.dataset.operation;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();return}
+      if(t.dataset.sheet){openOverlay(t.dataset.sheet,t);return}
+      if(t.dataset.metal){state.metal=t.dataset.metal;state.sheet=null;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();return}
+      if(t.dataset.draftStatus){state.draftStatus=t.dataset.draftStatus;overlay(false);return}
+      if(t.dataset.draftDate){state.draftDate=t.dataset.draftDate;overlay(false);return}
+      if(t.hasAttribute('data-clear-filter-draft')){state.draftStatus='all';state.draftDate='all';overlay(false);return}
+      if(t.hasAttribute('data-apply-filters')){state.status=state.draftStatus;state.date=state.draftDate;state.sheet=null;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();showToast('فیلترها اعمال شدند.');return}
+      if(t.hasAttribute('data-reset')){state.metal='all';state.status='all';state.date='all';state.scenario='history';render();return}
+      if(t.dataset.receipt){state.receipt=activities.find(a=>a.id===t.dataset.receipt);navigate('receipt');return}
+      if(t.hasAttribute('data-back-history')){state.operation=state.receipt.op;state.metal=state.receipt.asset||'all';state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();appMain.scrollTop=0;return}
+      if(t.dataset.copy){try{await navigator.clipboard.writeText(t.dataset.copy)}catch{}showToast('کد پیگیری کپی شد.');return}
+      if(t.dataset.nav==='خانه'){setScenario('home');return}
+      if(t.dataset.nav==='معامله'){state.scenario='trade-gold';state.stack=[];state.sheet=null;state.tradeAmount='';state.quoteActive=false;render();appMain.scrollTop=0;return}
+      if(t.dataset.nav==='خدمات'){state.scenario='services';state.stack=[];state.sheet=null;render();appMain.scrollTop=0;return}
+    });
+    document.addEventListener('input',e=>{
+      if(e.target.id==='market-search'){
+        const q=e.target.value.trim().toLowerCase();document.querySelectorAll('#market-list [data-search]').forEach(row=>row.hidden=!row.dataset.search.toLowerCase().includes(q));return;
+      }
+      if(e.target.id==='trade-asset-search'){
+        const q=e.target.value.trim().toLowerCase();document.querySelectorAll('#trade-asset-list [data-search]').forEach(row=>row.hidden=!row.dataset.search.toLowerCase().includes(q));return;
+      }
+      const fieldMap={
+        'auth-mobile':'authMobile','auth-password':'authPassword','kyc-national':'kycNationalId','kyc-birth':'kycBirth','money-amount':'moneyAmount','target-price':'targetPrice','target-amount':'targetAmount','installment-amount':'installmentAmount','gift-amount':'giftAmount','gift-recipient':'giftRecipient','gift-code':'giftCode'
+      };
+      if(fieldMap[e.target.id]){
+        const id=e.target.id,value=e.target.value,scrollTop=appMain.scrollTop;state[fieldMap[id]]=value;render();
+        requestAnimationFrame(()=>{appMain.scrollTop=scrollTop;const input=document.getElementById(id);if(input){input.focus();input.setSelectionRange(input.value.length,input.value.length)}});return;
+      }
+      if(e.target.id==='trade-amount'){
+        const value=e.target.value;state.tradeAmount=value;state.quoteActive=value.trim().length>0;render();
+        requestAnimationFrame(()=>{const input=document.getElementById('trade-amount');if(input){input.focus();input.setSelectionRange(input.value.length,input.value.length)}});
+      }
+    });
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape'&&state.sheet){closeOverlay();return}
+      if(e.key==='Tab'&&state.sheet){
+        const focusable=[...overlayRoot.querySelectorAll('button:not([disabled]),input:not([disabled])')];if(!focusable.length)return;
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+      }
+    });
+    render();
+  </script>
+</body>
+</html>

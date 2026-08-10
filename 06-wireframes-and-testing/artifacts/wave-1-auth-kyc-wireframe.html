@@ -1,0 +1,2434 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>وایرفریم ورود، ثبت‌نام و احراز هویت شمش</title>
+  <style>
+    @font-face {
+      font-family: "Yekan Bakh";
+      src:
+        url("../../07-design-system/legacy-brand/typogaphy/YekanBakh3%20-%20Pro%20%20Plus/Yekan%20Bakh%20Variable/webfonts/YekanBakhFaNum-VF.woff2")
+        format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --canvas: #eef0f2;
+      --surface: #ffffff;
+      --surface-subtle: #f7f8f9;
+      --text: #17191c;
+      --text-secondary: #626870;
+      --border: #d7dbe0;
+      --border-strong: #aeb4bc;
+      --primary: #1d2530;
+      --primary-pressed: #0e1217;
+      --focus: #1d64d8;
+      --danger: #b42318;
+      --danger-bg: #fff1f0;
+      --success: #18794e;
+      --success-bg: #edf8f2;
+      --info-bg: #f1f4f7;
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --shadow: 0 18px 60px rgba(26, 31, 38, 0.13);
+      --phone-width: 390px;
+      font-family: "Yekan Bakh", Tahoma, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--canvas);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100dvh;
+      background: var(--canvas);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--focus) 30%, transparent);
+      outline-offset: 2px;
+    }
+
+    .workspace {
+      width: min(920px, 100%);
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: var(--phone-width) minmax(260px, 1fr);
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      direction: ltr;
+    }
+
+    .phone,
+    .prototype-notes {
+      direction: rtl;
+    }
+
+    .phone {
+      width: var(--phone-width);
+      max-width: 100%;
+      height: min(844px, calc(100dvh - 48px));
+      min-height: 680px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 28px minmax(0, 1fr);
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .device-status {
+      padding: 4px 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      direction: ltr;
+      color: #363b41;
+      font-size: 11px;
+      font-weight: 700;
+      border-bottom: 1px solid #f0f1f2;
+    }
+
+    .device-status svg {
+      display: block;
+    }
+
+    .app {
+      min-height: 0;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .app-header {
+      min-height: 56px;
+      padding: 6px 12px;
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) 48px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .app-header h1 {
+      margin: 0;
+      overflow: hidden;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .header-spacer {
+      width: 48px;
+      height: 48px;
+    }
+
+    .icon-button {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      display: inline-grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text);
+      transition: background-color 180ms ease;
+    }
+
+    .icon-button:hover {
+      background: var(--surface-subtle);
+    }
+
+    .icon-button:active {
+      background: #e8eaed;
+    }
+
+    .icon-button svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .screen {
+      min-height: calc(100% - 56px);
+      padding:
+        24px
+        max(20px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screen.centered {
+      justify-content: center;
+      padding-top: 32px;
+      padding-bottom: 32px;
+    }
+
+    .screen-heading {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .title {
+      margin: 0;
+      color: var(--text);
+      font-size: 23px;
+      font-weight: 760;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+
+    .description {
+      margin: 8px 0 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .form {
+      display: grid;
+      gap: 20px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.5;
+    }
+
+    .optional {
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      height: 52px;
+      padding: 0 14px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      line-height: 1;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    input::placeholder {
+      color: #8b929a;
+    }
+
+    input:hover {
+      border-color: #858d96;
+    }
+
+    input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 13%, transparent);
+      outline: none;
+    }
+
+    input[aria-invalid="true"] {
+      border-color: var(--danger);
+    }
+
+    .ltr-input {
+      direction: ltr;
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-left: 56px;
+    }
+
+    .password-toggle {
+      width: 48px;
+      min-height: 48px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      border: 0;
+      border-radius: 8px;
+      color: #35404c;
+      background: transparent;
+    }
+
+    .password-toggle svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .password-toggle:hover,
+    .password-toggle:active {
+      background: var(--surface-subtle);
+    }
+
+    .requirements {
+      margin: 0;
+      padding: 0 18px 0 0;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .password-requirements {
+      min-height: 78px;
+      margin: 2px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .password-requirement {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.45;
+      transition: color 160ms ease;
+    }
+
+    .requirement-mark {
+      width: 18px;
+      height: 18px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1.5px solid #b5bbc2;
+      border-radius: 50%;
+      color: transparent;
+      background: var(--surface);
+      transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease;
+    }
+
+    .requirement-mark svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2.4;
+    }
+
+    .password-requirement.met {
+      color: #236043;
+    }
+
+    .password-requirement.met .requirement-mark {
+      color: #ffffff;
+      border-color: var(--success);
+      background: var(--success);
+    }
+
+    .sr-only {
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      position: absolute;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .otp-control {
+      position: relative;
+      direction: ltr;
+    }
+
+    .otp-native {
+      width: 100%;
+      height: 64px;
+      padding: 0;
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0;
+      caret-color: transparent;
+    }
+
+    .otp-slots {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      direction: ltr;
+    }
+
+    .otp-slot {
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .otp-control:focus-within .otp-slot.active {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 13%, transparent);
+    }
+
+    .otp-control.error .otp-slot {
+      border-color: var(--danger);
+    }
+
+    .otp-control.checking .otp-slot {
+      color: var(--text-secondary);
+      background: var(--surface-subtle);
+    }
+
+    .helper,
+    .error-text {
+      min-height: 20px;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .helper {
+      color: var(--text-secondary);
+    }
+
+    .error-text {
+      color: var(--danger);
+      font-weight: 550;
+    }
+
+    .notice {
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: #444a51;
+      background: var(--info-bg);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .notice.danger {
+      border-color: #efc2bd;
+      color: #7c2018;
+      background: var(--danger-bg);
+    }
+
+    .notice svg {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .actions {
+      margin-top: auto;
+      padding-top: 32px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-align: center;
+      transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        opacity 180ms ease;
+    }
+
+    .button.primary {
+      color: #ffffff;
+      background: var(--primary);
+    }
+
+    .button.primary:hover {
+      background: #121820;
+    }
+
+    .button.primary:active {
+      background: var(--primary-pressed);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: var(--surface);
+      border-color: var(--border-strong);
+    }
+
+    .button.secondary:hover {
+      background: var(--surface-subtle);
+    }
+
+    .button.text {
+      min-height: 48px;
+      color: #35404c;
+      background: transparent;
+    }
+
+    .button.text:hover {
+      background: var(--surface-subtle);
+    }
+
+    .button.inline {
+      width: auto;
+      min-height: 44px;
+      padding: 8px 10px;
+      color: #2d4f7b;
+      background: transparent;
+      font-size: 14px;
+    }
+
+    .button:disabled {
+      color: #8b9198;
+      background: #eceeef;
+      border-color: #eceeef;
+      opacity: 1;
+    }
+
+    .resend-row {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .timer {
+      color: var(--text-secondary);
+      direction: ltr;
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .status-mark {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--text);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+    }
+
+    .status-mark.success {
+      color: var(--success);
+      background: var(--success-bg);
+      border-color: #b8ddca;
+    }
+
+    .status-mark.danger {
+      color: var(--danger);
+      background: var(--danger-bg);
+      border-color: #efc2bd;
+    }
+
+    .status-mark svg {
+      width: 34px;
+      height: 34px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .center-copy {
+      text-align: center;
+    }
+
+    .loading-mark {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 24px;
+      border: 4px solid #e3e6e9;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 900ms linear infinite;
+    }
+
+    .summary-card {
+      margin-top: 8px;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-subtle);
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .summary-row strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .home-card {
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface-subtle);
+    }
+
+    .home-card h3 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 720;
+    }
+
+    .home-card p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .date-field {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      text-align: right;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .date-field.placeholder {
+      color: #8b929a;
+    }
+
+    .date-field[aria-invalid="true"] {
+      border-color: var(--danger);
+    }
+
+    .date-field svg {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .feedback-layer,
+    .modal-root {
+      position: absolute;
+      inset: 28px 0 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .toast {
+      max-width: calc(100% - 40px);
+      min-height: 52px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 20px;
+      bottom: max(24px, env(safe-area-inset-bottom));
+      left: 20px;
+      color: #ffffff;
+      background: #20262e;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(20, 25, 31, 0.22);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.6;
+      text-align: center;
+      pointer-events: auto;
+      animation: toast-in 200ms ease-out;
+    }
+
+    .modal-root.open {
+      pointer-events: auto;
+      z-index: 30;
+    }
+
+    .sheet-layer {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      align-items: end;
+      position: relative;
+    }
+
+    .sheet-scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 18, 22, 0.52);
+      border: 0;
+    }
+
+    .bottom-sheet {
+      max-height: 78%;
+      padding: 12px 20px max(20px, env(safe-area-inset-bottom));
+      position: relative;
+      overflow: auto;
+      border-radius: 20px 20px 0 0;
+      background: var(--surface);
+      box-shadow: 0 -16px 44px rgba(20, 25, 31, 0.16);
+      animation: sheet-in 220ms ease-out;
+    }
+
+    .sheet-drag-zone {
+      min-height: 36px;
+      margin: -8px -8px 4px;
+      display: grid;
+      place-items: center;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .sheet-drag-zone:active {
+      cursor: grabbing;
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: #c7ccd1;
+    }
+
+    .sheet-header {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sheet-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 740;
+    }
+
+    .picker-wheel-grid {
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 0.8fr 1.35fr 1fr;
+      gap: 12px;
+      position: relative;
+    }
+
+    .wheel-group {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wheel-group::before,
+    .wheel-group::after {
+      content: "";
+      height: 44px;
+      position: absolute;
+      right: 0;
+      left: 0;
+      z-index: 3;
+      pointer-events: none;
+      -webkit-backdrop-filter: blur(1.5px);
+      backdrop-filter: blur(1.5px);
+    }
+
+    .wheel-group::before {
+      top: 24px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.42) 54%, transparent);
+    }
+
+    .wheel-group::after {
+      bottom: 0;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.42) 54%, transparent);
+    }
+
+    .wheel-group > label {
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 200px;
+      padding-block: 76px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      border: 0;
+      background: transparent;
+      position: relative;
+      z-index: 1;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .wheel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .wheel-option {
+      width: 100%;
+      height: 48px;
+      padding: 0 6px;
+      display: grid;
+      place-items: center;
+      scroll-snap-align: center;
+      border: 0;
+      color: #7b828a;
+      background: transparent;
+      font-size: 15px;
+      line-height: 1;
+      text-align: center;
+      transition:
+        color 160ms ease,
+        font-size 160ms ease,
+        font-weight 160ms ease;
+    }
+
+    .wheel-option[aria-selected="true"] {
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 750;
+    }
+
+    .sheet-actions {
+      display: grid;
+    }
+
+    .prototype-notes {
+      align-self: center;
+      max-width: 340px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--text-secondary);
+      box-shadow: 0 10px 36px rgba(26, 31, 38, 0.08);
+    }
+
+    .prototype-notes h2 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 750;
+    }
+
+    .prototype-notes p {
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .prototype-notes dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px 12px;
+      font-size: 13px;
+    }
+
+    .prototype-notes dt {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .prototype-notes dd {
+      margin: 0;
+      direction: ltr;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .prototype-notes .note {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes toast-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+    }
+
+    @keyframes sheet-in {
+      from {
+        transform: translateY(24px);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      html,
+      body {
+        background: var(--surface);
+      }
+
+      .workspace {
+        min-height: 100dvh;
+        padding: 0;
+        display: block;
+      }
+
+      .phone {
+        width: 100%;
+        height: 100dvh;
+        min-height: 100dvh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .device-status {
+        padding-top: max(4px, env(safe-area-inset-top));
+      }
+
+      .prototype-notes {
+        display: none;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 761px) {
+      .phone {
+        min-height: 640px;
+      }
+
+      .screen {
+        padding-top: 20px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-width: 760px) {
+      .phone {
+        height: 100dvh;
+        min-height: 100dvh;
+      }
+
+      .screen {
+        min-height: auto;
+        padding-top: 20px;
+      }
+
+      .actions {
+        padding-top: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="workspace">
+    <section class="phone" aria-label="پروتوتایپ موبایل ورود و احراز هویت">
+      <div class="device-status" aria-hidden="true">
+        <span>9:41</span>
+        <svg width="54" height="14" viewBox="0 0 54 14">
+          <path d="M2 11h3V8H2zm5 0h3V6H7zm5 0h3V4h-3zm5 0h3V2h-3z" fill="currentColor"/>
+          <path d="M26 10c3-3 7-3 10 0M28.5 7.5c1.7-1.7 3.3-1.7 5 0M31 11h.01" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4"/>
+          <rect x="40" y="3" width="11" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M52 5.5v3" stroke="currentColor" stroke-linecap="round"/>
+          <rect x="42" y="5" width="7" height="4" rx="1" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="app" id="app" aria-live="polite"></div>
+      <div class="feedback-layer" id="feedback-layer" aria-live="polite"></div>
+      <div class="modal-root" id="modal-root"></div>
+    </section>
+
+    <aside class="prototype-notes" aria-label="راهنمای تست پروتوتایپ">
+      <h2>راهنمای تست</h2>
+      <p>این فایل ورود رمزمحور، Signup متصل به KYC و مهاجرت/بازیابی متصل به خانه را طبق D-092 و D-093 پوشش می‌دهد.</p>
+      <dl>
+        <dt>دارای رمز</dt>
+        <dd>09121234567</dd>
+        <dt>کاربر جدید</dt>
+        <dd>09120000000</dd>
+        <dt>فاقد رمز</dt>
+        <dd>09121111111</dd>
+        <dt>رمز موفق</dt>
+        <dd>Shemsh1405</dd>
+        <dt>OTP موفق</dt>
+        <dd>123456</dd>
+        <dt>OTP منقضی</dt>
+        <dd>000000</dd>
+        <dt>کد ملی موفق</dt>
+        <dd>0013547890</dd>
+        <dt>عدم تطابق</dt>
+        <dd>0000000000</dd>
+        <dt>خطای سرویس</dt>
+        <dd>1111111111</dd>
+      </dl>
+      <p class="note">برای حالت زیر ۱۸ سال، در KYC سالی کمتر از ۱۸ سال قبل را انتخاب کنید. داده‌ها آزمایشی‌اند.</p>
+      <button class="button secondary" id="restart-prototype" type="button">شروع دوباره پروتوتایپ</button>
+    </aside>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const app = document.getElementById("app");
+      const feedbackLayer = document.getElementById("feedback-layer");
+      const modalRoot = document.getElementById("modal-root");
+      const icons = {
+        back: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"></path>
+          </svg>`,
+        info: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 11v5"></path>
+            <path d="M12 8h.01"></path>
+          </svg>`,
+        check: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 6L9 17l-5-5"></path>
+          </svg>`,
+        alert: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 8v5"></path>
+            <path d="M12 16h.01"></path>
+          </svg>`,
+        calendar: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3.5" y="5" width="17" height="15" rx="2"></rect>
+            <path d="M8 3v4M16 3v4M3.5 9.5h17"></path>
+          </svg>`,
+        eye: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+            <circle cx="12" cy="12" r="2.75"></circle>
+          </svg>`,
+        eyeSlash: `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4l16 16"></path>
+            <path d="M9.2 6.5A9.8 9.8 0 0 1 12 6c6 0 9.5 6 9.5 6a15.2 15.2 0 0 1-2.2 2.8M14.8 17.5A9.8 9.8 0 0 1 12 18c-6 0-9.5-6-9.5-6a15.1 15.1 0 0 1 2.2-2.8"></path>
+            <path d="M10.1 10.1a2.75 2.75 0 0 0 3.8 3.8"></path>
+          </svg>`
+      };
+
+      const state = {
+        screen: "phone",
+        history: [],
+        mobile: "",
+        otp: "",
+        password: "",
+        nationalId: "",
+        birthDate: "",
+        referral: "",
+        phoneError: "",
+        otpError: "",
+        passwordError: "",
+        kycError: "",
+        loggedIn: false,
+        verified: false,
+        verifyingOtp: false,
+        verifyingPassword: false,
+        passwordVisible: false,
+        authMode: "login",
+        ageRestricted: false,
+        otpExpiresAt: 0,
+        resendAvailableAt: 0,
+        timerId: null,
+        otpVerificationTimer: null,
+        toastTimer: null,
+        datePickerOpen: false,
+        pickerDay: 15,
+        pickerMonth: 6,
+        pickerYear: 1370
+      };
+
+      // App Shell can send an authenticated user directly to identity verification.
+      // A representative mobile number keeps the standalone prototype screen realistic.
+      if (window.location.hash === "#kyc") {
+        Object.assign(state, {
+          screen: "kycForm",
+          mobile: "09121234567",
+          loggedIn: true,
+          authMode: "login"
+        });
+      }
+
+      const escapeHtml = (value) =>
+        String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+
+      const header = ({ title, back = false }) => `
+        <header class="app-header">
+          ${
+            back
+              ? `<button class="icon-button" type="button" data-action="back" aria-label="بازگشت">${icons.back}</button>`
+              : `<span class="header-spacer" aria-hidden="true"></span>`
+          }
+          <h1>${escapeHtml(title)}</h1>
+          <span class="header-spacer" aria-hidden="true"></span>
+        </header>`;
+
+      const notice = (text, tone = "") => `
+        <div class="notice ${tone}" role="${tone === "danger" ? "alert" : "note"}">
+          ${tone === "danger" ? icons.alert : icons.info}
+          <span>${escapeHtml(text)}</span>
+        </div>`;
+
+      const phoneScreen = () => `
+        ${header({ title: "ورود یا ثبت‌نام" })}
+        <section class="screen" data-screen="phone">
+          <div class="screen-heading">
+            <h2 class="title">ورود به شمش</h2>
+            <p class="description">شماره موبایل خود را وارد کنید.</p>
+          </div>
+
+          <form class="form" data-form="phone" novalidate>
+            <div class="field">
+              <label for="mobile">شماره موبایل</label>
+              <input
+                id="mobile"
+                class="ltr-input"
+                name="mobile"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                maxlength="11"
+                placeholder="09123456789"
+                value="${escapeHtml(state.mobile)}"
+                aria-invalid="${Boolean(state.phoneError)}"
+                ${state.phoneError ? `aria-describedby="mobile-help"` : ""}>
+              ${state.phoneError ? `<p id="mobile-help" class="error-text">${escapeHtml(state.phoneError)}</p>` : ""}
+            </div>
+          </form>
+
+          <div class="actions">
+            <button class="button primary" type="button" data-action="continue-mobile">ادامه</button>
+          </div>
+        </section>`;
+
+      const passwordScreen = () => `
+        ${header({ title: "ورود", back: true })}
+        <section class="screen" data-screen="password">
+          <div class="screen-heading">
+            <h2 class="title">رمز عبور را وارد کنید</h2>
+            <p class="description">ورود با شماره <bdi dir="ltr">${escapeHtml(state.mobile)}</bdi></p>
+          </div>
+
+          <form class="form" data-form="password" novalidate>
+            <div class="field">
+              <label for="password">رمز عبور</label>
+              <div class="password-wrap">
+                <input
+                  id="password"
+                  class="ltr-input"
+                  name="password"
+                  type="${state.passwordVisible ? "text" : "password"}"
+                  autocomplete="current-password"
+                  maxlength="64"
+                  value="${escapeHtml(state.password)}"
+                  aria-invalid="${Boolean(state.passwordError)}"
+                  ${state.passwordError ? `aria-describedby="password-help"` : ""}>
+                <button class="password-toggle" type="button" data-action="toggle-password" aria-pressed="${state.passwordVisible}" aria-label="${state.passwordVisible ? "مخفی‌کردن رمز عبور" : "نمایش رمز عبور"}">
+                  ${state.passwordVisible ? icons.eyeSlash : icons.eye}
+                </button>
+              </div>
+              ${state.passwordError ? `<p id="password-help" class="error-text" role="alert">${escapeHtml(state.passwordError)}</p>` : ""}
+            </div>
+          </form>
+
+          <div class="actions">
+            <button class="button primary" type="button" data-action="login-password" ${state.verifyingPassword ? "disabled" : ""}>
+              ${state.verifyingPassword ? "در حال ورود…" : "ورود"}
+            </button>
+            <button class="button text" type="button" data-action="forgot-password">رمز عبور را فراموش کرده‌ام</button>
+          </div>
+        </section>`;
+
+      const otpScreen = () => `
+        ${header({ title: state.authMode === "recovery" ? "بازیابی رمز" : "تأیید شماره", back: true })}
+        <section class="screen" data-screen="otp">
+          <div class="screen-heading">
+            <h2 class="title">کد تأیید را وارد کنید</h2>
+            <p class="description">
+              کد ۶ رقمی به <bdi dir="ltr">${escapeHtml(state.mobile)}</bdi> ارسال شد.
+              <button class="button inline" type="button" data-action="edit-mobile">ویرایش شماره</button>
+            </p>
+          </div>
+
+          <form class="form" data-form="otp" novalidate>
+            <div class="field">
+              <label class="sr-only" for="otp">کد تأیید ۶ رقمی</label>
+              <div class="otp-control ${state.otpError ? "error" : ""} ${state.verifyingOtp ? "checking" : ""}">
+                <input
+                  id="otp"
+                  class="otp-native"
+                  name="otp"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="one-time-code"
+                  maxlength="6"
+                  value="${escapeHtml(state.otp)}"
+                  ${state.verifyingOtp ? "disabled" : ""}
+                  aria-invalid="${Boolean(state.otpError)}"
+                  aria-describedby="otp-help">
+                <div class="otp-slots" aria-hidden="true">
+                  ${Array.from({ length: 6 }, (_, index) => `
+                    <span class="otp-slot ${index === Math.min(state.otp.length, 5) && state.otp.length < 6 ? "active" : ""}" data-otp-index="${index}">
+                      ${escapeHtml(state.otp[index] || "")}
+                    </span>`).join("")}
+                </div>
+              </div>
+              <p id="otp-help" class="${state.otpError ? "error-text" : "helper"}">
+                ${escapeHtml(state.otpError || (state.verifyingOtp ? "در حال بررسی کد…" : ""))}
+              </p>
+            </div>
+
+            <div class="resend-row">
+              <span class="timer" id="otp-expiry">اعتبار کد 03:00</span>
+              <button class="button inline" id="resend-button" type="button" data-action="resend" disabled>
+                ارسال مجدد تا 01:00
+              </button>
+            </div>
+          </form>
+        </section>`;
+
+      const getPasswordRequirements = (value) => [
+        {
+          key: "length",
+          label: "حداقل ۸ کاراکتر",
+          met: Array.from(value).length >= 8
+        },
+        {
+          key: "letter",
+          label: "حداقل یک حرف انگلیسی",
+          met: /[A-Za-z]/.test(value)
+        },
+        {
+          key: "number",
+          label: "حداقل یک عدد",
+          met: /[0-9]/.test(value)
+        }
+      ];
+
+      const passwordRequirements = (value) => `
+        <ul class="password-requirements" id="password-requirements" aria-label="شرایط رمز عبور">
+          ${getPasswordRequirements(value).map((rule) => `
+            <li
+              class="password-requirement ${rule.met ? "met" : ""}"
+              data-password-rule="${rule.key}"
+              aria-label="${rule.met ? "انجام شده" : "انجام نشده"}: ${rule.label}">
+              <span class="requirement-mark" aria-hidden="true">${rule.met ? icons.check : ""}</span>
+              <span>${rule.label}</span>
+            </li>`).join("")}
+        </ul>`;
+
+      const setPasswordScreen = () => {
+        const isRecovery = state.authMode === "recovery";
+        const isMigration = state.authMode === "migration";
+        const title = isRecovery ? "رمز تازه بسازید" : "رمز عبور بسازید";
+        const description = isRecovery
+          ? "از این رمز برای ورودهای بعدی استفاده می‌کنید."
+          : isMigration
+            ? "برای ورودهای بعدی حساب‌تان یک رمز بسازید."
+            : "ثبت‌نام شما با ساخت رمز تکمیل می‌شود.";
+        return `
+          ${header({ title: isRecovery ? "بازیابی رمز" : "ساخت رمز" })}
+          <section class="screen" data-screen="setPassword">
+            <div class="screen-heading">
+              <h2 class="title">${title}</h2>
+              <p class="description">${description}</p>
+            </div>
+
+            <form class="form" data-form="set-password" novalidate>
+              <div class="field">
+                <label for="new-password">رمز عبور</label>
+                <div class="password-wrap">
+                  <input
+                    id="new-password"
+                    class="ltr-input"
+                    name="newPassword"
+                    type="${state.passwordVisible ? "text" : "password"}"
+                    autocomplete="new-password"
+                    minlength="8"
+                    maxlength="64"
+                    value="${escapeHtml(state.password)}"
+                    aria-invalid="${Boolean(state.passwordError)}"
+                    aria-describedby="password-requirements${state.passwordError ? " new-password-help" : ""}">
+                  <button class="password-toggle" type="button" data-action="toggle-password" aria-pressed="${state.passwordVisible}" aria-label="${state.passwordVisible ? "مخفی‌کردن رمز عبور" : "نمایش رمز عبور"}">
+                    ${state.passwordVisible ? icons.eyeSlash : icons.eye}
+                  </button>
+                </div>
+                ${state.passwordError ? `<p id="new-password-help" class="error-text" role="alert">${escapeHtml(state.passwordError)}</p>` : ""}
+                ${passwordRequirements(state.password)}
+              </div>
+            </form>
+
+            <div class="actions">
+              <button class="button primary" type="button" data-action="save-password" ${state.verifyingPassword ? "disabled" : ""}>
+                ${state.verifyingPassword ? "در حال ذخیره…" : isRecovery ? "ذخیره رمز تازه" : "ساخت رمز و ورود"}
+              </button>
+            </div>
+          </section>`;
+      };
+
+      const homeScreen = () => `
+        ${header({ title: "خانه" })}
+        <section class="screen" data-screen="home">
+          <div class="screen-heading">
+            <h2 class="title">سلام، خوش آمدید</h2>
+            <p class="description">از اینجا می‌توانید وضعیت حساب و خدمات شمش را ببینید.</p>
+          </div>
+
+          <div class="home-card">
+            <div>
+              <h3>${state.verified ? "احراز هویت تکمیل شده" : state.ageRestricted ? "استفاده مالی از ۱۸ سالگی" : "احراز هویت"}</h3>
+              <p>${state.verified ? "حساب شما برای استفاده از قابلیت‌های مالی آماده است." : state.ageRestricted ? "حساب شما فعال است؛ خرید، فروش و سایر عملیات مالی تا رسیدن به ۱۸ سالگی در دسترس نیست." : "برای استفاده از قابلیت‌های مالی، اطلاعات هویتی خود را تکمیل کنید."}</p>
+            </div>
+            ${
+              state.verified
+                ? notice("وضعیت حساب: تأییدشده")
+                : state.ageRestricted
+                  ? notice("در حال حاضر فقط بخش‌های مشاهده‌ای در دسترس‌اند.")
+                  : `<button class="button primary" type="button" data-action="start-kyc">تکمیل احراز هویت</button>`
+            }
+          </div>
+        </section>`;
+
+      const kycFormScreen = () => `
+        ${header({ title: "احراز هویت" })}
+        <section class="screen" data-screen="kycForm">
+          <div class="screen-heading">
+            <h2 class="title">اطلاعات هویتی</h2>
+            <p class="description">کد ملی و تاریخ تولد باید متعلق به صاحب شماره <bdi dir="ltr">${escapeHtml(state.mobile)}</bdi> باشد.</p>
+          </div>
+
+          <form class="form" data-form="kyc" novalidate>
+            <div class="field">
+              <label for="national-id">کد ملی</label>
+              <input
+                id="national-id"
+                class="ltr-input"
+                name="nationalId"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="10"
+                placeholder="۰۰۱۳۵۴۷۸۹۰"
+                value="${escapeHtml(state.nationalId)}"
+                aria-invalid="${Boolean(state.kycError)}"
+                ${state.kycError ? `aria-describedby="kyc-help"` : ""}>
+            </div>
+
+            <div class="field">
+              <label id="birth-date-label" for="birth-date">تاریخ تولد</label>
+              <button
+                id="birth-date"
+                class="date-field ${state.birthDate ? "" : "placeholder"}"
+                type="button"
+                data-action="open-date-picker"
+                aria-haspopup="dialog"
+                aria-labelledby="birth-date-label birth-date-value"
+                aria-invalid="${Boolean(state.kycError)}"
+                ${state.kycError ? `aria-describedby="kyc-help"` : ""}>
+                <span id="birth-date-value" dir="ltr">${escapeHtml(state.birthDate || "انتخاب تاریخ تولد")}</span>
+                ${icons.calendar}
+              </button>
+            </div>
+
+            <div class="field">
+              <div class="field-row">
+                <label for="referral">کد معرف</label>
+                <span class="optional">اختیاری</span>
+              </div>
+              <input
+                id="referral"
+                class="ltr-input"
+                name="referral"
+                type="text"
+                autocomplete="off"
+                maxlength="16"
+                placeholder="مثلاً SHEMSH12"
+                value="${escapeHtml(state.referral)}">
+            </div>
+
+            ${state.kycError ? `<p id="kyc-help" class="error-text">${escapeHtml(state.kycError)}</p>` : ""}
+          </form>
+
+          <div class="actions">
+            <button class="button primary" type="button" data-action="submit-kyc">تأیید اطلاعات</button>
+            <button class="button text" type="button" data-action="defer-kyc">بعداً انجام می‌دهم</button>
+          </div>
+        </section>`;
+
+      const kycLoadingScreen = () => `
+        ${header({ title: "بررسی اطلاعات" })}
+        <section class="screen centered" data-screen="kycLoading">
+          <div class="center-copy" role="status">
+            <div class="loading-mark" aria-hidden="true"></div>
+            <h2 class="title">در حال تطبیق اطلاعات</h2>
+            <p class="description">این بررسی کوتاه است. لطفاً چند لحظه صبر کنید.</p>
+          </div>
+        </section>`;
+
+      const kycErrorScreen = () => `
+        ${header({ title: "احراز هویت" })}
+        <section class="screen centered" data-screen="kycError">
+          <div class="center-copy">
+            <div class="status-mark danger">${icons.alert}</div>
+            <h2 class="title">فعلاً امکان بررسی اطلاعات نیست</h2>
+            <p class="description">اطلاعات شما تأیید نشده است. دوباره تلاش کنید یا بعداً ادامه دهید.</p>
+          </div>
+
+          <div class="actions">
+            <button class="button primary" type="button" data-action="retry-kyc">تلاش دوباره</button>
+            <button class="button secondary" type="button" data-action="defer-kyc">بعداً انجام می‌دهم</button>
+          </div>
+        </section>`;
+
+      const renderers = {
+        phone: phoneScreen,
+        password: passwordScreen,
+        otp: otpScreen,
+        setPassword: setPasswordScreen,
+        home: homeScreen,
+        kycForm: kycFormScreen,
+        kycLoading: kycLoadingScreen,
+        kycError: kycErrorScreen
+      };
+
+      const clearTimer = () => {
+        if (state.timerId) {
+          window.clearInterval(state.timerId);
+          state.timerId = null;
+        }
+      };
+
+      const clearOtpVerification = () => {
+        if (state.otpVerificationTimer) {
+          window.clearTimeout(state.otpVerificationTimer);
+          state.otpVerificationTimer = null;
+        }
+      };
+
+      const formatCountdown = (seconds) => {
+        const safeSeconds = Math.max(0, seconds);
+        const minutes = String(Math.floor(safeSeconds / 60)).padStart(2, "0");
+        const remainder = String(safeSeconds % 60).padStart(2, "0");
+        return `${minutes}:${remainder}`;
+      };
+
+      const updateTimer = () => {
+        const expiry = document.getElementById("otp-expiry");
+        const button = document.getElementById("resend-button");
+        if (!expiry || !button) {
+          clearTimer();
+          return;
+        }
+
+        const now = Date.now();
+        const expiryRemaining = Math.max(0, Math.ceil((state.otpExpiresAt - now) / 1000));
+        const resendRemaining = Math.max(0, Math.ceil((state.resendAvailableAt - now) / 1000));
+
+        expiry.textContent = expiryRemaining > 0
+          ? `اعتبار کد ${formatCountdown(expiryRemaining)}`
+          : "کد منقضی شده";
+
+        button.disabled = resendRemaining > 0;
+        button.textContent = resendRemaining > 0
+          ? `ارسال مجدد تا ${formatCountdown(resendRemaining)}`
+          : "ارسال مجدد کد";
+
+        if (expiryRemaining === 0 && !state.verifyingOtp && state.otpError !== "زمان اعتبار کد تمام شد. کد تازه دریافت کنید.") {
+          clearOtpVerification();
+          state.otp = "";
+          state.otpError = "زمان اعتبار کد تمام شد. کد تازه دریافت کنید.";
+          const input = document.getElementById("otp");
+          if (input) {
+            input.value = "";
+          }
+          syncOtpSlots();
+          document.querySelector(".otp-control")?.classList.add("error");
+          const help = document.getElementById("otp-help");
+          if (help) {
+            help.className = "error-text";
+            help.textContent = state.otpError;
+          }
+        }
+      };
+
+      const showToast = (message) => {
+        if (state.toastTimer) {
+          window.clearTimeout(state.toastTimer);
+        }
+        feedbackLayer.innerHTML = `<div class="toast" role="status">${escapeHtml(message)}</div>`;
+        state.toastTimer = window.setTimeout(() => {
+          feedbackLayer.innerHTML = "";
+          state.toastTimer = null;
+        }, 2400);
+      };
+
+      const jalaliMonths = [
+        "فروردین",
+        "اردیبهشت",
+        "خرداد",
+        "تیر",
+        "مرداد",
+        "شهریور",
+        "مهر",
+        "آبان",
+        "آذر",
+        "دی",
+        "بهمن",
+        "اسفند"
+      ];
+
+      const currentJalaliDate = (() => {
+        try {
+          const parts = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric"
+          }).formatToParts(new Date());
+          const numeric = (type, fallback) => {
+            const value = parts.find((part) => part.type === type)?.value || "";
+            const normalized = value
+              .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+              .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)));
+            return Number(normalized.replace(/\D/g, "")) || fallback;
+          };
+          return { year: numeric("year", 1405), month: numeric("month", 1), day: numeric("day", 1) };
+        } catch {
+          return { year: 1405, month: 1, day: 1 };
+        }
+      })();
+
+      const currentJalaliYear = currentJalaliDate.year;
+
+      const isJalaliLeapYear = (year) => [1, 5, 9, 13, 17, 22, 26, 30].includes(year % 33);
+
+      const daysInJalaliMonth = (year, month) => {
+        if (month <= 6) return 31;
+        if (month <= 11) return 30;
+        return isJalaliLeapYear(year) ? 30 : 29;
+      };
+
+      let wheelScrollTimer = null;
+      let draggingSheet = false;
+      let sheetDragStartY = 0;
+      let sheetDragDelta = 0;
+
+      const pickerValue = (type) => {
+        if (type === "day") return state.pickerDay;
+        if (type === "month") return state.pickerMonth;
+        return state.pickerYear;
+      };
+
+      const positionDateWheels = (behavior = "auto") => {
+        modalRoot.querySelectorAll("[data-wheel]").forEach((wheel) => {
+          const type = wheel.dataset.wheel;
+          const selected = wheel.querySelector(`[data-wheel-option="${type}"][data-value="${pickerValue(type)}"]`);
+          if (!selected) return;
+          wheel.dataset.positioning = "true";
+          const top = selected.offsetTop - (wheel.clientHeight - selected.offsetHeight) / 2;
+          wheel.scrollTo({ top, behavior });
+          window.setTimeout(() => delete wheel.dataset.positioning, behavior === "smooth" ? 260 : 40);
+        });
+      };
+
+      const updateWheelSelection = (type, value) => {
+        if (type === "day") {
+          state.pickerDay = value;
+        } else if (type === "month") {
+          state.pickerMonth = value;
+        } else {
+          state.pickerYear = value;
+        }
+
+        const maxDay = daysInJalaliMonth(state.pickerYear, state.pickerMonth);
+        state.pickerDay = Math.min(state.pickerDay, maxDay);
+
+        if (type === "day") {
+          modalRoot.querySelectorAll('[data-wheel-option="day"]').forEach((option) => {
+            option.setAttribute("aria-selected", String(Number(option.dataset.value) === state.pickerDay));
+          });
+          return;
+        }
+
+        renderDatePicker();
+      };
+
+      const settleWheel = (wheel) => {
+        const options = Array.from(wheel.querySelectorAll("[data-wheel-option]"));
+        if (!options.length) return;
+        const center = wheel.scrollTop + wheel.clientHeight / 2;
+        const nearest = options.reduce((best, option) => {
+          const optionCenter = option.offsetTop + option.offsetHeight / 2;
+          return Math.abs(optionCenter - center) < Math.abs(best.center - center)
+            ? { option, center: optionCenter }
+            : best;
+        }, { option: options[0], center: options[0].offsetTop + options[0].offsetHeight / 2 }).option;
+
+        updateWheelSelection(wheel.dataset.wheel, Number(nearest.dataset.value));
+        if (wheel.isConnected) {
+          const top = nearest.offsetTop - (wheel.clientHeight - nearest.offsetHeight) / 2;
+          wheel.scrollTo({ top, behavior: "smooth" });
+        }
+      };
+
+      const renderDatePicker = () => {
+        if (!state.datePickerOpen) {
+          app.removeAttribute("inert");
+          modalRoot.className = "modal-root";
+          modalRoot.innerHTML = "";
+          return;
+        }
+
+        const maxDay = daysInJalaliMonth(state.pickerYear, state.pickerMonth);
+        state.pickerDay = Math.min(state.pickerDay, maxDay);
+        const years = Array.from({ length: currentJalaliYear - 1299 }, (_, index) => currentJalaliYear - index);
+
+        app.setAttribute("inert", "");
+        modalRoot.className = "modal-root open";
+        modalRoot.innerHTML = `
+          <div class="sheet-layer">
+            <button class="sheet-scrim" type="button" data-sheet-action="close" aria-label="بستن انتخاب تاریخ"></button>
+            <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="date-picker-title">
+              <div class="sheet-drag-zone" data-sheet-drag aria-label="برای بستن به پایین بکشید">
+                <div class="sheet-handle" aria-hidden="true"></div>
+              </div>
+              <div class="sheet-header">
+                <h2 id="date-picker-title">تاریخ تولد</h2>
+                <button class="sr-only" type="button" data-sheet-action="close">بستن انتخاب تاریخ</button>
+              </div>
+              <div class="picker-wheel-grid">
+                <div class="wheel-group">
+                  <label id="picker-day-label">روز</label>
+                  <div class="wheel" role="listbox" tabindex="0" aria-labelledby="picker-day-label" data-wheel="day">
+                    ${Array.from({ length: maxDay }, (_, index) => {
+                      const day = index + 1;
+                      return `<button class="wheel-option" type="button" role="option" data-wheel-option="day" data-value="${day}" aria-selected="${day === state.pickerDay}">${day}</button>`;
+                    }).join("")}
+                  </div>
+                </div>
+                <div class="wheel-group">
+                  <label id="picker-month-label">ماه</label>
+                  <div class="wheel" role="listbox" tabindex="0" aria-labelledby="picker-month-label" data-wheel="month">
+                    ${jalaliMonths.map((month, index) => `
+                      <button class="wheel-option" type="button" role="option" data-wheel-option="month" data-value="${index + 1}" aria-selected="${index + 1 === state.pickerMonth}">${month}</button>
+                    `).join("")}
+                  </div>
+                </div>
+                <div class="wheel-group">
+                  <label id="picker-year-label">سال</label>
+                  <div class="wheel" role="listbox" tabindex="0" aria-labelledby="picker-year-label" data-wheel="year">
+                    ${years.map((year) => `<button class="wheel-option" type="button" role="option" data-wheel-option="year" data-value="${year}" aria-selected="${year === state.pickerYear}">${year}</button>`).join("")}
+                  </div>
+                </div>
+              </div>
+              <div class="sheet-actions">
+                <button class="button primary" type="button" data-sheet-action="confirm">تأیید تاریخ</button>
+              </div>
+            </section>
+          </div>`;
+
+        window.requestAnimationFrame(() => positionDateWheels());
+      };
+
+      const focusFirstField = () => {
+        window.requestAnimationFrame(() => {
+          const input = app.querySelector("input:not([disabled])");
+          if (input && window.matchMedia("(pointer: fine)").matches) {
+            input.focus();
+          }
+        });
+      };
+
+      const render = ({ focus = false } = {}) => {
+        clearTimer();
+        app.innerHTML = renderers[state.screen]();
+        app.scrollTop = 0;
+
+        if (state.screen === "otp") {
+          updateTimer();
+          state.timerId = window.setInterval(updateTimer, 1000);
+        }
+
+        if (focus) {
+          focusFirstField();
+        }
+      };
+
+      const go = (screen, { push = true, focus = false } = {}) => {
+        state.datePickerOpen = false;
+        renderDatePicker();
+        if (push && state.screen !== screen) {
+          state.history.push(state.screen);
+        }
+        state.screen = screen;
+        render({ focus });
+      };
+
+      const back = () => {
+        clearOtpVerification();
+        state.verifyingOtp = false;
+        const previous = state.history.pop();
+        if (previous) {
+          state.screen = previous;
+          render();
+        }
+      };
+
+      const normalizeDigits = (value) =>
+        String(value)
+          .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+          .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)));
+
+      const readValue = (id) => normalizeDigits(document.getElementById(id)?.value.trim() || "");
+
+      const syncOtpSlots = () => {
+        document.querySelectorAll("[data-otp-index]").forEach((slot) => {
+          const index = Number(slot.dataset.otpIndex);
+          slot.textContent = state.otp[index] || "";
+          slot.classList.toggle("active", index === Math.min(state.otp.length, 5) && state.otp.length < 6);
+        });
+      };
+
+      const startOtp = () => {
+        state.password = "";
+        state.passwordError = "";
+        state.passwordVisible = false;
+        state.otp = "";
+        state.otpError = "";
+        state.verifyingOtp = false;
+        state.otpExpiresAt = Date.now() + 180000;
+        state.resendAvailableAt = Date.now() + 60000;
+        go("otp", { focus: true });
+      };
+
+      const continueMobile = () => {
+        state.mobile = readValue("mobile").replace(/\D/g, "");
+        state.phoneError = "";
+        if (!/^09\d{9}$/.test(state.mobile)) {
+          state.phoneError = "شماره موبایل را به‌صورت ۱۱ رقمی وارد کنید.";
+          render({ focus: true });
+          return;
+        }
+
+        if (state.mobile === "09120000000") {
+          state.authMode = "signup";
+          startOtp();
+          return;
+        }
+
+        if (state.mobile === "09121111111") {
+          state.authMode = "migration";
+          startOtp();
+          return;
+        }
+
+        state.authMode = "login";
+        state.password = "";
+        state.passwordError = "";
+        state.passwordVisible = false;
+        go("password", { focus: true });
+      };
+
+      const setOtpError = (message) => {
+        clearOtpVerification();
+        state.verifyingOtp = false;
+        state.otp = "";
+        state.otpError = message;
+        render({ focus: true });
+      };
+
+      const verifyOtp = () => {
+        if (state.verifyingOtp || state.otp.length !== 6) {
+          return;
+        }
+
+        if (Date.now() >= state.otpExpiresAt) {
+          setOtpError("زمان اعتبار کد تمام شد. کد تازه دریافت کنید.");
+          return;
+        }
+
+        const submittedOtp = state.otp;
+        state.otpError = "";
+        state.verifyingOtp = true;
+        const input = document.getElementById("otp");
+        if (input) input.disabled = true;
+        document.querySelector(".otp-control")?.classList.add("checking");
+        const help = document.getElementById("otp-help");
+        if (help) {
+          help.className = "helper";
+          help.textContent = "در حال بررسی کد…";
+        }
+
+        state.otpVerificationTimer = window.setTimeout(() => {
+          state.otpVerificationTimer = null;
+          if (Date.now() >= state.otpExpiresAt || submittedOtp === "000000") {
+            state.otpExpiresAt = Date.now();
+            setOtpError("این کد منقضی شده است. کد تازه دریافت کنید.");
+            return;
+          }
+
+          if (submittedOtp !== "123456") {
+            setOtpError("کد واردشده درست نیست. دوباره وارد کنید.");
+            return;
+          }
+
+          state.verifyingOtp = false;
+          state.history = [];
+          state.password = "";
+          state.passwordError = "";
+          state.passwordVisible = false;
+          go("setPassword", { push: false, focus: true });
+          showToast("شماره موبایل با موفقیت تأیید شد.");
+        }, 450);
+      };
+
+      const queueOtpVerification = () => {
+        clearOtpVerification();
+        if (state.otp.length === 6) {
+          state.otpVerificationTimer = window.setTimeout(() => {
+            state.otpVerificationTimer = null;
+            verifyOtp();
+          }, 160);
+        }
+      };
+
+      const resendOtp = () => {
+        if (Date.now() < state.resendAvailableAt) {
+          return;
+        }
+        clearOtpVerification();
+        state.otp = "";
+        state.otpError = "";
+        state.verifyingOtp = false;
+        state.otpExpiresAt = Date.now() + 180000;
+        state.resendAvailableAt = Date.now() + 60000;
+        render({ focus: true });
+        showToast("کد تازه ارسال شد.");
+      };
+
+      const loginWithPassword = () => {
+        state.password = document.getElementById("password")?.value || "";
+        state.passwordError = "";
+        if (!state.password) {
+          state.passwordError = "رمز عبور را وارد کنید.";
+          render({ focus: true });
+          return;
+        }
+
+        state.verifyingPassword = true;
+        render();
+        window.setTimeout(() => {
+          state.verifyingPassword = false;
+          if (state.password !== "Shemsh1405") {
+            state.password = "";
+            state.passwordError = "رمز عبور درست نیست. دوباره وارد کنید.";
+            render({ focus: true });
+            return;
+          }
+          state.loggedIn = true;
+          state.password = "";
+          state.history = [];
+          go("home", { push: false, focus: true });
+          showToast("با موفقیت وارد شدید.");
+        }, 450);
+      };
+
+      const beginPasswordRecovery = () => {
+        state.authMode = "recovery";
+        state.history = [];
+        startOtp();
+      };
+
+      const commonPasswords = new Set([
+        "12345678",
+        "1234567890",
+        "12345678910",
+        "password1",
+        "password123",
+        "qwerty12345",
+        "shemsh12",
+        "shemsh1234"
+      ]);
+
+      const savePassword = () => {
+        state.password = document.getElementById("new-password")?.value || "";
+        state.passwordError = "";
+        const length = Array.from(state.password).length;
+        if (length < 8) {
+          state.passwordError = "رمز عبور باید حداقل ۸ کاراکتر باشد.";
+          render({ focus: true });
+          return;
+        }
+        if (!/[A-Za-z]/.test(state.password)) {
+          state.passwordError = "رمز عبور باید حداقل یک حرف انگلیسی داشته باشد.";
+          render({ focus: true });
+          return;
+        }
+        if (!/[0-9]/.test(state.password)) {
+          state.passwordError = "رمز عبور باید حداقل یک عدد داشته باشد.";
+          render({ focus: true });
+          return;
+        }
+        if (commonPasswords.has(state.password.toLowerCase())) {
+          state.passwordError = "این رمز خیلی رایج است. رمز دیگری انتخاب کنید.";
+          render({ focus: true });
+          return;
+        }
+
+        state.verifyingPassword = true;
+        render();
+        window.setTimeout(() => {
+          state.verifyingPassword = false;
+          state.loggedIn = true;
+          state.password = "";
+          state.history = [];
+          if (state.authMode === "signup") {
+            go("kycForm", { push: false, focus: true });
+            return;
+          }
+          go("home", { push: false, focus: true });
+          showToast(state.authMode === "recovery" ? "رمز عبور تغییر کرد." : "رمز عبور ساخته شد.");
+        }, 500);
+      };
+
+      const togglePassword = () => {
+        const activeId = state.screen === "password" ? "password" : "new-password";
+        state.password = document.getElementById(activeId)?.value || state.password;
+        state.passwordVisible = !state.passwordVisible;
+        render();
+        window.requestAnimationFrame(() => {
+          const input = document.getElementById(activeId);
+          input?.focus();
+          input?.setSelectionRange?.(input.value.length, input.value.length);
+        });
+      };
+
+      const syncPasswordRequirements = (value) => {
+        getPasswordRequirements(value).forEach((rule) => {
+          const item = document.querySelector(`[data-password-rule="${rule.key}"]`);
+          if (!item) return;
+          item.classList.toggle("met", rule.met);
+          item.setAttribute("aria-label", `${rule.met ? "انجام شده" : "انجام نشده"}: ${rule.label}`);
+          const mark = item.querySelector(".requirement-mark");
+          if (mark) mark.innerHTML = rule.met ? icons.check : "";
+        });
+      };
+
+      const captureKycDraft = () => {
+        const nationalId = document.getElementById("national-id");
+        const referral = document.getElementById("referral");
+        if (nationalId) state.nationalId = normalizeDigits(nationalId.value).replace(/\D/g, "");
+        if (referral) state.referral = referral.value.trim();
+      };
+
+      const openDatePicker = () => {
+        captureKycDraft();
+        if (state.birthDate) {
+          const [year, month, day] = state.birthDate.split("/").map(Number);
+          if (year && month && day) {
+            state.pickerYear = year;
+            state.pickerMonth = month;
+            state.pickerDay = day;
+          }
+        }
+        state.datePickerOpen = true;
+        renderDatePicker();
+        window.requestAnimationFrame(() => modalRoot.querySelector('[data-wheel="day"]')?.focus());
+      };
+
+      const closeDatePicker = () => {
+        state.datePickerOpen = false;
+        renderDatePicker();
+        window.requestAnimationFrame(() => document.getElementById("birth-date")?.focus());
+      };
+
+      const confirmDatePicker = () => {
+        state.birthDate = `${state.pickerYear}/${String(state.pickerMonth).padStart(2, "0")}/${String(state.pickerDay).padStart(2, "0")}`;
+        state.kycError = "";
+        state.datePickerOpen = false;
+        renderDatePicker();
+        render();
+        window.requestAnimationFrame(() => document.getElementById("birth-date")?.focus());
+      };
+
+      const submitKyc = () => {
+        captureKycDraft();
+        state.kycError = "";
+
+        if (!/^\d{10}$/.test(state.nationalId) || !/^\d{4}\/\d{2}\/\d{2}$/.test(state.birthDate)) {
+          state.kycError = "کد ملی و تاریخ تولد را کامل کنید.";
+          render({ focus: true });
+          return;
+        }
+
+        if (state.nationalId === "0000000000") {
+          state.kycError = "کد ملی یا تاریخ تولد با مالک این شماره موبایل تطابق ندارد.";
+          render({ focus: true });
+          return;
+        }
+
+        const [birthYear, birthMonth, birthDay] = state.birthDate.split("/").map(Number);
+        const thresholdYear = currentJalaliDate.year - 18;
+        const under18 = birthYear > thresholdYear || (
+          birthYear === thresholdYear && (
+            birthMonth > currentJalaliDate.month ||
+            (birthMonth === currentJalaliDate.month && birthDay > currentJalaliDate.day)
+          )
+        );
+        if (under18) {
+          state.ageRestricted = true;
+          state.verified = false;
+          state.kycError = "برای استفاده از خدمات مالی باید حداقل ۱۸ سال داشته باشید.";
+          render();
+          window.requestAnimationFrame(() => document.getElementById("birth-date")?.focus());
+          return;
+        }
+
+        const outcome = state.nationalId === "1111111111" ? "error" : "success";
+        go("kycLoading");
+        window.setTimeout(() => {
+          if (outcome === "error") {
+            go("kycError", { push: false });
+            return;
+          }
+          state.verified = true;
+          state.ageRestricted = false;
+          go("home", { push: false });
+          showToast("احراز هویت با موفقیت انجام شد.");
+        }, 850);
+      };
+
+      const deferKyc = () => {
+        captureKycDraft();
+        state.history = [];
+        go("home", { push: false });
+        showToast("می‌توانید احراز هویت را بعداً تکمیل کنید.");
+      };
+
+      const restart = () => {
+        clearTimer();
+        clearOtpVerification();
+        if (state.toastTimer) window.clearTimeout(state.toastTimer);
+        feedbackLayer.innerHTML = "";
+        Object.assign(state, {
+          screen: "phone",
+          history: [],
+          mobile: "",
+          otp: "",
+          password: "",
+          nationalId: "",
+          birthDate: "",
+          referral: "",
+          phoneError: "",
+          otpError: "",
+          passwordError: "",
+          kycError: "",
+          loggedIn: false,
+          verified: false,
+          verifyingOtp: false,
+          verifyingPassword: false,
+          passwordVisible: false,
+          authMode: "login",
+          ageRestricted: false,
+          otpExpiresAt: 0,
+          resendAvailableAt: 0,
+          timerId: null,
+          otpVerificationTimer: null,
+          toastTimer: null,
+          datePickerOpen: false,
+          pickerDay: 15,
+          pickerMonth: 6,
+          pickerYear: 1370
+        });
+        renderDatePicker();
+        render({ focus: true });
+      };
+
+      app.addEventListener("input", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) {
+          return;
+        }
+        if (["mobile", "otp", "national-id"].includes(target.id)) {
+          target.value = normalizeDigits(target.value).replace(/\D/g, "");
+        }
+        if (target.id === "otp") {
+          target.value = target.value.slice(0, 6);
+          state.otp = target.value;
+          state.otpError = "";
+          document.querySelector(".otp-control")?.classList.remove("error");
+          const help = document.getElementById("otp-help");
+          if (help) {
+            help.className = "helper";
+            help.textContent = "";
+          }
+          syncOtpSlots();
+          queueOtpVerification();
+        }
+        if (target.id === "mobile") {
+          state.mobile = target.value.slice(0, 11);
+          state.phoneError = "";
+        }
+        if (["password", "new-password"].includes(target.id)) {
+          state.password = target.value;
+          state.passwordError = "";
+        }
+        if (target.id === "new-password") {
+          target.setAttribute("aria-invalid", "false");
+          target.setAttribute("aria-describedby", "password-requirements");
+          document.getElementById("new-password-help")?.remove();
+          syncPasswordRequirements(target.value);
+        }
+        if (target.id === "national-id") {
+          state.nationalId = target.value.slice(0, 10);
+        }
+        if (target.id === "referral") {
+          state.referral = target.value;
+        }
+      });
+
+      app.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter") {
+          return;
+        }
+        if (state.screen === "phone") {
+          event.preventDefault();
+          continueMobile();
+        } else if (state.screen === "password") {
+          event.preventDefault();
+          loginWithPassword();
+        } else if (state.screen === "setPassword") {
+          event.preventDefault();
+          savePassword();
+        } else if (state.screen === "kycForm") {
+          event.preventDefault();
+          submitKyc();
+        }
+      });
+
+      app.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-action]");
+        if (!button || button.disabled) {
+          return;
+        }
+
+        switch (button.dataset.action) {
+          case "back":
+            back();
+            break;
+          case "continue-mobile":
+            continueMobile();
+            break;
+          case "login-password":
+            loginWithPassword();
+            break;
+          case "forgot-password":
+            beginPasswordRecovery();
+            break;
+          case "save-password":
+            savePassword();
+            break;
+          case "toggle-password":
+            togglePassword();
+            break;
+          case "edit-mobile":
+            clearOtpVerification();
+            state.verifyingOtp = false;
+            state.history = [];
+            state.screen = "phone";
+            render({ focus: true });
+            break;
+          case "resend":
+            resendOtp();
+            break;
+          case "start-kyc":
+          case "retry-kyc":
+            state.kycError = "";
+            state.history = [];
+            go("kycForm", { push: false, focus: true });
+            break;
+          case "open-date-picker":
+            openDatePicker();
+            break;
+          case "submit-kyc":
+            submitKyc();
+            break;
+          case "defer-kyc":
+            deferKyc();
+            break;
+          case "restart":
+            restart();
+            break;
+        }
+      });
+
+      modalRoot.addEventListener("scroll", (event) => {
+        const wheel = event.target.closest?.("[data-wheel]");
+        if (!wheel || wheel.dataset.positioning === "true") return;
+        if (wheelScrollTimer) window.clearTimeout(wheelScrollTimer);
+        wheelScrollTimer = window.setTimeout(() => {
+          wheelScrollTimer = null;
+          if (wheel.isConnected) settleWheel(wheel);
+        }, 120);
+      }, true);
+
+      modalRoot.addEventListener("click", (event) => {
+        const option = event.target.closest("[data-wheel-option]");
+        if (option) {
+          const type = option.dataset.wheelOption;
+          updateWheelSelection(type, Number(option.dataset.value));
+          if (option.isConnected) {
+            const wheel = option.closest("[data-wheel]");
+            const top = option.offsetTop - (wheel.clientHeight - option.offsetHeight) / 2;
+            wheel.dataset.positioning = "true";
+            wheel.scrollTo({ top, behavior: "smooth" });
+            window.setTimeout(() => delete wheel.dataset.positioning, 260);
+          }
+          return;
+        }
+
+        const button = event.target.closest("[data-sheet-action]");
+        if (!button) return;
+        if (button.dataset.sheetAction === "confirm") confirmDatePicker();
+        if (button.dataset.sheetAction === "close") closeDatePicker();
+      });
+
+      modalRoot.addEventListener("keydown", (event) => {
+        const wheel = event.target.closest?.("[data-wheel]");
+        if (!wheel || !["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const type = wheel.dataset.wheel;
+        const options = Array.from(wheel.querySelectorAll("[data-wheel-option]"));
+        const values = options.map((option) => Number(option.dataset.value));
+        let nextValue = pickerValue(type);
+        if (event.key === "ArrowUp") nextValue = Math.max(values[0], nextValue - 1);
+        if (event.key === "ArrowDown") nextValue = Math.min(values[values.length - 1], nextValue + 1);
+        if (event.key === "Home") nextValue = values[0];
+        if (event.key === "End") nextValue = values[values.length - 1];
+        updateWheelSelection(type, nextValue);
+        window.requestAnimationFrame(() => positionDateWheels("smooth"));
+      });
+
+      modalRoot.addEventListener("pointerdown", (event) => {
+        const dragZone = event.target.closest("[data-sheet-drag]");
+        if (!dragZone) return;
+        draggingSheet = true;
+        sheetDragStartY = event.clientY;
+        sheetDragDelta = 0;
+        dragZone.setPointerCapture?.(event.pointerId);
+      });
+
+      modalRoot.addEventListener("pointermove", (event) => {
+        if (!draggingSheet) return;
+        sheetDragDelta = Math.max(0, event.clientY - sheetDragStartY);
+        const sheet = modalRoot.querySelector(".bottom-sheet");
+        if (!sheet) return;
+        sheet.style.transition = "none";
+        sheet.style.transform = `translateY(${sheetDragDelta}px)`;
+      });
+
+      const finishSheetDrag = () => {
+        if (!draggingSheet) return;
+        draggingSheet = false;
+        const shouldClose = sheetDragDelta >= 72;
+        const sheet = modalRoot.querySelector(".bottom-sheet");
+        if (shouldClose) {
+          closeDatePicker();
+        } else if (sheet) {
+          sheet.style.transition = "transform 180ms ease-out";
+          sheet.style.transform = "translateY(0)";
+          window.setTimeout(() => {
+            if (sheet.isConnected) sheet.removeAttribute("style");
+          }, 190);
+        }
+        sheetDragDelta = 0;
+      };
+
+      modalRoot.addEventListener("pointerup", finishSheetDrag);
+      modalRoot.addEventListener("pointercancel", finishSheetDrag);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && state.datePickerOpen) {
+          closeDatePicker();
+        }
+      });
+
+      document.getElementById("restart-prototype")?.addEventListener("click", restart);
+      render();
+    })();
+  </script>
+</body>
+</html>

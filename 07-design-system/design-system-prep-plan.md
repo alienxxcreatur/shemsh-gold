@@ -4,7 +4,7 @@
 
 تاریخ ایجاد: 20 Jul 2026
 
-این سند نقشه کنترل‌شده برای شروع مقدماتی سیستم طراحی شمش است. هدف آن شروع رسمی مرحله ۷ نیست؛ هدف این است که زیرساخت‌های مستقل از برندبوک و مستقل از فلوهای نهایی، هم‌زمان با مرحله ۴ تا ۶ آماده شوند تا در مرحله ۷ سیستم طراحی از صفر شروع نشود.
+این سند نقشه تاریخی و کنترل‌شده شروع مقدماتی سیستم طراحی شمش است. با D-102 مرحله ۷ رسماً فعال شده و ادامه اجرای رسمی در `official-design-system-plan.md` مدیریت می‌شود. خروجی‌های این سند خودکار `Stable` نیستند و باید در فاز ۱ ممیزی و به `Promote / Revise / Keep Draft` طبقه‌بندی شوند.
 
 ## جایگاه این کار در پروژه
 
@@ -296,7 +296,7 @@ Definition of Done:
 - Pilot `Primary / Medium` برای Stateهای default، hover، pressed، focus، disabled و loading تعمیر شده است.
 - Master و Instance در Light/Dark همراه با RTL، متن بلند، Icon و Hug/Fill تست شده‌اند.
 - Audit فنی ۷۹ Paint متصل به Variable اختلاف fallback پیدا نکرده است.
-- گسترش اصلاح به ۶۶ Variant باقی‌مانده طبق D-086 تا تأیید بصری مالک محصول متوقف است.
+- این توقف مربوط به مسیر تاریخی Set ۷۲تایی بود؛ D-122 آن مسیر را با Set تازه ۱۰۸تایی جایگزین کرده و Pilot و Expand مسیر تازه اجرا شده‌اند.
 - Gate کل Button: `Needs revision`؛ Gate Pilot: `Awaiting human visual approval`.
 
 ### قدم ۱۰ — تغذیه سیستم از مرحله ۴
@@ -481,6 +481,6 @@ Definition of Done:
 
 ## گیت وضعیت فعلی
 
-وضعیت این سند: `Sufficient to proceed for Step 9`
+وضعیت این سند: `Prep closed at Step 8 / absorbed into Official Stage 7`
 
-توضیح: قدم‌های ۱ تا ۸ به‌عنوان Draft اولیه ثبت شده‌اند. `component-inventory.md` نیازها را به Base component، Data component، Domain pattern، Feature module و Utility تفکیک و به هشت موج Release متصل می‌کند. ده Component کم‌ریسک برای Draft قدم ۹ مشخص شده‌اند و Patternهای وابسته به Flow یا تصمیم بیرونی در وضعیت `Inventory only` یا `Blocked` مانده‌اند. قدم بعدی ساخت Draft همین Shortlist در Sandbox است. پیش از رسمی‌سازی در منابع مدیریتی پروژه، باید تصمیم گرفته شود آیا این مسیر فقط یک سند کاری داخل `07-design-system` می‌ماند یا به‌عنوان Workstream موازی در `project-status.md` هم ثبت می‌شود.
+توضیح: قدم‌های ۱ تا ۸ زیرساخت Draft معماری توکن، تم، RTL، Governance، اصول، Agent guideline و Inventory را فراهم کردند. D-102 مسیر رسمی را فعال کرده است؛ قدم‌های اجرایی ۹ تا ۱۴ در برنامه رسمی بازچینی شده‌اند. توسعه کامل Button یا سایر Component setها پیش از تثبیت Foundations و عبور Pilot از D-086 مجاز نیست.

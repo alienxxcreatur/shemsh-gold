@@ -1,0 +1,2111 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>وایرفریم تعاملی موج ۱ شمش</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #eef0f2;
+      --surface: #ffffff;
+      --surface-2: #f6f7f8;
+      --surface-3: #e9ecef;
+      --text: #17191c;
+      --muted: #666d75;
+      --line: #cfd4d9;
+      --line-strong: #9ca3ab;
+      --accent: #275fd3;
+      --accent-soft: #eaf0ff;
+      --success: #137a4b;
+      --success-soft: #e9f7f0;
+      --warning: #936600;
+      --warning-soft: #fff6dd;
+      --danger: #b42318;
+      --danger-soft: #fff0ee;
+      --focus: #0b66ff;
+      --phone-width: 390px;
+      --radius: 8px;
+      --shadow: 0 16px 50px rgba(22, 27, 33, 0.12);
+      font-family: Vazirmatn, IRANSansX, Tahoma, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--page);
+      color: var(--text);
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    button,
+    input {
+      font: inherit;
+      letter-spacing: 0;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(11, 102, 255, 0.28);
+      outline-offset: 2px;
+    }
+
+    .workspace-header {
+      min-height: 64px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .workspace-title {
+      min-width: 0;
+    }
+
+    .workspace-title h1 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .workspace-title p {
+      margin: 1px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .workspace {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(500px, 1fr) 360px;
+      gap: 24px;
+      align-items: start;
+      direction: ltr;
+    }
+
+    .preview-column,
+    .inspector {
+      direction: rtl;
+    }
+
+    .preview-column {
+      min-width: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone-shell {
+      width: var(--phone-width);
+      max-width: 100%;
+      min-height: 700px;
+      height: min(780px, calc(100vh - 112px));
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      position: relative;
+    }
+
+    .phone-status {
+      height: 29px;
+      padding: 5px 14px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #343940;
+      font-size: 11px;
+      font-weight: 700;
+      direction: ltr;
+      border-bottom: 1px solid #f0f1f2;
+    }
+
+    .device-icons {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .phone-app {
+      min-height: 0;
+      overflow: auto;
+      overscroll-behavior: contain;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .app-header {
+      min-height: 56px;
+      padding: 8px 14px;
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 6;
+    }
+
+    .app-header h2 {
+      margin: 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 800;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .icon-button {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text);
+      font-size: 20px;
+      display: inline-grid;
+      place-items: center;
+    }
+
+    .icon-button:hover {
+      background: var(--surface-2);
+    }
+
+    .icon-spacer {
+      width: 38px;
+      height: 38px;
+    }
+
+    .screen {
+      min-height: calc(100% - 56px);
+      padding: 18px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .screen.centered {
+      justify-content: center;
+      padding-bottom: 60px;
+    }
+
+    .screen-title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .screen-copy {
+      margin: -8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 2px;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 950;
+    }
+
+    .status-chip,
+    .meta-chip {
+      min-height: 26px;
+      padding: 2px 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-chip.success {
+      border-color: #a8d8bf;
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .status-chip.warning {
+      border-color: #ead38d;
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .rate-band {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .rate-label {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .rate-label span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .rate-label strong {
+      font-size: 18px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rate-meta {
+      text-align: left;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .segmented {
+      min-height: 42px;
+      padding: 3px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+    }
+
+    .segmented.three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .segment {
+      min-width: 0;
+      min-height: 34px;
+      padding: 5px 10px;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .segment.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(20, 25, 30, 0.12);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field-hint {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .input-wrap {
+      min-height: 52px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 0 12px;
+      gap: 10px;
+    }
+
+    .input-wrap:focus-within {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(11, 102, 255, 0.12);
+    }
+
+    .input-wrap.error {
+      border-color: var(--danger);
+    }
+
+    .input-wrap input {
+      width: 100%;
+      min-width: 0;
+      height: 48px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      direction: ltr;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .input-wrap .unit {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .helper,
+    .error-text {
+      margin: 0;
+      font-size: 11px;
+    }
+
+    .helper {
+      color: var(--muted);
+    }
+
+    .error-text {
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    .summary {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .summary-row {
+      min-height: 44px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .summary-row:last-child {
+      border-bottom: 0;
+    }
+
+    .summary-row span {
+      color: var(--muted);
+    }
+
+    .summary-row strong {
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-row.total {
+      background: var(--surface);
+      font-size: 14px;
+    }
+
+    .notice {
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      color: #42484f;
+      font-size: 12px;
+    }
+
+    .notice.info {
+      border-color: #b8c9ee;
+      background: var(--accent-soft);
+      color: #24457f;
+    }
+
+    .notice.success {
+      border-color: #a8d8bf;
+      background: var(--success-soft);
+      color: #165f3d;
+    }
+
+    .notice.warning {
+      border-color: #ead38d;
+      background: var(--warning-soft);
+      color: #6c4c00;
+    }
+
+    .notice.danger {
+      border-color: #e8b4ae;
+      background: var(--danger-soft);
+      color: #8c1d15;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .text-button,
+    .scenario-button {
+      min-height: 46px;
+      border-radius: var(--radius);
+      font-weight: 850;
+    }
+
+    .primary-button {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid #17191c;
+      background: #17191c;
+      color: #fff;
+    }
+
+    .primary-button:hover {
+      background: #30343a;
+    }
+
+    .primary-button:disabled {
+      border-color: var(--line);
+      background: var(--surface-3);
+      color: #8a9198;
+    }
+
+    .secondary-button {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .secondary-button:hover {
+      background: var(--surface-2);
+    }
+
+    .text-button {
+      min-height: 36px;
+      padding: 4px 6px;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    .text-button:disabled {
+      color: #90969d;
+    }
+
+    .button-stack {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .inline-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .otp-input {
+      width: 100%;
+      height: 60px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(to left, transparent calc(16.66% - 1px), var(--line) calc(16.66% - 1px), var(--line) 16.66%, transparent 16.66%);
+      background-size: 16.66% 100%;
+      color: var(--text);
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 18px;
+      text-align: center;
+      direction: ltr;
+      padding-left: 18px;
+      outline: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .otp-input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(11, 102, 255, 0.12);
+    }
+
+    .otp-input.error {
+      border-color: var(--danger);
+    }
+
+    .timer {
+      color: var(--muted);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      direction: ltr;
+    }
+
+    .success-mark,
+    .error-mark,
+    .lock-mark {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 4px;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .success-mark {
+      background: var(--success-soft);
+      color: var(--success);
+      border: 1px solid #a8d8bf;
+    }
+
+    .error-mark {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border: 1px solid #e8b4ae;
+    }
+
+    .lock-mark {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid #b8c9ee;
+    }
+
+    .center-copy {
+      text-align: center;
+    }
+
+    .center-copy .screen-copy {
+      margin-top: 5px;
+    }
+
+    .loading-block {
+      display: grid;
+      gap: 10px;
+    }
+
+    .skeleton {
+      height: 14px;
+      border-radius: 4px;
+      background: #e4e7ea;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skeleton::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 45%;
+      background: #f5f6f7;
+      animation: loading 1.1s linear infinite;
+    }
+
+    .skeleton.short {
+      width: 58%;
+    }
+
+    @keyframes loading {
+      from {
+        transform: translateX(160%);
+      }
+      to {
+        transform: translateX(-260%);
+      }
+    }
+
+    .toast {
+      position: absolute;
+      right: 14px;
+      left: 14px;
+      bottom: 14px;
+      min-height: 44px;
+      padding: 9px 12px;
+      border: 1px solid #22262a;
+      border-radius: var(--radius);
+      background: #22262a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 10;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .inspector {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .inspector-section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .inspector-title {
+      min-height: 46px;
+      margin: 0;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .inspector-body {
+      padding: 12px;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .scenario-button {
+      min-height: 42px;
+      padding: 7px 8px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .scenario-button:hover,
+    .scenario-button.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #1f4da7;
+    }
+
+    .scenario-button.danger:hover {
+      border-color: var(--danger);
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .screen-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 2px;
+    }
+
+    .screen-list button {
+      width: 100%;
+      min-height: 38px;
+      padding: 7px 8px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 9px;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text);
+      text-align: right;
+      font-size: 11px;
+    }
+
+    .screen-list button:hover {
+      background: var(--surface-2);
+    }
+
+    .screen-list button.active {
+      border-color: #b8c9ee;
+      background: var(--accent-soft);
+      color: #1f4da7;
+      font-weight: 800;
+    }
+
+    .screen-code {
+      min-width: 66px;
+      direction: ltr;
+      color: var(--muted);
+      font-size: 9px;
+      text-align: left;
+    }
+
+    .test-data {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 5px 10px;
+      margin: 0;
+      font-size: 11px;
+    }
+
+    .test-data dt {
+      color: var(--muted);
+    }
+
+    .test-data dd {
+      margin: 0;
+      font-weight: 800;
+      direction: ltr;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .activity-log {
+      max-height: 138px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .activity-log div {
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eceeef;
+    }
+
+    .activity-log div:last-child {
+      border-bottom: 0;
+    }
+
+    .prototype-note {
+      padding: 10px 12px;
+      border-right: 3px solid var(--warning);
+      background: var(--warning-soft);
+      color: #6b4c00;
+      font-size: 11px;
+    }
+
+    .mobile-inspector {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .workspace {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+
+      .inspector {
+        width: min(var(--phone-width), 100%);
+        margin: 0 auto;
+      }
+
+      .phone-shell {
+        height: 760px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .workspace-header {
+        padding: 10px 12px;
+        position: static;
+      }
+
+      .workspace-title p,
+      .header-actions .meta-chip {
+        display: none;
+      }
+
+      .workspace {
+        padding: 0;
+        gap: 0;
+      }
+
+      .phone-shell {
+        width: 100%;
+        min-height: 100svh;
+        height: auto;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .phone-app {
+        min-height: calc(100svh - 29px);
+      }
+
+      .inspector {
+        width: 100%;
+        padding: 14px;
+        background: var(--page);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="workspace-header">
+    <div class="workspace-title">
+      <h1>وایرفریم تعاملی موج ۱ شمش</h1>
+      <p>ورود OTP، احراز در لحظه نیاز، قیمت و ماشین‌حساب</p>
+    </div>
+    <div class="header-actions">
+      <span class="meta-chip" id="flowStatus">مهمان · نرخ معتبر</span>
+      <button class="secondary-button" style="width:auto;min-height:38px;padding:6px 12px" data-action="reset">
+        شروع دوباره
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="preview-column" aria-label="پیش‌نمایش موبایل">
+      <div class="phone-shell">
+        <div class="phone-status" aria-hidden="true">
+          <span>9:41</span>
+          <span class="device-icons">● ◔ ▰</span>
+        </div>
+        <div class="phone-app" id="phoneApp"></div>
+      </div>
+    </section>
+
+    <aside class="inspector" aria-label="کنترل سناریوهای تست">
+      <section class="inspector-section">
+        <h2 class="inspector-title">
+          کنترل سناریو
+          <span class="status-chip" id="scenarioStatus">مسیر موفق</span>
+        </h2>
+        <div class="inspector-body">
+          <div class="scenario-grid">
+            <button class="scenario-button active" data-action="set-scenario" data-scenario="success">مسیر موفق</button>
+            <button class="scenario-button" data-action="expire-otp">انقضای OTP</button>
+            <button class="scenario-button" data-action="set-kyc-outcome" data-outcome="mismatch">عدم تطابق KYC</button>
+            <button class="scenario-button" data-action="set-kyc-outcome" data-outcome="serviceError">خطای سرویس KYC</button>
+            <button class="scenario-button danger" data-action="rate-outage">قطع نرخ</button>
+            <button class="scenario-button" data-action="expire-session">انقضای نشست</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="inspector-section">
+        <h2 class="inspector-title">صفحه‌های موج ۱</h2>
+        <div class="inspector-body">
+          <ul class="screen-list" id="screenList"></ul>
+        </div>
+      </section>
+
+      <section class="inspector-section">
+        <h2 class="inspector-title">داده تست</h2>
+        <div class="inspector-body">
+          <dl class="test-data">
+            <dt>OTP موفق</dt><dd>123456</dd>
+            <dt>موبایل نمونه</dt><dd>09121234567</dd>
+            <dt>کد ملی نمونه</dt><dd>0013547890</dd>
+            <dt>کد ملی نامنطبق</dt><dd>1111111111</dd>
+          </dl>
+        </div>
+      </section>
+
+      <div class="prototype-note">
+        نرخ و مبلغ‌های داخل نمونه فقط داده آزمایشی وایرفریم‌اند. منبع و فرمول قیمت تا پاسخ OQ-020 نهایی نیست.
+      </div>
+
+      <section class="inspector-section">
+        <h2 class="inspector-title">ردپای سناریو</h2>
+        <div class="inspector-body">
+          <div class="activity-log" id="activityLog"></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const screenCatalog = [
+        { id: "calc", code: "WF-W1-001", label: "قیمت و ماشین‌حساب" },
+        { id: "phone", code: "WF-W1-002", label: "ورود با موبایل" },
+        { id: "otp", code: "WF-W1-003", label: "تأیید OTP" },
+        { id: "authResult", code: "WF-W1-004", label: "نتیجه ورود" },
+        { id: "kycGate", code: "WF-W1-005", label: "Gate احراز" },
+        { id: "kycForm", code: "WF-W1-006", label: "فرم KYC" },
+        { id: "kycLoading", code: "WF-W1-007", label: "استعلام KYC" },
+        { id: "sessionExpired", code: "WF-W1-008", label: "انقضای نشست" },
+        { id: "rateUnavailable", code: "WF-W1-009", label: "اختلال نرخ" },
+        { id: "purchasePreview", code: "HANDOFF-W2", label: "پیش‌نمایش خرید" }
+      ];
+
+      const screenTitles = {
+        calc: "قیمت طلا",
+        phone: "ورود یا ثبت‌نام",
+        otp: "تأیید شماره موبایل",
+        authResult: "نتیجه ورود",
+        kycGate: "تکمیل احراز هویت",
+        kycForm: "اطلاعات هویتی",
+        kycLoading: "بررسی اطلاعات",
+        kycError: "خطای احراز",
+        kycSuccess: "احراز هویت",
+        sessionExpired: "ورود مجدد",
+        rateUnavailable: "قیمت در دسترس نیست",
+        purchasePreview: "پیش‌نمایش خرید"
+      };
+
+      const initialState = () => ({
+        screen: "calc",
+        navStack: [],
+        mode: "buy",
+        inputKind: "money",
+        amount: "5000000",
+        mobile: "",
+        otp: "",
+        loggedIn: false,
+        verified: false,
+        isNewUser: true,
+        authContext: "trade",
+        returnAfterAuth: "kycGate",
+        returnAfterKyc: "purchasePreview",
+        preservedIntent: {
+          mode: "buy",
+          inputKind: "money",
+          amount: "5000000"
+        },
+        otpExpiresAt: 0,
+        resendAt: 0,
+        otpError: "",
+        phoneError: "",
+        kycError: "",
+        kycOutcome: "success",
+        rateStatus: "ok",
+        sampleBuyRate: 4000000,
+        sampleSellRate: 3960000,
+        rateUpdatedAt: Date.now(),
+        rateRefreshAt: Date.now() + 20000,
+        scenarioLabel: "مسیر موفق",
+        toast: "",
+        activity: ["نمونه از ماشین‌حساب عمومی آغاز شد."]
+      });
+
+      let state = initialState();
+      let toastTimer = null;
+      let kycTimer = null;
+
+      const phoneApp = document.getElementById("phoneApp");
+      const screenList = document.getElementById("screenList");
+      const activityLog = document.getElementById("activityLog");
+      const scenarioStatus = document.getElementById("scenarioStatus");
+      const flowStatus = document.getElementById("flowStatus");
+
+      const toFaDigits = (value) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
+
+      const formatNumber = (value, maximumFractionDigits = 0) =>
+        new Intl.NumberFormat("fa-IR", { maximumFractionDigits }).format(Number(value) || 0);
+
+      const escapeHtml = (value) =>
+        String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+
+      const currentRate = () => state.mode === "buy" ? state.sampleBuyRate : state.sampleSellRate;
+
+      const preservedTradeLabel = () =>
+        state.preservedIntent.mode === "buy" ? "خرید" : "فروش";
+
+      const preservedInputLabel = () =>
+        state.preservedIntent.inputKind === "money" ? "مبلغ" : "وزن";
+
+      const preservedInputValue = () =>
+        state.preservedIntent.inputKind === "money"
+          ? `${formatNumber(Number(state.preservedIntent.amount || 0))} تومان`
+          : `${formatNumber(Number(state.preservedIntent.amount || 0), 3)} گرم`;
+
+      const getCalculation = () => {
+        const numeric = Number(String(state.amount).replaceAll(",", ""));
+        const rate = currentRate();
+        if (!numeric || numeric < 0 || !rate) {
+          return { valid: false, base: 0, fee: 0, result: 0 };
+        }
+
+        if (state.inputKind === "money") {
+          const fee = numeric * 0.005;
+          const usable = state.mode === "buy" ? numeric - fee : numeric + fee;
+          const weight = usable / rate;
+          return {
+            valid: weight >= 0.001,
+            base: numeric,
+            fee,
+            result: weight
+          };
+        }
+
+        const gross = numeric * rate;
+        const fee = gross * 0.005;
+        const toman = state.mode === "buy" ? gross + fee : gross - fee;
+        return {
+          valid: numeric >= 0.001,
+          base: numeric,
+          fee,
+          result: toman
+        };
+      };
+
+      const log = (message) => {
+        const time = new Intl.DateTimeFormat("fa-IR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        }).format(new Date());
+        state.activity.unshift(`${time} — ${message}`);
+        state.activity = state.activity.slice(0, 10);
+        renderInspector();
+      };
+
+      const showToast = (message) => {
+        state.toast = message;
+        render();
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          state.toast = "";
+          render();
+        }, 2600);
+      };
+
+      const go = (screen, { push = true } = {}) => {
+        if (push && state.screen !== screen) {
+          state.navStack.push(state.screen);
+        }
+        state.screen = screen;
+        render();
+        const item = screenCatalog.find((entry) => entry.id === screen);
+        log(`نمایش ${item ? item.code : screenTitles[screen] || screen}`);
+      };
+
+      const back = () => {
+        const previous = state.navStack.pop();
+        if (previous) {
+          state.screen = previous;
+        } else {
+          state.screen = "calc";
+        }
+        render();
+        log("بازگشت به مرحله قبل.");
+      };
+
+      const header = ({ title, backButton = true, closeButton = false } = {}) => `
+        <header class="app-header">
+          ${backButton
+            ? `<button class="icon-button" type="button" data-action="back" aria-label="بازگشت" title="بازگشت">←</button>`
+            : `<span class="icon-spacer"></span>`}
+          <h2>${escapeHtml(title || screenTitles[state.screen] || "")}</h2>
+          ${closeButton
+            ? `<button class="icon-button" type="button" data-action="close-flow" aria-label="بستن" title="بستن">×</button>`
+            : `<span class="icon-spacer"></span>`}
+        </header>
+      `;
+
+      const toast = () => state.toast ? `<div class="toast" role="status">${escapeHtml(state.toast)}</div>` : "";
+
+      const calcScreen = () => {
+        const calc = getCalculation();
+        const rateIsValid = state.rateStatus === "ok";
+        const loggedChip = state.verified
+          ? `<span class="status-chip success">احراز شده</span>`
+          : state.loggedIn
+            ? `<span class="status-chip warning">احراز نشده</span>`
+            : `<span class="status-chip">مهمان</span>`;
+        const inputUnit = state.inputKind === "money" ? "تومان" : "گرم";
+        const resultLabel = state.inputKind === "money"
+          ? (state.mode === "buy" ? "طلای دریافتی تخمینی" : "طلای موردنیاز")
+          : (state.mode === "buy" ? "مبلغ پرداختی تخمینی" : "تومان دریافتی تخمینی");
+        const resultValue = state.inputKind === "money"
+          ? `${formatNumber(calc.result, 3)} گرم`
+          : `${formatNumber(calc.result)} تومان`;
+        const isTooSmall = state.amount && !calc.valid;
+
+        return `
+          ${header({ title: "شمش", backButton: false })}
+          <section class="screen" data-screen="calc">
+            <div class="brand-row">
+              <div class="brand">شمش</div>
+              ${loggedChip}
+            </div>
+
+            <div class="rate-band">
+              <div class="rate-label">
+                <span>${state.mode === "buy" ? "نرخ نمونه خرید" : "نرخ نمونه فروش"} هر گرم ۱۸ عیار</span>
+                <strong id="rateValue">${rateIsValid ? `${formatNumber(currentRate())} تومان` : "—"}</strong>
+              </div>
+              <div class="rate-meta">
+                <span class="status-chip warning">داده آزمایشی</span><br>
+                <span id="rateCountdown">تازه‌سازی تا ۲۰ ثانیه</span>
+              </div>
+            </div>
+
+            <div class="segmented" aria-label="حالت معامله">
+              <button class="segment ${state.mode === "buy" ? "active" : ""}" data-action="set-mode" data-mode="buy">خرید</button>
+              <button class="segment ${state.mode === "sell" ? "active" : ""}" data-action="set-mode" data-mode="sell">فروش</button>
+            </div>
+
+            <div class="segmented" aria-label="نوع ورودی">
+              <button class="segment ${state.inputKind === "money" ? "active" : ""}" data-action="set-input-kind" data-kind="money">مبلغ</button>
+              <button class="segment ${state.inputKind === "weight" ? "active" : ""}" data-action="set-input-kind" data-kind="weight">وزن</button>
+            </div>
+
+            <div class="field">
+              <div class="field-row">
+                <label for="calcInput">${state.inputKind === "money" ? "مبلغ موردنظر" : "وزن موردنظر"}</label>
+                <span class="field-hint">حداقل ۱ سوت</span>
+              </div>
+              <div class="input-wrap ${isTooSmall ? "error" : ""}">
+                <input
+                  id="calcInput"
+                  data-model="amount"
+                  inputmode="decimal"
+                  autocomplete="off"
+                  value="${escapeHtml(state.amount)}"
+                  aria-describedby="calcHelp"
+                >
+                <span class="unit">${inputUnit}</span>
+              </div>
+              <p id="calcHelp" class="${isTooSmall ? "error-text" : "helper"}">
+                ${isTooSmall ? "مقدار باید حداقل یک سوت باشد." : "کارمزد معامله پیش از ادامه محاسبه شده است."}
+              </p>
+            </div>
+
+            <div class="summary" aria-live="polite">
+              <div class="summary-row">
+                <span>نرخ نمونه</span>
+                <strong id="summaryRate">${rateIsValid ? `${formatNumber(currentRate())} تومان` : "نامعتبر"}</strong>
+              </div>
+              <div class="summary-row">
+                <span>کارمزد ۰٫۵٪</span>
+                <strong id="summaryFee">${formatNumber(calc.fee)} تومان</strong>
+              </div>
+              <div class="summary-row total">
+                <span>${resultLabel}</span>
+                <strong id="summaryResult">${calc.valid && rateIsValid ? resultValue : "—"}</strong>
+              </div>
+            </div>
+
+            ${rateIsValid
+              ? `<div class="notice">این محاسبه تخمینی است. نرخ معتبر هنگام ادامه دوباره بررسی می‌شود.</div>`
+              : `<div class="notice danger">نرخ معتبر در دسترس نیست. ورودی شما حفظ شده است.</div>`}
+
+            <div class="button-stack">
+              ${!rateIsValid
+                ? `<button class="secondary-button" data-action="restore-rate">تلاش دوباره برای دریافت نرخ</button>`
+                : ""}
+              <button
+                class="primary-button"
+                data-action="continue-trade"
+                ${!calc.valid || !rateIsValid ? "disabled" : ""}
+              >
+                ${state.mode === "buy" ? "ادامه خرید" : "ادامه فروش"}
+              </button>
+            </div>
+          </section>
+          ${toast()}
+        `;
+      };
+
+      const phoneScreen = () => `
+        ${header({ title: "ورود یا ثبت‌نام", backButton: true, closeButton: true })}
+        <section class="screen" data-screen="phone">
+          <div>
+            <h3 class="screen-title">شماره موبایل خود را وارد کنید</h3>
+            <p class="screen-copy">
+              ${state.authContext === "reauth"
+                ? "برای ادامه امن همان مسیر، دوباره وارد شوید."
+                : "برای ادامه همین مسیر یک کد یک‌بارمصرف برای شما ارسال می‌شود."}
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="mobileInput">شماره موبایل</label>
+            <div class="input-wrap ${state.phoneError ? "error" : ""}">
+              <input
+                id="mobileInput"
+                data-model="mobile"
+                inputmode="numeric"
+                autocomplete="tel"
+                maxlength="11"
+                placeholder="09123456789"
+                value="${escapeHtml(state.mobile)}"
+              >
+              <span class="unit">+۹۸</span>
+            </div>
+            <p class="${state.phoneError ? "error-text" : "helper"}">
+              ${state.phoneError || "کد ورود فقط به همین شماره ارسال می‌شود."}
+            </p>
+          </div>
+
+          <div class="notice info">
+            مقدار و انتخاب قبلی شما حفظ شده و پس از ورود به همان مسیر برمی‌گردید.
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="send-otp">دریافت کد</button>
+            <button class="text-button" data-action="close-flow">فعلاً ادامه نمی‌دهم</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const otpScreen = () => `
+        ${header({ title: "تأیید شماره موبایل", backButton: true, closeButton: true })}
+        <section class="screen" data-screen="otp">
+          <div>
+            <h3 class="screen-title">کد ۶ رقمی را وارد کنید</h3>
+            <p class="screen-copy">
+              کد به ${state.mobile ? toFaDigits(state.mobile) : "شماره شما"} ارسال شد.
+              <button class="text-button" style="min-height:auto;padding:0 4px" data-action="edit-mobile">ویرایش شماره</button>
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="otpInput">کد یک‌بارمصرف</label>
+            <input
+              id="otpInput"
+              class="otp-input ${state.otpError ? "error" : ""}"
+              data-model="otp"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              maxlength="6"
+              value="${escapeHtml(state.otp)}"
+              aria-describedby="otpHelp"
+            >
+            <p id="otpHelp" class="${state.otpError ? "error-text" : "helper"}">
+              ${state.otpError || "کد پس از ۳ دقیقه منقضی می‌شود."}
+            </p>
+          </div>
+
+          <div class="inline-actions">
+            <span class="timer" id="otpTimer">03:00</span>
+            <button class="text-button" id="resendButton" data-action="resend-otp" disabled>
+              ارسال مجدد
+            </button>
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="verify-otp">تأیید و ادامه</button>
+            <button class="secondary-button" data-action="close-flow">انصراف</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const authResultScreen = () => `
+        ${header({ title: "نتیجه ورود", backButton: false, closeButton: false })}
+        <section class="screen centered" data-screen="authResult">
+          <div class="success-mark">✓</div>
+          <div class="center-copy">
+            <h3 class="screen-title">${state.authContext === "reauth" ? "ورود شما تازه شد" : "با موفقیت وارد شدید"}</h3>
+            <p class="screen-copy">
+              ${state.authContext === "reauth"
+                ? "اطلاعات قبلی حفظ شده و به همان نقطه برمی‌گردید."
+                : state.isNewUser
+                  ? "حساب شما پس از تأیید شماره ساخته شد."
+                  : "حساب شما شناسایی شد."}
+            </p>
+          </div>
+
+          <div class="notice success">
+            انتخاب ${preservedTradeLabel()} با ${preservedInputLabel()} ${preservedInputValue()} برای ادامه حفظ شده است.
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="continue-after-auth">ادامه همان مسیر</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const kycGateScreen = () => `
+        ${header({ title: "تکمیل احراز هویت", backButton: true, closeButton: true })}
+        <section class="screen centered" data-screen="kycGate">
+          <div class="lock-mark">⌁</div>
+          <div class="center-copy">
+            <h3 class="screen-title">برای تأیید ${preservedTradeLabel()}، احراز هویت لازم است</h3>
+            <p class="screen-copy">
+              کد ملی و تاریخ تولد شما با شماره موبایل تأییدشده تطبیق داده می‌شود.
+            </p>
+          </div>
+
+          <div class="summary">
+            <div class="summary-row">
+              <span>${preservedInputLabel()} حفظ‌شده</span>
+              <strong>${preservedInputValue()}</strong>
+            </div>
+            <div class="summary-row">
+              <span>زمان معمول استعلام</span>
+              <strong>آنی</strong>
+            </div>
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="start-kyc">تکمیل احراز هویت</button>
+            <button class="secondary-button" data-action="defer-kyc">بعداً انجام می‌دهم</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const kycFormScreen = () => `
+        ${header({ title: "اطلاعات هویتی", backButton: true, closeButton: true })}
+        <section class="screen" data-screen="kycForm">
+          <div>
+            <h3 class="screen-title">اطلاعات خودتان را وارد کنید</h3>
+            <p class="screen-copy">اطلاعات باید متعلق به صاحب همین شماره موبایل باشد.</p>
+          </div>
+
+          ${state.kycError ? `<div class="notice danger">${escapeHtml(state.kycError)}</div>` : ""}
+
+          <div class="field">
+            <label for="nationalIdInput">کد ملی</label>
+            <div class="input-wrap">
+              <input
+                id="nationalIdInput"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="10"
+                placeholder="0013547890"
+              >
+              <span class="unit">۱۰ رقم</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="birthDateInput">تاریخ تولد</label>
+            <div class="input-wrap">
+              <input
+                id="birthDateInput"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="10"
+                placeholder="1370/06/15"
+              >
+              <span class="unit">شمسی</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="field-row">
+              <label for="referralInput">کد معرف</label>
+              <span class="field-hint">اختیاری</span>
+            </div>
+            <div class="input-wrap">
+              <input
+                id="referralInput"
+                autocomplete="off"
+                maxlength="12"
+                placeholder="مثلاً SH-1234"
+              >
+              <span class="unit">اختیاری</span>
+            </div>
+          </div>
+
+          <div class="notice">
+            در صورت عدم تطابق، اطلاعات به حساب شما متصل نمی‌شود و همین‌جا قابل اصلاح است.
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="submit-kyc">تأیید اطلاعات</button>
+            <button class="text-button" data-action="defer-kyc">فعلاً ادامه نمی‌دهم</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const kycLoadingScreen = () => `
+        ${header({ title: "بررسی اطلاعات", backButton: false, closeButton: false })}
+        <section class="screen centered" data-screen="kycLoading">
+          <div class="loading-block" aria-label="در حال بررسی">
+            <div class="skeleton short"></div>
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+          </div>
+          <div class="center-copy">
+            <h3 class="screen-title">در حال تطبیق اطلاعات</h3>
+            <p class="screen-copy">این بررسی کوتاه است. صفحه را نبندید.</p>
+          </div>
+        </section>
+      `;
+
+      const kycErrorScreen = () => `
+        ${header({ title: "خطای احراز", backButton: true, closeButton: true })}
+        <section class="screen centered" data-screen="kycError">
+          <div class="error-mark">!</div>
+          <div class="center-copy">
+            <h3 class="screen-title">فعلاً امکان بررسی اطلاعات نیست</h3>
+            <p class="screen-copy">اطلاعات شما ثبت نشده است. دوباره تلاش کنید یا بعداً ادامه دهید.</p>
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="retry-kyc">تلاش دوباره</button>
+            <button class="secondary-button" data-action="defer-kyc">ادامه در زمان دیگر</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const kycSuccessScreen = () => `
+        ${header({ title: "احراز هویت", backButton: false, closeButton: false })}
+        <section class="screen centered" data-screen="kycSuccess">
+          <div class="success-mark">✓</div>
+          <div class="center-copy">
+            <h3 class="screen-title">احراز هویت تکمیل شد</h3>
+            <p class="screen-copy">به پیش‌نمایش ${preservedTradeLabel()} با ${preservedInputLabel()} حفظ‌شده و نرخ تازه برمی‌گردید.</p>
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="continue-after-kyc">ادامه ${preservedTradeLabel()}</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const sessionExpiredScreen = () => `
+        ${header({ title: "ورود مجدد", backButton: false, closeButton: true })}
+        <section class="screen centered" data-screen="sessionExpired">
+          <div class="lock-mark">⌁</div>
+          <div class="center-copy">
+            <h3 class="screen-title">اعتبار ورود شما تمام شده است</h3>
+            <p class="screen-copy">برای ادامه امن، دوباره کد یک‌بارمصرف بگیرید. اطلاعات این صفحه حفظ می‌شود.</p>
+          </div>
+
+          <div class="notice info">
+            این وضعیت مسدودی حساب نیست و پس از ورود به همین نقطه برمی‌گردید.
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="start-reauth">ورود مجدد</button>
+            <button class="secondary-button" data-action="close-flow">انصراف</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const rateUnavailableScreen = () => `
+        ${header({ title: "قیمت در دسترس نیست", backButton: true, closeButton: false })}
+        <section class="screen centered" data-screen="rateUnavailable">
+          <div class="error-mark">!</div>
+          <div class="center-copy">
+            <h3 class="screen-title">نرخ معتبر دریافت نشد</h3>
+            <p class="screen-copy">فعلاً امکان ادامه معامله نیست. مقدار واردشده محفوظ مانده است.</p>
+          </div>
+
+          <div class="notice warning">
+            آخرین تلاش همین حالا انجام شد. زمان رفع اختلال هنوز مشخص نیست.
+          </div>
+
+          <div class="button-stack">
+            <button class="primary-button" data-action="restore-rate">تلاش دوباره</button>
+            <button class="secondary-button" data-action="return-calc">بازگشت به ماشین‌حساب</button>
+          </div>
+        </section>
+        ${toast()}
+      `;
+
+      const purchasePreviewScreen = () => {
+        const calc = getCalculation();
+        const isBuy = state.mode === "buy";
+        const enteredValue = state.inputKind === "money"
+          ? `${formatNumber(Number(state.amount || 0))} تومان`
+          : `${formatNumber(Number(state.amount || 0), 3)} گرم`;
+        const resultLabel = state.inputKind === "money"
+          ? isBuy ? "طلای دریافتی تخمینی" : "طلای قابل فروش تخمینی"
+          : isBuy ? "مبلغ پرداخت تخمینی" : "مبلغ دریافتی تخمینی";
+        const resultValue = state.inputKind === "money"
+          ? `${formatNumber(calc.result, 3)} گرم`
+          : `${formatNumber(calc.result)} تومان`;
+        return `
+          ${header({ title: `پیش‌نمایش ${isBuy ? "خرید" : "فروش"}`, backButton: true, closeButton: true })}
+          <section class="screen" data-screen="purchasePreview">
+            <div class="brand-row">
+              <div>
+                <h3 class="screen-title" style="font-size:19px">جزئیات ${isBuy ? "خرید" : "فروش"} را بررسی کنید</h3>
+                <p class="screen-copy">نرخ هنگام ورود به این صفحه تازه شده است.</p>
+              </div>
+              <span class="status-chip success">احراز شده</span>
+            </div>
+
+            <div class="summary">
+              <div class="summary-row">
+                <span>${state.inputKind === "money" ? "مبلغ واردشده" : "وزن واردشده"}</span>
+                <strong>${enteredValue}</strong>
+              </div>
+              <div class="summary-row">
+                <span>کارمزد ۰٫۵٪</span>
+                <strong>${formatNumber(calc.fee)} تومان</strong>
+              </div>
+              <div class="summary-row">
+                <span>نرخ نمونه</span>
+                <strong>${formatNumber(currentRate())} تومان</strong>
+              </div>
+              <div class="summary-row total">
+                <span>${resultLabel}</span>
+                <strong>${resultValue}</strong>
+              </div>
+            </div>
+
+            <div class="notice success">
+              مقدار و جهت معامله در ورود و احراز حفظ شد و نرخ این پیش‌نمایش تازه است.
+            </div>
+
+            <div class="button-stack">
+              <button class="primary-button" disabled>تأیید ${isBuy ? "خرید" : "فروش"}</button>
+              <button class="secondary-button" data-action="return-calc">بازگشت به ماشین‌حساب</button>
+            </div>
+          </section>
+          ${toast()}
+        `;
+      };
+
+      const renderScreen = () => {
+        switch (state.screen) {
+          case "calc":
+            return calcScreen();
+          case "phone":
+            return phoneScreen();
+          case "otp":
+            return otpScreen();
+          case "authResult":
+            return authResultScreen();
+          case "kycGate":
+            return kycGateScreen();
+          case "kycForm":
+            return kycFormScreen();
+          case "kycLoading":
+            return kycLoadingScreen();
+          case "kycError":
+            return kycErrorScreen();
+          case "kycSuccess":
+            return kycSuccessScreen();
+          case "sessionExpired":
+            return sessionExpiredScreen();
+          case "rateUnavailable":
+            return rateUnavailableScreen();
+          case "purchasePreview":
+            return purchasePreviewScreen();
+          default:
+            return calcScreen();
+        }
+      };
+
+      const renderInspector = () => {
+        scenarioStatus.textContent = state.scenarioLabel;
+        flowStatus.textContent = `${state.verified ? "احراز شده" : state.loggedIn ? "واردشده" : "مهمان"} · ${state.rateStatus === "ok" ? "نرخ معتبر" : "نرخ نامعتبر"}`;
+
+        document.querySelectorAll("[data-action='set-scenario']").forEach((button) => {
+          button.classList.toggle("active", state.scenarioLabel === "مسیر موفق");
+        });
+
+        screenList.innerHTML = screenCatalog.map((item) => `
+          <li>
+            <button
+              class="${state.screen === item.id ? "active" : ""}"
+              data-action="jump-screen"
+              data-screen="${item.id}"
+            >
+              <span class="screen-code">${item.code}</span>
+              <span>${item.label}</span>
+            </button>
+          </li>
+        `).join("");
+
+        activityLog.innerHTML = state.activity.length
+          ? state.activity.map((entry) => `<div>${escapeHtml(entry)}</div>`).join("")
+          : "<div>هنوز رویدادی ثبت نشده است.</div>";
+      };
+
+      const render = () => {
+        phoneApp.innerHTML = renderScreen();
+        renderInspector();
+        updateTimers();
+      };
+
+      const updateCalculationUI = () => {
+        if (state.screen !== "calc") {
+          return;
+        }
+        const calc = getCalculation();
+        const result = document.getElementById("summaryResult");
+        const fee = document.getElementById("summaryFee");
+        if (fee) {
+          fee.textContent = `${formatNumber(calc.fee)} تومان`;
+        }
+        if (result) {
+          if (!calc.valid || state.rateStatus !== "ok") {
+            result.textContent = "—";
+          } else if (state.inputKind === "money") {
+            result.textContent = `${formatNumber(calc.result, 3)} گرم`;
+          } else {
+            result.textContent = `${formatNumber(calc.result)} تومان`;
+          }
+        }
+      };
+
+      const updateTimers = () => {
+        const now = Date.now();
+        const otpTimer = document.getElementById("otpTimer");
+        const resendButton = document.getElementById("resendButton");
+        const rateCountdown = document.getElementById("rateCountdown");
+
+        if (otpTimer) {
+          const remaining = Math.max(0, Math.ceil((state.otpExpiresAt - now) / 1000));
+          const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+          const seconds = String(remaining % 60).padStart(2, "0");
+          otpTimer.textContent = `${minutes}:${seconds}`;
+          otpTimer.style.color = remaining === 0 ? "var(--danger)" : "var(--muted)";
+        }
+
+        if (resendButton) {
+          const resendRemaining = Math.max(0, Math.ceil((state.resendAt - now) / 1000));
+          resendButton.disabled = resendRemaining > 0;
+          resendButton.textContent = resendRemaining > 0
+            ? `ارسال مجدد تا ${toFaDigits(resendRemaining)} ثانیه`
+            : "ارسال مجدد";
+        }
+
+        if (rateCountdown && state.rateStatus === "ok") {
+          const rateRemaining = Math.max(0, Math.ceil((state.rateRefreshAt - now) / 1000));
+          rateCountdown.textContent = `تازه‌سازی تا ${toFaDigits(rateRemaining)} ثانیه`;
+        }
+      };
+
+      const reset = () => {
+        clearTimeout(kycTimer);
+        state = initialState();
+        render();
+        log("پروتوتایپ به وضعیت آغاز برگشت.");
+      };
+
+      const sendOtp = () => {
+        const input = document.getElementById("mobileInput");
+        const mobile = input ? input.value.replace(/\D/g, "") : state.mobile;
+        state.mobile = mobile;
+        state.phoneError = "";
+
+        if (!/^09\d{9}$/.test(mobile)) {
+          state.phoneError = "شماره موبایل باید با ۰۹ شروع شود و ۱۱ رقم داشته باشد.";
+          render();
+          log("اعتبارسنجی شماره موبایل ناموفق بود.");
+          return;
+        }
+
+        state.otp = "";
+        state.otpError = "";
+        state.otpExpiresAt = Date.now() + 180000;
+        state.resendAt = Date.now() + 60000;
+        go("otp");
+        log(`OTP برای ${mobile} ارسال شد.`);
+      };
+
+      const verifyOtp = () => {
+        const input = document.getElementById("otpInput");
+        const otp = input ? input.value.replace(/\D/g, "") : state.otp;
+        state.otp = otp;
+        state.otpError = "";
+
+        if (Date.now() >= state.otpExpiresAt) {
+          state.otpError = "این کد منقضی شده است. کد تازه دریافت کنید.";
+          render();
+          log("OTP منقضی رد شد.");
+          return;
+        }
+
+        if (otp !== "123456") {
+          state.otpError = "کد واردشده درست نیست.";
+          render();
+          log("OTP نامعتبر نمایش داده شد.");
+          return;
+        }
+
+        state.loggedIn = true;
+        state.otpError = "";
+        go("authResult");
+        log("OTP موفق و نشست معتبر ایجاد شد.");
+      };
+
+      const resendOtp = () => {
+        if (Date.now() < state.resendAt) {
+          return;
+        }
+        state.otp = "";
+        state.otpError = "";
+        state.otpExpiresAt = Date.now() + 180000;
+        state.resendAt = Date.now() + 60000;
+        render();
+        showToast("کد تازه ارسال شد و کد قبلی دیگر معتبر نیست.");
+        log("OTP تازه صادر و کد قبلی باطل شد.");
+      };
+
+      const submitKyc = () => {
+        const nationalIdInput = document.getElementById("nationalIdInput");
+        const birthDateInput = document.getElementById("birthDateInput");
+        const nationalId = nationalIdInput ? nationalIdInput.value.replace(/\D/g, "") : "";
+        const birthDate = birthDateInput ? birthDateInput.value.trim() : "";
+
+        state.kycError = "";
+
+        if (!/^\d{10}$/.test(nationalId) || birthDate.length < 8) {
+          state.kycError = "کد ملی و تاریخ تولد را کامل و درست وارد کنید.";
+          render();
+          log("اعتبارسنجی فرم KYC ناموفق بود.");
+          return;
+        }
+
+        if (nationalId === "1111111111") {
+          state.kycOutcome = "mismatch";
+        }
+
+        go("kycLoading");
+        clearTimeout(kycTimer);
+        kycTimer = setTimeout(() => {
+          if (state.kycOutcome === "mismatch") {
+            state.kycError = "کد ملی یا تاریخ تولد با شماره موبایل تطابق ندارد. اطلاعات را اصلاح کنید.";
+            state.kycOutcome = "success";
+            go("kycForm", { push: false });
+            log("عدم تطابق KYC در همان فرم نمایش داده شد.");
+            return;
+          }
+
+          if (state.kycOutcome === "serviceError") {
+            state.kycOutcome = "success";
+            go("kycError", { push: false });
+            log("خطای سرویس KYC بدون ساخت status پایدار نمایش داده شد.");
+            return;
+          }
+
+          state.verified = true;
+          go("kycSuccess", { push: false });
+          log("KYC موفق و دسترسی مؤثر دوباره محاسبه شد.");
+        }, 950);
+      };
+
+      const continueTrade = () => {
+        const input = document.getElementById("calcInput");
+        if (input) {
+          state.amount = input.value;
+        }
+        state.preservedIntent = {
+          mode: state.mode,
+          inputKind: state.inputKind,
+          amount: state.amount
+        };
+
+        if (state.rateStatus !== "ok") {
+          go("rateUnavailable");
+          return;
+        }
+
+        if (!state.loggedIn) {
+          state.authContext = "trade";
+          state.returnAfterAuth = "kycGate";
+          go("phone");
+          return;
+        }
+
+        if (!state.verified) {
+          go("kycGate");
+          return;
+        }
+
+        go("purchasePreview");
+      };
+
+      const closeFlow = () => {
+        state.screen = "calc";
+        state.navStack = [];
+        state.phoneError = "";
+        state.otpError = "";
+        state.kycError = "";
+        render();
+        showToast("به ماشین‌حساب برگشتید؛ ورودی شما حفظ شد.");
+        log("فلو بسته شد و ورودی حفظ شد.");
+      };
+
+      document.addEventListener("input", (event) => {
+        const model = event.target.dataset.model;
+        if (!model) {
+          return;
+        }
+        state[model] = event.target.value;
+        if (model === "amount") {
+          updateCalculationUI();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-action]");
+        if (!button || button.disabled) {
+          return;
+        }
+
+        const action = button.dataset.action;
+
+        switch (action) {
+          case "reset":
+            reset();
+            break;
+          case "back":
+            back();
+            break;
+          case "close-flow":
+            closeFlow();
+            break;
+          case "set-mode":
+            state.mode = button.dataset.mode;
+            state.preservedIntent.mode = state.mode;
+            render();
+            log(`حالت ${state.mode === "buy" ? "خرید" : "فروش"} انتخاب شد.`);
+            break;
+          case "set-input-kind":
+            state.inputKind = button.dataset.kind;
+            state.amount = state.inputKind === "money" ? "5000000" : "1";
+            state.preservedIntent.inputKind = state.inputKind;
+            state.preservedIntent.amount = state.amount;
+            render();
+            log(`ورودی ${state.inputKind === "money" ? "مبلغ" : "وزن"} انتخاب شد.`);
+            break;
+          case "continue-trade":
+            continueTrade();
+            break;
+          case "send-otp":
+            sendOtp();
+            break;
+          case "verify-otp":
+            verifyOtp();
+            break;
+          case "resend-otp":
+            resendOtp();
+            break;
+          case "edit-mobile":
+            state.otp = "";
+            state.otpError = "";
+            go("phone");
+            break;
+          case "continue-after-auth":
+            if (state.authContext === "reauth") {
+              state.authContext = "trade";
+              go(state.returnAfterAuth || "calc");
+            } else if (state.verified) {
+              go("purchasePreview");
+            } else {
+              go("kycGate");
+            }
+            break;
+          case "start-kyc":
+            state.kycError = "";
+            go("kycForm");
+            break;
+          case "submit-kyc":
+            submitKyc();
+            break;
+          case "retry-kyc":
+            state.kycError = "";
+            go("kycForm");
+            break;
+          case "defer-kyc":
+            state.screen = "calc";
+            state.navStack = [];
+            render();
+            showToast(`می‌توانید محاسبه را ببینید؛ تأیید ${preservedTradeLabel()} تا احراز قفل است.`);
+            log("KYC لغو شد و کاربر به پیش‌نمایش قفل‌شده برگشت.");
+            break;
+          case "continue-after-kyc":
+            state.mode = state.preservedIntent.mode;
+            state.inputKind = state.preservedIntent.inputKind;
+            state.amount = state.preservedIntent.amount;
+            state.rateUpdatedAt = Date.now();
+            state.rateRefreshAt = Date.now() + 20000;
+            go("purchasePreview");
+            break;
+          case "start-reauth":
+            state.authContext = "reauth";
+            state.loggedIn = false;
+            state.mobile = state.mobile || "09121234567";
+            go("phone");
+            break;
+          case "restore-rate":
+            state.rateStatus = "ok";
+            state.rateUpdatedAt = Date.now();
+            state.rateRefreshAt = Date.now() + 20000;
+            state.screen = "calc";
+            state.navStack = [];
+            render();
+            showToast("نرخ تازه دریافت شد.");
+            log("نرخ نمونه دوباره معتبر شد.");
+            break;
+          case "return-calc":
+            state.screen = "calc";
+            state.navStack = [];
+            render();
+            break;
+          case "set-scenario":
+            reset();
+            state.scenarioLabel = "مسیر موفق";
+            state.kycOutcome = "success";
+            render();
+            break;
+          case "expire-otp":
+            if (state.screen !== "otp") {
+              state.mobile = state.mobile || "09121234567";
+              state.otpExpiresAt = Date.now() - 1000;
+              state.resendAt = Date.now() - 1000;
+              state.screen = "otp";
+              state.navStack = ["phone"];
+            } else {
+              state.otpExpiresAt = Date.now() - 1000;
+              state.resendAt = Date.now() - 1000;
+            }
+            state.otpError = "این کد منقضی شده است. کد تازه دریافت کنید.";
+            state.scenarioLabel = "OTP منقضی";
+            render();
+            log("سناریوی انقضای OTP فعال شد.");
+            break;
+          case "set-kyc-outcome":
+            state.kycOutcome = button.dataset.outcome;
+            state.scenarioLabel = state.kycOutcome === "mismatch" ? "عدم تطابق KYC" : "خطای سرویس KYC";
+            state.loggedIn = true;
+            state.verified = false;
+            state.screen = "kycForm";
+            state.navStack = ["kycGate"];
+            state.kycError = "";
+            render();
+            log(`سناریوی ${state.scenarioLabel} برای ارسال بعدی فعال شد.`);
+            break;
+          case "rate-outage":
+            state.rateStatus = "unavailable";
+            state.scenarioLabel = "قطع نرخ";
+            state.screen = "rateUnavailable";
+            state.navStack = ["calc"];
+            render();
+            log("سناریوی نبود نرخ معتبر فعال شد.");
+            break;
+          case "expire-session":
+            state.returnAfterAuth = [
+              "calc",
+              "kycGate",
+              "kycForm",
+              "kycError",
+              "kycSuccess",
+              "purchasePreview",
+              "rateUnavailable"
+            ].includes(state.screen) ? state.screen : "calc";
+            state.loggedIn = false;
+            state.authContext = "reauth";
+            state.scenarioLabel = "انقضای نشست";
+            state.screen = "sessionExpired";
+            state.navStack = [];
+            render();
+            log("سناریوی انقضای ۲۴ساعته نشست فعال شد.");
+            break;
+          case "jump-screen":
+            if (button.dataset.screen === "purchasePreview") {
+              state.loggedIn = true;
+              state.verified = true;
+            }
+            if (button.dataset.screen === "otp") {
+              state.mobile = state.mobile || "09121234567";
+              state.otpExpiresAt = Date.now() + 180000;
+              state.resendAt = Date.now() + 60000;
+            }
+            if (button.dataset.screen === "kycForm" || button.dataset.screen === "kycLoading") {
+              state.loggedIn = true;
+            }
+            state.screen = button.dataset.screen;
+            state.navStack = [];
+            render();
+            log(`پرش مستقیم به ${button.dataset.screen}.`);
+            break;
+          default:
+            break;
+        }
+      });
+
+      setInterval(() => {
+        updateTimers();
+        if (state.rateStatus === "ok" && Date.now() >= state.rateRefreshAt) {
+          state.sampleBuyRate += 1000;
+          state.sampleSellRate += 1000;
+          state.rateUpdatedAt = Date.now();
+          state.rateRefreshAt = Date.now() + 20000;
+
+          const rateValue = document.getElementById("rateValue");
+          const summaryRate = document.getElementById("summaryRate");
+          if (rateValue) {
+            rateValue.textContent = `${formatNumber(currentRate())} تومان`;
+          }
+          if (summaryRate) {
+            summaryRate.textContent = `${formatNumber(currentRate())} تومان`;
+          }
+          updateCalculationUI();
+          log("نرخ نمونه پس از ۲۰ ثانیه تازه شد.");
+        }
+      }, 1000);
+
+      render();
+    })();
+  </script>
+</body>
+</html>
