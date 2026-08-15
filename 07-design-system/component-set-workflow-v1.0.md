@@ -156,7 +156,7 @@ Gate: `Candidate ready for final human review`
 ## Artifactهای اجباری هر Component
 
 1. `*-component-contract-v*.md`
-2. صفحه مستقل Figma
+2. صفحه مستقل Figma؛ برای خانواده‌های کاملاً مرتبط مانند Inputs، یک Family page مشترک فقط با Section، مستندات و لیبل‌های واضح هر Set مجاز است — D-143
 3. Pilot Component Set
 4. QA board
 5. `*-figma-state-ledger-v*.md`

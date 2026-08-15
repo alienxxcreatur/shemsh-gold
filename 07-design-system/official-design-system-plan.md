@@ -56,8 +56,11 @@ Gate: `Complete`
 - [x] تأیید بصری Radio و Promote به `Tested Candidate` — D-134.
 - [x] ساخت Set کامل Switch با ۱۰ Variant، سه Property عمومی، Touch target ۴۸ و Final audit بدون Issue.
 - [x] تأیید بصری Switch و Promote به `Tested Candidate` — D-136.
-- [x] ساخت Set کامل Text Input با ۱۴ Variant، ده Property عمومی، ارتفاع‌های ۴۸/۵۶ و Final audit بدون Issue.
-- [ ] تأیید بصری Text Input پیش از Promote و شروع Amount Input.
+- [x] ساخت Set کامل Text Input با ۱۴ Variant، ۱۲ Property عمومی، ارتفاع‌های ۴۸/۵۶ و Final audit بدون Issue.
+- [ ] تأیید بصری Text Input پیش از Promote.
+- [x] بازسازی Set کامل Amount Input با ۱۶ Variant، ۷ Property متنی، ۵ Toggle نمایشی، قرارداد مشترک Input family و Validation ساختاری/بصری صفر Issue — D-143.
+- [x] ادغام Text Input، Amount Input و رفرنس UNTITLED در صفحه واحد `15 Inputs` با مستندات و لیبل‌های State/Size — D-143.
+- [ ] تأیید بصری Amount Input پیش از Promote و شروع OTP Input.
 - [ ] بازنگاشت Color Candidate از Purple/Blue Primary به Black-neutral و همگام‌سازی Text Styleها با Yekan Bakh.
 - [ ] ساخت و تست Candidate Set برای Spacing، Grid، Radius، Border و Elevation.
 - [ ] تعیین Iconography، تصویر و Motion foundation.
@@ -115,7 +118,7 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 ## زیرتسک فعال
 
-فاز ۳ — بازبینی بصری Text Input صفحه `15 Text Input`؛ در صورت تأیید، شروع Amount Input طبق `component-set-workflow-v1.0.md`. بازبینی Checkbox و Icon Button همچنان باز است و مسیر Foundationهای Black-neutral و OQ-052 موازی باقی می‌ماند.
+فاز ۳ — بازبینی بصری خانواده Input در صفحه واحد `15 Inputs`؛ در صورت تأیید، شروع OTP Input در همین صفحه طبق `component-set-workflow-v1.0.md`. بازبینی Checkbox و Icon Button همچنان باز است و مسیر Foundationهای Black-neutral و OQ-052 موازی باقی می‌ماند.
 
 ## Guardrailها
 
@@ -130,6 +133,6 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 فاز ۰: `Complete`
 
-فاز ۱: `In progress / Sufficient to proceed` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و Text Input ۱۴تایی Final technical/agent visual audit را پاس کرده‌اند. تأیید بصری نهایی مالک محصول برای Candidateها پیش از Promote باز است و هیچ Foundation یا Component هنوز `Stable` نیست.
+فاز ۱: `In progress / Sufficient to proceed` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و خانواده Input شامل Text Input ۱۴تایی و Amount Input ۱۶تایی Final audit صفر Issue را پاس کرده‌اند. تأیید بصری نهایی مالک محصول برای Candidateها پیش از Promote باز است و هیچ Foundation یا Component هنوز `Stable` نیست.
 
 مرحله ۷: `Sufficient to proceed`

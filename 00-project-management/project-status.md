@@ -1,6 +1,6 @@
 # وضعیت فعلی پروژه
 
-آخرین به‌روزرسانی: ۱۹ مرداد ۱۴۰۵ / 10 Aug 2026
+آخرین به‌روزرسانی: ۲۴ مرداد ۱۴۰۵ / 15 Aug 2026
 
 ## خلاصه
 
@@ -11,9 +11,9 @@
 | ارزیابی فعلی | 🟡 پوشش ساخت افقی همه موج‌ها کامل است: ۲۸ خروجی هدف، پنج State اتصال W0 و چهار حالت Review دریافت فیزیکی در Prototype وجود دارند. بلوغ همه `MM-W0..MM-W8` برابر **۷۵٪** می‌ماند؛ Review جزئی مالک محصول و تصمیم‌های باز شرط ۱۰۰٪ هستند |
 | مسئول تصمیم نهایی | مالک محصول / بیزینس |
 | سند فعال | `06-wireframes-and-testing/multi-metal-physical-delivery-flow-spec.md`؛ بسته مادر: `06-wireframes-and-testing/multi-metal-full-app-wireframe-readiness-pack.md` |
-| آخرین اصلاح قابل Review | در خانه، لینک متنی «همه فلزها» کنار دارایی‌ها با Icon Button بی‌پس‌زمینه و چپ‌رو جایگزین و به صفحه تازه `WF-MM-002A / ترکیب دارایی` وصل شد؛ صفحه ترکیب دارایی به کارت خلاصه تیره، نوار سهم‌بندی و کارت‌های سهم طلا/نقره/مس/کیف تومان تبدیل شد؛ متن راهنمای ورق‌زدن حذف شد. شمار سناریوها ۳۸ و JS Parse پاس است — V-028 |
-| قدم بعدی | مالک محصول خانه و صفحه `WF-MM-002A` را از نظر فهم ترکیب دارایی، خوانایی Pie/Legend و جایگزینی درست لینک «همه فلزها» بررسی کند؛ Review فلو دریافت فیزیکی `WF-MM-014/014A..D` نیز همچنان باز است. OQ-054 و Gateهای مالی/حقوقی موازی‌اند |
-| مسیر موازی داخلی | Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند؛ Text Input ۱۴تایی Final audit صفر Issue را پاس کرده و منتظر تأیید بصری مالک محصول است؛ Button، Icon Button و Checkbox نیز همچنان منتظر تأیید بصری‌اند. Palette نمودار، Accent و اجزای فلزمحور تا OQ-056 Candidate می‌مانند — D-134/D-136 |
+| آخرین اصلاح قابل Review | اعلان‌ها به فهرست استاندارد ردیفی تبدیل شدند؛ P&L کارت‌های فلز بر اساس علامت داده «سود کل/زیان کل» نشان می‌دهد؛ در جزئیات فلز دو اقدام فرعی حذف و CTA معامله بعد از آخرین Card و در جریان اسکرول قرار گرفت. Syntax و ممیزی ساختاری پاس و Review بصری موبایل باز است — V-065 |
+| قدم بعدی | مالک محصول Header خانه، معامله، خدمات و حداقل دو زیرصفحه را Review کند؛ خانه/خدمات D-145، قرارداد CTA پایین D-144، خانه/Donut D-141، `WF-MM-027`، پروفایل `WF-MM-029` و دریافت فیزیکی `WF-MM-014/014A..D` همچنان باز هستند. OQ-054/OQ-060 و Gateهای مالی/حقوقی موازی‌اند |
+| مسیر موازی داخلی | Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند. خانواده Input در صفحه واحد `15 Inputs` شامل Text Input ۱۴تایی، Amount Input ۱۶تایی، OTP Input ۳۲تایی و Search Input ۱۲تایی با Radius مشترک ۱۴ و Final technical audit صفر Issue روی مجموع ۷۴ Variant است. Alert در صفحه مستقل `16 Alert` با ۱۰ Variant `Tone × Layout` و Toast در صفحه مستقل `17 Toast` با ۵ Variant `Tone` و چهار Property عمومی ساخته و با audit فنی/بصری صفر Issue تأیید شدند. OTP دارای Success گذرا تا Redirect است؛ تأیید بصری مالک محصول برای Promote Setهای Candidate باز می‌ماند. Button، Icon Button، Checkbox، Alert و Toast نیز منتظر تأیید بصری‌اند. Palette نمودار، Accent و اجزای فلزمحور تا OQ-056 Candidate می‌مانند — D-134/D-136/D-143/D-148 |
 | مسیر موازی بیرونی | هشت تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی عددهای پورتفوی |
 
 ## آنچه تا امروز داریم
@@ -346,8 +346,19 @@
 - [x] تأیید بصری مالک محصول و Promote Radio به `Tested Candidate` — D-134
 - [x] ساخت صفحه مستقل `14 Switch` و Set کامل ۱۰تایی `Selection × State`؛ Touch target ۴۸، Loading، Binding و Propertyها با صفر Issue audit شدند
 - [x] تأیید بصری مالک محصول و Promote Switch به `Tested Candidate` — D-136
-- [x] ساخت صفحه مستقل `15 Text Input` و Set کامل ۱۴تایی `Size × State`؛ ده Property عمومی، Geometry، State و Token binding با صفر Issue audit شدند
+- [x] ساخت Text Input با Set کامل ۱۴تایی `Size × State` و ۱۲ Property عمومی؛ Typography Semantic، Geometry مشترک خانواده، RTL و Radius ۱۴ متصل به `semantic/dimension/radius/input` با صفر Issue audit شدند — D-143
 - [ ] تأیید بصری مالک محصول روی Text Input پیش از Promote
+- [x] بازسازی Amount Input به Set کامل ۱۶تایی `Size × State` با Hover/Read-only، نام مشترک Error، ۷ Property متنی و ۵ Toggle؛ پوسته مشترک `Label row / Field shell / Field / Focus ring`، Radius ۱۴، Geometry، رنگ‌ها، Borderها، Spacing، RTL، Loading و Property referenceها به Token/Styleهای Semantic متصل و با صفر Issue audit شدند — D-143
+- [x] ادغام Text Input، Amount Input و رفرنس UNTITLED در صفحه واحد `15 Inputs` با Sectionهای مستندات و لیبل‌های State/Size — D-143
+- [ ] تأیید بصری مالک محصول روی Amount Input پیش از Promote
+- [x] ساخت OTP Input روی همان صفحه با ۳۲ Variant `Digits=4/6 × Size=Medium/Large × State=8`، ۱۶ تعریف Property و Token binding کامل؛ Success گذرا تا Redirect طبق D-148 اضافه شد و fallback تیره Paintهای آن به سطح روشن اصلاح و با صفر Issue/Mismatch audit شد
+- [ ] تأیید بصری مالک محصول روی ماتریس کامل OTP Input و آزمون رفتار Autofill/Paste/Countdown/Resend در Flow واقعی پیش از Promote
+- [x] ساخت Search Input روی همان صفحه با ۱۲ Variant `Size=Medium/Large × State=6`، هفت Property عمومی، Radius مشترک ۱۴، RTL و مستندات مستقل؛ Technical و agent-visual audit با صفر Issue پاس شد
+- [ ] تأیید بصری مالک محصول روی Search Input و آزمون رفتار Clear/Keyboard submit/Debounce/Loading/No-results در Flow واقعی پیش از Promote
+- [x] ساخت Alert در صفحه مستقل `16 Alert` با ۱۰ Variant `Tone=5 × Layout=2`، هفت Property عمومی، Token binding معنایی و Final structural/agent-visual audit صفر Issue
+- [ ] تأیید بصری مالک محصول روی Alert و آزمون مصرف واقعی در خطا/هشدار/محدودیت Flowها پیش از Promote
+- [x] ساخت Toast در صفحه مستقل `17 Toast` با ۵ Variant `Tone=5`، Propertyهای `Message/Action/Dismiss/Icon`، Token binding معنایی و Final technical/visual QA صفر Issue
+- [ ] تأیید بصری مالک محصول روی Toast و آزمون نمایش/زمان‌بندی/Screen Reader و سطح لمس Action/Dismiss در Flow واقعی پیش از Promote
 - [x] ساخت Tier 0 کامپوننت‌های پایه: Spinner، Progress، Status Badge و Divider
 - [ ] تکمیل Tierهای ۱ تا ۳ Base Componentها؛ Connector با batchهای کوچک و idempotent ادامه یابد
 - [ ] تعیین و تست مقادیر Typography، Palette، Gold، Spacing، Radius، Elevation، Iconography و Motion — OQ-052
@@ -361,9 +372,9 @@
 3. Review موازی ماتریس `Feature × Asset` پیش از نهایی‌کردن `MM-W5..MM-W8` — D-127/D-130/D-131/D-133/OQ-054
 4. بازبینی بصری نهایی مالک محصول روی Button ۱۰۸تایی صفحه `10 Button` و Promote در صورت تأیید — D-122
 5. بازبینی بصری نهایی ماتریس ۷۲تایی Icon Button در صفحه `11 Icon Button` و Promote در صورت تأیید — D-133
-6. تأیید بصری Text Input صفحه `15 Text Input` و Promote در صورت تأیید
-7. شروع Amount Input و سپس OTP Input با همان Workflow فشرده
-8. ساخت Feedbackهای باقی‌مانده طبق `07-design-system/base-components-candidate-v0.2.md`
+6. تأیید بصری خانواده Input در صفحه واحد `15 Inputs` و Promote هر Set در صورت تأیید — D-143
+7. تأیید بصری ماتریس کامل OTP Input و Search Input در صفحه `15 Inputs` و سپس انتخاب Component بعدی خانواده Input با تأیید مالک محصول
+8. ساخت Feedback باقی‌مانده، یعنی Skeleton، طبق `07-design-system/base-components-candidate-v0.2.md`
 9. اخذ تأییدهای مالی/حسابداری باقی‌مانده OQ-055 — مسیر موازی D-118
 
 ## موانع و وابستگی‌های مهم

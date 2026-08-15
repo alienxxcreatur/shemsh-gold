@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f3f4f5">
+  <title>شمش — کانسپت High Fidelity خانه</title>
+  <style>
+    @font-face {
+      font-family: "Yekan Bakh";
+      src: url("../../07-design-system/legacy-brand/typogaphy/YekanBakh3%20-%20Pro%20%20Plus/Yekan%20Bakh%20Variable/webfonts/YekanBakhFaNum-VF.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --canvas: #eceeef;
+      --app: #f5f6f7;
+      --surface: #ffffff;
+      --surface-soft: #f0f1f2;
+      --ink: #17191c;
+      --ink-soft: #40454b;
+      --muted: #6a7078;
+      --line: #e2e5e7;
+      --line-strong: #d5d9dc;
+      --vault: #171a1e;
+      --vault-soft: #272b30;
+      --gold: #b78a35;
+      --silver: #89919a;
+      --copper: #a76643;
+      --success: #27764d;
+      --danger: #a53b3f;
+      --focus: #1f64d4;
+      --shadow-card: 0 8px 24px rgba(20, 25, 30, .055);
+      --shadow-vault: 0 16px 36px rgba(14, 17, 20, .18);
+      --r-sm: 12px;
+      --r-md: 18px;
+      --r-lg: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); color: var(--ink); }
+    body {
+      margin: 0;
+      min-width: 300px;
+      min-height: 100dvh;
+      font-family: "Yekan Bakh", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 72% 3%, rgba(183, 138, 53, .08), transparent 28rem),
+        var(--canvas);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    button, a { font: inherit; }
+    button { cursor: pointer; touch-action: manipulation; }
+    svg { display: block; }
+    .skip-link {
+      position: fixed;
+      inset-inline-start: 12px;
+      inset-block-start: 8px;
+      z-index: 100;
+      transform: translateY(-140%);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+    .app {
+      width: min(100%, 430px);
+      min-height: 100dvh;
+      margin-inline: auto;
+      background: var(--app);
+      position: relative;
+      overflow-x: hidden;
+      box-shadow: 0 0 0 1px rgba(23, 25, 28, .04), 0 24px 70px rgba(28, 33, 38, .12);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: calc(66px + env(safe-area-inset-top));
+      padding: calc(12px + env(safe-area-inset-top)) 20px 10px;
+      background: color-mix(in srgb, var(--app) 90%, transparent);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 20;
+    }
+    .identity { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line-strong);
+      border-radius: 15px;
+      background: var(--surface);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px rgba(23, 25, 28, .06);
+      color: var(--ink);
+      font-weight: 760;
+      letter-spacing: -.03em;
+    }
+    .identity-copy { display: grid; gap: 1px; min-width: 0; }
+    .identity-copy small { color: var(--muted); font-size: 12px; }
+    .identity-copy strong { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      color: var(--ink-soft);
+      display: grid;
+      place-items: center;
+      transition: background-color .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+    .icon-button:hover { border-color: var(--line-strong); background: #fbfbfb; }
+    .icon-button:active { opacity: .7; }
+    .icon-button svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    main { padding: 4px 20px 112px; }
+    .vault-card {
+      min-height: 184px;
+      border-radius: var(--r-lg);
+      background:
+        radial-gradient(circle at 8% 10%, rgba(255,255,255,.1), transparent 18rem),
+        linear-gradient(145deg, var(--vault-soft), var(--vault) 58%);
+      color: #fff;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-vault);
+    }
+    .vault-card::before,
+    .vault-card::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.065);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .vault-card::before { width: 260px; height: 260px; inset-inline-start: -120px; inset-block-start: -138px; }
+    .vault-card::after { width: 180px; height: 180px; inset-inline-start: -82px; inset-block-start: -96px; }
+    .vault-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
+    .vault-label { display: flex; align-items: center; gap: 8px; color: #cfd3d7; font-size: 12px; }
+    .vault-mark { width: 7px; height: 7px; border-radius: 50%; background: #d1b06c; box-shadow: 0 0 0 4px rgba(209,176,108,.12); }
+    .visibility-button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      color: #e4e7e9;
+      transition: background-color .18s ease, opacity .18s ease;
+    }
+    .visibility-button:hover { background: rgba(255,255,255,.13); }
+    .visibility-button:active { opacity: .65; }
+    .visibility-button svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .vault-value { position: relative; z-index: 1; margin-top: 14px; }
+    .vault-value strong { display: block; font-size: clamp(27px, 7.8vw, 34px); line-height: 1.35; font-weight: 780; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+    .vault-value span { display: block; margin-top: 1px; color: #c7cbd0; font-size: 12px; }
+    .vault-foot { position: absolute; z-index: 1; inset-inline: 20px; inset-block-end: 18px; display: flex; align-items: end; justify-content: space-between; gap: 12px; }
+    .change { display: grid; gap: 2px; }
+    .change small { color: #aeb4ba; font-size: 11px; }
+    .change strong { color: #d8e9df; font-size: 13px; font-variant-numeric: tabular-nums; }
+    .composition-link {
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 13px;
+      background: rgba(255,255,255,.07);
+      color: #fff;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+      transition: background-color .18s ease;
+    }
+    .composition-link:hover { background: rgba(255,255,255,.12); }
+    .composition-link:active { background: rgba(255,255,255,.16); }
+    .composition-link svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .section { margin-top: 28px; }
+    .section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+    .section-head h2 { margin: 0; font-size: 17px; font-weight: 760; letter-spacing: -.02em; }
+    .section-head span, .section-head button { color: var(--muted); font-size: 12px; }
+    .text-button {
+      min-height: 44px;
+      border: 0;
+      background: transparent;
+      padding: 0 6px;
+      color: var(--ink-soft) !important;
+    }
+    .text-button:hover { color: var(--ink) !important; }
+    .text-button:active { opacity: .65; }
+
+    .assets-card {
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .asset-row {
+      width: 100%;
+      min-height: 82px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 11px 13px;
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr) auto;
+      gap: 11px;
+      align-items: center;
+      text-align: right;
+      transition: background-color .18s ease;
+    }
+    .asset-row:last-child { border-bottom: 0; }
+    .asset-row:hover { background: #fafafa; }
+    .asset-row:active { background: var(--surface-soft); }
+    .metal-disc {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: rgba(23,25,28,.82);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), inset 0 -5px 12px rgba(23,25,28,.09), 0 4px 10px rgba(23,25,28,.08);
+    }
+    .metal-disc.gold { background: radial-gradient(circle at 34% 28%, #f0d78e, #bd903a 64%, #98702d); }
+    .metal-disc.silver { background: radial-gradient(circle at 34% 28%, #f5f7f8, #a7adb3 65%, #7d858d); }
+    .metal-disc.copper { background: radial-gradient(circle at 34% 28%, #e9ac82, #ad6c48 65%, #855037); }
+    .asset-main { min-width: 0; display: grid; gap: 3px; }
+    .asset-title { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+    .asset-title strong { font-size: 14px; }
+    .asset-title small { color: var(--muted); font-size: 10px; direction: ltr; }
+    .asset-weight { color: var(--ink-soft); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .asset-value { display: grid; justify-items: end; gap: 4px; white-space: nowrap; }
+    .asset-value strong { font-size: 13px; font-variant-numeric: tabular-nums; }
+    .asset-value small { font-size: 10px; color: var(--muted); }
+    .asset-value small.positive { color: var(--success); }
+    .asset-value small.negative { color: var(--danger); }
+    .sensitive[hidden] { display: none !important; }
+    .masked { display: none !important; letter-spacing: .1em; }
+    .privacy-on .masked { display: inline !important; }
+    .privacy-on .vault-value .masked { display: block !important; }
+    .privacy-on .sensitive { display: none !important; }
+    .primary-button {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 12px;
+      border: 1px solid var(--vault);
+      border-radius: 15px;
+      background: var(--vault);
+      color: #fff;
+      font-weight: 700;
+      transition: background-color .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+    .primary-button:hover { background: #22262b; border-color: #22262b; }
+    .primary-button:active { opacity: .76; }
+
+    .wallet-card {
+      min-height: 88px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 44px minmax(0,1fr) auto;
+      align-items: center;
+      gap: 10px;
+    }
+    .wallet-icon { width: 44px; height: 44px; border-radius: 14px; background: var(--surface-soft); display: grid; place-items: center; color: var(--ink-soft); }
+    .wallet-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .wallet-copy { min-width: 0; display: grid; gap: 2px; }
+    .wallet-copy small { color: var(--muted); font-size: 11px; }
+    .wallet-copy strong { font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .wallet-actions { display: flex; align-items: center; gap: 8px; }
+    .mini-action {
+      min-width: 54px;
+      min-height: 48px;
+      border: 1px solid var(--line-strong);
+      border-radius: 13px;
+      background: var(--surface);
+      color: var(--ink-soft);
+      padding: 5px 9px;
+      display: grid;
+      place-items: center;
+      gap: 1px;
+      transition: background-color .18s ease, border-color .18s ease;
+    }
+    .mini-action:hover { background: var(--surface-soft); border-color: #c9ced2; }
+    .mini-action:active { opacity: .7; }
+    .mini-action svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .mini-action span { font-size: 10px; }
+
+    .quick-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    .quick-tile {
+      min-height: 104px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 13px;
+      text-align: right;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      grid-template-rows: auto 1fr;
+      align-items: start;
+      gap: 9px;
+      box-shadow: 0 5px 16px rgba(20,25,30,.035);
+      transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+    }
+    .quick-tile:hover { border-color: var(--line-strong); box-shadow: var(--shadow-card); }
+    .quick-tile:active { background: var(--surface-soft); box-shadow: none; }
+    .quick-tile.featured { background: #1c2024; color: #fff; border-color: #1c2024; }
+    .quick-tile.featured:hover { background: #24292e; }
+    .quick-icon { width: 42px; height: 42px; border-radius: 13px; background: var(--surface-soft); color: var(--ink-soft); display: grid; place-items: center; }
+    .quick-tile.featured .quick-icon { background: rgba(255,255,255,.1); color: #e4c47e; }
+    .quick-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .quick-tile strong { align-self: center; font-size: 13px; }
+    .quick-tile small { grid-column: 1 / -1; color: var(--muted); font-size: 10px; line-height: 1.6; }
+    .quick-tile.featured small { color: #bdc2c7; }
+
+    .activity-card { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); box-shadow: var(--shadow-card); overflow: hidden; }
+    .activity-row { min-height: 70px; display: grid; grid-template-columns: 42px minmax(0,1fr) auto; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+    .activity-row:last-child { border-bottom: 0; }
+    .activity-icon { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; background: var(--surface-soft); color: var(--ink-soft); }
+    .activity-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .activity-copy { min-width: 0; display: grid; gap: 2px; }
+    .activity-copy strong { font-size: 12px; }
+    .activity-copy small { color: var(--muted); font-size: 10px; }
+    .activity-value { display: grid; justify-items: end; gap: 2px; white-space: nowrap; }
+    .activity-value strong { font-size: 12px; font-variant-numeric: tabular-nums; }
+    .activity-value small { color: var(--muted); font-size: 10px; }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 30;
+      inset-inline: max(0px, calc((100vw - 430px) / 2));
+      inset-block-end: 0;
+      width: min(100%, 430px);
+      min-height: calc(76px + env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(213,217,220,.82);
+      background: rgba(250,250,250,.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 7px 10px max(8px, env(safe-area-inset-bottom));
+    }
+    .nav-item {
+      min-height: 58px;
+      border: 0;
+      border-radius: 16px;
+      background: transparent;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 3px;
+      transition: background-color .18s ease, color .18s ease, opacity .18s ease;
+    }
+    .nav-item:hover { background: rgba(23,25,28,.04); color: var(--ink-soft); }
+    .nav-item:active { opacity: .65; }
+    .nav-item.active { color: var(--ink); background: rgba(23,25,28,.065); font-weight: 700; }
+    .nav-item svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-item span { font-size: 11px; }
+
+    .toast {
+      position: fixed;
+      z-index: 50;
+      inset-inline-start: 50%;
+      inset-block-end: calc(92px + env(safe-area-inset-bottom));
+      width: min(calc(100vw - 40px), 390px);
+      transform: translate(-50%, 18px);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      background: rgba(23,26,30,.96);
+      color: #fff;
+      padding: 12px 14px;
+      font-size: 12px;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(12,15,18,.24);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.visible { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 350px) {
+      .topbar, main { padding-inline: 14px; }
+      .vault-card { padding-inline: 16px; }
+      .vault-foot { inset-inline: 16px; }
+      .vault-foot { gap: 6px; }
+      .change strong { font-size: 11px; }
+      .composition-link { padding-inline: 8px; font-size: 11px; gap: 4px; }
+      .composition-link svg { width: 15px; height: 15px; }
+      .wallet-card { grid-template-columns: 40px minmax(0,1fr); }
+      .wallet-actions { grid-column: 1 / -1; }
+      .mini-action { flex: 1; }
+      .quick-grid { gap: 8px; }
+      .quick-tile { min-height: 98px; padding: 11px; }
+      .asset-row { grid-template-columns: 42px minmax(0,1fr) auto; gap: 8px; padding-inline: 10px; }
+      .metal-disc { width: 40px; height: 40px; }
+    }
+
+    @media (min-width: 700px) and (orientation: landscape) {
+      .app { min-height: 100dvh; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">رفتن به محتوای اصلی</a>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div class="identity">
+        <button class="avatar" type="button" aria-label="مشاهده حساب کاربری" data-toast="این نمونه فقط صفحه خانه را نمایش می‌دهد.">ش</button>
+        <div class="identity-copy"><small>روز بخیر</small><strong>سپیده شمش</strong></div>
+      </div>
+      <button class="icon-button" type="button" aria-label="اعلان‌ها" data-toast="اعلان جدیدی ندارید.">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+      </button>
+    </header>
+
+    <main id="main-content">
+      <section class="vault-card" aria-labelledby="total-label">
+        <div class="vault-head">
+          <div class="vault-label" id="total-label"><span class="vault-mark" aria-hidden="true"></span>ارزش کل دارایی‌ها</div>
+          <button class="visibility-button" id="visibility-toggle" type="button" aria-label="پنهان‌کردن مبالغ" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.7"/></svg>
+          </button>
+        </div>
+        <div class="vault-value">
+          <strong class="sensitive">۱٬۲۴۵٬۵۰۰٬۰۰۰</strong><strong class="masked" aria-hidden="true">••••••••</strong>
+          <span>تومان</span>
+        </div>
+        <div class="vault-foot">
+          <div class="change"><small>تغییر امروز</small><strong><span aria-hidden="true">↗</span> ۱٫۸٪ · ۲۲٬۱۰۰٬۰۰۰+</strong></div>
+          <button class="composition-link" type="button" data-toast="نمای ترکیب دارایی در این نمونه ساخته نشده است.">
+            ترکیب دارایی
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v8l6.5 4.5"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="assets-heading">
+        <div class="section-head"><h2 id="assets-heading">دارایی‌های من</h2><button class="text-button" type="button" data-toast="در نسخه کامل، همه دارایی‌ها اینجا نمایش داده می‌شوند.">مشاهده همه</button></div>
+        <div class="assets-card">
+          <button class="asset-row" type="button" data-toast="جزئیات طلا در این نمونه خانه ساخته نشده است." aria-label="طلا، ۱۲٫۴۸ گرم، ارزش ۸۶۵ میلیون تومان">
+            <span class="metal-disc gold" aria-hidden="true">Au</span>
+            <span class="asset-main"><span class="asset-title"><strong>طلا</strong><small>۹۹۵</small></span><span class="asset-weight sensitive">۱۲٫۴۸ گرم</span><span class="asset-weight masked" aria-hidden="true">••••</span></span>
+            <span class="asset-value"><strong class="sensitive">۸۶۵٬۰۰۰٬۰۰۰</strong><strong class="masked" aria-hidden="true">••••••</strong><small class="positive">۱٫۶٪ امروز</small></span>
+          </button>
+          <button class="asset-row" type="button" data-toast="جزئیات نقره در این نمونه خانه ساخته نشده است." aria-label="نقره، ۲۸۵ گرم، ارزش ۲۶۶ میلیون تومان">
+            <span class="metal-disc silver" aria-hidden="true">Ag</span>
+            <span class="asset-main"><span class="asset-title"><strong>نقره</strong><small>۹۹۹</small></span><span class="asset-weight sensitive">۲۸۵ گرم</span><span class="asset-weight masked" aria-hidden="true">••••</span></span>
+            <span class="asset-value"><strong class="sensitive">۲۶۶٬۰۰۰٬۰۰۰</strong><strong class="masked" aria-hidden="true">••••••</strong><small class="positive">۰٫۷٪ امروز</small></span>
+          </button>
+          <button class="asset-row" type="button" data-toast="جزئیات مس در این نمونه خانه ساخته نشده است." aria-label="مس، ۱۸ کیلوگرم، ارزش ۷۵ میلیون و ۹۰۰ هزار تومان">
+            <span class="metal-disc copper" aria-hidden="true">Cu</span>
+            <span class="asset-main"><span class="asset-title"><strong>مس</strong><small>۹۹٫۹٪</small></span><span class="asset-weight sensitive">۱۸ کیلوگرم</span><span class="asset-weight masked" aria-hidden="true">••••</span></span>
+            <span class="asset-value"><strong class="sensitive">۷۵٬۹۰۰٬۰۰۰</strong><strong class="masked" aria-hidden="true">••••••</strong><small class="negative">۰٫۳٪ امروز</small></span>
+          </button>
+        </div>
+        <button class="primary-button" type="button" data-toast="این کانسپت فقط صفحه خانه است؛ مسیر خرید ساخته نشده است.">خرید فلز</button>
+      </section>
+
+      <section class="section" aria-labelledby="wallet-heading">
+        <div class="section-head"><h2 id="wallet-heading">کیف تومان</h2></div>
+        <div class="wallet-card">
+          <div class="wallet-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7a3 3 0 0 1 3-3h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a3 3 0 0 1-3-3Z"/><path d="M4 8h15M15 12h5v4h-5a2 2 0 1 1 0-4Z"/></svg></div>
+          <div class="wallet-copy"><small>موجودی قابل استفاده</small><strong class="sensitive">۳۸٬۶۰۰٬۰۰۰ تومان</strong><strong class="masked" aria-hidden="true">•••••• تومان</strong></div>
+          <div class="wallet-actions">
+            <button class="mini-action" type="button" data-toast="مسیر واریز در این نمونه خانه ساخته نشده است."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span>واریز</span></button>
+            <button class="mini-action" type="button" data-toast="مسیر برداشت در این نمونه خانه ساخته نشده است."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V8M7 13l5-5 5 5"/><path d="M5 4h14"/></svg><span>برداشت</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="services-heading">
+        <div class="section-head"><h2 id="services-heading">دسترسی سریع</h2></div>
+        <div class="quick-grid">
+          <button class="quick-tile featured" type="button" data-toast="مسیر دریافت فیزیکی در این کانسپت خانه ساخته نشده است.">
+            <span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 8 8-4 8 4-8 4Z"/><path d="M4 8v8l8 4 8-4V8M12 12v8"/></svg></span><strong>دریافت فیزیکی</strong><small>تبدیل دارایی دیجیتال به شمش قابل دریافت</small>
+          </button>
+          <button class="quick-tile" type="button" data-toast="مسیر سفارش قیمت در این کانسپت خانه ساخته نشده است.">
+            <span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M3 19h18"/><path d="m4 8 6-4 6 7 4-3"/></svg></span><strong>سفارش قیمت</strong><small>خرید یا فروش در قیمت موردنظر شما</small>
+          </button>
+          <button class="quick-tile" type="button" data-toast="مسیر خرید قسطی در این کانسپت خانه ساخته نشده است.">
+            <span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M8 15h3"/></svg></span><strong>خرید قسطی</strong><small>بررسی شرایط و شروع محاسبه اقساط</small>
+          </button>
+          <button class="quick-tile" type="button" data-toast="صفحه تاریخچه در این کانسپت خانه ساخته نشده است.">
+            <span class="quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8"/><path d="M4 4v4h4M12 8v5l3 2"/></svg></span><strong>تاریخچه</strong><small>رسیدها و وضعیت همه عملیات مالی</small>
+          </button>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="activity-heading">
+        <div class="section-head"><h2 id="activity-heading">فعالیت اخیر</h2><button class="text-button" type="button" data-toast="صفحه کامل تاریخچه در این کانسپت ساخته نشده است.">مشاهده همه</button></div>
+        <div class="activity-card">
+          <div class="activity-row">
+            <span class="activity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 8l5-5 5 5"/></svg></span>
+            <span class="activity-copy"><strong>خرید طلا</strong><small>امروز، ۱۰:۴۵ · تکمیل‌شده</small></span>
+            <span class="activity-value"><strong>۰٫۲۵ گرم</strong><small>۱۷٬۳۰۰٬۰۰۰ تومان</small></span>
+          </div>
+          <div class="activity-row">
+            <span class="activity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21V3M7 16l5 5 5-5"/></svg></span>
+            <span class="activity-copy"><strong>واریز به کیف تومان</strong><small>دیروز، ۱۶:۲۰ · موفق</small></span>
+            <span class="activity-value"><strong>۲۵٬۰۰۰٬۰۰۰</strong><small>تومان</small></span>
+          </div>
+          <div class="activity-row">
+            <span class="activity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m4 8 8-4 8 4-8 4Z"/><path d="M4 8v8l8 4 8-4V8"/></svg></span>
+            <span class="activity-copy"><strong>درخواست دریافت نقره</strong><small>۱۸ مرداد · در حال آماده‌سازی</small></span>
+            <span class="activity-value"><strong>۱۰۰ گرم</strong><small>کد ۱۴۰۵۸۲</small></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="ناوبری اصلی">
+      <button class="nav-item active" type="button" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg><span>خانه</span></button>
+      <button class="nav-item" type="button" data-toast="این کانسپت فقط صفحه خانه را نمایش می‌دهد."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M3 19h18"/><path d="m4 8 6-4 6 7 4-3"/></svg><span>معامله</span></button>
+      <button class="nav-item" type="button" data-toast="این کانسپت فقط صفحه خانه را نمایش می‌دهد."><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg><span>خدمات</span></button>
+    </nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    (() => {
+      const app = document.getElementById('app');
+      const toggle = document.getElementById('visibility-toggle');
+      const toast = document.getElementById('toast');
+      let toastTimer = 0;
+
+      toggle.addEventListener('click', () => {
+        const hidden = app.classList.toggle('privacy-on');
+        toggle.setAttribute('aria-pressed', String(hidden));
+        toggle.setAttribute('aria-label', hidden ? 'نمایش مبالغ' : 'پنهان‌کردن مبالغ');
+      });
+
+      document.addEventListener('click', event => {
+        const trigger = event.target.closest('[data-toast]');
+        if (!trigger) return;
+        clearTimeout(toastTimer);
+        toast.textContent = trigger.dataset.toast;
+        toast.classList.add('visible');
+        toastTimer = window.setTimeout(() => toast.classList.remove('visible'), 2600);
+      });
+    })();
+  </script>
+</body>
+</html>

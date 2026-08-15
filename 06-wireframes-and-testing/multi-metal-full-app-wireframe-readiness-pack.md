@@ -21,7 +21,7 @@
 | Bottom Navigation و Header | `Reuse` | `خانه / معامله / خدمات` و Avatar/اعلان حفظ می‌شوند |
 | Auth/KYC و Session | `Reuse` | رفتار D-092/D-093 بدون تغییر فلزمحور |
 | کیف تومان، واریز و برداشت | `Reuse + connect` | ساختار ریالی حفظ؛ به خرید هر `assetId` متصل می‌شود |
-| خانه | `Revise` | پورتفوی فلزی، ارزش/P&L کل، ردیف هر فلز، کیف تومان جدا و ورودی همه فلزها |
+| خانه | `Revise` | پورتفوی فلزی با موجودی مخفی پیش‌فرض و چشم مستقل، ردیف هر فلز، کیف تومان جدا، CTA معامله، Shortcutها، Slider کمپین و ورودی همه فلزها |
 | همه فلزها/بازار | `Add` | مقصد داخلی خانه با List/Search مقیاس‌پذیر |
 | جزئیات فلز | `Add from shared template` | Position، ارزش، P&L، نمودار و CTAهای Capability-aware |
 | معامله | `Revise` | مدل B، پیش‌فرض طلا، Sheet انتخاب و Rules فلز‌ویژه |
@@ -38,11 +38,12 @@
 | `Business decision` | Release اول طلا، نقره و مس با مالکیت واقعی، پشتوانه و تحویل فیزیکی دارد | D-106/D-114 | هر سه در Home/Market/Physical قابل نمایش‌اند |
 | `Business decision` | ساختار تا حدود ۱۶ فلز بدون بازطراحی هسته مقیاس می‌گیرد | D-111 | سناریوی ۱۶ Asset اجباری است |
 | `Business decision` | دقت طلا ۳، نقره ۲ و مس ۰ رقم اعشار است | D-112 | Row، Input، Receipt و Validation متفاوت‌اند |
-| `Business decision` | خانه وزن/ارزش/P&L هر فلز و کل پورتفوی را نشان می‌دهد | D-113/D-116 | Home states شامل مقدار و نرخ ناقص است |
+| `Business decision` | خانه وزن/ارزش/P&L هر فلز و کل پورتفوی را با کنترل نمایش موجودی نشان می‌دهد؛ ورود اولیه مقدارهای حساس را ماسک می‌کند | D-113/D-116/D-150 | Home states شامل مقدار مخفی/نمایش‌داده‌شده و نرخ ناقص است |
 | `Business decision` | انتقال برای هیچ فلزی وجود ندارد؛ دریافت فیزیکی برای هر سه وجود دارد | D-114 | کنترل منفی انتقال و مسیر فیزیکی سه فلز |
 | `Business decision` | Icon رسمی + Label شناسه اصلی‌اند و رنگ فقط Accent کمکی است | D-115 | هیچ State فقط با رنگ قابل تشخیص نیست |
 | `Business decision` | شل سه‌تبی و Template مشترک + `assetId` قطعی‌اند | D-120 | شل موازی فلزها ساخته نمی‌شود |
-| `Business decision` | معامله مدل B، نمودار مستقل تک‌فلز و بازه‌ها روزانه/ماهانه/سالانه‌اند | D-121 | Selector/Chart states مشخص‌اند |
+| `Business decision` | نمودار مستقل تک‌فلز و بازه‌ها روزانه/ماهانه/سالانه‌اند؛ سه فلز Release اول در معامله Tab مستقیم دارند و کاتالوگ بزرگ‌تر Overlay تطبیقی دارد | D-121/D-152 | Tab/Quote/Chart و حالت Scale کاتالوگ مشخص‌اند |
+| `Business decision` | Baseline تجربه Mobile-first/Touch-first است و وب با Progressive Enhancement، Focus/Keyboard و Hover شرطی پشتیبانی می‌شود | D-151 | هیچ عملکرد ضروری Hover-only نیست؛ QA ورودی/کیبورد/Safe Area موبایل و Mouse/Keyboard وب را پوشش می‌دهد |
 | `Business decision` | فلز پیش‌فرض ورود مستقیم معامله طلاست | D-123 | Trade default با طلا باز می‌شود؛ Context صریح مقدم است |
 | `Business decision` | سطح اول تاریخچه ۱۲ کنترل مستقیم D-124 را نشان می‌دهد؛ سفارش یک Tab، پاداش زیر واریز و فلز برای Operationهای فلزی مستقل است | D-124/OQ-059 | Taxonomy قطعی |
 | `Business decision` | واریز/برداشت و پاداش زیر واریز فقط کیف تومان‌اند و کنترل فلز ندارند | D-125 | هیچ `assetId/relatedAssetId` از Context ساخته نمی‌شود |
@@ -56,7 +57,7 @@
 
 | شناسه | صفحه / State | هدف | ورودی | خروجی اصلی |
 |---|---|---|---|---|
-| `WF-MM-001` | خانه کاربر واردشده — ۳ فلز | فهم کل پورتفوی و اقدام سریع | تب خانه | جزئیات فلز، همه فلزها، کیف، تاریخچه، خدمات |
+| `WF-MM-001` | خانه کاربر واردشده — ۳ فلز | فهم کل پورتفوی، کنترل حریم خصوصی موجودی و اقدام سریع | تب خانه | جزئیات فلز، همه فلزها، کیف، تاریخچه، خدمات، کمپین |
 | `WF-MM-002` | خانه — نرخ ناقص/فلز unavailable | فهم برآورد ناقص بدون پنهان‌کردن دارایی | Refresh/بازگشت | جزئیات فلز و Retry |
 | `WF-MM-003` | همه فلزها — ۳ Asset | کشف و مقایسه خلاصه | خانه | جزئیات فلز |
 | `WF-MM-004` | همه فلزها — ۱۶ Asset | اثبات Scale و Search | خانه/Search | جزئیات فلز |
@@ -64,8 +65,8 @@
 | `WF-MM-006` | جزئیات نقره | Template مشترک با دقت و قواعد نقره | خانه/بازار | همان مقصدها با Context نقره |
 | `WF-MM-007` | جزئیات مس | Template مشترک با وزن بدون اعشار | خانه/بازار | همان مقصدها با Context مس |
 | `WF-MM-008` | معامله با طلا پیش‌فرض | محاسبه خرید/فروش | تب معامله | Preview |
-| `WF-MM-009` | Sheet انتخاب فلز — ۳ Asset | تعویض امن فلز | Selector | معامله با Asset منتخب |
-| `WF-MM-010` | Sheet انتخاب فلز — ۱۶ Asset | Search و status کاتالوگ | Selector | معامله با Asset منتخب |
+| `WF-MM-009` | Asset Tab معامله — ۳ Asset | تعویض مستقیم و امن طلا/نقره/مس | Tablist بالای فرم | معامله با Asset منتخب |
+| `WF-MM-010` | کاتالوگ انتخاب فلز — ۱۶ Asset | Search و status کاتالوگ در Scale | Bottom Sheet موبایل / Popover وب | معامله با Asset منتخب |
 | `WF-MM-011` | تغییر فلز با Quote فعال | جلوگیری از معامله روی فلز اشتباه | Selector | Confirm + پاک‌سازی Quote یا Cancel |
 | `WF-MM-012` | نمودار تک‌فلز | دیدن روند مستقل از معامله | خانه/جزئیات | بازه، CTA صریح معامله |
 | `WF-MM-013` | Hub خدمات | فهم خدمات مشترک/فلز‌ویژه | تب خدمات | دریافت فیزیکی، هشدار، اقساط، هدیه و خدمات ریالی |
@@ -83,12 +84,12 @@
 | `WF-MM-024` | درخواست/Preview اقساط | سنجش ساختار مبلغ، دوره، قفل دارایی و قرارداد | طرح اقساط | نتیجه آزمایشی؛ بدون ادعای عرضه |
 | `WF-MM-025` | Hub هدیه فلزی | تفکیک صدور از دریافت | خدمات/Deep Link | صدور یا Claim |
 | `WF-MM-026` | صدور/دریافت هدیه Capability-gated | سنجش assetId، مقدار و گیرنده/کد | Hub هدیه | Preview/نتیجه آزمایشی |
-| `WF-MM-027` | معرفی دوستان | اشتراک کد و مشاهده آمار | خدمات/حساب | کپی/اشتراک و پیگیری |
-| `WF-MM-028` | پیگیری دعوت و پاداش | وضعیت دعوت‌ها و اتصال پاداش به واریز | معرفی دوستان | تاریخچه با Operation واریز |
+| `WF-MM-027` | معرفی دوستان | اشتراک کد، تعداد دعوت موفق، مجموع جایزه و فهرست دوستان موفق در یک صفحه | خدمات/حساب | کپی/اشتراک؛ بدون مقصد مستقل پیگیری دعوت |
 | `WF-MM-R01` | ورود متصل | اتصال CTA مهمان به Auth رمزمحور حفظ‌شده | مهمان/Gate | خانه یا KYC |
 | `WF-MM-R02` | KYC متصل | اتصال Gate مالی به فرم احراز حفظ‌شده | Auth/عملیات | خانه |
-| `WF-MM-R03` | کیف تومان | موجودی و ورود به واریز/برداشت/تاریخچه | خانه | فلو ریالی |
-| `WF-MM-R04` | واریز متصل | مبلغ و انتخاب روش در مسیر عادی | کیف | Preview/نتیجه آزمایشی |
+| `Sheet-MM-WALLET-001` | عملیات کیف تومان | فقط انتخاب واریز/برداشت، بدون موجودی تکراری و بدون صفحه مستقل | لمس کل کارت کیف در خانه | واریز پیش‌فرض درگاه / برداشت — D-142/D-145 |
+| `WF-MM-R04` | واریز متصل | مبلغ، کارت مبدأ و انتخاب مبلغ‌محور پنج قابلیت D-035 در چهار Entry | کیف | Preview/نتیجه آزمایشی |
+| `WF-MM-R04A` | واریز بدون کارت | Empty state کارت مبدأ و مسیر افزودن/بازگشت به واریز | کیف / حساب بانکی | کارت تازه به‌عنوان مبدأ پیش‌فرض |
 | `WF-MM-R05` | برداشت متصل | مبلغ و مقصد بانکی تأییدشده | کیف | Preview/نتیجه آزمایشی |
 
 ردیف‌های `021..028` و `R01..R05` طبق D-133 برای پوشش افقی و Review بعدی اضافه شده‌اند. `014A..014D` طبق D-135 فقط حالت‌های Review فلو دریافت‌اند و خروجی هدف موج تازه محسوب نمی‌شوند. داده‌های خلوص/حداقل/SKU/کارمزد آن‌ها نمونه‌اند و OQ-003/OQ-017/OQ-033 را نمی‌بندند.
@@ -106,18 +107,20 @@
 | اختلال یک فلز | Row باقی می‌ماند، status/اثر توضیح داده می‌شود و دو فلز دیگر فعال می‌مانند |
 | Back از رسید | فیلتر و Scroll تاریخچه حفظ می‌شود |
 | Deep Link رسید | رسید مستقیم؛ Back فهرست مرتبط را بازسازی می‌کند |
+| CTA اصلی فلو | گروه اقدام نهایی فلو تمام‌صفحه در نوار پایین Safe-area-aware می‌ماند؛ CTA نهایی Sheet در Footer همان Sheet است — D-144 |
 
 ## ۶. قرارداد Component
 
 | نیاز | Component | حالت‌های ضروری | دسترس‌پذیری |
 |---|---|---|---|
-| انتخاب فلز معامله | `AssetSelector` + Bottom Sheet/Popover | ۳/۱۶، Selected، Unavailable، Search empty | Label نام/نماد، Focus trap/return، ۴۸px |
+| انتخاب فلز معامله | `AssetTabs` برای ۳ فلز + Bottom Sheet/Popover برای کاتالوگ بزرگ‌تر | Selected، Quote-active، ۱۶ Asset، Unavailable، Search empty | Label نام/نماد، Arrow-key در Tab، Focus trap/return در Overlay، حداقل ۴۸px |
 | ردیف پورتفوی | `MetalPositionRow` | Owned/Zero/Rate missing/Restricted | وزن و ارزش در نام خوانش؛ رنگ تنها شناسه نیست |
 | ردیف بازار | `AssetMarketRow` | Tradable/Unavailable/No data | نام/Icon/Symbol/status صریح |
 | نمودار | Line chart تک‌فلز | Loading/Empty/Stale/Error و ۳ بازه | خلاصه متنی، Tooltip با Tap/Keyboard |
 | فیلتر تاریخچه | ریل Tabهای Operation + Selector تک‌انتخابی فلز + Sheet از `AssetCatalog` + فیلتر status/date | Selected/Overflow/Search/Filtered empty/Reset/Back restore | State غیررنگی، Scroll selected into view، Focus return و Live announcement |
 | ردیف تاریخچه | `OperationRow` | Pending/Final/Failed/Restricted | نوع، فلز، مقدار، زمان و status در accessible name |
 | Receipt | Template مشترک نوع‌محور | Success/Failed/Pending | ترتیب خوانش ثابت و کد پیگیری قابل کپی |
+| اقدام نهایی صفحه | `PageActionBar` / `SheetFooter` | Primary، Primary+Secondary، Disabled، محتوای کوتاه/بلند | Safe Area، Touch target حداقل ۴۴px، عدم پوشاندن Scroll، ترتیب خوانش منطقی — D-144 |
 
 ## ۷. Eligibility و Permission
 
@@ -132,11 +135,11 @@
 
 | سطح | Default | Loading | Empty | Partial | Failed/Offline | Recovery |
 |---|---|---|---|---|---|---|
-| خانه | سه Position + کیف | Skeleton با ابعاد ثابت | Zero portfolio | یک نرخ/P&L ناموجود | داده آخر معتبر + زمان | Retry محلی/جزئیات |
+| خانه | سه Position + کیف با موجودی مخفی پیش‌فرض | Skeleton با ابعاد ثابت | Zero portfolio | یک نرخ/P&L ناموجود | داده آخر معتبر + زمان | Retry محلی/جزئیات |
 | بازار | List Config-driven | Skeleton ردیف | کاتالوگ خالی بحرانی | بعضی Assetها unavailable | پیام + Retry | ادامه Assetهای سالم |
 | جزئیات | Position + Chart | Skeleton بخش‌ها | Position صفر | Chart یا نرخ ناقص | Error همان بخش | معامله/Retry/پشتیبانی |
 | معامله | طلا پیش‌فرض | نرخ/Rules loading | N/A | Quote stale | اقدام بسته، ورودی حفظ | نرخ تازه/فلز دیگر |
-| Selector | List | Loading کاتالوگ | Search empty | status مختلط | Catalog error | پاک‌کردن Query/Retry |
+| Asset Tabs / Catalog | سه Tab مستقیم | Loading کاتالوگ بزرگ | Search empty | status مختلط | Catalog error | Tab سالم دیگر/پاک‌کردن Query/Retry |
 | تاریخچه | Timeline | Skeleton | بدون عملیات | Empty فیلترشده | داده آخر + Retry | پاک‌کردن فیلتر/Retry |
 | رسید | داده ثابت | Resolve Deep Link | Not found | عملیات Pending | Forbidden/Error | تاریخچه/پشتیبانی |
 
@@ -145,7 +148,7 @@
 1. کاربر دارای هر سه فلز از خانه وارد نقره می‌شود، نمودار ماهانه را می‌بیند و معامله نقره را آغاز می‌کند.
 2. ورود مستقیم به معامله با طلا؛ تعویض به مس و نمایش وزن بدون اعشار.
 3. تغییر فلز پس از Quote و پاک‌شدن کنترل‌شده داده‌های وابسته.
-4. کاتالوگ ۱۶ فلزی با Search، نام بلند، Symbol و یک Asset unavailable.
+4. سه Asset Tab مستقیم در موبایل/وب و کاتالوگ ۱۶ فلزی با Search، نام بلند، Symbol و یک Asset unavailable در Bottom Sheet موبایل/Popover وب.
 5. اختلال نرخ نقره بدون توقف طلا و مس.
 6. تاریخچه با Tab `خرید` و فیلتر فلز نقره؛ بازکردن رسید و Back با حفظ Tab، فلز، status/date و Scroll.
 7. دریافت فیزیکی طلا، نقره و مس از یک Template با محصولات متفاوت Config.
@@ -170,6 +173,8 @@
 - Empty، Loading، Partial، Offline، Restricted و Retry برای همه صفحه‌های Critical.
 - هیچ CTA انتقال فلز وجود ندارد.
 - طلا پیش‌فرض عملیاتی معامله است، نه رنگ/هویت غالب کل اپ.
+- هیچ مسیر ضروری Hover-only نیست؛ Touch بدون Hover، Keyboard/Focus و Mouse/Hover شرطی هرکدام جدا تست می‌شوند.
+- ورودی مبلغ/وزن/OTP با `inputmode` درست، فونت حداقل ۱۶px، بازشدن Keyboard و دیده‌ماندن CTA/خطا آزمایش می‌شود.
 
 ## ۱۲. پیشنهادهای پیش‌دستانه
 
@@ -204,7 +209,7 @@ Inventory، مرز ریالی و قرارداد کامل U2 تأیید شده‌
 | موج | شناسه‌های این بسته | پیشرفت ساخت در 9 Aug 2026 | توضیح |
 |---|---|---:|---|
 | `MM-W1` | `001..007` و `018..020` | ۷۵٪ | تمام ۱۰ خروجی در Prototype هدف ساخته و مسیرهای اصلی مرورگری QA شده‌اند؛ Review ارائه‌ای مالک محصول باز است |
-| `MM-W2` | `008..012` | ۷۵٪ | پنج خروجی معامله/Selector/Quote/Chart ساخته و مسیر معامله تا رسید مرورگری QA شده است؛ Review ارائه‌ای باز است |
+| `MM-W2` | `008..012` | ۷۵٪ | پنج خروجی معامله/Asset Tabs/Catalog/Quote/Chart ساخته شده‌اند؛ معامله با ورود تومان/گرم، کیبورد داخلی و جزئیات محاسبه در Sheet اصلاح و Syntax/ساختار آن بازآزمایی شده است؛ Review بصری موبایل و بازآزمایی کامل D-151/D-152 باز است |
 | `MM-W3` | `015..017` | ۷۵٪ | Timeline، U2 و رسید چندفلزی ادغام و تعامل Select/Filter/Back مرورگری QA شده است؛ Review ارائه‌ای باز است |
 | `MM-W4` | `013..014` + `014A..D` | ۷۵٪ | Hub و فلو داده‌محور سه‌فلزی تا انتخاب چند SKU، جزئیات تحویل، Sheet اثر مالی و Success/Failed ساخته شد؛ Syntax و ۱۸ Assertion محاسبه/ناوبری پاس است و Review بصری/تعاملی مالک محصول باز است |
 | `MM-W5` | `021..022` | ۷۵٪ | هشدار و سفارش Asset-aware تا Result ساخته شده‌اند؛ سفارش Capability-gated است |

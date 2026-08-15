@@ -37,15 +37,15 @@
 |---|---|---|---|---:|
 | Button | Emphasis=`Primary/Secondary/Tertiary`؛ Tone=`Neutral/Destructive`؛ Size=`Small/Medium/Large`؛ State=`Default/Hover/Pressed/Focus/Disabled/Loading` | Label، Show/Swap Start icon، Show/Swap End icon، Show label while loading | Touch target، Surface، Focus ring، Content، Label، Start/End icon، Loading icon | ۱۰۸ Variant ساخته‌شده؛ Final technical/agent visual audit pass؛ منتظر تأیید بصری نهایی مالک محصول |
 | Icon Button | `Style=Primary/Secondary/Tertiary/Destructive`؛ Size=`Small/Medium/Large`؛ State=`Default/Hover/Pressed/Focus/Disabled/Loading` | Accessible label، Loading label، Icon swap | Touch target، Surface، Focus ring، Icon، Loading indicator | Set کامل ۷۲تایی ساخته و Final audit بدون Issue پاس شد؛ منتظر تأیید بصری نهایی — D-129/D-132/D-133 |
-| Text Input / Form Field | Size=`Medium/Large`؛ State=`Empty/Filled/Hover/Focus/Error/Disabled/Read-only` | Label، Value، Placeholder، Helper، Required، Show/Swap Start icon، Show/Swap End icon، Show clear | Label row، Field shell، Field، Input content، Value/Placeholder، Focus ring، Helper/Error | Set کامل ۱۴تایی ساخته و Final audit با صفر Issue پاس شد؛ منتظر تأیید بصری |
-| Amount Input | Size=`Medium/Large`؛ State=`Empty/Filled/Hover/Focus/Invalid/Disabled/Loading` | Label، Amount، Unit، Helper، Balance hint، Action label | Form field shell، Numeric value، Unit، Helper، Loading | ۱۴ |
+| Text Input / Form Field | Size=`Medium/Large`؛ State=`Empty/Filled/Hover/Focus/Error/Disabled/Read-only` | Label، Value، Placeholder، Helper، Required، Show label، Show helper، Show/Swap Start icon، Show/Swap End icon، Show clear | Label row، Field shell، Field، Input content، Value/Placeholder، Focus ring، Helper/Error | Set کامل ۱۴تایی با ۱۲ Property عمومی در صفحه مشترک `15 Inputs`؛ عرض ۳۲۰، ارتفاع ۴۸/۵۶، Text Style Semantic و RTL با صفر Issue audit شدند |
+| Amount Input | Size=`Medium/Large`؛ State=`Empty/Filled/Hover/Focus/Error/Disabled/Read-only/Loading` | Label، Amount، Placeholder، Unit، Helper، Balance hint، Action label، Show label، Show unit، Show helper، Show balance hint، Show action | Form field shell، Numeric value/Placeholder، Unit، Balance hint، Quick action، Helper، Loading indicator | Set کامل ۱۶تایی در صفحه مشترک `15 Inputs`؛ Geometry/Typography/RTL مشترک، Meta برابر و Property referenceهای کامل با صفر Issue audit شدند |
 | OTP Input | Length=`4/6`؛ State=`Empty/Focus/Filled/Invalid/Expired/Loading/Throttled` | Code، Helper، Timer، Resend label | Group، Digit cells، Cursor/Focus، Error/Timer | ۱۴ |
 | Checkbox | Selection=`Unchecked/Checked/Mixed`؛ State=`Default/Hover/Focus/Disabled` | Label، Helper، Show label | Touch target، Box، Mark، Label group | Set کامل ۱۲تایی ساخته و Final audit با صفر Issue پاس شد؛ منتظر تأیید بصری |
 | Radio | Selection=`Off/On`؛ State=`Default/Hover/Focus/Disabled` | Label، Helper، Show label | Touch target، Ring، Dot، Label group | `Tested Candidate`؛ Set کامل ۸تایی، Final audit صفر Issue و تأیید بصری مالک محصول — D-134 |
 | Switch | Selection=`Off/On`؛ State=`Default/Hover/Focus/Disabled/Loading` | Label، Helper، Show label | Touch target، Track، Thumb، Focus ring، Loading indicator، Label group | `Tested Candidate`؛ Set کامل ۱۰تایی، Final audit صفر Issue و تأیید بصری مالک محصول — D-136 |
-| Alert | Tone=`Neutral/Info/Success/Warning/Danger`؛ Layout=`Inline/Stacked` | Title، Description، Action، Dismiss، Icon swap | Container، Status icon، Content، Actions | ۱۰ |
+| Alert | Tone=`Neutral/Info/Success/Warning/Danger`؛ Layout=`Inline/Stacked` | Title، Description، Action، Dismiss، Icon swap | Container، Status icon، Content، Actions | Set کامل ۱۰تایی ساخته و Final structural/agent-visual audit بدون Issue پاس شد؛ منتظر تأیید بصری |
 | Status Badge | Tone=`Neutral/Info/Success/Warning/Danger`؛ Emphasis=`Subtle/Solid` | Label، Show icon، Icon swap | Container، Icon، Label | ۱۰ |
-| Toast | Tone=`Neutral/Info/Success/Warning/Danger` | Message، Action، Dismiss، Icon swap | Container، Status icon، Message، Action | ۵ |
+| Toast | Tone=`Neutral/Info/Success/Warning/Danger` | Message، Action، Dismiss، Icon swap | Container، Status icon، Message، Action | Set کامل ۵تایی در صفحه `17 Toast` ساخته شد؛ Propertyها، Token binding، Light/Dark، RTL و متن بلند با Final audit صفر Issue پاس شدند؛ منتظر تأیید بصری |
 | Spinner | Size=`Small/Medium/Large`؛ Tone=`Default/Inverse` | Accessible label | Track، Active arc | ۶ |
 | Progress | Type=`Linear/Circular`؛ State=`Indeterminate/Determinate` | Value، Accessible label | Track، Indicator، Value label | ۴ |
 | Skeleton | Shape=`Text/Rectangle/Circle`؛ Size=`Small/Medium/Large` | Width، Height، Accessible-hidden | Stable placeholder | ۹ |
@@ -92,8 +92,8 @@
 
 1. Tier 0: Spinner، Progress، Status Badge، Divider — ساخته شد؛ QA نهایی Dark/RTL باقی است.
 2. Tier 1: Radio و Switch در `Tested Candidate` هستند؛ Button، Icon Button و Checkbox منتظر تأیید بصری نهایی‌اند.
-3. Tier 2: Text Input ساخته و منتظر تأیید بصری است؛ سپس Amount Input و OTP Input.
-4. Tier 3: Alert، Toast و Skeleton.
+3. Tier 2: خانواده Text Input و Amount Input در صفحه واحد `15 Inputs` بازسازی و منتظر تأیید بصری است؛ سپس OTP Input روی همین صفحه افزوده می‌شود.
+4. Tier 3: Alert و Toast ساخته و audit شدند؛ Skeleton باقی مانده است.
 5. QA ساختاری هر Set، سپس QA بصری Light/Dark و RTL.
 6. ثبت Changelog و انتقال Duplicate Button صفحه ۳ به Deprecated فقط با تأیید صریح عملیات مخرب/انتقالی.
 
