@@ -29,7 +29,7 @@
 | `MM-W6` | خرید و پرداخت قسط Asset-aware | `WF-MM-023..024` + `FL-INSTALLMENT-001` | ورودی Hub و قرارداد Legacy | **۷۵٪** | Hub و ساختار درخواست/Preview/Result ساخته و QA شد؛ اعداد و عرضه نهایی ادعا نمی‌شوند |
 | `MM-W7` | صدور و دریافت هدیه Asset-aware | `WF-MM-025..026` + `FL-GIFT-001` | ورودی قدیمی هدیه فقط شاهد ساختاری | **۷۵٪** | صدور و Claim با Context صریح تا Result ساخته و QA شد؛ OQ-006/OQ-054 بازند |
 | `MM-W8` | معرفی دوستان و اتصال پاداش به واریز/تاریخچه | `WF-MM-027..028` + `FL-REFERRAL-001` | ورودی Hub و اعلان قبلی | **۷۵٪** | Dashboard، پیگیری و اتصال پاداش به Tab واریز/رسید ساخته و QA شد |
-| افقی | اعتماد، Context نرخ فروش، پشتیبانی، محدودیت، Loading/Empty/Partial/Offline، Responsive و PWA | State Matrix هر موج + `LivePriceTicker` | Patternهای قبلی فقط در صورت سازگاری | در درصد همان موج | D-160 در ۴۱ سناریو ممیزی شد: عمومی حلقه سه‌فلزی، فلزمحور ثابت، حساس/نرخ‌محور مستثنا |
+| افقی | اعتماد، Context نرخ فروش، پشتیبانی، محدودیت، Loading/Empty/Partial/Offline، Responsive و PWA | State Matrix هر موج + `LivePriceTicker` + Mobile App-mode | Patternهای قبلی فقط در صورت سازگاری | در درصد همان موج | D-160 نرخ را در ۴۱ سناریو ممیزی و D-161 موبایل را `100dvh`/Safe-area-aware و Desktop را Review-mode نگه می‌دارد |
 
 **پیشرفت وزنی بسته هسته ۲۰ صفحه/State (`MM-W1..MM-W4`): ۷۵٪.** همه خروجی‌های هسته در ساختار هدف ساخته و QA افقی شده‌اند؛ Review و اصلاح جزئی شرط ۱۰۰٪ است.
 

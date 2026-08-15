@@ -47,7 +47,7 @@
     .scenario.active{background:var(--primary);color:#fff;border-color:var(--primary)}
     .scenario.active span{color:#d7dbe0}
     .legend{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
-    .phone{width:390px;height:820px;border-radius:28px;overflow:hidden;position:relative;display:grid;grid-template-rows:auto 1fr auto}
+    .phone{--app-chrome-top:84px;width:390px;height:820px;border-radius:28px;overflow:hidden;position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
     .statusbar{height:26px;background:var(--surface);display:flex;align-items:end;justify-content:space-between;padding:0 18px 3px;font-size:10px;direction:ltr}
     .app-header{min-height:58px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:48px 1fr 48px;grid-template-areas:"left title right";align-items:center;padding:0 10px;background:var(--surface);z-index:10;direction:ltr}
     .app-header h2{grid-area:title;direction:rtl;font-size:18px;margin:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -60,6 +60,7 @@
     .app-main.trade-compact::-webkit-scrollbar{display:none}
     .app-main.home-scrollless{scrollbar-width:none;-ms-overflow-style:none}
     .app-main.home-scrollless::-webkit-scrollbar{display:none}
+    .app-main:has(> .live-price-ticker){padding-top:7px}
     .app-main:has(> .sticky-action){display:flex;flex-direction:column;padding-bottom:0}
     .bottom-nav{min-height:74px;background:var(--surface);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding:7px 8px max(7px,env(safe-area-inset-bottom));z-index:10}
     .bottom-nav.hidden{display:none}
@@ -70,7 +71,7 @@
     .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
     .section-head h3{font-size:15px;margin:0}
     .text-button{min-height:44px;border:0;background:transparent;padding:6px;color:var(--primary);font-weight:650}
-    .live-price-ticker{direction:rtl;width:100%;min-height:52px;margin:0 0 12px;padding:0 4px;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;gap:12px;text-align:right;overflow:hidden}
+    .live-price-ticker{direction:rtl;width:100%;min-height:46px;margin:0 0 12px;padding:0 10px;border:0;border-radius:8px;background:var(--strong);color:var(--text);display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;gap:12px;text-align:right;overflow:hidden}
     button.live-price-ticker{cursor:pointer}
     .live-price-label{font-size:10px;color:var(--muted);white-space:nowrap}
     .live-price-window{direction:ltr;height:38px;overflow:hidden;min-width:0}
@@ -396,6 +397,8 @@
     .receipt-row strong{text-align:left;font-variant-numeric:tabular-nums}
     .asset-proof{display:flex;align-items:center;gap:10px;background:var(--subtle);border-radius:var(--r-sm);padding:10px;margin-top:12px}
     .asset-proof .metal-symbol{width:38px;height:38px}
+    .asset-proof-icon{width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:var(--strong);display:grid;place-items:center}
+    .asset-proof-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .asset-proof div{display:grid}
     .asset-proof small{color:var(--muted);font-size:11px}
     .physical-segment{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--strong);border:1px solid var(--border);border-radius:var(--r-md);padding:4px;margin-bottom:12px}
@@ -426,7 +429,7 @@
     .selected-bullion-rail{display:grid;grid-template-columns:1fr;gap:8px;padding:2px 0 6px}.selected-bullion{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:10px;display:grid;gap:3px}.selected-bullion strong{font-size:13px}.selected-bullion span{font-size:11px;color:var(--muted)}
     .physical-sheet{max-height:78%}.rules-list{margin:0;padding:0 20px 0 0;display:grid;gap:10px;font-size:13px}.rules-list li::marker{font-weight:750}.receipt-row.emphasis{background:var(--strong);margin-inline:-8px;padding-inline:8px;border-radius:8px}.receipt-row.emphasis span,.receipt-row.emphasis strong{color:var(--text);font-weight:750}
     .result-mark-error{background:var(--danger-bg);color:var(--danger)}
-    .scrim{position:absolute;inset:84px 0 0;background:rgba(16,20,24,.48);z-index:30;display:flex;align-items:end}
+    .scrim{position:absolute;inset:var(--app-chrome-top) 0 0;background:rgba(16,20,24,.48);z-index:30;display:flex;align-items:end}
     .sheet{width:100%;max-height:72%;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(0,0,0,.18)}
     .sheet.physical-confirm-sheet{max-height:92%;overflow:auto}
     .handle{width:44px;height:4px;background:var(--border-strong);border-radius:4px;margin:2px auto 12px}
@@ -461,14 +464,18 @@
       .scenario-list{grid-template-columns:repeat(2,minmax(0,1fr))}
       .phone{width:min(390px,100%);margin:0 auto;height:760px;border-radius:22px}
     }
-    @media(max-width:430px){
-      .workspace{padding:0;gap:0}
-      .review-panel{border:0;border-radius:0;box-shadow:none;border-bottom:1px solid var(--border);padding:12px}
-      .review-panel h1,.review-panel p,.legend{display:none}
-      .wave-label{margin:0 0 8px}
-      .scenario-list{display:flex;overflow-x:auto;gap:6px}
-      .scenario{flex:0 0 174px;min-height:44px;padding:7px 9px}
-      .phone{width:100%;height:780px;border:0;border-radius:0;box-shadow:none}
+    @media (max-width:430px), (pointer:coarse) and (max-width:900px){
+      html,body{width:100%;height:100%;min-height:100%;overflow:hidden;background:var(--surface);overscroll-behavior:none}
+      .skip,.review-panel{display:none}
+      .workspace{display:block;width:100%;height:100dvh;min-height:100dvh;padding:0;overflow:hidden}
+      .phone{--app-chrome-top:calc(58px + env(safe-area-inset-top));width:100%;height:100dvh;min-height:100dvh;margin:0;border:0;border-radius:0;box-shadow:none}
+      .statusbar{display:none}
+      .app-header{min-height:calc(58px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 10px 0}
+      .app-main{min-height:0;padding-bottom:calc(28px + env(safe-area-inset-bottom));scrollbar-width:none;-ms-overflow-style:none}
+      .app-main::-webkit-scrollbar{display:none}
+      .app-main>.sticky-action{margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
+      .bottom-nav{min-height:calc(74px + env(safe-area-inset-bottom))}
+      .toast{bottom:calc(92px + env(safe-area-inset-bottom))}
     }
     @media(max-width:350px){
       .wallet-balance-main{grid-template-columns:36px minmax(0,1fr) 22px}
@@ -626,7 +633,7 @@
       const scenario=state.scenario;
       if(['auth-login','kyc','deposit','deposit-no-card','withdraw','money-preview','physical-preview','physical-failed','physical-success','target-preview','installment-payment','installment-preview','gift-preview','bank-accounts','bank-add','bank-add-preview','security','change-password','licenses','legal','profile','feature-processing','feature-result','trade-preview','trade-processing','receipt'].includes(scenario)||scenario.startsWith('deposit-method-'))return [];
       if(scenario==='market3'||scenario==='market16'||scenario.startsWith('trade-'))return [];
-      if(scenario.startsWith('detail-'))return [scenario.replace('detail-','')];
+      if(scenario.startsWith('detail-'))return [];
       if(scenario==='chart-single')return [state.chartAsset];
       if(scenario.startsWith('physical-')||scenario==='market-services'||scenario.startsWith('target-')||scenario.startsWith('installment-')||scenario.startsWith('gift-'))return [state.featureAsset];
       if((scenario==='history'||scenario==='history-filtered')&&state.metal!=='all')return [state.metal];
@@ -865,7 +872,7 @@
     }
     function detail(key){
       const m=metals[key];setChrome(`جزئیات ${m.name}`,true,false);
-      return `<section class="card detail-position"><div class="asset-proof"><span class="metal-symbol" aria-hidden="true">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade} · دارایی واقعی و پشتوانه‌دار</small></div></div>
+      return `<section class="card detail-position"><div class="asset-proof"><span class="asset-proof-icon" aria-hidden="true">${m.icon}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade}</small></div></div>
         <div><div class="muted" style="font-size:12px">موجودی من</div><div class="weight">${m.weight} گرم</div></div>
         <div class="detail-grid"><div class="metric"><span>ارزش فعلی</span><strong>${m.value} تومان</strong></div><div class="metric"><span>سود/زیان جاری</span><strong class="${m.pnl.startsWith('+')?'positive':'negative'}">${m.pnl}</strong></div></div></section>
         <section class="section card chart-card"><div class="section-head"><h3>روند قیمت ${m.name}</h3><button class="text-button" type="button" data-open-full-chart="${key}">نمودار کامل</button></div>

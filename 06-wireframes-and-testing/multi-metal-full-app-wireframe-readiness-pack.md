@@ -48,7 +48,8 @@
 | `Business decision` | درگاه واریز Preview داخلی ندارد؛ روش‌های دیگر بدون مبلغ قابل مرور و صفحاتشان فقط اطلاعاتی‌اند | D-155 | Redirect درگاه مستقیم شبیه‌سازی می‌شود؛ صفحات کارت/شبا/حساب CTA ثبت ندارند و Card مقصد خنثی و متراکم است |
 | `Business decision` | همه Contextهای انتخاب کارت بانکی از Component، Picker و منبع داده مشترک استفاده می‌کنند | D-156 | افزایش موجودی، سه روش واریز و برداشت فقط Context را به `bankCardSelector` می‌دهند؛ Cardهای نمایشی پروفایل خارج از قراردادند |
 | `Business decision` | Rail فلزهای خانه Cardمحور و نامتقارن است؛ طلا به‌دلیل اولویت تقاضا Card اصلی، نقره ثانویه و مس از ادامه Carousel قابل کشف است | D-159 | Candidate سه‌ردیفه کنار گذاشته می‌شود؛ برجستگی طلا فقط Geometry خانه است و به هویت، رنگ یا Capability برتر تبدیل نمی‌شود |
-| `Business decision` | قیمت فروش لحظه‌ای حداقل Context صفحه‌های غیرحساس است؛ عمومی حلقه عمودی سه‌فلزی و فلزمحور نرخ ثابت Asset منتخب دارد | D-160 | بازار/معامله نرخ اصلی خود را دارند؛ Auth/KYC، Preview/Result/Receipt، درگاه/بانک و امنیت مستثنا هستند؛ منبع نرخ زیر OQ-020 باز است |
+| `Business decision` | قیمت فروش لحظه‌ای حداقل Context صفحه‌های غیرحساس است؛ عمومی حلقه عمودی سه‌فلزی و فلزمحور نرخ ثابت Asset منتخب دارد | D-160 | بازار/معامله/جزئیات نرخ اصلی خود را دارند؛ Auth/KYC، Preview/Result/Receipt، درگاه/بانک و امنیت مستثنا هستند؛ منبع نرخ زیر OQ-020 باز است |
+| `Business decision` | Prototype در گوشی App-mode تمام‌صفحه و در Desktop محیط Review دو ستونه است | D-161 | Mobile پنل سناریو/قاب/Statusbar ساختگی ندارد؛ `100dvh`، Safe Area و Scroll داخلی Main الزامی است |
 | `Business decision` | فلز پیش‌فرض ورود مستقیم معامله طلاست | D-123 | Trade default با طلا باز می‌شود؛ Context صریح مقدم است |
 | `Business decision` | سطح اول تاریخچه ۱۲ کنترل مستقیم D-124 را نشان می‌دهد؛ سفارش یک Tab، پاداش زیر واریز و فلز برای Operationهای فلزی مستقل است | D-124/OQ-059 | Taxonomy قطعی |
 | `Business decision` | واریز/برداشت و پاداش زیر واریز فقط کیف تومان‌اند و کنترل فلز ندارند | D-125 | هیچ `assetId/relatedAssetId` از Context ساخته نمی‌شود |
@@ -185,6 +186,7 @@
 - هیچ مسیر ضروری Hover-only نیست؛ Touch بدون Hover، Keyboard/Focus و Mouse/Hover شرطی هرکدام جدا تست می‌شوند.
 - ورودی مبلغ/وزن/OTP با `inputmode` درست، فونت حداقل ۱۶px، بازشدن Keyboard و دیده‌ماندن CTA/خطا آزمایش می‌شود.
 - Ticker عمومی ترتیب طلا→نقره→مس، حلقه، Tap و Reduced Motion دارد؛ Context فلزمحور با `assetId` عوض می‌شود، نرخ نامعتبر عدد جعل نمی‌کند و هیچ صفحه حساس یا نرخ‌محور Ticker تکراری ندارد — D-160.
+- Mobile App-mode در ارتفاع‌های کوتاه/بلند باید Phone=Viewport، Body بدون Scroll، Main قابل Scroll، Bottom Nav چسبیده به پایین و Sheet/CTA/Toast سازگار با Safe Area داشته باشد؛ Desktop Review باید بدون Regression باقی بماند — D-161.
 
 ## ۱۲. پیشنهادهای پیش‌دستانه
 
