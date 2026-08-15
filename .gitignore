@@ -17,3 +17,6 @@ __pycache__/
 # Local Codex settings and logs
 .codex/
 .codex-log/
+
+# Generated Cloudflare Pages output
+dist-wireframes/

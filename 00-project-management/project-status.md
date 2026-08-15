@@ -11,13 +11,16 @@
 | ارزیابی فعلی | 🟡 پوشش ساخت افقی همه موج‌ها کامل است: ۲۸ خروجی هدف، پنج State اتصال W0 و چهار حالت Review دریافت فیزیکی در Prototype وجود دارند. بلوغ همه `MM-W0..MM-W8` برابر **۷۵٪** می‌ماند؛ Review جزئی مالک محصول و تصمیم‌های باز شرط ۱۰۰٪ هستند |
 | مسئول تصمیم نهایی | مالک محصول / بیزینس |
 | سند فعال | `06-wireframes-and-testing/multi-metal-physical-delivery-flow-spec.md`؛ بسته مادر: `06-wireframes-and-testing/multi-metal-full-app-wireframe-readiness-pack.md` |
-| آخرین اصلاح قابل Review | اعلان‌ها به فهرست استاندارد ردیفی تبدیل شدند؛ P&L کارت‌های فلز بر اساس علامت داده «سود کل/زیان کل» نشان می‌دهد؛ در جزئیات فلز دو اقدام فرعی حذف و CTA معامله بعد از آخرین Card و در جریان اسکرول قرار گرفت. Syntax و ممیزی ساختاری پاس و Review بصری موبایل باز است — V-065 |
+| آخرین اصلاح قابل Review | `LivePriceTicker` سراسری D-160 در Prototype مرجع ادغام شد: صفحات عمومی نرخ فروش طلا/نقره/مس را با اسلاید عمودی حلقه‌ای نشان می‌دهند، صفحات فلزمحور نرخ Asset منتخب را ثابت می‌گیرند و صفحات حساس/دارای نرخ اصلی مستثنا هستند. ممیزی ۴۱ سناریو و QA عرض ۳۲۰/۳۷۵ پاس شد — V-075 |
 | قدم بعدی | مالک محصول Header خانه، معامله، خدمات و حداقل دو زیرصفحه را Review کند؛ خانه/خدمات D-145، قرارداد CTA پایین D-144، خانه/Donut D-141، `WF-MM-027`، پروفایل `WF-MM-029` و دریافت فیزیکی `WF-MM-014/014A..D` همچنان باز هستند. OQ-054/OQ-060 و Gateهای مالی/حقوقی موازی‌اند |
 | مسیر موازی داخلی | Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند. خانواده Input در صفحه واحد `15 Inputs` شامل Text Input ۱۴تایی، Amount Input ۱۶تایی، OTP Input ۳۲تایی و Search Input ۱۲تایی با Radius مشترک ۱۴ و Final technical audit صفر Issue روی مجموع ۷۴ Variant است. Alert در صفحه مستقل `16 Alert` با ۱۰ Variant `Tone × Layout` و Toast در صفحه مستقل `17 Toast` با ۵ Variant `Tone` و چهار Property عمومی ساخته و با audit فنی/بصری صفر Issue تأیید شدند. OTP دارای Success گذرا تا Redirect است؛ تأیید بصری مالک محصول برای Promote Setهای Candidate باز می‌ماند. Button، Icon Button، Checkbox، Alert و Toast نیز منتظر تأیید بصری‌اند. Palette نمودار، Accent و اجزای فلزمحور تا OQ-056 Candidate می‌مانند — D-134/D-136/D-143/D-148 |
 | مسیر موازی بیرونی | هشت تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی عددهای پورتفوی |
 
 ## آنچه تا امروز داریم
 
+- `Observed fact` — ثبت مراجع رسمی ارائه مدیریتی وایرفریم در `06-wireframes-and-testing/README.md`: فایل `multi-metal-waves-1-and-3-wireframe.html` برای بیشتر فلوها و فلو سبز، و فایل `wave-1-auth-kyc-wireframe.html` برای ورود/ثبت‌نام و احراز هویت. `Design assumption` — هدف انتشار بعدی یک آدرس وب ثابت با به‌روزرسانی خودکار از نسخه Push‌شده مخزن است؛ این ثبت Gate مرحله را تغییر نمی‌دهد
+- `Observed fact` — اسکریپت `scripts/build-wireframe-share.mjs` برای انتشار Cloudflare Pages اضافه شد؛ خروجی محدود `dist-wireframes/` شامل صفحه انتخاب، دو مرجع رسمی، فونت موردنیاز و Header جلوگیری از Index شدن است و با هر Build از فایل‌های منبع تازه ساخته می‌شود
+- ممیزی اختصاصی صفحه خانه با Mobbin در `06-wireframes-and-testing/home-mobbin-structure-audit-2026-08-15.md`: هفت Preview از Revolut، Coinbase، N26 و Fidelity مستقیماً بررسی شد. پس از تأیید D-159، Candidate سه‌ردیفه تاریخی شد و نسخه Cardمحور با اولویت بصری طلا در `06-wireframes-and-testing/artifacts/home-mobbin-card-priority-candidate-v2.png` ثبت شد؛ Gate مرحله تغییر نکرد
 - ساختار مرحله‌ای پروژه، راهنمای شروع، نقشه راه، Gateها و اسناد کاری مستقل از چت
 - دفتر رسمی تصمیم‌ها، سؤال‌های باز، واژه‌نامه و روش همکاری
 - بریف اولیه ریدیزاین با جهت محصول، مخاطبان، قابلیت‌ها و اصول تجربه
@@ -103,9 +106,12 @@
 - ثبت D-131 و بازچینی رسمی موج‌ها با حفظ Reuse وایرفریم‌های قبلی؛ Baseline ساخت هسته ۲۰ خروجی ۲۵٪ است و ریز امتیاز در `wireframe-plan.md` ثبت شده است
 - ساخت Prototype تعاملی `multi-metal-waves-1-and-3-wireframe.html` با هر ۱۳ خروجی MM-W1/MM-W3؛ Syntax و Assertionهای ساختاری پاس و پیشرفت هسته به ۵۶٪ رسید
 - افزودن هر پنج خروجی MM-W2 به همان Prototype؛ طلای پیش‌فرض، Selector سه/شانزده، تغییر Quote و نمودار مستقل Static QA شدند و پیشرفت هسته به ۷۱٪ رسید
+- ساخت Prototype مستقل تست پیشنهادهای تحقیق Mobbin برای معامله در `06-wireframes-and-testing/artifacts/trade-mobbin-recommendations-test-wireframe.html`: خرید/فروش سه فلز، ورود تومان/گرم، تفکیک عددی اصل/کارمزد/مبلغ نهایی، نرخ تازه‌شونده ۲۰ثانیه‌ای، Preview، Pending و چهار نتیجه موفق/ردشده/نامشخص/آفلاین پیاده شد. QA مرورگری خرید طلا، فروش مس، هر چهار Result، عرض ۳۲۰/۳۷۵/Desktop، Touch target و overflow افقی پاس شد؛ این فایل Candidate تست است و قاعده کسب‌وکاری تازه‌ای ایجاد نمی‌کند
+- ساخت و اصلاح Candidate مستقل چیدمان ورودی معامله در `06-wireframes-and-testing/artifacts/trade-binance-kraken-layout-candidate.html` با الهام از رفرنس‌های Binance/Kraken: Tab متنی کوچک و بدون Indicator، Divider بسیار روشن، نرخ منتخب روبه‌روی سگمنت بصری ۱۱۸×۴۰ خرید/فروش، عدد واقعاً مرکزچین با Listbox اختصاصی تومان/گرم در ستون چپ، معادل، CTA/پیشنهادها/کیبورد داخلی ثابت از ورود اولیه و موجودی Contextual فشرده پیش از ورودی. در خرید موجودی کیف تومان و در فروش موجودی قابل‌فروش فلز منتخب نمایش داده می‌شود؛ مقدار بیشتر از موجودی CTA را می‌بندد. جای موجودی و Recovery کمبود تا Review نهایی OQ-061 `Design assumption` می‌ماند. QA مرورگری ۳۲۰×۷۲۰، ۳۷۵×۸۱۲ و ۳۹۰×۸۲۰، مرکز عدد، نبود هم‌پوشانی/سرریز، تومان/گرم و تغییر فلز/جهت پاس شد؛ Candidate جایگزین D-154 یا Prototype مرجع نیست
 - تبدیل Prototype ۱۸State به مسیر پیوسته قابل ارائه: Navigation با حفظ State، Sheet/Selectهای عملیاتی، فیلتر U2 واقعی و معامله تا Preview/Loading/رسید؛ QA مرورگری مسیرهای اصلی، ۳۲۰/۳۶۰/۳۷۵/۳۹۰، Landscape/Desktop، Touch target و Reduced Motion پاس شد
 - ثبت D-133 و تکمیل پوشش افقی تمام موج‌ها در همان Prototype: پنج اتصال W0، دو State W4 و هشت State W5..W8 اضافه و همه به Preview/Result/Receipt/History متصل شدند؛ ۳۳ State و مسیرهای هر موج مرورگری QA شدند
 - تکمیل `multi-metal-full-app-wireframe-readiness-pack.md`: مرز Reuse، ۲۰ صفحه/State، قرارداد رفتار/Component، Eligibility، Recovery و سناریوهای ۳ تا ۱۶ Asset مشخص شد؛ بخش‌های مشترک و تاریخچه با D-128 `Sufficient to prototype` هستند و Feature-specific زیر OQ-054 باز است
+- تکمیل بنچمارک جهانی Mobbin در `02-research-and-audit/competitors/synthesis/mobbin-global-pattern-benchmark-2026-08-15.md`: Revolut برای فلزات، Wealthsimple برای پورتفوی آرام، Coinbase برای معامله/رسید، SoFi/Public برای هشدار، Careem/Cash App برای برداشت، Binance/Vivid برای تاریخچه و چهار الگوی Pickup برای دریافت فیزیکی به فلوهای شمش نگاشت شدند؛ هیچ رفتار رقیبی قانون یا تصمیم تازه شمش محسوب نشد
 
 ## آخرین تغییر ساختاری
 
@@ -322,6 +328,8 @@
 - [ ] Review و اصلاح جزئی مالک محصول روی موج‌های `MM-W0..MM-W8`
 - [x] QA مرورگری مسیرهای اصلی در ۳۲۰/۳۶۰/۳۷۵/۳۹۰/Desktop و Landscape؛ کنترل Touch target و Reduced Motion
 - [x] افزودن پنج صفحه/State `MM-W2` به Prototype مشترک و پاس Assertionهای ساختاری
+- [x] ساخت و QA Prototype مستقل تست تحقیق Mobbin برای معامله با Preview، کارمزد عددی، نرخ ۲۰ثانیه‌ای و چهار Result؛ فایل مرجع اصلی بدون تغییر ماند
+- [x] ساخت و QA Candidate مستقل Binance/Kraken برای چیدمان ورودی معامله و ثبت OQ-061 برای جای موجودی؛ D-154 و Prototype مرجع بدون تغییر ماندند
 - [x] تعریف برنامه رسمی مرحله ۷ و تعیین فاز ۱ Foundations به‌عنوان زیرتسک فعال
 - [x] ممیزی اولیه Prep، موج ۱ و PDF برندگاید قبلی و ثبت `Promote / Revise / Keep Draft`
 - [x] استخراج Candidateهای Logo، Color و Typography و تست کنتراست اولیه

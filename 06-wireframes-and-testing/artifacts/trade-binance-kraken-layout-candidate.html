@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>کاندید چیدمان معامله شمش</title>
+  <style>
+    @font-face {
+      font-family: "Yekan Bakh";
+      src: url("../../07-design-system/legacy-brand/typogaphy/YekanBakh3%20-%20Pro%20%20Plus/Yekan%20Bakh%20Variable/webfonts/YekanBakhFaNum-VF.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --canvas: #eef0f2;
+      --surface: #ffffff;
+      --subtle: #f4f5f6;
+      --ink: #17191c;
+      --muted: #6b7077;
+      --border: #e1e3e6;
+      --border-soft: #f1f2f3;
+      --border-strong: #b8bdc3;
+      --primary: #171b20;
+      --primary-pressed: #090b0e;
+      --focus: #1d64d8;
+      --danger: #a92820;
+      --success: #176b47;
+      --safe-bottom: max(12px, env(safe-area-inset-bottom));
+      --keyboard-preview-height: 260px;
+      font-family: "Yekan Bakh", Tahoma, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { min-width: 320px; background: var(--canvas); }
+    body { margin: 0; min-width: 320px; min-height: 100dvh; color: var(--ink); background: var(--canvas); font: 16px/1.55 inherit; }
+    button, input, select { font: inherit; color: inherit; }
+    button, select { cursor: pointer; touch-action: manipulation; }
+    button:active { opacity: .72; }
+    button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid color-mix(in srgb, var(--focus) 35%, transparent); outline-offset: 2px; }
+    .skip { position: fixed; inset-inline-start: 12px; top: -64px; z-index: 100; padding: 10px 14px; border-radius: 8px; color: #fff; background: var(--primary); }
+    .skip:focus { top: 12px; }
+
+    .stage { min-height: 100dvh; display: grid; place-items: start center; padding: 28px; }
+    .phone { direction: rtl; width: 390px; height: 820px; position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 28px; background: var(--surface); box-shadow: 0 20px 64px rgba(24, 29, 35, .14); }
+    .statusbar { direction: ltr; height: 27px; display: flex; align-items: end; justify-content: space-between; padding: 0 18px 4px; font-size: 10px; font-weight: 650; }
+
+    .asset-tabs { height: 54px; display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--border-soft); }
+    .asset-tab { position: relative; min-width: 0; min-height: 44px; border: 0; background: transparent; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .asset-tab[aria-selected="true"] { color: var(--ink); font-weight: 800; }
+
+    .trade-screen { min-height: calc(100% - 81px); padding: 16px 20px 396px; display: flex; flex-direction: column; }
+    .trade-toolbar { direction: rtl; min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .trade-segment { direction: rtl; flex: 0 0 118px; height: 40px; display: grid; grid-template-columns: 1fr 1fr; padding: 2px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+    .trade-segment button { position: relative; min-height: 34px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 11px; }
+    .trade-segment button::before { content: ""; position: absolute; inset-block: -5px; inset-inline: 0; }
+    .trade-segment button[aria-pressed="true"] { color: #fff; background: var(--primary); font-weight: 750; }
+    .rate-summary { min-width: 0; display: grid; justify-items: end; gap: 1px; text-align: left; }
+    .rate-summary span { color: var(--muted); font-size: 10px; }
+    .rate-summary strong { direction: ltr; font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .amount-zone { flex: 1; min-height: 0; display: grid; place-items: center; align-content: center; padding-bottom: 2px; text-align: center; }
+    .balance-context { min-height: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 2px; color: var(--muted); font-size: 10px; }
+    .balance-context strong { direction: ltr; color: var(--ink); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .amount-zone label { color: var(--muted); font-size: 11px; margin-bottom: 5px; }
+    .amount-control { direction: ltr; width: 100%; display: grid; grid-template-columns: 70px minmax(0, 1fr) 70px; grid-template-areas: "unit amount spacer"; align-items: center; }
+    .amount-control input { grid-area: amount; direction: ltr; width: 100%; min-width: 0; height: 76px; padding: 0; border: 0; background: transparent; outline: 0; color: var(--ink); font-size: 62px; font-weight: 720; line-height: 1; text-align: center; letter-spacing: -1.6px; caret-color: transparent; font-variant-numeric: tabular-nums; }
+    .amount-control input::placeholder { color: #c4c8cc; opacity: 1; }
+    .unit-picker { grid-area: unit; position: relative; justify-self: start; }
+    .amount-spacer { grid-area: spacer; width: 70px; height: 1px; }
+    .unit-trigger { min-width: 70px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 3px; padding: 6px 7px; border: 0; border-radius: 9px; background: transparent; font-size: 13px; font-weight: 750; }
+    .unit-trigger:hover, .unit-trigger[aria-expanded="true"] { background: var(--subtle); }
+    .unit-trigger svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 160ms ease; }
+    .unit-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .unit-menu { position: absolute; top: 48px; left: 0; z-index: 55; width: 120px; padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: 0 14px 34px rgba(20, 24, 30, .14); }
+    .unit-option { width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border: 0; border-radius: 8px; background: transparent; font-size: 13px; text-align: right; }
+    .unit-option:hover, .unit-option[aria-selected="true"] { background: var(--subtle); }
+    .unit-option svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+    .unit-option[aria-selected="true"] { font-weight: 750; }
+    .unit-option[aria-selected="true"] svg { opacity: 1; }
+    .equivalent { min-height: 34px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin-top: 2px; color: var(--muted); font-size: 12px; }
+    .equivalent svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .equivalent strong { direction: ltr; color: var(--ink); border-bottom: 1px dashed var(--border-strong); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .input-message { min-height: 18px; margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .input-message.error { color: var(--danger); }
+
+    .action-bar { position: absolute; inset-inline: 0; bottom: calc(var(--keyboard-preview-height) + 64px); z-index: 30; padding: 8px 20px 10px; background: var(--surface); }
+    .primary-button { width: 100%; min-height: 50px; padding: 9px 16px; border: 1px solid var(--primary); border-radius: 11px; color: #fff; background: var(--primary); font-weight: 750; }
+    .primary-button:hover { background: var(--primary-pressed); }
+    .primary-button:disabled { opacity: .32; cursor: not-allowed; }
+
+    .keyboard-accessory { direction: rtl; position: absolute; inset-inline: 0; bottom: var(--keyboard-preview-height); z-index: 40; height: 64px; padding: 9px 16px 10px; border-top: 1px solid var(--border); background: var(--surface); }
+    .preset-strip { direction: rtl; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+    .preset { min-width: 0; min-height: 44px; padding: 5px 4px; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--subtle); color: var(--muted); font-size: 11px; font-weight: 650; white-space: nowrap; text-overflow: ellipsis; }
+
+    .desktop-keyboard { direction: ltr; position: absolute; inset-inline: 0; bottom: 0; z-index: 35; height: var(--keyboard-preview-height); overflow: hidden; border-top: 1px solid var(--border); background: var(--surface); }
+    .key-grid { height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); padding: 5px 18px 10px; }
+    .key { min-height: 48px; border: 0; border-radius: 10px; background: transparent; color: var(--ink); font-size: 25px; font-weight: 650; }
+    .key svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    .key:active { background: var(--subtle); }
+    .key[disabled] { color: #c7cacf; cursor: not-allowed; }
+
+    .preview-wrap { position: absolute; inset: 0; z-index: 60; display: none; align-items: end; background: rgba(14, 17, 21, .5); }
+    .preview-wrap.open { display: flex; }
+    .preview-sheet { width: 100%; padding: 10px 20px var(--safe-bottom); border-radius: 24px 24px 0 0; background: var(--surface); box-shadow: 0 -20px 50px rgba(16, 19, 24, .16); }
+    .sheet-handle { width: 42px; height: 4px; margin: 0 auto 18px; border-radius: 999px; background: var(--border-strong); }
+    .preview-sheet h2 { margin: 0 0 4px; font-size: 19px; }
+    .preview-sheet > p { margin: 0 0 16px; color: var(--muted); font-size: 12px; }
+    .preview-hero { padding: 16px; border-radius: 14px; background: var(--subtle); text-align: center; }
+    .preview-hero span { display: block; color: var(--muted); font-size: 11px; }
+    .preview-hero strong { display: block; margin-top: 4px; font-size: 25px; font-variant-numeric: tabular-nums; }
+    .rows { display: grid; margin: 12px 0; }
+    .row { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--border); font-size: 12px; }
+    .row span { color: var(--muted); }
+    .row strong { text-align: left; font-variant-numeric: tabular-nums; }
+    .sheet-actions { display: grid; gap: 8px; }
+    .secondary-button { min-height: 48px; padding: 9px 14px; border: 1px solid var(--border-strong); border-radius: 11px; background: var(--surface); font-weight: 700; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .asset-tab:hover, .preset:hover, .secondary-button:hover { background: var(--subtle); }
+    }
+
+    @media (max-width: 760px) {
+      body { background: var(--surface); }
+      .stage { display: block; padding: 0; }
+      .phone { width: 100%; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
+      .trade-screen { padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right)); }
+    }
+
+    @media (max-width: 350px) {
+      .trade-screen { padding-inline: 14px; }
+      .trade-segment { flex-basis: 112px; }
+      .rate-summary strong { font-size: 12px; }
+      .amount-control { grid-template-columns: 64px minmax(0, 1fr) 64px; }
+      .amount-control input { width: 100%; font-size: 54px; }
+      .unit-trigger { min-width: 64px; }
+      .amount-spacer { width: 64px; }
+      .preset { font-size: 10px; }
+    }
+
+    @media (orientation: landscape) and (max-height: 560px) {
+      .phone { --keyboard-preview-height: 176px; }
+      .asset-tabs { height: 54px; }
+      .trade-screen { padding: 8px 16px 294px; }
+      .amount-zone { padding-bottom: 0; }
+      .amount-control input { height: 60px; font-size: 48px; }
+      .keyboard-accessory { height: 56px; padding-block: 5px 7px; }
+      .action-bar { bottom: calc(var(--keyboard-preview-height) + 56px); padding-block: 5px 7px; }
+      .key { min-height: 40px; font-size: 21px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">رفتن به ورودی مبلغ</a>
+  <div class="stage">
+    <section class="phone" id="phone" aria-label="کاندید صفحه معامله شمش">
+      <div class="statusbar" aria-hidden="true"><span>9:41</span><span>5G&nbsp;&nbsp;100%</span></div>
+
+      <nav class="asset-tabs" role="tablist" aria-label="انتخاب فلز معامله">
+        <button class="asset-tab" role="tab" data-asset="gold" aria-selected="true">طلا</button>
+        <button class="asset-tab" role="tab" data-asset="silver" aria-selected="false">نقره</button>
+        <button class="asset-tab" role="tab" data-asset="copper" aria-selected="false">مس</button>
+      </nav>
+
+      <main class="trade-screen" id="main">
+        <div class="trade-toolbar">
+          <div class="trade-segment" aria-label="نوع معامله">
+            <button data-side="buy" aria-pressed="true">خرید</button>
+            <button data-side="sell" aria-pressed="false">فروش</button>
+          </div>
+          <div class="rate-summary" aria-live="polite">
+            <span id="rate-label">نرخ خرید هر گرم طلا</span>
+            <strong id="rate-value">۸٬۴۵۰٬۰۰۰ تومان</strong>
+          </div>
+        </div>
+
+        <section class="amount-zone">
+          <div class="balance-context" id="balance-context" aria-live="polite">
+            <span id="balance-label">موجودی کیف تومان</span>
+            <strong id="balance-value">۱۲٬۵۰۰٬۰۰۰ تومان</strong>
+          </div>
+          <label for="amount" id="amount-label">مبلغ خرید</label>
+          <div class="amount-control">
+            <input id="amount" type="text" inputmode="none" readonly autocomplete="off" placeholder="۰" aria-describedby="equivalent balance-context input-message">
+            <span class="unit-picker" id="unit-picker">
+              <button class="unit-trigger" id="unit-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="unit-menu">
+                <span id="unit-trigger-label">تومان</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
+              </button>
+              <span class="unit-menu" id="unit-menu" role="listbox" aria-label="واحد مبلغ یا وزن" hidden>
+                <button class="unit-option" type="button" role="option" data-unit-option="toman" aria-selected="true"><span>تومان</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></button>
+                <button class="unit-option" type="button" role="option" data-unit-option="gram" aria-selected="false"><span>گرم</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></button>
+              </span>
+            </span>
+            <span class="amount-spacer" aria-hidden="true"></span>
+          </div>
+          <div class="equivalent" id="equivalent">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>
+            <span id="equivalent-prefix">معادل</span>
+            <strong id="equivalent-value">۰ گرم</strong>
+          </div>
+          <div class="input-message" id="input-message">عدد را وارد کنید یا یکی از پیشنهادها را انتخاب کنید.</div>
+        </section>
+      </main>
+
+      <footer class="action-bar">
+        <button class="primary-button" id="review-button" disabled>خرید طلا</button>
+      </footer>
+
+      <aside class="keyboard-accessory" aria-label="مقدارهای پیشنهادی">
+        <div class="preset-strip" id="presets"></div>
+      </aside>
+
+      <aside class="desktop-keyboard" aria-label="صفحه کلید نمایشی">
+        <div class="key-grid" id="key-grid"></div>
+      </aside>
+
+      <div class="preview-wrap" id="preview" role="dialog" aria-modal="true" aria-labelledby="preview-title">
+        <section class="preview-sheet">
+          <div class="sheet-handle"></div>
+          <h2 id="preview-title">بررسی معامله</h2>
+          <p>اعداد این Candidate آزمایشی هستند.</p>
+          <div class="preview-hero"><span id="preview-outcome-label">می‌پردازید</span><strong id="preview-outcome">—</strong></div>
+          <div class="rows" id="preview-rows"></div>
+          <div class="sheet-actions">
+            <button class="primary-button" id="preview-confirm">تأیید نمونه</button>
+            <button class="secondary-button" id="preview-close">ویرایش مبلغ</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const assets = {
+      gold: { name: 'طلا', precision: 3, buy: 8450000, sell: 8365000, balance: 1.25 },
+      silver: { name: 'نقره', precision: 2, buy: 109500, sell: 108300, balance: 38.5 },
+      copper: { name: 'مس', precision: 0, buy: 7800, sell: 7650, balance: 5200 }
+    };
+    const state = { asset: 'gold', side: 'buy', unit: 'toman', amount: 0, feeRate: .005, walletBalance: 12500000 };
+    const $ = id => document.getElementById(id);
+    const fa = (n, digits = 0) => new Intl.NumberFormat('fa-IR', { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n);
+    const money = n => `${fa(Math.round(n))} تومان`;
+    const weight = n => `${fa(n, assets[state.asset].precision)} گرم`;
+    const normalize = value => value.replace(/[۰-۹]/g, digit => '۰۱۲۳۴۵۶۷۸۹'.indexOf(digit)).replace(/[٬,\s]/g, '').replace('٫', '.').replace(/[^\d.]/g, '');
+
+    function calculation() {
+      const asset = assets[state.asset];
+      const rate = asset[state.side];
+      let weightValue = 0;
+      let finalMoney = 0;
+      let fee = 0;
+      if (!state.amount) return { rate, weightValue, finalMoney, fee };
+      if (state.side === 'buy') {
+        if (state.unit === 'toman') {
+          finalMoney = state.amount;
+          const principal = finalMoney / (1 + state.feeRate);
+          fee = finalMoney - principal;
+          weightValue = principal / rate;
+        } else {
+          weightValue = state.amount;
+          const principal = weightValue * rate;
+          fee = principal * state.feeRate;
+          finalMoney = principal + fee;
+        }
+      } else {
+        if (state.unit === 'toman') {
+          finalMoney = state.amount;
+          const gross = finalMoney / (1 - state.feeRate);
+          fee = gross - finalMoney;
+          weightValue = gross / rate;
+        } else {
+          weightValue = state.amount;
+          const gross = weightValue * rate;
+          fee = gross * state.feeRate;
+          finalMoney = gross - fee;
+        }
+      }
+      return { rate, weightValue, finalMoney, fee };
+    }
+
+    function validAmount() {
+      if (!state.amount) return { ok: false, message: 'عدد را وارد کنید یا یکی از پیشنهادها را انتخاب کنید.' };
+      if (state.unit === 'toman' && state.amount < 100000) return { ok: false, message: 'حداقل مبلغ آزمایشی ۱۰۰٬۰۰۰ تومان است.' };
+      if (state.unit === 'gram' && state.amount <= 0) return { ok: false, message: 'وزن باید بیشتر از صفر باشد.' };
+      const asset = assets[state.asset];
+      const calc = calculation();
+      if (state.side === 'buy' && calc.finalMoney > state.walletBalance) return { ok: false, message: 'موجودی کیف تومان برای این خرید کافی نیست.' };
+      if (state.side === 'sell' && calc.weightValue > asset.balance) return { ok: false, message: `موجودی قابل فروش ${asset.name} کافی نیست.` };
+      return { ok: true, message: '' };
+    }
+
+    function setAmount(value, focus = false) {
+      state.amount = Math.max(0, Number(value) || 0);
+      const precision = state.unit === 'gram' ? assets[state.asset].precision : 0;
+      $('amount').value = state.amount ? fa(state.amount, precision) : '';
+      render();
+      if (focus) $('amount').focus();
+    }
+
+    function renderPresets() {
+      const choices = state.unit === 'toman'
+        ? [[1000000, '۱ میلیون'], [5000000, '۵ میلیون'], [10000000, '۱۰ میلیون'], [20000000, '۲۰ میلیون']]
+        : state.asset === 'copper'
+          ? [[100, '۱۰۰ گرم'], [500, '۵۰۰ گرم'], [1000, '۱ کیلو'], [5000, '۵ کیلو']]
+          : [[.1, '۰٫۱ گرم'], [.25, '۰٫۲۵ گرم'], [.5, '۰٫۵ گرم'], [1, '۱ گرم']];
+      $('presets').innerHTML = choices.map(([value, label]) => `<button class="preset" data-preset="${value}">${label}</button>`).join('');
+    }
+
+    function renderKeypad() {
+      const decimalDisabled = state.unit === 'toman' || assets[state.asset].precision === 0;
+      const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'decimal', '0', 'backspace'];
+      $('key-grid').innerHTML = keys.map(key => {
+        if (key === 'backspace') return '<button class="key" data-key="backspace" aria-label="حذف رقم آخر"><svg viewBox="0 0 24 24"><path d="m10 7-5 5 5 5M5 12h14"/></svg></button>';
+        if (key === 'decimal') return `<button class="key" data-key="decimal" aria-label="ممیز" ${decimalDisabled ? 'disabled' : ''}>٫</button>`;
+        return `<button class="key" data-key="${key}">${fa(Number(key))}</button>`;
+      }).join('');
+    }
+
+    function render() {
+      const asset = assets[state.asset];
+      const calc = calculation();
+      const validation = validAmount();
+      const sideLabel = state.side === 'buy' ? 'خرید' : 'فروش';
+      const amountLength = $('amount').value.length;
+      document.querySelectorAll('[data-asset]').forEach(button => button.setAttribute('aria-selected', button.dataset.asset === state.asset));
+      document.querySelectorAll('[data-side]').forEach(button => button.setAttribute('aria-pressed', button.dataset.side === state.side));
+      $('rate-label').textContent = `نرخ ${sideLabel} هر گرم ${asset.name}`;
+      $('rate-value').textContent = money(calc.rate);
+      $('balance-label').textContent = state.side === 'buy' ? 'موجودی کیف تومان' : `موجودی قابل فروش ${asset.name}`;
+      $('balance-value').textContent = state.side === 'buy' ? money(state.walletBalance) : `${fa(asset.balance, asset.precision)} گرم`;
+      $('amount-label').textContent = state.unit === 'toman' ? `مبلغ ${sideLabel}` : `وزن ${sideLabel}`;
+      $('unit-trigger-label').textContent = state.unit === 'toman' ? 'تومان' : 'گرم';
+      document.querySelectorAll('[data-unit-option]').forEach(button => button.setAttribute('aria-selected', button.dataset.unitOption === state.unit));
+      $('equivalent-prefix').textContent = state.side === 'buy' ? 'تقریباً دریافت می‌کنید' : 'تقریباً دریافت می‌کنید';
+      $('equivalent-value').textContent = state.unit === 'toman' ? weight(calc.weightValue) : money(calc.finalMoney);
+      $('input-message').textContent = validation.message;
+      $('input-message').classList.toggle('error', state.amount > 0 && !validation.ok);
+      $('review-button').disabled = !validation.ok;
+      $('review-button').textContent = `${sideLabel} ${asset.name}`;
+      $('amount').style.fontSize = amountLength > 9 ? '34px' : amountLength > 7 ? '40px' : amountLength > 5 ? '50px' : '';
+      renderPresets();
+      renderKeypad();
+    }
+
+    function changeUnit(nextUnit) {
+      closeUnitMenu();
+      if (nextUnit === state.unit) return;
+      const calc = calculation();
+      state.unit = nextUnit;
+      state.amount = nextUnit === 'gram' ? calc.weightValue : calc.finalMoney;
+      setAmount(state.amount, true);
+    }
+
+    function setUnitMenu(open) {
+      $('unit-trigger').setAttribute('aria-expanded', String(open));
+      $('unit-menu').hidden = !open;
+      if (open) document.querySelector(`[data-unit-option="${state.unit}"]`)?.focus();
+    }
+
+    function closeUnitMenu() {
+      setUnitMenu(false);
+    }
+
+    function applyKey(key) {
+      let raw = normalize($('amount').value);
+      if (key === 'backspace') raw = raw.slice(0, -1);
+      else if (key === 'decimal') {
+        if (!raw.includes('.')) raw = raw ? `${raw}.` : '0.';
+      } else raw += key;
+      const precision = state.unit === 'gram' ? assets[state.asset].precision : 0;
+      if (raw.includes('.')) {
+        const [whole, fraction = ''] = raw.split('.');
+        raw = `${whole}.${fraction.slice(0, precision)}`;
+      }
+      state.amount = Number(raw) || 0;
+      $('amount').value = raw.endsWith('.') ? `${fa(Number(raw.slice(0, -1) || 0))}٫` : state.amount ? fa(state.amount, precision) : '';
+      render();
+      $('amount').focus();
+    }
+
+    function showPreview() {
+      const asset = assets[state.asset];
+      const calc = calculation();
+      const sideLabel = state.side === 'buy' ? 'خرید' : 'فروش';
+      closeUnitMenu();
+      $('preview-title').textContent = `بررسی ${sideLabel} ${asset.name}`;
+      $('preview-outcome-label').textContent = state.side === 'buy' ? 'می‌پردازید' : 'دریافت می‌کنید';
+      $('preview-outcome').textContent = money(calc.finalMoney);
+      $('preview-rows').innerHTML = `
+        <div class="row"><span>وزن ${asset.name}</span><strong>${weight(calc.weightValue)}</strong></div>
+        <div class="row"><span>نرخ هر گرم</span><strong>${money(calc.rate)}</strong></div>
+        <div class="row"><span>کارمزد آزمایشی ۰٫۵٪</span><strong>${money(calc.fee)}</strong></div>`;
+      $('preview').classList.add('open');
+      $('preview-close').focus();
+    }
+
+    document.addEventListener('click', event => {
+      const button = event.target.closest('button');
+      if (!event.target.closest('#unit-picker')) closeUnitMenu();
+      if (!button) return;
+      if (button.id === 'unit-trigger') {
+        setUnitMenu(button.getAttribute('aria-expanded') !== 'true');
+        return;
+      }
+      if (button.dataset.unitOption) {
+        changeUnit(button.dataset.unitOption);
+        return;
+      }
+      if (button.dataset.asset) {
+        state.asset = button.dataset.asset;
+        state.amount = 0;
+        $('amount').value = '';
+        render();
+      }
+      if (button.dataset.side) {
+        state.side = button.dataset.side;
+        render();
+      }
+      if (button.dataset.key) applyKey(button.dataset.key);
+    });
+
+    document.addEventListener('pointerdown', event => {
+      const preset = event.target.closest('[data-preset]');
+      if (!preset) return;
+      event.preventDefault();
+      setAmount(Number(preset.dataset.preset), true);
+    });
+
+    $('review-button').addEventListener('click', showPreview);
+    $('preview-close').addEventListener('click', () => { $('preview').classList.remove('open'); $('amount').focus(); });
+    $('preview-confirm').addEventListener('click', () => { $('preview-confirm').textContent = 'نمونه تأیید شد'; setTimeout(() => $('preview').classList.remove('open'), 500); });
+    $('preview').addEventListener('click', event => { if (event.target === $('preview')) $('preview').classList.remove('open'); });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeUnitMenu();
+        $('preview').classList.remove('open');
+        return;
+      }
+      if ($('preview').classList.contains('open') || !$('unit-menu').hidden) return;
+      if (/^\d$/.test(event.key)) applyKey(event.key);
+      if (event.key === 'Backspace') applyKey('backspace');
+      if ((event.key === '.' || event.key === 'Decimal') && state.unit === 'gram' && assets[state.asset].precision > 0) applyKey('decimal');
+    });
+
+    render();
+  </script>
+</body>
+</html>

@@ -56,6 +56,8 @@
     .icon-button{width:48px;height:48px;border:0;background:transparent;display:grid;place-items:center;border-radius:12px}
     .icon-button svg,.nav-item svg,.row-chevron svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .app-main{overflow-y:auto;overscroll-behavior:contain;background:var(--subtle);padding:16px 16px 28px;scrollbar-width:thin}
+    .app-main.trade-compact{overflow:hidden;padding:0;display:flex;flex-direction:column;background:var(--surface);scrollbar-width:none;-ms-overflow-style:none}
+    .app-main.trade-compact::-webkit-scrollbar{display:none}
     .app-main.home-scrollless{scrollbar-width:none;-ms-overflow-style:none}
     .app-main.home-scrollless::-webkit-scrollbar{display:none}
     .app-main:has(> .sticky-action){display:flex;flex-direction:column;padding-bottom:0}
@@ -68,6 +70,19 @@
     .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
     .section-head h3{font-size:15px;margin:0}
     .text-button{min-height:44px;border:0;background:transparent;padding:6px;color:var(--primary);font-weight:650}
+    .live-price-ticker{direction:rtl;width:100%;min-height:52px;margin:0 0 12px;padding:0 4px;border:0;border-bottom:1px solid var(--border);background:transparent;color:var(--text);display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;gap:12px;text-align:right;overflow:hidden}
+    button.live-price-ticker{cursor:pointer}
+    .live-price-label{font-size:10px;color:var(--muted);white-space:nowrap}
+    .live-price-window{direction:ltr;height:38px;overflow:hidden;min-width:0}
+    .live-price-track{height:38px;transform:translateY(0);will-change:transform}
+    .live-price-ticker.is-shifting .live-price-track{transform:translateY(-38px);transition:transform 280ms cubic-bezier(.22,.8,.32,1)}
+    .live-price-row{direction:rtl;height:38px;display:flex;align-items:center;justify-content:flex-start;gap:6px;white-space:nowrap}
+    .live-price-row strong{direction:ltr;font-size:15px;line-height:1;font-weight:750;font-variant-numeric:tabular-nums}
+    .live-price-row span{font-size:12px;font-weight:650}
+    .live-price-row small{font-size:10px;color:var(--muted)}
+    .live-price-row.unavailable strong{direction:rtl;font-size:12px;color:var(--muted)}
+    @media (hover:hover) and (pointer:fine){button.live-price-ticker:hover{background:color-mix(in srgb,var(--strong) 48%,transparent)}}
+    @media (prefers-reduced-motion:reduce){.live-price-ticker.is-shifting .live-price-track{transition:none}}
     .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px}
     .summary-card{background:var(--primary);color:#fff;border-color:var(--primary);padding:18px}
     .summary-label{font-size:12px;color:#d6d9dd}
@@ -206,31 +221,55 @@
     .money-balance-mini span{display:grid;gap:1px;font-size:11px;color:var(--muted)}.money-balance-mini strong{font-size:15px;color:var(--text);font-variant-numeric:tabular-nums}
     .money-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:10px}.money-preset{min-height:38px;border:1px solid var(--border);border-radius:999px;background:var(--surface);padding:4px 5px;font-size:11px;white-space:nowrap}.money-preset.selected{border-color:var(--primary);background:var(--strong);font-weight:700}
     .deposit-section{margin-top:14px;display:grid;gap:8px}
+    .deposit-section.method-entry{margin-top:10px}
     .deposit-section-head{min-height:24px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-inline:2px}
     .deposit-section-head h3{margin:0;font-size:13px}
     .deposit-section-head small{font-size:10px;color:var(--muted)}
-    .source-card-button,.source-card-empty,.deposit-method-button{width:100%;min-height:64px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:10px 12px;display:grid;grid-template-columns:38px minmax(0,1fr) 22px;align-items:center;gap:10px;text-align:right;box-shadow:0 4px 12px rgba(27,35,45,.045)}
-    .source-card-button.selected{border-color:var(--border-strong)}
-    .source-card-empty{grid-template-columns:38px minmax(0,1fr);border-style:dashed;color:var(--text)}
-    .source-card-icon,.deposit-method-icon{width:38px;height:38px;border-radius:10px;background:var(--strong);display:grid;place-items:center;color:var(--primary)}
-    .source-card-icon svg,.deposit-method-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .source-card-copy,.deposit-method-copy{min-width:0;display:grid;gap:2px}
-    .source-card-copy strong,.deposit-method-copy strong{font-size:13px}
-    .source-card-copy small,.deposit-method-copy small{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
-    .source-card-end{width:22px;height:22px;display:grid;place-items:center;color:var(--muted)}.source-card-end svg{width:18px;height:18px}
+    .bank-card-selector,.deposit-method-button{width:100%;min-height:64px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:10px 12px;display:grid;grid-template-columns:38px minmax(0,1fr) 22px;align-items:center;gap:10px;text-align:right;box-shadow:0 4px 12px rgba(27,35,45,.045)}
+    .bank-card-selector.selected{border-color:var(--border-strong)}
+    .bank-card-selector.empty{grid-template-columns:38px minmax(0,1fr);border-style:dashed;color:var(--text)}
+    .bank-card-selector-icon,.deposit-method-icon{width:38px;height:38px;border-radius:10px;background:var(--strong);display:grid;place-items:center;color:var(--primary)}
+    .bank-card-selector-icon svg,.deposit-method-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .bank-card-selector-copy,.deposit-method-copy{min-width:0;display:grid;gap:2px}
+    .bank-card-selector-copy strong,.deposit-method-copy strong{font-size:13px}
+    .bank-card-selector-copy small,.deposit-method-copy small{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+    .bank-card-selector-end,.source-card-end{width:22px;height:22px;display:grid;place-items:center;color:var(--muted)}.bank-card-selector-end svg,.source-card-end svg{width:18px;height:18px}
     .deposit-method-button{grid-template-columns:38px minmax(0,1fr) auto;box-shadow:none}
     .deposit-method-button .inline-status{min-height:24px;padding:2px 7px;font-size:10px}
-    .deposit-selected-method{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:11px 12px;display:grid;gap:9px}
-    .deposit-selected-method-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .deposit-selected-method-head span{display:grid;gap:1px}.deposit-selected-method-head small{font-size:10px;color:var(--muted)}.deposit-selected-method-head strong{font-size:13px}
-    .deposit-selected-method .segment button{height:40px}
-    .deposit-method-note{margin:0;font-size:11px;line-height:1.7;color:var(--muted)}
     .deposit-sheet-choice{min-height:66px;gap:10px}
     .deposit-sheet-choice[disabled]{opacity:.48;cursor:not-allowed}
     .deposit-sheet-choice>span:first-child{min-width:0}
     .deposit-sheet-choice>span:last-child{max-width:112px;color:var(--muted);font-size:10px;line-height:1.5;text-align:left}
     .deposit-sheet-choice .method-limit{display:block;margin-top:2px;font-size:10px;color:var(--muted)}
     .deposit-card-sheet-list{display:grid;gap:8px}
+    .deposit-detail-section{margin-top:20px;display:grid;gap:10px}
+    .deposit-detail-title{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:11px;font-weight:650}
+    .deposit-detail-title::after{content:"";height:1px;background:var(--border);flex:1}
+    .deposit-amount-context{min-height:48px;padding:9px 12px;border-block:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px}
+    .deposit-amount-context span{color:var(--muted)}.deposit-amount-context strong{font-size:15px;font-variant-numeric:tabular-nums}
+    .deposit-warning{margin:0;padding:12px;background:var(--danger-bg);color:var(--danger);border-radius:var(--r-sm);display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:start;font-size:12px;line-height:1.8}
+    .deposit-warning svg{width:21px;height:21px;margin-top:1px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .transfer-bank-card{border:1px solid var(--border-strong);background:var(--surface);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;row-gap:8px;box-shadow:none}
+    .transfer-bank-head{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) 36px;align-items:center;gap:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+    .transfer-bank-copy{display:grid;gap:1px}.transfer-bank-copy strong{font-size:14px}.transfer-bank-copy small{font-size:10px;color:var(--muted);direction:ltr;text-align:right}
+    .transfer-bank-logo{width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:var(--strong);display:grid;place-items:center;color:var(--text);font-size:9px;font-weight:800}
+    .transfer-bank-row{grid-column:1/-1;display:grid;gap:2px}.transfer-bank-row>span{font-size:10px;color:var(--muted)}.transfer-bank-row>strong{font-size:13px;line-height:1.55;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+    .transfer-bank-row:not(.number-row){grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px}.transfer-bank-row:not(.number-row)>strong{text-align:left}
+    .transfer-bank-row.number-row{grid-column:1}.transfer-bank-row.number-row>strong{direction:ltr;text-align:left;font-size:15px;letter-spacing:0}
+    .transfer-bank-card>.copy-button{grid-column:2;align-self:end}
+    .copy-button{width:max-content;min-width:64px;min-height:44px;border:1px solid var(--border-strong);background:transparent;color:var(--text);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700}
+    .deposit-transfer-meta{min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px}
+    .deposit-transfer-meta span{display:inline-flex;align-items:center;gap:5px}.deposit-transfer-meta svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
+    .transfer-rail-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .transfer-rail-tabs button{min-height:46px;border:1px solid var(--border);background:var(--surface);border-radius:12px;font-size:12px;font-weight:650}
+    .transfer-rail-tabs button.selected{background:var(--primary);border-color:var(--primary);color:#fff}
+    .transfer-required-note{margin:0;padding:11px 12px;border-radius:var(--r-sm);background:var(--info);display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;color:var(--muted);font-size:11px;line-height:1.75}
+    .transfer-required-note svg{width:20px;height:20px;fill:none;stroke:var(--focus);stroke-width:1.8}
+    .transfer-required-fields{display:grid;gap:8px;padding:10px;background:var(--strong);border-radius:var(--r-md)}
+    .transfer-required-field{min-height:48px;border:1px solid var(--border-strong);background:var(--surface);border-radius:9px;padding:8px 10px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px}
+    .transfer-required-field span{font-size:11px;color:var(--muted)}.transfer-required-field span b{color:var(--danger);font-weight:650}.transfer-required-field strong{font-size:12px;font-variant-numeric:tabular-nums;text-align:left}
+    .transfer-required-field .copy-button{min-width:48px;min-height:44px;padding:5px 8px;border-color:var(--border-strong);color:var(--text)}
+    @media (hover:hover) and (pointer:fine){.copy-button:hover,.transfer-rail-tabs button:hover:not(.selected){background:var(--strong)}}
     .service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .service-tile{min-width:0;min-height:112px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:12px;text-align:right;display:grid;align-content:space-between;gap:10px}
     .service-tile:hover{border-color:var(--border-strong)}
@@ -261,16 +300,12 @@
     .metric{background:var(--subtle);border-radius:var(--r-sm);padding:10px;display:grid;gap:3px}
     .metric span{font-size:11px;color:var(--muted)}
     .metric strong{font-size:14px;font-variant-numeric:tabular-nums}
-    .trade-asset-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:10px;border-bottom:1px solid var(--border-strong)}
-    .trade-asset-tab{position:relative;min-width:0;min-height:58px;border:0;background:transparent;color:var(--muted);padding:7px 4px 10px;display:flex;align-items:center;justify-content:center;gap:7px;text-align:right;cursor:pointer}
-    .trade-asset-tab::after{content:"";position:absolute;inset-inline:10px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--primary);transform:scaleX(0);transform-origin:center;transition:transform .18s ease}
-    .trade-asset-tab .trade-asset-mark{width:30px;height:30px;display:grid;place-items:center;color:currentColor}
-    .trade-asset-tab .trade-asset-mark svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-    .trade-asset-tab strong{min-width:0;font-size:13px;line-height:1.25;white-space:nowrap}
+    .trade-asset-tabs{height:54px;flex:0 0 54px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--border);background:var(--surface)}
+    .trade-asset-tab{position:relative;min-width:0;min-height:44px;border:0;background:transparent;color:var(--muted);padding:4px 6px;display:grid;place-items:center;text-align:center;cursor:pointer}
+    .trade-asset-tab strong{min-width:0;font-size:14px;font-weight:600;line-height:1.25;white-space:nowrap}
     .trade-asset-tab.selected{color:var(--text)}
-    .trade-asset-tab.selected::after{transform:scaleX(1)}
-    .trade-asset-tab.selected .trade-asset-mark{color:var(--primary)}
-    .trade-asset-tab:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+    .trade-asset-tab.selected strong{font-weight:800}
+    .trade-asset-tab:focus-visible{outline:2px solid var(--primary);outline-offset:-3px}
     .segment{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--strong);border-radius:var(--r-sm);padding:4px}
     .segment button{height:44px;border:0;background:transparent;border-radius:8px;font-size:13px}
     .segment button.selected{background:var(--surface);box-shadow:0 1px 3px rgba(18,23,29,.12);font-weight:700}
@@ -284,30 +319,38 @@
     .quote-row{display:flex;justify-content:space-between;gap:12px;font-size:12px}
     .quote-row span{color:var(--muted)}
     .quote-row strong{font-variant-numeric:tabular-nums}
-    .trade-panel{padding:12px}
-    .trade-balance-row{min-height:32px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 2px 4px;color:var(--muted);font-size:11px}
-    .trade-balance-row strong{color:var(--text);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
-    .trade-entry{display:grid;gap:8px;margin-top:8px;text-align:center}
-    .trade-entry-label{font-size:11px;color:var(--muted)}
-    .trade-unit-switch{width:max-content;margin-inline:auto;display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:3px;border:1px solid var(--border);border-radius:999px;background:var(--strong)}
-    .trade-unit-switch button{min-width:70px;min-height:36px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:12px}
-    .trade-unit-switch button.selected{background:var(--surface);color:var(--text);font-weight:700;box-shadow:0 1px 3px rgba(18,23,29,.12)}
-    .trade-amount-wrap{height:54px;border:0;padding:0;justify-content:center;background:transparent}
-    .trade-amount-wrap input{flex:0 1 auto;width:min(70%,220px);font-size:29px;font-weight:750;text-align:left;color:var(--text);caret-color:transparent}
-    .trade-amount-wrap span{font-size:13px;color:var(--muted)}
-    .trade-rate-row{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)}
-    .trade-rate-row>span{font-variant-numeric:tabular-nums}
-    .trade-rate-row .text-button{min-height:36px;padding-inline:4px;font-size:11px}
-    .trade-conversion{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;font-size:12px}
-    .trade-conversion span{color:var(--muted)}
-    .trade-conversion strong{font-size:14px;font-variant-numeric:tabular-nums}
-    .trade-keypad{direction:rtl;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;margin-top:2px}
-    .trade-key{min-height:48px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:21px;font-weight:650;font-variant-numeric:tabular-nums;cursor:pointer}
-    .trade-key svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .trade-layout{flex:1;min-height:0;padding:8px 16px 0;display:flex;flex-direction:column;background:var(--surface)}
+    .trade-toolbar{direction:rtl;min-height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .trade-mode-switch{direction:rtl;flex:0 0 118px;height:40px;display:grid;grid-template-columns:1fr 1fr;padding:2px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
+    .trade-mode-switch button{position:relative;min-width:0;min-height:34px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:11px}
+    .trade-mode-switch button::before{content:"";position:absolute;inset-block:-5px;inset-inline:0}
+    .trade-mode-switch button.selected{background:var(--primary);color:#fff;font-weight:750}
+    .trade-rate-summary{min-width:0;display:grid;justify-items:end;gap:1px;text-align:left}
+    .trade-rate-summary span{font-size:10px;color:var(--muted)}
+    .trade-rate-summary strong{direction:ltr;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .trade-amount-zone{flex:1;min-height:0;display:grid;place-items:center;align-content:center;padding-bottom:2px;text-align:center}
+    .trade-balance-context{min-height:24px;display:inline-flex;align-items:center;justify-content:center;gap:5px;margin-bottom:2px;color:var(--muted);font-size:10px}
+    .trade-balance-context strong{direction:ltr;color:var(--text);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+    .trade-amount-label{color:var(--muted);font-size:11px;margin-bottom:5px}
+    .trade-amount-control{direction:ltr;width:100%;display:grid;grid-template-columns:70px minmax(0,1fr) 70px;grid-template-areas:"unit amount spacer";align-items:center}
+    .trade-amount-control input{grid-area:amount;direction:ltr;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:56px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
+    .trade-amount-control input::placeholder{color:#c4c8cc;opacity:1}
+    .trade-unit-toggle{grid-area:unit;justify-self:start;min-width:70px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 7px;border:0;border-radius:9px;background:transparent;font-size:13px;font-weight:750}
+    .trade-unit-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .trade-amount-spacer{grid-area:spacer;width:70px;height:1px}
+    .trade-conversion{min-height:34px;display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;color:var(--muted);font-size:12px}
+    .trade-conversion svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .trade-conversion strong{direction:ltr;color:var(--text);border-bottom:1px dashed var(--border-strong);font-size:13px;font-variant-numeric:tabular-nums}
+    .trade-input-message{min-height:18px;margin-top:2px;color:var(--danger);font-size:10px;font-weight:650}
+    .trade-submit{width:100%;min-height:50px;flex:0 0 50px;margin:0 4px 8px;width:calc(100% - 8px)}
+    .trade-keypad{direction:ltr;flex:0 0 210px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,1fr);gap:0;padding:4px 2px 8px;border-top:1px solid var(--border);background:var(--surface)}
+    .trade-key{min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:24px;font-weight:650;font-variant-numeric:tabular-nums;cursor:pointer}
+    .trade-key svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
     .trade-key:active{background:var(--strong)}
     .trade-key:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
     .trade-key[disabled]{color:var(--border-strong);cursor:not-allowed}
-    @media (hover:hover) and (pointer:fine){.trade-key:hover:not([disabled]),.trade-unit-switch button:hover{background:var(--strong)}}
+    @media (hover:hover) and (pointer:fine){.trade-key:hover:not([disabled]),.trade-unit-toggle:hover{background:var(--strong)}}
+    @media(max-width:350px){.trade-layout{padding-inline:14px}.trade-mode-switch{flex-basis:112px}.trade-rate-summary strong{font-size:12px}.trade-amount-control{grid-template-columns:64px minmax(0,1fr) 64px}.trade-unit-toggle{min-width:64px}.trade-amount-spacer{width:64px}}
     .chart-asset-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
     .chart-asset-button{min-height:48px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:7px 10px;display:flex;align-items:center;gap:8px}
     .dialog-wrap{align-items:center;padding:20px}
@@ -441,7 +484,7 @@
     <aside class="review-panel" aria-label="انتخاب سناریوی وایرفریم">
       <span class="wave-label">MM-W0 → MM-W8</span>
       <h1>وایرفریم کل اپ چندفلزی</h1>
-      <p>۳۷ سناریوی قابل مرور از شل، فلوها و حالت‌های چندفلزی؛ داده‌های وزن و کارمزد دریافت فعلاً نمونه‌اند.</p>
+      <p>۴۱ سناریوی قابل مرور از شل، فلوها و حالت‌های چندفلزی؛ داده‌های بانکی، وزن و کارمزد فعلاً نمونه‌اند.</p>
       <div class="scenario-list" id="scenario-list"></div>
       <div class="legend">شل سه‌تبی قبلی حفظ شده است. رنگ شناسه فلز نیست و هیچ مسیر انتقال دارایی در این Prototype وجود ندارد.</div>
     </aside>
@@ -472,6 +515,7 @@
       silverCoins:`<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="6" ry="3"/><path d="M6 6v4c0 1.7 2.7 3 6 3s6-1.3 6-3V6M6 10v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4M6 14v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4"/></svg>`,
       copperCoil:`<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 10c0 1.7 3.1 3 7 3s7-1.3 7-3M5 14c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg>`,
       backspace:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5-6 7 6 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H9Z"/><path d="m13 9 4 6M17 9l-4 6"/></svg>`,
+      erase:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 7-5 5 5 5M5 12h14"/></svg>`,
       service:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>`,
       history:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5M12 7v5l3 2"/></svg>`,
       warn:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5M12 17h.01"/></svg>`,
@@ -506,7 +550,7 @@
       silver:{name:'نقره',symbol:'AG',mark:'ن',icon:icons.silverCoins,weight:'۲۶۴٫۳۵',value:'۲۷۴٬۸۰۰٬۰۰۰',pnl:'+۱۹٬۶۰۰٬۰۰۰',grade:'۹۹۹',rate:'۱٬۰۳۹٬۵۰۰'},
       copper:{name:'مس',symbol:'CU',mark:'م',icon:icons.copperCoil,weight:'۱٬۸۴۰',value:'۷۸٬۳۰۰٬۰۰۰',pnl:'−۳٬۱۰۰٬۰۰۰',grade:'کاتد استاندارد',rate:'۴۲٬۵۵۰'}
     };
-    const depositSourceCards = [
+    const userBankCards = [
       {id:'bank-1',bank:'بانک سامان',number:'۶۲۱۹-۸۶۱۰-••••-۲۴۸۱',last4:'۲۴۸۱',tejarat:false},
       {id:'bank-2',bank:'بانک تجارت',number:'۵۸۵۹-۸۳۱۱-••••-۸۴۲۱',last4:'۸۴۲۱',tejarat:true}
     ];
@@ -551,7 +595,7 @@
 
     const scenarios = [
       ['WF-MM-R01','auth-login','اتصال ورود'],['WF-MM-R02','kyc','اتصال احراز هویت'],
-      ['WF-MM-R04','deposit','واریز متصل'],['WF-MM-R04A','deposit-no-card','واریز — بدون کارت'],['WF-MM-R05','withdraw','برداشت متصل'],
+      ['WF-MM-R04','deposit','واریز متصل'],['WF-MM-R04A','deposit-no-card','واریز — بدون کارت'],['WF-MM-R04B','deposit-method-card','جزئیات کارت به کارت'],['WF-MM-R04C','deposit-method-shaba','جزئیات واریز با شبا'],['WF-MM-R04D','deposit-method-account','جزئیات حساب به حساب'],['WF-MM-R05','withdraw','برداشت متصل'],
       ['WF-MM-001','home','خانه — سه فلز'],['WF-MM-002','home-partial','خانه — نرخ ناقص'],['WF-MM-002A','portfolio-mix','ترکیب دارایی'],
       ['WF-MM-003','market3','همه فلزها — ۳'],['WF-MM-004','market16','همه فلزها — ۱۶'],
       ['WF-MM-005','detail-gold','جزئیات طلا'],['WF-MM-006','detail-silver','جزئیات نقره'],
@@ -572,11 +616,48 @@
     ];
 
     const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeInputUnit:'toman',tradeAmount:'',quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,balanceVisibility:{total:false,gold:false,silver:false,copper:false,wallet:false},campaignIndex:0,
-      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',depositHasCards:true,depositSourceCard:'bank-1',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',installmentTerm:'6',installmentAmount:'',installmentPaid:false,giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
+      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',installmentTerm:'6',installmentAmount:'',installmentPaid:false,giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
     const appMain=document.getElementById('app-main'), headerTitle=document.getElementById('header-title');
     const headerLeft=document.getElementById('header-left'), headerRight=document.getElementById('header-right');
     const bottomNav=document.getElementById('bottom-nav'), overlayRoot=document.getElementById('overlay-root');
-    let overlayTrigger=null;
+    let overlayTrigger=null,livePriceTimer=null,livePriceIndex=0,livePriceMotionToken=0;
+
+    function livePriceAssets(){
+      const scenario=state.scenario;
+      if(['auth-login','kyc','deposit','deposit-no-card','withdraw','money-preview','physical-preview','physical-failed','physical-success','target-preview','installment-payment','installment-preview','gift-preview','bank-accounts','bank-add','bank-add-preview','security','change-password','licenses','legal','profile','feature-processing','feature-result','trade-preview','trade-processing','receipt'].includes(scenario)||scenario.startsWith('deposit-method-'))return [];
+      if(scenario==='market3'||scenario==='market16'||scenario.startsWith('trade-'))return [];
+      if(scenario.startsWith('detail-'))return [scenario.replace('detail-','')];
+      if(scenario==='chart-single')return [state.chartAsset];
+      if(scenario.startsWith('physical-')||scenario==='market-services'||scenario.startsWith('target-')||scenario.startsWith('installment-')||scenario.startsWith('gift-'))return [state.featureAsset];
+      if((scenario==='history'||scenario==='history-filtered')&&state.metal!=='all')return [state.metal];
+      if(['home','home-partial','outage','portfolio-mix','services','zero','guest','history','history-filtered','referral'].includes(scenario))return ['gold','silver','copper'];
+      return [];
+    }
+    function livePriceUnavailable(asset){return asset==='silver'&&['home-partial','outage'].includes(state.scenario)}
+    function livePriceRow(asset){
+      const metal=metals[asset],unavailable=livePriceUnavailable(asset);
+      return `<span class="live-price-row ${unavailable?'unavailable':''}" data-price-asset="${asset}"><span>${metal.name}</span>${unavailable?'<strong>نرخ معتبر در دسترس نیست</strong>':`<strong>${metal.rate}</strong><small>تومان/گرم</small>`}</span>`;
+    }
+    function livePriceTicker(){
+      const assets=livePriceAssets();if(!assets.length)return '';
+      livePriceIndex%=assets.length;const asset=assets[livePriceIndex],cycle=assets.length>1,metal=metals[asset],value=livePriceUnavailable(asset)?'نرخ معتبر در دسترس نیست':`${metal.rate} تومان برای هر گرم`;
+      const tag=cycle?'button':'aside',attrs=cycle?'type="button" data-live-price-next aria-label="قیمت فروش لحظه‌ای؛ '+metal.name+'؛ '+value+'؛ نمایش نرخ فلز بعدی"':'aria-label="قیمت فروش لحظه‌ای؛ '+metal.name+'؛ '+value+'"';
+      return `<${tag} class="live-price-ticker" ${attrs} data-price-assets="${assets.join(',')}" data-price-index="${livePriceIndex}"><span class="live-price-label">قیمت فروش لحظه‌ای</span><span class="live-price-window"><span class="live-price-track">${livePriceRow(asset)}</span></span></${tag}>`;
+    }
+    function finishLivePriceMotion(ticker,nextIndex,nextAsset,token){
+      setTimeout(()=>{if(token!==livePriceMotionToken||!ticker.isConnected)return;ticker.classList.remove('is-shifting');ticker.dataset.priceIndex=String(nextIndex);ticker.querySelector('.live-price-track').innerHTML=livePriceRow(nextAsset);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex},290);
+    }
+    function advanceLivePrice(){
+      const ticker=appMain.querySelector('.live-price-ticker[data-price-assets]');if(!ticker||ticker.classList.contains('is-shifting'))return;
+      const assets=ticker.dataset.priceAssets.split(',');if(assets.length<2)return;
+      const nextIndex=(Number(ticker.dataset.priceIndex||0)+1)%assets.length,nextAsset=assets[nextIndex],track=ticker.querySelector('.live-price-track'),token=++livePriceMotionToken;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ticker.dataset.priceIndex=String(nextIndex);track.innerHTML=livePriceRow(nextAsset);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex;return}
+      track.insertAdjacentHTML('beforeend',livePriceRow(nextAsset));requestAnimationFrame(()=>ticker.classList.add('is-shifting'));finishLivePriceMotion(ticker,nextIndex,nextAsset,token);
+    }
+    function scheduleLivePriceTicker(){
+      clearInterval(livePriceTimer);const assets=livePriceAssets();if(assets.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      livePriceTimer=setInterval(()=>{if(document.visibilityState==='visible'&&!appMain.querySelector('.live-price-ticker:focus'))advanceLivePrice()},3800);
+    }
 
     function renderScenarioList(){
       document.getElementById('scenario-list').innerHTML=scenarios.map(([id,key,label])=>`<button type="button" class="scenario ${state.scenario===key?'active':''}" data-scenario="${key}"><span>${id}</span><strong>${label}</strong></button>`).join('');
@@ -587,7 +668,7 @@
       state.operation=key==='history-filtered'?'buy':'all'; state.metal=key==='history-filtered'?'silver':'all'; state.status='all'; state.date='all';
       state.draftStatus=state.status;state.draftDate=state.date;
       if(key.startsWith('trade-')){
-        state.tradeAsset='gold';state.tradeMode='buy';state.tradeAmount='';state.quoteActive=false;state.pendingTradeAsset=null;
+        state.tradeAsset='gold';state.tradeMode='buy';state.tradeInputUnit='toman';state.tradeAmount='';state.quoteActive=false;state.pendingTradeAsset=null;
         if(key==='trade-selector3')state.sheet='trade-asset-3';
         if(key==='trade-selector16')state.sheet='trade-asset-16';
         if(key==='trade-quote-switch'){state.tradeAmount='۲۵٬۰۰۰٬۰۰۰';state.quoteActive=true;state.pendingTradeAsset='copper';state.sheet='quote-confirm'}
@@ -596,7 +677,8 @@
       if(key==='receipt') state.receipt=activities[0];
       if(key==='auth-login'){state.authMobile='';state.authPassword=''}
       if(key==='kyc'){state.kycNationalId='';state.kycBirth=''}
-      if(key==='deposit'||key==='deposit-no-card'||key==='withdraw'){state.moneyMode=key==='withdraw'?'withdraw':'deposit';state.moneyAmount='';state.moneyMethod='gateway';state.moneyTransferRail='bridge';state.moneyDestination='bank-1';state.depositHasCards=key!=='deposit-no-card';state.depositSourceCard=key==='deposit-no-card'?'':'bank-1';state.bankAddReturn=null}
+      if(key==='deposit'||key==='deposit-no-card'||key==='withdraw'){state.moneyMode=key==='withdraw'?'withdraw':'deposit';state.moneyAmount='';state.moneyMethod='gateway';state.moneyTransferRail='bridge';state.moneyDestination='bank-1';state.hasBankCards=key!=='deposit-no-card';state.depositSourceCard=key==='deposit-no-card'?'':'bank-1';state.bankCardPickerTarget=key==='withdraw'?'withdraw':'deposit';state.bankAddReturn=null}
+      if(key.startsWith('deposit-method-')){state.moneyMode='deposit';state.moneyAmount='۱۰٬۰۰۰٬۰۰۰';state.moneyMethod=key.replace('deposit-method-','');state.moneyTransferRail='bridge';state.hasBankCards=true;state.depositSourceCard=state.moneyMethod==='account'?'bank-2':'bank-1';state.bankCardPickerTarget='deposit';state.bankAddReturn=null}
       if(key.startsWith('physical-')){
         state.featureAsset=['physical-insufficient','physical-unavailable','physical-failed','physical-success'].includes(key)?'silver':'gold';
         state.physicalItems={gold:{},silver:{},copper:{}};state.physicalUnavailableAsset=null;state.physicalBalanceOverrides={};state.physicalCenter='tehran-1';
@@ -606,12 +688,13 @@
         if(key==='physical-success')state.receipt={id:'demo-physical',op:'physical',title:'درخواست دریافت فیزیکی نقره',asset:'silver',amount:'۱۴۰ گرم',weight:'شمش ۱۰۰ گرم × ۱، شمش ۲۰ گرم × ۲',status:'ثبت‌شده',statusKey:'pending',dateKey:'month',time:'۱۹ مرداد ۱۴۰۵، ۱۰:۴۵',tracking:'6548921400'};
       }
       if(key==='target-setup'){state.featureAsset='gold';state.targetKind='alert';state.targetDirection='buy';state.targetPrice='';state.targetAmount='';state.targetExpiry='7'}
-      if(key==='installment-setup'){state.featureAsset='gold';state.installmentTerm='6';state.installmentAmount=''}
-      if(key==='gift-setup'){state.featureAsset='gold';state.giftMode='send';state.giftSource='toman';state.giftAmount='';state.giftRecipient='';state.giftCode=''}
+      if(key==='market-services')state.featureAsset='gold';
+      if(key==='installment-hub'||key==='installment-setup'){state.featureAsset='gold';state.installmentTerm='6';state.installmentAmount=''}
+      if(key==='gift-hub'||key==='gift-setup'){state.featureAsset='gold';state.giftMode='send';state.giftSource='toman';state.giftAmount='';state.giftRecipient='';state.giftCode=''}
       render(); appMain.scrollTop=0;
     }
     function captureView(){
-      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyDestination:state.moneyDestination,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,giftMode:state.giftMode,giftSource:state.giftSource,giftAmount:state.giftAmount,giftRecipient:state.giftRecipient,giftCode:state.giftCode,resultKind:state.resultKind,bankCardNumber:state.bankCardNumber,bankAdded:state.bankAdded,currentPassword:state.currentPassword,newPassword:state.newPassword,confirmPassword:state.confirmPassword,twoFactor:state.twoFactor,balanceVisibility:{...state.balanceVisibility},campaignIndex:state.campaignIndex,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
+      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyTransferRail:state.moneyTransferRail,moneyDestination:state.moneyDestination,hasBankCards:state.hasBankCards,depositSourceCard:state.depositSourceCard,bankCardPickerTarget:state.bankCardPickerTarget,bankAddReturn:state.bankAddReturn,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,giftMode:state.giftMode,giftSource:state.giftSource,giftAmount:state.giftAmount,giftRecipient:state.giftRecipient,giftCode:state.giftCode,resultKind:state.resultKind,bankCardNumber:state.bankCardNumber,bankAdded:state.bankAdded,currentPassword:state.currentPassword,newPassword:state.newPassword,confirmPassword:state.confirmPassword,twoFactor:state.twoFactor,balanceVisibility:{...state.balanceVisibility},campaignIndex:state.campaignIndex,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
     }
     function restoreView(view){
       const scrollTop=view.scrollTop||0,portfolioScrollLeft=view.portfolioScrollLeft||0;Object.assign(state,view,{sheet:null,pendingTradeAsset:null});render();
@@ -787,7 +870,6 @@
         <div class="detail-grid"><div class="metric"><span>ارزش فعلی</span><strong>${m.value} تومان</strong></div><div class="metric"><span>سود/زیان جاری</span><strong class="${m.pnl.startsWith('+')?'positive':'negative'}">${m.pnl}</strong></div></div></section>
         <section class="section card chart-card"><div class="section-head"><h3>روند قیمت ${m.name}</h3><button class="text-button" type="button" data-open-full-chart="${key}">نمودار کامل</button></div>
           <div class="periods">${[['day','روزانه'],['month','ماهانه'],['year','سالانه']].map(([id,label])=>`<button class="period ${state.period===id?'selected':''}" type="button" data-period="${id}" aria-pressed="${state.period===id}">${label}</button>`).join('')}</div>${chart(state.period)}</section>
-        <section class="section card"><div class="receipt-row"><span>نرخ خرید از کاربر</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>سود تحقق‌یافته</span><strong>نمایش در جزئیات مالی</strong></div><div class="receipt-row"><span>قابلیت‌ها</span><strong>براساس وضعیت ${m.name}</strong></div></section>
         <div class="section"><button class="primary-button" style="width:100%" type="button" data-trade-asset="${key}">معامله ${m.name}</button></div>`;
     }
     function tradePrecision(key=state.tradeAsset){return key==='gold'?3:key==='silver'?2:0}
@@ -817,21 +899,29 @@
       const scrollTop=appMain.scrollTop;render();
       requestAnimationFrame(()=>{appMain.scrollTop=scrollTop;document.getElementById('trade-amount')?.focus({preventScroll:true})});
     }
+    function toggleTradeUnit(){
+      const calc=tradeCalculation(),next=state.tradeInputUnit==='toman'?'gram':'toman';
+      state.tradeInputUnit=next;
+      state.tradeAmount=calc.input?faNumber(next==='gram'?calc.weight:calc.amount,next==='gram'?tradePrecision():0):'';
+      state.quoteActive=numericValue(state.tradeAmount)>0;render();
+      requestAnimationFrame(()=>document.getElementById('trade-amount')?.focus({preventScroll:true}));
+    }
     function trade(){
       const m=metals[state.tradeAsset],calc=tradeCalculation(),hasAmount=calc.input>0,byToman=state.tradeInputUnit==='toman',action=state.tradeMode==='buy'?'خرید':'فروش';
-      const assetTabs=Object.entries(metals).map(([id,item])=>`<button type="button" role="tab" aria-selected="${state.tradeAsset===id}" aria-controls="trade-panel" tabindex="${state.tradeAsset===id?'0':'-1'}" class="trade-asset-tab ${state.tradeAsset===id?'selected':''}" data-select-trade-asset="${id}"><span class="trade-asset-mark" aria-hidden="true">${item.icon}</span><strong>${item.name}</strong></button>`).join('');
+      const available=state.tradeMode==='buy'?38600000:numericValue(m.weight),exceedsBalance=hasAmount&&(state.tradeMode==='buy'?calc.amount>available:calc.weight>available);
+      const inputError=exceedsBalance?(state.tradeMode==='buy'?'مبلغ واردشده بیشتر از موجودی کیف تومان است.':`وزن واردشده بیشتر از موجودی ${m.name} است.`):'';
+      const assetTabs=Object.entries(metals).map(([id,item])=>`<button type="button" role="tab" aria-selected="${state.tradeAsset===id}" aria-controls="trade-panel" tabindex="${state.tradeAsset===id?'0':'-1'}" class="trade-asset-tab ${state.tradeAsset===id?'selected':''}" data-select-trade-asset="${id}"><strong>${item.name}</strong></button>`).join('');
       const keypad=['۱','۲','۳','۴','۵','۶','۷','۸','۹'].map(d=>`<button type="button" class="trade-key" data-trade-key="${'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}" aria-label="${d}">${d}</button>`).join('');
       const decimalDisabled=byToman||tradePrecision()===0;
+      const amountSize=state.tradeAmount.length>9?34:state.tradeAmount.length>7?40:state.tradeAmount.length>5?48:56;
       setChrome('معامله',state.stack.length>0,true,'معامله');
       return `<div class="trade-asset-tabs" role="tablist" aria-label="انتخاب فلز معامله">${assetTabs}</div>
-        <section class="section card trade-panel" id="trade-panel" role="tabpanel"><div class="segment" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div>
-          <div class="trade-balance-row"><span>${state.tradeMode==='buy'?'موجودی کیف پول':'موجودی '+m.name}</span><strong>${state.tradeMode==='buy'?'۳۸٬۶۰۰٬۰۰۰ تومان':m.weight+' گرم'}</strong></div>
-          <div class="trade-entry"><label class="trade-entry-label" for="trade-amount">مقدار ${action}</label><div class="trade-unit-switch" role="group" aria-label="واحد ورود معامله"><button type="button" class="${byToman?'selected':''}" data-trade-unit="toman" aria-pressed="${byToman}">تومان</button><button type="button" class="${!byToman?'selected':''}" data-trade-unit="gram" aria-pressed="${!byToman}">گرم</button></div><div class="input-wrap trade-amount-wrap"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${state.tradeAmount}" placeholder="۰" aria-live="polite"><span>${byToman?'تومان':'گرم'}</span></div></div>
-          <div class="trade-rate-row"><span>هر گرم ${m.name}: ${m.rate} تومان</span><button type="button" class="text-button" data-sheet="trade-details">جزئیات محاسبه</button></div>
-          ${hasAmount?`<div class="trade-conversion" aria-label="معادل تقریبی"><span>معادل تقریبی</span><strong>${byToman?calc.weightLabel+' گرم':calc.amountLabel+' تومان'}</strong></div>`:''}
-          <div class="trade-keypad" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.backspace}</button></div>
-        </section>
-        <div class="action-stack"><button class="primary-button" type="button" ${hasAmount?'':'disabled'} data-trade-preview>${action}</button></div>`;
+        <section class="trade-layout" id="trade-panel" role="tabpanel">
+          <div class="trade-toolbar"><div class="trade-mode-switch" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div><div class="trade-rate-summary" aria-live="polite"><span>نرخ ${action} هر گرم ${m.name}</span><strong>${m.rate} تومان</strong></div></div>
+          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?'۳۸٬۶۰۰٬۰۰۰ تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${state.tradeAmount}" placeholder="۰" aria-describedby="trade-equivalent trade-input-message" aria-invalid="${exceedsBalance}" style="font-size:${amountSize}px"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><div class="trade-conversion" id="trade-equivalent">${icons.trade}<span>تقریباً دریافت می‌کنید</span><strong>${hasAmount?(byToman?calc.weightLabel+' گرم':calc.amountLabel+' تومان'):(byToman?'۰ گرم':'۰ تومان')}</strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
+          <button class="primary-button trade-submit" type="button" ${hasAmount&&!exceedsBalance?'':'disabled'} data-trade-preview>${action} ${m.name}</button>
+          <div class="trade-keypad" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.erase}</button></div>
+        </section>`;
     }
     function tradePreview(){
       const m=metals[state.tradeAsset],calc=tradeCalculation(),unit=state.tradeInputUnit==='toman'?'تومان':'گرم';setChrome('تأیید معامله',true,false);
@@ -863,42 +953,64 @@
       const ready=state.kycNationalId.trim().length===10&&state.kycBirth.trim().length>5;setChrome('احراز هویت',true,false);
       return `<div class="page-lead"><h3>تکمیل اطلاعات هویتی</h3><p>برای فعال‌شدن عملیات مالی، اطلاعات با شماره موبایل تطبیق داده می‌شوند.</p></div><section class="card"><div class="field"><label for="kyc-national">کد ملی</label><div class="input-wrap"><input id="kyc-national" inputmode="numeric" value="${state.kycNationalId}" placeholder="۱۰ رقم"><span>کد ملی</span></div></div><div class="field"><label for="kyc-birth">تاریخ تولد شمسی</label><div class="input-wrap"><input id="kyc-birth" inputmode="numeric" value="${state.kycBirth}" placeholder="۱۳۷۰/۰۵/۱۲"><span>تاریخ</span></div><div class="field-help">Date picker نهایی از فلو Auth/KYC حفظ‌شده Reuse می‌شود.</div></div></section><div class="action-stack"><button class="primary-button" type="button" data-kyc-submit ${ready?'':'disabled'}>تأیید اطلاعات</button><button class="text-button" type="button" data-go-home>بعداً انجام می‌دهم</button></div>`;
     }
-    function availableDepositCards(){
-      if(!state.depositHasCards)return [];
-      return state.bankAdded?[...depositSourceCards,{id:'bank-new',bank:'بانک آینده',number:'۶۳۶۲-۱۴۱۰-••••-۳۷۶۵',last4:'۳۷۶۵',tejarat:false}]:depositSourceCards;
+    function availableBankCards(){
+      if(!state.hasBankCards)return [];
+      return state.bankAdded?[...userBankCards,{id:'bank-new',bank:'بانک آینده',number:'۶۳۶۲-۱۴۱۰-••••-۳۷۶۵',last4:'۳۷۶۵',tejarat:false}]:userBankCards;
     }
-    function selectedDepositCard(){
-      const cards=availableDepositCards();return cards.find(card=>card.id===state.depositSourceCard)||cards[0]||null;
+    function bankCardSelectionKey(target='deposit'){
+      return target==='withdraw'?'moneyDestination':'depositSourceCard';
+    }
+    function selectedBankCard(target='deposit'){
+      const cards=availableBankCards(),key=bankCardSelectionKey(target);
+      return cards.find(card=>card.id===state[key])||cards[0]||null;
+    }
+    function bankCardSelector({target='deposit',emptyHint='برای ادامه، کارت بانکی متعلق به خودتان را ثبت کنید'}={}){
+      const card=selectedBankCard(target),label=target==='withdraw'?'مقصد بانکی':'کارت مبدأ';
+      if(!card)return `<button type="button" class="bank-card-selector empty" data-bank-card-add="${target}"><span class="bank-card-selector-icon" aria-hidden="true">${icons.installment}</span><span class="bank-card-selector-copy"><strong>افزودن کارت بانکی</strong><small>${emptyHint}</small></span></button>`;
+      return `<button type="button" class="bank-card-selector selected" data-bank-card-picker="${target}" aria-label="تغییر ${label}؛ ${card.bank} با شماره پایان ${card.last4}" aria-haspopup="dialog" aria-expanded="${state.sheet==='bank-card-picker'&&state.bankCardPickerTarget===target}"><span class="bank-card-selector-icon" aria-hidden="true">${icons.installment}</span><span class="bank-card-selector-copy"><strong>${card.bank}</strong><small dir="ltr">${card.number}</small></span><span class="bank-card-selector-end" aria-hidden="true">${icons.chevronLeft}</span></button>`;
+    }
+    function bankCardPicker(){
+      const target=state.bankCardPickerTarget||'deposit',key=bankCardSelectionKey(target),cards=availableBankCards();
+      return `<div class="deposit-card-sheet-list">${cards.map(card=>`<button type="button" class="sheet-choice ${state[key]===card.id?'selected':''}" data-bank-card-choice="${card.id}" aria-pressed="${state[key]===card.id}"><span><strong>${card.bank}</strong><br><small class="muted" dir="ltr">${card.number}</small></span><span>${state[key]===card.id?'انتخاب‌شده':''}</span></button>`).join('')}<button type="button" class="secondary-button" data-bank-card-add="${target}">افزودن کارت جدید</button></div>`;
     }
     function depositMethodMeta(id=state.moneyMethod){
       return {gateway:{name:'درگاه آنلاین',time:'آنی'},card:{name:'کارت به کارت',time:'آنی تا سیکل پایا'},shaba:{name:'واریز با شبا',time:'پل یا پایا'},account:{name:'حساب به حساب',time:'Open Banking'}}[id]||{name:'درگاه آنلاین',time:'آنی'};
     }
     function depositMethodAvailability(id){
-      const amount=numericValue(state.moneyAmount),card=selectedDepositCard(),max=id==='card'?15000000:200000000;
-      if(!amount)return {enabled:false,note:'ابتدا مبلغ واریز را وارد کنید'};
-      if(amount<10000)return {enabled:false,note:'حداقل واریز ۱۰٬۰۰۰ تومان است'};
-      if(!card)return {enabled:false,note:'ابتدا کارت مبدأ را اضافه کنید'};
-      if(amount>max)return {enabled:false,note:`برای مبلغ بیشتر از ${faNumber(max,0)} تومان در دسترس نیست`};
-      if(id==='account'&&!card?.tejarat)return {enabled:false,note:'فقط با کارت مبدأ بانک تجارت'};
+      const amount=numericValue(state.moneyAmount),card=selectedBankCard('deposit'),max=id==='card'?15000000:200000000;
+      if(!amount)return {enabled:true,note:'مشاهده اطلاعات واریز'};
+      if(amount<10000)return {enabled:true,note:'حداقل واریز ۱۰٬۰۰۰ تومان'};
+      if(!card)return {enabled:true,note:'برای واریز، کارت مبدأ اضافه کنید'};
+      if(amount>max)return {enabled:true,note:`سقف پیشنهادی ${faNumber(max,0)} تومان`};
+      if(id==='account'&&!card?.tejarat)return {enabled:true,note:'مبدأ موردنیاز: بانک تجارت'};
       return {enabled:true,note:id==='card'?'تا سقف ۱۵ میلیون تومان':'تا سقف ۲۰۰ میلیون تومان'};
     }
     function moneyFlow(mode=state.moneyMode){
       const deposit=mode==='deposit',amountValue=numericValue(state.moneyAmount),amountReady=amountValue>=10000;state.moneyMode=mode;setChrome(deposit?'افزایش موجودی کیف پول':'برداشت تومان',true,false);
       if(deposit){
-        const presets=['۱٬۰۰۰٬۰۰۰','۵٬۰۰۰٬۰۰۰','۱۰٬۰۰۰٬۰۰۰','۲۰٬۰۰۰٬۰۰۰'],card=selectedDepositCard(),method=depositMethodMeta(),methodStatus=state.moneyMethod==='gateway'?{enabled:true,note:''}:depositMethodAvailability(state.moneyMethod),ready=amountReady&&!!card&&methodStatus.enabled;
-        const sourceCard=card?`<button type="button" class="source-card-button selected" data-sheet="deposit-cards" aria-label="کارت مبدأ ${card.bank} با شماره پایان ${card.last4}"><span class="source-card-icon" aria-hidden="true">${icons.installment}</span><span class="source-card-copy"><strong>${card.bank}</strong><small dir="ltr">${card.number}</small></span><span class="source-card-end" aria-hidden="true">${icons.chevronLeft}</span></button>`:`<button type="button" class="source-card-empty" data-deposit-add-card><span class="source-card-icon" aria-hidden="true">${icons.installment}</span><span class="source-card-copy"><strong>افزودن کارت بانکی</strong><small>برای پرداخت از درگاه، یک کارت به نام خودتان ثبت کنید</small></span></button>`;
-        const selectedMethod=state.moneyMethod==='gateway'?'':`<div class="deposit-selected-method"><div class="deposit-selected-method-head"><span><small>روش انتخاب‌شده</small><strong>${method.name}</strong></span><span class="inline-status">${method.time}</span></div>${state.moneyMethod==='shaba'?`<div class="segment" aria-label="نوع انتقال شبا"><button type="button" class="${state.moneyTransferRail==='bridge'?'selected':''}" data-money-transfer-rail="bridge" aria-pressed="${state.moneyTransferRail==='bridge'}">پل / سریع</button><button type="button" class="${state.moneyTransferRail==='paya'?'selected':''}" data-money-transfer-rail="paya" aria-pressed="${state.moneyTransferRail==='paya'}">پایا</button></div>`:''}<p class="deposit-method-note">${methodStatus.enabled?(state.moneyMethod==='card'?'واریز فقط از کارت مبدأ ثبت‌شده شما قابل شناسایی است.':state.moneyMethod==='account'?'این مسیر در نمونه فعلی فقط با کارت بانک تجارت فعال است.':'زمان ثبت نهایی به مسیر پل یا چرخه پایا بستگی دارد.'):methodStatus.note}</p><button type="button" class="text-button" data-use-gateway>بازگشت به درگاه آنلاین</button></div>`;
+        const presets=['۱٬۰۰۰٬۰۰۰','۵٬۰۰۰٬۰۰۰','۱۰٬۰۰۰٬۰۰۰','۲۰٬۰۰۰٬۰۰۰'],card=selectedBankCard('deposit'),ready=amountReady&&!!card;
+        const sourceCard=bankCardSelector({target:'deposit',emptyHint:'برای پرداخت از درگاه، یک کارت به نام خودتان ثبت کنید'});
         return `<section class="money-balance-mini"><span>موجودی کیف پول<strong>۳۸٬۶۰۰٬۰۰۰ تومان</strong></span><span class="wallet-balance-icon" aria-hidden="true">${icons.wallet}</span></section><section class="section card"><div class="field" style="margin-top:0"><label for="money-amount">مقدار واریزی</label><div class="input-wrap"><input id="money-amount" inputmode="numeric" value="${state.moneyAmount}" placeholder="۰"><span>تومان</span></div>${amountValue>0&&!amountReady?'<span class="field-help negative">حداقل واریز ۱۰٬۰۰۰ تومان است.</span>':''}<div class="money-presets" aria-label="مبالغ پیشنهادی">${presets.map(amount=>`<button class="money-preset ${state.moneyAmount===amount?'selected':''}" type="button" data-money-preset="${amount}">${amount.replace('٬۰۰۰٬۰۰۰',' میلیون')}</button>`).join('')}</div></div></section>
-          <section class="deposit-section" aria-labelledby="deposit-source-title"><div class="deposit-section-head"><h3 id="deposit-source-title">کارت مبدأ</h3><small>${card?'پیش‌فرض انتخاب شده':'کارت ثبت‌شده ندارید'}</small></div>${sourceCard}</section>
-          <section class="deposit-section" aria-labelledby="deposit-methods-title"><div class="deposit-section-head"><h3 id="deposit-methods-title">روش‌های دیگر واریز</h3><small>${amountValue?'متناسب با مبلغ شما':'پس از ورود مبلغ'}</small></div>${selectedMethod}<button type="button" class="deposit-method-button" data-sheet="money-methods"><span class="deposit-method-icon" aria-hidden="true">${icons.bank}</span><span class="deposit-method-copy"><strong>${state.moneyMethod==='gateway'?'مشاهده روش‌های دیگر':'تغییر روش واریز'}</strong><small>${amountValue?`برای ${faNumber(amountValue,0)} تومان`:'کارت به کارت، شبا و حساب به حساب'}</small></span><span class="source-card-end" aria-hidden="true">${icons.chevronLeft}</span></button></section>
-          <div class="action-stack"><button class="primary-button" type="button" data-money-preview ${ready?'':'disabled'}>${state.moneyMethod==='gateway'?'پرداخت از درگاه':`ادامه ${method.name}`}</button></div>`;
+          <section class="deposit-section" aria-labelledby="deposit-source-title"><div class="deposit-section-head"><h3 id="deposit-source-title">کارت مبدأ</h3>${card?'':'<small>کارت ثبت‌شده ندارید</small>'}</div>${sourceCard}</section>
+          <section class="deposit-section method-entry"><button type="button" class="deposit-method-button" data-sheet="money-methods"><span class="deposit-method-icon" aria-hidden="true">${icons.bank}</span><span class="deposit-method-copy"><strong>روش‌های دیگر واریز</strong><small>${amountValue?`روش‌های مناسب ${faNumber(amountValue,0)} تومان`:'کارت به کارت، شبا و حساب به حساب'}</small></span><span class="source-card-end" aria-hidden="true">${icons.chevronLeft}</span></button></section>
+          <div class="action-stack"><button class="primary-button" type="button" data-start-gateway ${ready?'':'disabled'}>پرداخت از درگاه</button></div>`;
       }
-      return `<div class="page-lead"><h3>برداشت از کیف</h3><p>مبلغ به مقصد بانکی متعلق به خودتان واریز می‌شود.</p></div><section class="card"><div class="field"><label for="money-amount">مبلغ</label><div class="input-wrap"><input id="money-amount" inputmode="numeric" value="${state.moneyAmount}" placeholder="۰"><span>تومان</span></div><div class="field-help">حداقل ۲۰۰٬۰۰۰ تومان؛ هزینه برداشت صفر</div></div><div class="field"><label>مقصد بانکی</label><button class="sheet-choice selected" type="button" data-money-destination="bank-1"><span>بانک ملت · IR•••۴۸۲۱</span><span>تأییدشده</span></button><button class="text-button" data-toast="حداکثر پنج مقصد متعلق به کاربر قابل ثبت است.">افزودن مقصد</button></div></section><div class="action-stack"><button class="primary-button" type="button" data-money-preview ${amountReady?'':'disabled'}>بررسی برداشت</button></div>`;
+      const destination=selectedBankCard('withdraw');
+      return `<div class="page-lead"><h3>برداشت از کیف</h3><p>مبلغ به مقصد بانکی متعلق به خودتان واریز می‌شود.</p></div><section class="card"><div class="field"><label for="money-amount">مبلغ</label><div class="input-wrap"><input id="money-amount" inputmode="numeric" value="${state.moneyAmount}" placeholder="۰"><span>تومان</span></div><div class="field-help">حداقل ۲۰۰٬۰۰۰ تومان؛ هزینه برداشت صفر</div></div><div class="field"><label>مقصد بانکی</label>${bankCardSelector({target:'withdraw',emptyHint:'برای دریافت وجه، یک کارت بانکی اضافه کنید'})}</div></section><div class="action-stack"><button class="primary-button" type="button" data-money-preview ${amountReady&&destination?'':'disabled'}>بررسی برداشت</button></div>`;
+    }
+    function depositMethodPage(method){
+      const card=selectedBankCard('deposit'),amount=numericValue(state.moneyAmount),amountLabel=amount?`${faNumber(amount,0)} تومان`:'مبلغ ثبت‌نشده';
+      const titles={card:'کارت به کارت',shaba:'واریز با شبا',account:'حساب به حساب'};setChrome(titles[method],true,false);
+      const source=bankCardSelector({target:'deposit',emptyHint:'برای انجام واریز، کارت مبدأ را ثبت کنید'});
+      const amountContext=`<div class="deposit-amount-context"><span>مبلغ واریز</span><strong>${amountLabel}</strong></div>`;
+      if(method==='card')return `${amountContext}<section class="deposit-detail-section"><div class="deposit-detail-title">کارت مبدأ</div>${source}<p class="deposit-warning">${icons.warn}<span>واریز کارت‌به‌کارت فقط از کارت ثبت‌شده شما قابل شناسایی است. واریز از کارت دیگر ممکن است باعث تأخیر و نیاز به پیگیری پشتیبانی شود.</span></p></section><section class="deposit-detail-section"><div class="deposit-detail-title">اطلاعات واریز</div><div class="transfer-bank-card"><div class="transfer-bank-head"><span class="transfer-bank-copy"><strong>بانک تجارت</strong><small>Tejarat Bank · اطلاعات نمونه</small></span><span class="transfer-bank-logo">تجارت</span></div><div class="transfer-bank-row"><span>به نام</span><strong>شرکت توسعه تجارت شمش</strong></div><div class="transfer-bank-row number-row"><span>شماره کارت</span><strong>۵۸۵۹ ۸۳۱۱ ۲۴۶۸ ۲۴۸۱</strong></div><button class="copy-button" type="button" data-copy="5859831124682481" data-copy-label="شماره کارت">کپی</button></div><div class="deposit-transfer-meta"><span>${icons.clock}زمان معمول شارژ کیف</span><strong>تا ۳۰ دقیقه در ساعات کاری</strong></div></section>`;
+      if(method==='shaba')return `${amountContext}<section class="deposit-detail-section"><div class="deposit-detail-title">کارت مبدأ</div>${source}</section><section class="deposit-detail-section"><div class="deposit-detail-title">نوع انتقال</div><div class="transfer-rail-tabs" role="tablist" aria-label="نوع انتقال شبا"><button type="button" role="tab" class="${state.moneyTransferRail==='bridge'?'selected':''}" data-money-transfer-rail="bridge" aria-selected="${state.moneyTransferRail==='bridge'}">پل / سریع</button><button type="button" role="tab" class="${state.moneyTransferRail==='paya'?'selected':''}" data-money-transfer-rail="paya" aria-selected="${state.moneyTransferRail==='paya'}">پایا</button></div><p class="transfer-required-note">${icons.info}<span>شناسه واریز و متن توضیحات را دقیقاً در اپ بانک وارد کنید؛ بدون این دو مورد، شارژ کیف ممکن است نیازمند تطبیق دستی شود.</span></p></section><section class="deposit-detail-section"><div class="deposit-detail-title">اطلاعات واریز</div><div class="transfer-bank-card"><div class="transfer-bank-head"><span class="transfer-bank-copy"><strong>بانک تجارت</strong><small>Tejarat Bank · اطلاعات نمونه</small></span><span class="transfer-bank-logo">تجارت</span></div><div class="transfer-bank-row"><span>به نام</span><strong>شرکت توسعه تجارت شمش</strong></div><div class="transfer-bank-row number-row"><span>شماره شبا</span><strong>IR 21 05570 0000 0133 4567 8990 00</strong></div><button class="copy-button" type="button" data-copy="IR210557000000133456789900" data-copy-label="شماره شبا">کپی</button></div><div class="transfer-required-fields"><div class="transfer-required-field"><span>شناسه واریز <b>(الزامی)</b></span><span><strong>۴۸۲۱-۹۰۳۶-۷۷۱۴</strong> <button class="copy-button" type="button" data-copy="482190367714" data-copy-label="شناسه واریز">کپی</button></span></div><div class="transfer-required-field"><span>توضیحات <b>(الزامی)</b></span><strong>خرید کالا</strong></div></div><div class="deposit-transfer-meta"><span>${icons.clock}زمان معمول شارژ کیف</span><strong>${state.moneyTransferRail==='bridge'?'تا ۳۰ دقیقه':'تا پایان روز یا روز کاری بعد'}</strong></div></section>`;
+      return `${amountContext}<section class="deposit-detail-section"><div class="deposit-detail-title">مبدأ بانکی</div>${source}<p class="transfer-required-note">${icons.info}<span>این روش در نمونه فعلی فقط برای حساب بانک تجارت ثبت‌شده به نام خودتان فعال است.</span></p></section><section class="deposit-detail-section"><div class="deposit-detail-title">اطلاعات انتقال</div><div class="transfer-bank-card"><div class="transfer-bank-head"><span class="transfer-bank-copy"><strong>بانک تجارت</strong><small>Tejarat Bank · اطلاعات نمونه</small></span><span class="transfer-bank-logo">تجارت</span></div><div class="transfer-bank-row"><span>به نام</span><strong>شرکت توسعه تجارت شمش</strong></div><div class="transfer-bank-row number-row"><span>شماره حساب</span><strong>۰۱۳۳ ۴۵۶۷ ۸۹۹۰ ۰۰</strong></div><button class="copy-button" type="button" data-copy="01334567899000" data-copy-label="شماره حساب">کپی</button></div><div class="transfer-required-fields"><div class="transfer-required-field"><span>شناسه واریز <b>(الزامی)</b></span><span><strong>۴۸۲۱-۹۰۳۶-۷۷۱۴</strong> <button class="copy-button" type="button" data-copy="482190367714" data-copy-label="شناسه واریز">کپی</button></span></div></div><div class="deposit-transfer-meta"><span>${icons.clock}زمان معمول ثبت</span><strong>حداکثر ۱۵ دقیقه</strong></div></section>`;
     }
     function moneyPreview(){
       const deposit=state.moneyMode==='deposit';setChrome('بررسی نهایی',true,false);
-      const methodLabel=depositMethodMeta().name,card=selectedDepositCard(),rail=state.moneyMethod==='shaba'?(state.moneyTransferRail==='bridge'?' · پل / سریع':' · پایا'):'';
-      return `<div class="page-lead"><h3>تأیید ${deposit?'واریز':'برداشت'}</h3><p>قبل از ثبت، مبلغ و ${deposit?'روش':'مقصد'} را بررسی کنید.</p></div><section class="card receipt-grid"><div class="receipt-row"><span>مبلغ</span><strong>${state.moneyAmount} تومان</strong></div><div class="receipt-row"><span>${deposit?'روش':'مقصد'}</span><strong>${deposit?methodLabel+rail:'بانک ملت · •۴۸۲۱'}</strong></div>${deposit&&card?`<div class="receipt-row"><span>کارت مبدأ</span><strong>${card.bank} · •${card.last4}</strong></div>`:''}<div class="receipt-row"><span>کارمزد شمش</span><strong>صفر</strong></div><div class="receipt-row"><span>اثر روی کیف</span><strong>${deposit?'پس از تأیید بانک':'پس از ثبت کسر می‌شود'}</strong></div></section><div class="action-stack"><button class="primary-button" data-confirm-money>${deposit&&state.moneyMethod==='gateway'?'انتقال به درگاه':'تأیید و ثبت'}</button><button class="secondary-button" data-edit-money>ویرایش</button></div>`;
+      const methodLabel=depositMethodMeta().name,card=selectedBankCard(deposit?'deposit':'withdraw'),rail=state.moneyMethod==='shaba'?(state.moneyTransferRail==='bridge'?' · پل / سریع':' · پایا'):'';
+      return `<div class="page-lead"><h3>تأیید ${deposit?'واریز':'برداشت'}</h3><p>قبل از ثبت، مبلغ و ${deposit?'روش':'مقصد'} را بررسی کنید.</p></div><section class="card receipt-grid"><div class="receipt-row"><span>مبلغ</span><strong>${state.moneyAmount} تومان</strong></div><div class="receipt-row"><span>${deposit?'روش':'مقصد'}</span><strong>${deposit?methodLabel+rail:card?`${card.bank} · •${card.last4}`:'کارت انتخاب نشده'}</strong></div>${deposit&&card?`<div class="receipt-row"><span>کارت مبدأ</span><strong>${card.bank} · •${card.last4}</strong></div>`:''}<div class="receipt-row"><span>کارمزد شمش</span><strong>صفر</strong></div><div class="receipt-row"><span>اثر روی کیف</span><strong>${deposit?'پس از تأیید بانک':'پس از ثبت کسر می‌شود'}</strong></div></section><div class="action-stack"><button class="primary-button" data-confirm-money>${deposit&&state.moneyMethod==='gateway'?'انتقال به درگاه':'تأیید و ثبت'}</button><button class="secondary-button" data-edit-money>ویرایش</button></div>`;
     }
     function faNumber(value,maxDigits=2){
       return new Intl.NumberFormat('fa-IR',{maximumFractionDigits:maxDigits,minimumFractionDigits:0}).format(Math.max(0,Number(value)||0));
@@ -1019,7 +1131,7 @@
     }
     function referral(){
       setChrome('معرفی دوستان',true,false);
-      return `<div class="page-lead"><h3>دوستانت را دعوت کن</h3><p>کد یا لینک دعوتت را برای دوستانت بفرست و جایزه بگیر.</p></div><section class="card summary-card"><div class="summary-label">مجموع جایزه دریافتی</div><div class="summary-value">۷۵٬۰۰۰ تومان</div><div class="summary-meta"><span>۳ دعوت موفق</span></div><div class="code-box"><strong dir="ltr">SHEMSH-7K2P</strong><button class="secondary-button" data-copy="SHEMSH-7K2P">کپی کد</button></div></section><section class="section"><button class="primary-button" style="width:100%" data-toast="لینک دعوت برای اشتراک آماده شد.">اشتراک لینک دعوت</button></section><section class="section"><div class="section-head"><h3>دوستان دعوت‌شده</h3><span>۳ نفر موفق</span></div><div class="card status-list"><div class="status-item"><span><strong>سارا محمدی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div><div class="status-item"><span><strong>مریم کریمی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div><div class="status-item"><span><strong>نازنین رضایی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div></div></section>`;
+      return `<div class="page-lead"><h3>دوستانت را دعوت کن</h3><p>کد یا لینک دعوتت را برای دوستانت بفرست و جایزه بگیر.</p></div><section class="card summary-card"><div class="summary-label">مجموع جایزه دریافتی</div><div class="summary-value">۷۵٬۰۰۰ تومان</div><div class="summary-meta"><span>۳ دعوت موفق</span></div><div class="code-box"><strong dir="ltr">SHEMSH-7K2P</strong><button class="secondary-button" data-copy="SHEMSH-7K2P" data-copy-label="کد دعوت">کپی کد</button></div></section><section class="section"><button class="primary-button" style="width:100%" data-toast="لینک دعوت برای اشتراک آماده شد.">اشتراک لینک دعوت</button></section><section class="section"><div class="section-head"><h3>دوستان دعوت‌شده</h3><span>۳ نفر موفق</span></div><div class="card status-list"><div class="status-item"><span><strong>سارا محمدی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div><div class="status-item"><span><strong>مریم کریمی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div><div class="status-item"><span><strong>نازنین رضایی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div></div></section>`;
     }
     function recordFeature(kind){
       const m=metals[state.featureAsset],physical=physicalSummary(),map={physical:['physical',`درخواست دریافت فیزیکی ${m.name}`,physicalMeasure(physical.selected),'ثبت‌شده'],alert:['alert',`هشدار قیمت ${m.name}`,`${state.targetPrice} تومان`,'فعال'],target:['target',`سفارش قیمت ${m.name}`,`${state.targetAmount} ${state.targetDirection==='buy'?'تومان':'گرم'}`,'فعال'],installment:['installment',`درخواست خرید قسطی ${m.name}`,`${state.installmentAmount} تومان`,'ثبت‌شده'],['installment-pay']:['installment-pay',`پرداخت قسط ${m.name}`,'۵٬۰۰۰٬۰۰۰ تومان','موفق'],['gift-send']:['gift-send',`صدور هدیه ${m.name}`,`${state.giftAmount} گرم`,'صادرشده'],['gift-receive']:['gift-receive','دریافت هدیه','کد هدیه','دریافت‌شده'],deposit:['deposit','واریز به کیف تومان',`${state.moneyAmount} تومان`,'ثبت‌شده'],withdraw:['withdraw','برداشت از کیف تومان',`${state.moneyAmount} تومان`,'ثبت‌شده']};
@@ -1034,8 +1146,8 @@
       setTimeout(()=>{if(state.processingToken===token&&state.scenario==='feature-processing'){const pending=state.pendingFeatureKind;state.pendingFeatureKind=null;recordFeature(pending);showToast('درخواست با موفقیت ثبت شد.')}},700);
     }
     function featureProcessing(){
-      setChrome('ثبت درخواست',false,false);
-      return `<section class="processing" aria-live="polite"><div class="processing-card"><span class="spinner" aria-hidden="true"></span><h3>در حال ثبت درخواست</h3><p>نتیجه قطعی تا چند لحظه دیگر نمایش داده می‌شود.</p></div></section>`;
+      const gateway=state.pendingFeatureKind==='deposit';setChrome(gateway?'درگاه بانکی':'ثبت درخواست',false,false);
+      return `<section class="processing" aria-live="polite"><div class="processing-card"><span class="spinner" aria-hidden="true"></span><h3>${gateway?'در حال انتقال به درگاه بانکی':'در حال ثبت درخواست'}</h3><p>${gateway?'اتصال امن به درگاه بانک در حال انجام است.':'نتیجه قطعی تا چند لحظه دیگر نمایش داده می‌شود.'}</p></div></section>`;
     }
     function featureResult(){
       const a=state.receipt,m=a.asset?metals[a.asset]:null;setChrome('نتیجه درخواست',true,false);
@@ -1098,7 +1210,7 @@
       return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><span class="inline-status success">${a.status}</span><h3>${a.title}</h3><p>این رسید هویت فلز و نوع عملیات را صریح نگه می‌دارد.</p></div>
         ${m?`<div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade} · وزن با دقت مصوب همین فلز</small></div></div>`:''}
         <div class="receipt-grid"><div class="receipt-row"><span>نوع عملیات</span><strong>${a.title}</strong></div><div class="receipt-row"><span>${m?'وزن / شرح':'مبلغ'}</span><strong>${m?a.weight:a.amount}</strong></div><div class="receipt-row"><span>مبلغ نهایی</span><strong>${a.amount}</strong></div>${financial?`<div class="receipt-row"><span>نرخ ثبت‌شده</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>کارمزد</span><strong>در مبلغ نهایی محاسبه شده</strong></div>`:''}<div class="receipt-row"><span>زمان</span><strong>${a.time}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a.tracking}</strong></div></div>
-        <div class="action-stack"><button class="secondary-button" type="button" data-copy="${a.tracking}">کپی کد پیگیری</button>${m?`<button class="secondary-button" type="button" data-detail="${a.asset}">جزئیات ${m.name}</button>`:''}<button class="text-button" type="button" data-back-history>بازگشت به تاریخچه</button><button class="text-button" type="button" data-toast="پشتیبانی با کد پیگیری باز می‌شود.">پشتیبانی</button></div></section>`;
+        <div class="action-stack"><button class="secondary-button" type="button" data-copy="${a.tracking}" data-copy-label="کد پیگیری">کپی کد پیگیری</button>${m?`<button class="secondary-button" type="button" data-detail="${a.asset}">جزئیات ${m.name}</button>`:''}<button class="text-button" type="button" data-back-history>بازگشت به تاریخچه</button><button class="text-button" type="button" data-toast="پشتیبانی با کد پیگیری باز می‌شود.">پشتیبانی</button></div></section>`;
     }
     function overlay(focus=true){
       if(!state.sheet){overlayRoot.innerHTML='';return}
@@ -1112,10 +1224,10 @@
           body=`<div class="wallet-sheet-actions"><button class="wallet-sheet-action" type="button" data-wallet-action="deposit">${icons.bank}<strong>واریز</strong></button><button class="wallet-sheet-action" type="button" data-wallet-action="withdraw">${icons.withdraw}<strong>برداشت</strong></button></div>`;
         }else if(state.sheet==='money-methods'){
           const methods=[['card','کارت به کارت','آنی تا سیکل پایا'],['shaba','واریز با شبا','پل / سریع یا پایا'],['account','حساب به حساب','Open Banking · مبدأ تجارت']];title='روش‌های دیگر واریز';label=title;
-          body=`${!numericValue(state.moneyAmount)?'<p class="market-note">برای نمایش روش‌های مناسب، ابتدا مبلغ واریز را وارد کنید.</p>':''}<div class="sheet-list">${methods.map(([id,name,time])=>{const status=depositMethodAvailability(id);return `<button class="sheet-choice deposit-sheet-choice ${state.moneyMethod===id?'selected':''}" type="button" data-money-method="${id}" ${status.enabled?'':'disabled'}><span><strong>${name}</strong><small class="method-limit">${status.note}</small></span><span>${status.enabled?time:'در دسترس نیست'}</span></button>`}).join('')}</div><p class="market-note">سقف‌ها و زمان تسویه در این وایرفریم از نمونه Increase Wallet آمده‌اند و نیازمند تأیید نهایی بیزینس‌اند.</p>`;
-        }else if(state.sheet==='deposit-cards'){
-          const cards=availableDepositCards();title='کارت مبدأ';label=title;
-          body=`<div class="deposit-card-sheet-list">${cards.map(card=>`<button type="button" class="sheet-choice ${state.depositSourceCard===card.id?'selected':''}" data-deposit-source="${card.id}"><span><strong>${card.bank}</strong><br><small class="muted" dir="ltr">${card.number}</small></span><span>${state.depositSourceCard===card.id?'انتخاب‌شده':''}</span></button>`).join('')}<button type="button" class="secondary-button" data-deposit-add-card>افزودن کارت جدید</button></div>`;
+          body=`<div class="sheet-list">${methods.map(([id,name,time])=>{const status=depositMethodAvailability(id);return `<button class="sheet-choice deposit-sheet-choice ${state.moneyMethod===id?'selected':''}" type="button" data-money-method="${id}"><span><strong>${name}</strong><small class="method-limit">${status.note}</small></span><span>${time}</span></button>`}).join('')}</div><p class="market-note">سقف‌ها و زمان تسویه در این وایرفریم از نمونه Increase Wallet آمده‌اند و نیازمند تأیید نهایی بیزینس‌اند.</p>`;
+        }else if(state.sheet==='bank-card-picker'){
+          title=state.bankCardPickerTarget==='withdraw'?'مقصد بانکی':'کارت مبدأ';label=title;
+          body=bankCardPicker();
         }else if(state.sheet==='trade-details'){
           const m=metals[state.tradeAsset],calc=tradeCalculation(),unit=state.tradeInputUnit==='toman'?'تومان':'گرم';title='جزئیات محاسبه';label=title;
           body=`<div class="receipt-grid"><div class="receipt-row"><span>فلز و جهت</span><strong>${state.tradeMode==='buy'?'خرید':'فروش'} ${m.name}</strong></div><div class="receipt-row"><span>واحد ورود</span><strong>${unit}</strong></div><div class="receipt-row"><span>نرخ هر گرم</span><strong>${m.rate} تومان</strong></div>${calc.input?`<div class="receipt-row"><span>وزن تقریبی</span><strong>${calc.weightLabel} گرم</strong></div><div class="receipt-row"><span>مبلغ تقریبی</span><strong>${calc.amountLabel} تومان</strong></div>`:''}<div class="receipt-row"><span>اعتبار نرخ</span><strong>۲۰ ثانیه · داده آزمایشی</strong></div><div class="receipt-row"><span>کارمزد و حدود معامله</span><strong>هنگام اتصال به قواعد نهایی نمایش داده می‌شود</strong></div></div><div class="sheet-footer" style="grid-template-columns:1fr"><button class="secondary-button" type="button" data-close-sheet>متوجه شدم</button></div>`;
@@ -1157,6 +1269,7 @@
       if(state.scenario==='auth-login')html=authLogin();
       else if(state.scenario==='kyc')html=kyc();
       else if(state.scenario==='deposit'||state.scenario==='deposit-no-card')html=moneyFlow('deposit');
+      else if(state.scenario.startsWith('deposit-method-'))html=depositMethodPage(state.scenario.replace('deposit-method-',''));
       else if(state.scenario==='withdraw')html=moneyFlow('withdraw');
       else if(state.scenario==='money-preview')html=moneyPreview();
       else if(state.scenario==='physical-select')html=physicalSelect();
@@ -1203,12 +1316,14 @@
       else if(state.scenario==='guest')html=guest();
       else if(state.scenario==='history'||state.scenario==='history-filtered')html=history();
       else if(state.scenario==='receipt')html=receipt();
-      appMain.innerHTML=html;
+      appMain.innerHTML=livePriceTicker()+html;
       appMain.classList.toggle('home-scrollless',['home','home-partial','outage'].includes(state.scenario));
+      appMain.classList.toggle('trade-compact',['trade-gold','trade-selector3','trade-selector16','trade-quote-switch'].includes(state.scenario));
       // D-144: every direct page-level action group becomes a safe-area-aware bottom action bar.
       appMain.querySelectorAll(':scope > .action-stack').forEach(actions=>actions.classList.add('sticky-action'));
       overlay();
-      requestAnimationFrame(()=>{syncBalanceTogglePositions();const selected=appMain.querySelector('[role="tab"][aria-selected="true"]');if(selected)selected.scrollIntoView({block:'nearest',inline:'center'})});
+      requestAnimationFrame(syncBalanceTogglePositions);
+      scheduleLivePriceTicker();
     }
 
     function clearMixHover(){appMain.querySelectorAll('.mix-card.is-chart-hovered').forEach(card=>card.classList.remove('is-chart-hovered'))}
@@ -1262,14 +1377,21 @@
       if(t.hasAttribute('data-start-kyc')){navigate('kyc');return}
       if(t.hasAttribute('data-kyc-submit')){setScenario('home');showToast('احراز هویت آزمایشی تکمیل شد.');return}
       if(t.hasAttribute('data-go-home')){setScenario('home');return}
-      if(t.dataset.walletAction){const action=t.dataset.walletAction;closeOverlay({canonical:false});state.moneyMode=action;state.moneyAmount='';state.moneyMethod='gateway';state.moneyTransferRail='bridge';state.moneyDestination='bank-1';if(action==='deposit'&&!state.depositSourceCard){state.depositHasCards=true;state.depositSourceCard='bank-1'}navigate(action);return}
+      if(t.dataset.walletAction){const action=t.dataset.walletAction;closeOverlay({canonical:false});state.moneyMode=action;state.moneyAmount='';state.moneyMethod='gateway';state.moneyTransferRail='bridge';state.moneyDestination='bank-1';state.bankCardPickerTarget=action==='withdraw'?'withdraw':'deposit';if(action==='deposit'&&!state.depositSourceCard){state.hasBankCards=true;state.depositSourceCard='bank-1'}navigate(action);return}
       if(t.dataset.moneyPreset){state.moneyAmount=t.dataset.moneyPreset;render();return}
-      if(t.dataset.moneyMethod){state.moneyMethod=t.dataset.moneyMethod;if(state.sheet==='money-methods'){closeOverlay({canonical:false});render()}else render();return}
+      if(t.dataset.moneyMethod){
+        const method=t.dataset.moneyMethod;
+        if(state.sheet==='money-methods'){
+          closeOverlay({canonical:false});navigate(`deposit-method-${method}`);state.moneyMethod=method;render();return
+        }
+        state.moneyMethod=method;render();return
+      }
       if(t.dataset.moneyTransferRail){state.moneyTransferRail=t.dataset.moneyTransferRail;render();return}
       if(t.hasAttribute('data-use-gateway')){state.moneyMethod='gateway';render();return}
-      if(t.dataset.depositSource){const cardId=t.dataset.depositSource,card=availableDepositCards().find(item=>item.id===cardId);state.depositSourceCard=cardId;state.sheet=null;if(state.moneyMethod==='account'&&!card?.tejarat)state.moneyMethod='gateway';render();if(state.moneyMethod==='gateway'&&!card?.tejarat)showToast('کارت مبدأ تغییر کرد.');return}
-      if(t.hasAttribute('data-deposit-add-card')){closeOverlay({canonical:false});state.bankAddReturn='deposit';state.bankCardNumber='';navigate('bank-add');return}
-      if(t.dataset.moneyDestination){state.moneyDestination=t.dataset.moneyDestination;render();return}
+      if(t.dataset.bankCardPicker){state.bankCardPickerTarget=t.dataset.bankCardPicker;openOverlay('bank-card-picker',t);return}
+      if(t.dataset.bankCardChoice){const cardId=t.dataset.bankCardChoice,card=availableBankCards().find(item=>item.id===cardId),target=state.bankCardPickerTarget||'deposit';if(target==='deposit'&&state.scenario==='deposit-method-account'&&!card?.tejarat){showToast('برای حساب به حساب، مبدأ بانک تجارت را انتخاب کنید.');return}state[bankCardSelectionKey(target)]=cardId;state.sheet=null;render();showToast(target==='withdraw'?'مقصد بانکی تغییر کرد.':'کارت مبدأ تغییر کرد.');return}
+      if(t.dataset.bankCardAdd){state.bankCardPickerTarget=t.dataset.bankCardAdd;closeOverlay({canonical:false});state.bankAddReturn=state.scenario;state.bankCardNumber='';navigate('bank-add');return}
+      if(t.hasAttribute('data-start-gateway')){state.moneyMethod='gateway';beginFeature('deposit');return}
       if(t.hasAttribute('data-money-preview')){navigate('money-preview');return}
       if(t.hasAttribute('data-edit-money')){back();return}
       if(t.hasAttribute('data-confirm-money')){beginFeature(state.moneyMode);return}
@@ -1309,18 +1431,19 @@
       if(t.hasAttribute('data-bank-add')){state.bankAddReturn=null;state.bankCardNumber='';navigate('bank-add');return}
       if(t.hasAttribute('data-bank-preview')){navigate('bank-add-preview');return}
       if(t.hasAttribute('data-edit-bank')){back();return}
-      if(t.hasAttribute('data-bank-confirm')){state.bankAdded=true;if(state.bankAddReturn==='deposit'){state.bankAddReturn=null;state.depositHasCards=true;state.depositSourceCard='bank-new';state.moneyMethod='gateway';state.stack=[];state.scenario='deposit';state.sheet=null;render();showToast('کارت بانکی اضافه و به‌عنوان مبدأ انتخاب شد.')}else{state.stack=[];state.scenario='bank-accounts';render();showToast('کارت بانکی با موفقیت ثبت شد.')}return}
+      if(t.hasAttribute('data-bank-confirm')){state.bankAdded=true;state.hasBankCards=true;if(state.bankAddReturn){const returnScenario=state.bankAddReturn,target=state.bankCardPickerTarget||'deposit';state.bankAddReturn=null;if(returnScenario!=='deposit-method-account')state[bankCardSelectionKey(target)]='bank-new';state.stack=[];state.scenario=returnScenario==='deposit-no-card'?'deposit':returnScenario;state.sheet=null;render();showToast('کارت بانکی اضافه و انتخاب شد.')}else{state.stack=[];state.scenario='bank-accounts';render();showToast('کارت بانکی با موفقیت ثبت شد.')}return}
       if(t.hasAttribute('data-change-password')){state.currentPassword='';state.newPassword='';state.confirmPassword='';navigate('change-password');return}
       if(t.hasAttribute('data-password-submit')){state.currentPassword='';state.newPassword='';state.confirmPassword='';state.stack=[];state.scenario='security';render();showToast('رمز عبور با موفقیت تغییر کرد.');return}
       if(t.dataset.togglePageSetting){state[t.dataset.togglePageSetting]=!state[t.dataset.togglePageSetting];render();return}
       if(t.hasAttribute('data-home-trade')){state.tradeMode='buy';state.tradeInputUnit='toman';state.tradeAsset='gold';state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
+      if(t.hasAttribute('data-live-price-next')){advanceLivePrice();scheduleLivePriceTicker();return}
       if(t.dataset.go){if(t.dataset.go==='physical-select')resetPhysical('gold');if(t.dataset.historyMetal){state.operation='all';state.metal=t.dataset.historyMetal}navigate(t.dataset.go);return}
       if(t.dataset.detail){navigate('detail-'+t.dataset.detail);return}
       if(t.dataset.tradeAsset){state.tradeAsset=t.dataset.tradeAsset;state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
       if(t.dataset.toast){showToast(t.dataset.toast);return}
       if(t.dataset.period){state.period=t.dataset.period;render();return}
-      if(t.dataset.tradeMode){state.tradeMode=t.dataset.tradeMode;state.tradeInputUnit=state.tradeMode==='buy'?'toman':'gram';state.tradeAmount='';state.quoteActive=false;render();return}
-      if(t.dataset.tradeUnit){state.tradeInputUnit=t.dataset.tradeUnit;state.tradeAmount='';state.quoteActive=false;render();return}
+      if(t.dataset.tradeMode){state.tradeMode=t.dataset.tradeMode;render();return}
+      if(t.hasAttribute('data-toggle-trade-unit')){toggleTradeUnit();return}
       if(t.dataset.tradeKey){applyTradeKey(t.dataset.tradeKey);return}
       if(t.dataset.openFullChart){state.chartAsset=t.dataset.openFullChart;navigate('chart-single');return}
       if(t.dataset.openTradeAssets){const size=t.dataset.openTradeAssets==='16'?'16':'3';state.scenario=size==='16'?'trade-selector16':'trade-selector3';openOverlay(`trade-asset-${size}`,t);return}
@@ -1349,7 +1472,7 @@
       if(t.hasAttribute('data-reset')){state.metal='all';state.status='all';state.date='all';state.scenario='history';render();return}
       if(t.dataset.receipt){state.receipt=activities.find(a=>a.id===t.dataset.receipt);navigate('receipt');return}
       if(t.hasAttribute('data-back-history')){state.operation=state.receipt.op;state.metal=state.receipt.asset||'all';state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();appMain.scrollTop=0;return}
-      if(t.dataset.copy){try{await navigator.clipboard.writeText(t.dataset.copy)}catch{}showToast('کد پیگیری کپی شد.');return}
+      if(t.dataset.copy){try{await navigator.clipboard.writeText(t.dataset.copy)}catch{}showToast(`${t.dataset.copyLabel||'مقدار'} کپی شد.`);return}
       if(t.dataset.nav==='خانه'){setScenario('home');return}
       if(t.dataset.nav==='معامله'){state.scenario='trade-gold';state.stack=[];state.sheet=null;state.tradeAmount='';state.quoteActive=false;render();appMain.scrollTop=0;return}
       if(t.dataset.nav==='خدمات'){state.scenario='services';state.stack=[];state.sheet=null;render();appMain.scrollTop=0;return}
