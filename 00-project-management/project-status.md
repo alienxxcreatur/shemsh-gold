@@ -1,6 +1,6 @@
 # وضعیت فعلی پروژه
 
-آخرین به‌روزرسانی: ۲۴ مرداد ۱۴۰۵ / 15 Aug 2026
+آخرین به‌روزرسانی: ۲۵ مرداد ۱۴۰۵ / 16 Aug 2026
 
 ## خلاصه
 
@@ -11,7 +11,7 @@
 | ارزیابی فعلی | 🟡 پوشش ساخت افقی همه موج‌ها کامل است: ۲۸ خروجی هدف، پنج State اتصال W0 و چهار حالت Review دریافت فیزیکی در Prototype وجود دارند. بلوغ همه `MM-W0..MM-W8` برابر **۷۵٪** می‌ماند؛ Review جزئی مالک محصول و تصمیم‌های باز شرط ۱۰۰٪ هستند |
 | مسئول تصمیم نهایی | مالک محصول / بیزینس |
 | سند فعال | `06-wireframes-and-testing/multi-metal-physical-delivery-flow-spec.md`؛ بسته مادر: `06-wireframes-and-testing/multi-metal-full-app-wireframe-readiness-pack.md` |
-| آخرین اصلاح قابل Review | Prototype طبق D-161 در گوشی مستقیماً App-mode است: پنل Review/قاب/Statusbar شبیه‌سازی‌شده حذف، ارتفاع `100dvh` و Safe Area فعال و اسکرول به Main داخلی محدود شده است؛ Desktop Review بدون تغییر می‌ماند — V-078 |
+| آخرین اصلاح قابل Review | فرم برداشت با هشدار اختلال بانکی، موجودی کامل، گزینه «همه موجودی»، بازه داخل کنترل مبلغ و CTA «برداشت» بازطراحی شد؛ Lead تکراری حذف شد — V-083 |
 | قدم بعدی | مالک محصول Header خانه، معامله، خدمات و حداقل دو زیرصفحه را Review کند؛ خانه/خدمات D-145، قرارداد CTA پایین D-144، خانه/Donut D-141، `WF-MM-027`، پروفایل `WF-MM-029` و دریافت فیزیکی `WF-MM-014/014A..D` همچنان باز هستند. OQ-054/OQ-060 و Gateهای مالی/حقوقی موازی‌اند |
 | مسیر موازی داخلی | Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند. خانواده Input در صفحه واحد `15 Inputs` شامل Text Input ۱۴تایی، Amount Input ۱۶تایی، OTP Input ۳۲تایی و Search Input ۱۲تایی با Radius مشترک ۱۴ و Final technical audit صفر Issue روی مجموع ۷۴ Variant است. Alert در صفحه مستقل `16 Alert` با ۱۰ Variant `Tone × Layout` و Toast در صفحه مستقل `17 Toast` با ۵ Variant `Tone` و چهار Property عمومی ساخته و با audit فنی/بصری صفر Issue تأیید شدند. OTP دارای Success گذرا تا Redirect است؛ تأیید بصری مالک محصول برای Promote Setهای Candidate باز می‌ماند. Button، Icon Button، Checkbox، Alert و Toast نیز منتظر تأیید بصری‌اند. Palette نمودار، Accent و اجزای فلزمحور تا OQ-056 Candidate می‌مانند — D-134/D-136/D-143/D-148 |
 | مسیر موازی بیرونی | هشت تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی عددهای پورتفوی |

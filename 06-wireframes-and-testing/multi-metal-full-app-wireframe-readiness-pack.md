@@ -126,7 +126,7 @@
 | ردیف پورتفوی | `MetalPositionRow` | Owned/Zero/Rate missing/Restricted | وزن و ارزش در نام خوانش؛ رنگ تنها شناسه نیست |
 | ردیف بازار | `AssetMarketRow` | Tradable/Unavailable/No data | نام/Icon/Symbol/status صریح |
 | نمودار | Line chart تک‌فلز | Loading/Empty/Stale/Error و ۳ بازه | خلاصه متنی، Tooltip با Tap/Keyboard |
-| Context نرخ | `LivePriceTicker` مشترک | سه‌فلزی حلقه‌ای، Asset ثابت، نرخ نامعتبر، Reduced Motion، استثنای صفحه | Label «قیمت فروش لحظه‌ای»، نام فلز در accessible name، بدون اعلان زنده دوره‌ای، Tap برای نرخ بعدی و توقف Auto در Reduced Motion — D-160 |
+| Context نرخ | `LivePriceTicker` مشترک | سه‌فلزی حلقه‌ای با ورود از بالا/خروج از پایین، Asset ثابت، نرخ نامعتبر، Reduced Motion، استثنای صفحه | Label «قیمت فروش لحظه‌ای»، نام فلز در accessible name، بدون اعلان زنده دوره‌ای، Tap برای نرخ بعدی و توقف Auto در Reduced Motion — D-160 |
 | فیلتر تاریخچه | ریل Tabهای Operation + Selector تک‌انتخابی فلز + Sheet از `AssetCatalog` + فیلتر status/date | Selected/Overflow/Search/Filtered empty/Reset/Back restore | State غیررنگی، Scroll selected into view، Focus return و Live announcement |
 | ردیف تاریخچه | `OperationRow` | Pending/Final/Failed/Restricted | نوع، فلز، مقدار، زمان و status در accessible name |
 | Receipt | Template مشترک نوع‌محور | Success/Failed/Pending | ترتیب خوانش ثابت و کد پیگیری قابل کپی |

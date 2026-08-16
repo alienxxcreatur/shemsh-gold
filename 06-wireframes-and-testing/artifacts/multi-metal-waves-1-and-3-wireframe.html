@@ -76,14 +76,15 @@
     .live-price-label{font-size:10px;color:var(--muted);white-space:nowrap}
     .live-price-window{direction:ltr;height:38px;overflow:hidden;min-width:0}
     .live-price-track{height:38px;transform:translateY(0);will-change:transform}
-    .live-price-ticker.is-shifting .live-price-track{transform:translateY(-38px);transition:transform 280ms cubic-bezier(.22,.8,.32,1)}
+    .live-price-ticker.is-preparing .live-price-track{transform:translateY(-38px)}
+    .live-price-ticker.is-shifting .live-price-track{transform:translateY(0);transition:transform 360ms cubic-bezier(.22,1,.36,1)}
     .live-price-row{direction:rtl;height:38px;display:flex;align-items:center;justify-content:flex-start;gap:6px;white-space:nowrap}
     .live-price-row strong{direction:ltr;font-size:15px;line-height:1;font-weight:750;font-variant-numeric:tabular-nums}
     .live-price-row span{font-size:12px;font-weight:650}
     .live-price-row small{font-size:10px;color:var(--muted)}
     .live-price-row.unavailable strong{direction:rtl;font-size:12px;color:var(--muted)}
     @media (hover:hover) and (pointer:fine){button.live-price-ticker:hover{background:color-mix(in srgb,var(--strong) 48%,transparent)}}
-    @media (prefers-reduced-motion:reduce){.live-price-ticker.is-shifting .live-price-track{transition:none}}
+    @media (prefers-reduced-motion:reduce){.live-price-ticker.is-preparing .live-price-track,.live-price-ticker.is-shifting .live-price-track{transform:none;transition:none}}
     .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px}
     .summary-card{background:var(--primary);color:#fff;border-color:var(--primary);padding:18px}
     .summary-label{font-size:12px;color:#d6d9dd}
@@ -278,6 +279,14 @@
     .service-tile strong{font-size:14px;line-height:1.45}
     .service-icon{width:42px;height:42px;border-radius:12px;background:var(--strong);border:1px solid var(--border);display:grid;place-items:center;color:var(--primary)}
     .service-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .service-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:12px 0;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
+    .service-strip-item{position:relative;min-width:0;min-height:78px;padding:2px 5px;border:0;background:transparent;color:var(--text);display:grid;justify-items:center;align-content:center;gap:8px;text-align:center}
+    .service-strip-item .service-icon{width:40px;height:40px;border-radius:10px;background:transparent;color:var(--text)}
+    .service-strip-item .service-icon svg{width:21px;height:21px}
+    .service-strip-item strong{max-width:100%;font-size:11px;line-height:1.45;font-weight:700;white-space:normal}
+    .service-strip-item:active{background:var(--strong)}
+    .service-strip-item:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+    @media (hover:hover) and (pointer:fine){.service-strip-item:hover{background:var(--strong)}}
     .feature-grid{display:grid;gap:8px}
     .feature-card{width:100%;min-height:88px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:13px;text-align:right;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
     .feature-card strong{font-size:14px}.feature-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.feature-card .inline-status{align-self:start}
@@ -316,6 +325,12 @@
     .input-wrap input{min-width:0;flex:1;border:0;outline:0;background:transparent;font-size:17px;font-variant-numeric:tabular-nums;text-align:right}
     .input-wrap span{font-size:12px;color:var(--muted);white-space:nowrap}
     .field-help{font-size:11px;color:var(--muted)}
+    .withdraw-amount-wrap{border:1px solid var(--border-strong);background:var(--surface);border-radius:var(--r-sm);overflow:hidden}
+    .withdraw-input-row{min-height:52px;display:flex;align-items:center;gap:8px;padding:0 12px}
+    .withdraw-input-row input{min-width:0;flex:1;border:0;outline:0;background:transparent;font-size:17px;font-variant-numeric:tabular-nums;text-align:right}
+    .withdraw-input-row>span{font-size:12px;color:var(--muted);white-space:nowrap}
+    .withdraw-all-button{min-height:36px;padding:5px 8px;border:0;border-radius:8px;background:var(--strong);color:var(--text);font-size:11px;font-weight:700;white-space:nowrap}
+    .withdraw-range{min-height:30px;padding:5px 12px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:10px}
     .quote-card{margin-top:12px;background:var(--subtle);border-radius:var(--r-sm);padding:11px;display:grid;gap:4px}
     .quote-row{display:flex;justify-content:space-between;gap:12px;font-size:12px}
     .quote-row span{color:var(--muted)}
@@ -334,7 +349,7 @@
     .trade-balance-context strong{direction:ltr;color:var(--text);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
     .trade-amount-label{color:var(--muted);font-size:11px;margin-bottom:5px}
     .trade-amount-control{direction:ltr;width:100%;display:grid;grid-template-columns:70px minmax(0,1fr) 70px;grid-template-areas:"unit amount spacer";align-items:center}
-    .trade-amount-control input{grid-area:amount;direction:ltr;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:56px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
+    .trade-amount-control input{grid-area:amount;direction:ltr;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:48px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
     .trade-amount-control input::placeholder{color:#c4c8cc;opacity:1}
     .trade-unit-toggle{grid-area:unit;justify-self:start;min-width:70px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 7px;border:0;border-radius:9px;background:transparent;font-size:13px;font-weight:750}
     .trade-unit-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -534,6 +549,7 @@
       giftSend:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m17 3 3 3-3 3"/></svg>`,
       giftReceive:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m7 3-3 3 3 3"/></svg>`,
       referral:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 16a5 5 0 0 1 7 4"/></svg>`,
+      deposit:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 12h18M8 16h4M17 2v7M14 6l3 3 3-3"/></svg>`,
       withdraw:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 15h4M17 2v6M14 5l3 3 3-3"/></svg>`,
       info:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg>`,
       location:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>`,
@@ -652,14 +668,14 @@
       return `<${tag} class="live-price-ticker" ${attrs} data-price-assets="${assets.join(',')}" data-price-index="${livePriceIndex}"><span class="live-price-label">قیمت فروش لحظه‌ای</span><span class="live-price-window"><span class="live-price-track">${livePriceRow(asset)}</span></span></${tag}>`;
     }
     function finishLivePriceMotion(ticker,nextIndex,nextAsset,token){
-      setTimeout(()=>{if(token!==livePriceMotionToken||!ticker.isConnected)return;ticker.classList.remove('is-shifting');ticker.dataset.priceIndex=String(nextIndex);ticker.querySelector('.live-price-track').innerHTML=livePriceRow(nextAsset);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex},290);
+      setTimeout(()=>{if(token!==livePriceMotionToken||!ticker.isConnected)return;const track=ticker.querySelector('.live-price-track');ticker.classList.remove('is-preparing','is-shifting');track.innerHTML=livePriceRow(nextAsset);ticker.dataset.priceIndex=String(nextIndex);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex},380);
     }
     function advanceLivePrice(){
-      const ticker=appMain.querySelector('.live-price-ticker[data-price-assets]');if(!ticker||ticker.classList.contains('is-shifting'))return;
+      const ticker=appMain.querySelector('.live-price-ticker[data-price-assets]');if(!ticker||ticker.classList.contains('is-preparing')||ticker.classList.contains('is-shifting'))return;
       const assets=ticker.dataset.priceAssets.split(',');if(assets.length<2)return;
-      const nextIndex=(Number(ticker.dataset.priceIndex||0)+1)%assets.length,nextAsset=assets[nextIndex],track=ticker.querySelector('.live-price-track'),token=++livePriceMotionToken;
+      const currentIndex=Number(ticker.dataset.priceIndex||0),currentAsset=assets[currentIndex],nextIndex=(currentIndex+1)%assets.length,nextAsset=assets[nextIndex],track=ticker.querySelector('.live-price-track'),token=++livePriceMotionToken;
       if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ticker.dataset.priceIndex=String(nextIndex);track.innerHTML=livePriceRow(nextAsset);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex;return}
-      track.insertAdjacentHTML('beforeend',livePriceRow(nextAsset));requestAnimationFrame(()=>ticker.classList.add('is-shifting'));finishLivePriceMotion(ticker,nextIndex,nextAsset,token);
+      ticker.classList.add('is-preparing');track.innerHTML=livePriceRow(nextAsset)+livePriceRow(currentAsset);track.getBoundingClientRect();requestAnimationFrame(()=>{if(token!==livePriceMotionToken||!ticker.isConnected)return;ticker.classList.remove('is-preparing');ticker.classList.add('is-shifting')});finishLivePriceMotion(ticker,nextIndex,nextAsset,token);
     }
     function scheduleLivePriceTicker(){
       clearInterval(livePriceTimer);const assets=livePriceAssets();if(assets.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -798,7 +814,7 @@
           <div class="portfolio-rail home-card-variant" role="region" aria-label="کارت‌های دارایی؛ برای دیدن فلزهای بعدی افقی پیمایش کنید">${summary(partial)}${portfolioAssetCard('gold')}${portfolioAssetCard('silver',kind==='normal'?'normal':kind==='partial'?'missing':'outage')}${portfolioAssetCard('copper')}</div><button class="primary-button home-trade-cta" type="button" data-home-trade>خرید و فروش</button>
           </section>
         <article class="section wallet-balance-card">${balanceToggle('wallet','کیف پول تومان')}<button class="wallet-balance-main" type="button" data-sheet="wallet-actions" aria-label="${balanceShown('wallet')?'کیف پول تومان، موجودی ۳۸ میلیون و ۶۰۰ هزار تومان؛ مشاهده واریز و برداشت':'کیف پول تومان، موجودی مخفی است؛ مشاهده واریز و برداشت'}"><span class="wallet-balance-icon" aria-hidden="true">${icons.wallet}</span><span class="wallet-balance-copy"><span>کیف پول تومان</span><strong>${visibleOrHidden('wallet','۳۸٬۶۰۰٬۰۰۰','تومان')}</strong></span><span class="wallet-chevron" aria-hidden="true">${icons.chevronLeft}</span></button></article>
-        <section class="section service-grid home-service-grid" aria-label="دسترسی‌های اصلی"><button class="service-tile" type="button" data-go="history"><span class="service-icon" aria-hidden="true">${icons.history}</span><span class="service-copy"><strong>تاریخچه عملیات</strong></span></button><button class="service-tile" type="button" data-go="installment-hub"><span class="service-icon" aria-hidden="true">${icons.installment}</span><span class="service-copy"><strong>خرید قسطی</strong></span></button><button class="service-tile" type="button" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><span class="service-copy"><strong>دریافت فیزیکی</strong></span></button><button class="service-tile" type="button" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><span class="service-copy"><strong>سفارش قیمت</strong></span></button></section>${campaignSlider()}</div>`;
+        <section class="section service-strip home-service-strip" aria-label="دسترسی‌های اصلی"><button class="service-strip-item" type="button" data-go="history"><span class="service-icon" aria-hidden="true">${icons.history}</span><strong>تاریخچه</strong></button><button class="service-strip-item" type="button" data-go="installment-hub"><span class="service-icon" aria-hidden="true">${icons.installment}</span><strong>خرید قسطی</strong></button><button class="service-strip-item" type="button" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><strong>دریافت فیزیکی</strong></button><button class="service-strip-item" type="button" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><strong>سفارش قیمت</strong></button></section>${campaignSlider()}</div>`;
     }
     function portfolioMix(){
       setChrome('ترکیب دارایی',true,false);
@@ -920,7 +936,7 @@
       const assetTabs=Object.entries(metals).map(([id,item])=>`<button type="button" role="tab" aria-selected="${state.tradeAsset===id}" aria-controls="trade-panel" tabindex="${state.tradeAsset===id?'0':'-1'}" class="trade-asset-tab ${state.tradeAsset===id?'selected':''}" data-select-trade-asset="${id}"><strong>${item.name}</strong></button>`).join('');
       const keypad=['۱','۲','۳','۴','۵','۶','۷','۸','۹'].map(d=>`<button type="button" class="trade-key" data-trade-key="${'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}" aria-label="${d}">${d}</button>`).join('');
       const decimalDisabled=byToman||tradePrecision()===0;
-      const amountSize=state.tradeAmount.length>9?34:state.tradeAmount.length>7?40:state.tradeAmount.length>5?48:56;
+      const amountSize=state.tradeAmount.length>9?30:state.tradeAmount.length>7?35:state.tradeAmount.length>5?42:48;
       setChrome('معامله',state.stack.length>0,true,'معامله');
       return `<div class="trade-asset-tabs" role="tablist" aria-label="انتخاب فلز معامله">${assetTabs}</div>
         <section class="trade-layout" id="trade-panel" role="tabpanel">
@@ -993,7 +1009,7 @@
       return {enabled:true,note:id==='card'?'تا سقف ۱۵ میلیون تومان':'تا سقف ۲۰۰ میلیون تومان'};
     }
     function moneyFlow(mode=state.moneyMode){
-      const deposit=mode==='deposit',amountValue=numericValue(state.moneyAmount),amountReady=amountValue>=10000;state.moneyMode=mode;setChrome(deposit?'افزایش موجودی کیف پول':'برداشت تومان',true,false);
+      const deposit=mode==='deposit',amountValue=numericValue(state.moneyAmount),walletBalance=38600000,amountReady=deposit?amountValue>=10000:amountValue>=200000&&amountValue<=walletBalance;state.moneyMode=mode;setChrome(deposit?'افزایش موجودی کیف پول':'برداشت تومان',true,false);
       if(deposit){
         const presets=['۱٬۰۰۰٬۰۰۰','۵٬۰۰۰٬۰۰۰','۱۰٬۰۰۰٬۰۰۰','۲۰٬۰۰۰٬۰۰۰'],card=selectedBankCard('deposit'),ready=amountReady&&!!card;
         const sourceCard=bankCardSelector({target:'deposit',emptyHint:'برای پرداخت از درگاه، یک کارت به نام خودتان ثبت کنید'});
@@ -1003,7 +1019,8 @@
           <div class="action-stack"><button class="primary-button" type="button" data-start-gateway ${ready?'':'disabled'}>پرداخت از درگاه</button></div>`;
       }
       const destination=selectedBankCard('withdraw');
-      return `<div class="page-lead"><h3>برداشت از کیف</h3><p>مبلغ به مقصد بانکی متعلق به خودتان واریز می‌شود.</p></div><section class="card"><div class="field"><label for="money-amount">مبلغ</label><div class="input-wrap"><input id="money-amount" inputmode="numeric" value="${state.moneyAmount}" placeholder="۰"><span>تومان</span></div><div class="field-help">حداقل ۲۰۰٬۰۰۰ تومان؛ هزینه برداشت صفر</div></div><div class="field"><label>مقصد بانکی</label>${bankCardSelector({target:'withdraw',emptyHint:'برای دریافت وجه، یک کارت بانکی اضافه کنید'})}</div></section><div class="action-stack"><button class="primary-button" type="button" data-money-preview ${amountReady&&destination?'':'disabled'}>بررسی برداشت</button></div>`;
+      const amountError=amountValue>0&&amountValue<200000?'حداقل مبلغ برداشت ۲۰۰٬۰۰۰ تومان است.':amountValue>walletBalance?'مبلغ برداشت بیشتر از موجودی کیف پول است.':'';
+      return `<p class="deposit-warning" role="alert">${icons.warn}<span><strong>توجه:</strong> با توجه به بروز اختلالات بانکی اخیر، پیشنهاد می‌شود تا اطلاع ثانوی از ثبت درخواست واریز به حساب‌های بانک ملی، تجارت و صادرات خودداری بفرمایید و ترجیحاً شماره شبای حساب بانکی دیگری را ثبت کنید.</span></p><section class="money-balance-mini"><span>موجودی قابل برداشت<strong>۳۸٬۶۰۰٬۰۰۰ تومان</strong></span><span class="wallet-balance-icon" aria-hidden="true">${icons.wallet}</span></section><section class="section card"><div class="field" style="margin-top:0"><label for="money-amount">مبلغ</label><div class="withdraw-amount-wrap"><div class="withdraw-input-row"><input id="money-amount" inputmode="numeric" value="${state.moneyAmount}" placeholder="۰"><span>تومان</span><button class="withdraw-all-button" type="button" data-money-all>همه موجودی</button></div><div class="withdraw-range"><span>حداقل ۲۰۰٬۰۰۰ تومان</span><span>حداکثر ۳۸٬۶۰۰٬۰۰۰ تومان</span></div></div>${amountError?`<span class="field-help negative">${amountError}</span>`:''}</div><div class="field"><label>مقصد بانکی</label>${bankCardSelector({target:'withdraw',emptyHint:'برای دریافت وجه، یک کارت بانکی اضافه کنید'})}</div></section><div class="action-stack"><button class="primary-button" type="button" data-money-preview ${amountReady&&destination?'':'disabled'}>برداشت</button></div>`;
     }
     function depositMethodPage(method){
       const card=selectedBankCard('deposit'),amount=numericValue(state.moneyAmount),amountLabel=amount?`${faNumber(amount,0)} تومان`:'مبلغ ثبت‌نشده';
@@ -1185,14 +1202,16 @@
     function services(){
       setChrome('خدمات',false,true,'خدمات');
       return `<div class="page-lead"><h3>خدمات</h3></div><div class="service-grid">
-        <button class="service-tile" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><span class="service-copy"><strong>دریافت فیزیکی</strong></span></button>
-        <button class="service-tile" data-target-kind="alert"><span class="service-icon" aria-hidden="true">${icons.alert}</span><span class="service-copy"><strong>هشدار قیمت</strong></span></button>
-        <button class="service-tile" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><span class="service-copy"><strong>سفارش قیمت</strong></span></button>
         <button class="service-tile" data-go="installment-hub"><span class="service-icon" aria-hidden="true">${icons.installment}</span><span class="service-copy"><strong>خرید اقساطی</strong></span></button>
+        <button class="service-tile" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><span class="service-copy"><strong>دریافت فیزیکی</strong></span></button>
+        <button class="service-tile" data-go="history"><span class="service-icon" aria-hidden="true">${icons.history}</span><span class="service-copy"><strong>تاریخچه</strong></span></button>
+        <button class="service-tile" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><span class="service-copy"><strong>سفارش قیمت</strong></span></button>
+        <button class="service-tile" data-target-kind="alert"><span class="service-icon" aria-hidden="true">${icons.alert}</span><span class="service-copy"><strong>هشدار قیمت</strong></span></button>
         <button class="service-tile" data-gift-mode="send"><span class="service-icon" aria-hidden="true">${icons.giftSend}</span><span class="service-copy"><strong>صدور هدیه</strong></span></button>
         <button class="service-tile" data-gift-mode="receive"><span class="service-icon" aria-hidden="true">${icons.giftReceive}</span><span class="service-copy"><strong>دریافت هدیه</strong></span></button>
-        <button class="service-tile" data-go="referral"><span class="service-icon" aria-hidden="true">${icons.referral}</span><span class="service-copy"><strong>معرفی دوستان</strong></span></button>
+        <button class="service-tile" data-go="deposit"><span class="service-icon" aria-hidden="true">${icons.deposit}</span><span class="service-copy"><strong>واریز</strong></span></button>
         <button class="service-tile" data-go="withdraw"><span class="service-icon" aria-hidden="true">${icons.withdraw}</span><span class="service-copy"><strong>برداشت</strong></span></button>
+        <button class="service-tile" data-go="referral"><span class="service-icon" aria-hidden="true">${icons.referral}</span><span class="service-copy"><strong>معرفی دوستان</strong></span></button>
       </div>`;
     }
     function history(){
@@ -1386,6 +1405,7 @@
       if(t.hasAttribute('data-go-home')){setScenario('home');return}
       if(t.dataset.walletAction){const action=t.dataset.walletAction;closeOverlay({canonical:false});state.moneyMode=action;state.moneyAmount='';state.moneyMethod='gateway';state.moneyTransferRail='bridge';state.moneyDestination='bank-1';state.bankCardPickerTarget=action==='withdraw'?'withdraw':'deposit';if(action==='deposit'&&!state.depositSourceCard){state.hasBankCards=true;state.depositSourceCard='bank-1'}navigate(action);return}
       if(t.dataset.moneyPreset){state.moneyAmount=t.dataset.moneyPreset;render();return}
+      if(t.hasAttribute('data-money-all')){state.moneyAmount='۳۸٬۶۰۰٬۰۰۰';render();return}
       if(t.dataset.moneyMethod){
         const method=t.dataset.moneyMethod;
         if(state.sheet==='money-methods'){
