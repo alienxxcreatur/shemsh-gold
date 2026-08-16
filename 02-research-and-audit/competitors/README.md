@@ -7,6 +7,7 @@
 - `milli-gold/`: بررسی اولیه/قدیمی میلی‌گلد؛ پیش از استفاده با پوشه `milli/` تطبیق داده شود
 - `talasea/`: طلاسی
 - `wallgold/`: وال‌گلد
+- `binance/`: مسیر رسمی Flow-first برای استخراج Patternهای زبان بصری و نگاشت آن‌ها به وایرفریم و سیستم طراحی شمش — D-163
 - `synthesis/competitive-synthesis.md`: جمع‌بندی قابل استفاده برای شمش
 - `synthesis/auth-signup-kyc-benchmark.md`: مقایسه متمرکز ورود، ثبت‌نام، بازیابی رمز و شروع احراز چهار رقیب
 - `synthesis/mobbin-global-pattern-benchmark-2026-08-15.md`: بنچمارک جهانی پترن‌های چنددارایی، معامله، کیف، تاریخچه، هشدار، دریافت فیزیکی و اعتماد با Mobbin

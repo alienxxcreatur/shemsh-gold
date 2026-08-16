@@ -36,6 +36,7 @@
 - وضعیت Color/Typography: `Tested Candidate / Not Stable`
 - Typography و معماری توکن‌های عمومی به‌عنوان Candidate قابل استفاده مجدد باقی می‌مانند.
 - جهت Candidate عمومی به `Black-neutral` تغییر کرده و Purple دیگر Primary پیش‌فرض نیست؛ Statusها معنایی و Accent فلزها کمکی باقی می‌مانند — D-117.
+- مسیر Evidence تازه D-163 در `../02-research-and-audit/competitors/binance/` فعال است. پیش از بازتنظیم گسترده Surface، Border، Spacing، Radius، Typography و Patternهای Home/Trade، Census، Catalog و Mapping بایننس باید عبور کنند. این مسیر Candidateهای موجود را خودکار Demote/Promote نمی‌کند و رفتار رقیب قانون شمش نیست.
 - Sandbox موجود مبنای اجرایی است. ممیزی تازه Button فعلی ۷۲تایی، ۱۴۰ ناسازگاری fallback/resolved و ساختار Focus ناهماهنگ یافت؛ این Set حفظ می‌شود اما `Needs revision` است. قرارداد Candidate تازه با ۱۰۸ Variant در `button-component-contract-v0.3.md` تأیید شده است — D-122.
 - ساخت Foundations و Base componentهای مستقل از فلز فعال است. Gold/Metal Accent، نمودار چندسری، نمادگذاری فلز و Asset selector پیش از OQ-056 `Stable` نمی‌شوند.
 - Motion، Foundation، Responsive، سه Grid Style و Tier 0 شامل Spinner، Progress، Status Badge و Divider در Figma ساخته شده‌اند.
@@ -54,3 +55,5 @@
 - Toast در صفحه مستقل `17 Toast` با Page ID `424:269` و Set ID `426:1647` به Set کامل ۵تایی `Tone=Neutral/Info/Success/Warning/Danger` اضافه شد. `Message` متنی، `Action` و `Dismiss` بولی و `Icon` از نوع Instance Swap است؛ رنگ‌ها از `semantic/color/status/{tone}/*`، Typography از Styleهای Semantic `Yekan Bakh FaNum` و Geometry از Tokenهای معنایی می‌آید. Final technical audit صفر Issue و Visual QA واقعی Light/Dark/RTL/متن بلند پاس شد؛ Ledger در `toast-figma-state-ledger-v0.1.md` است.
 
 وضعیت: `In progress / Sufficient to proceed` با D-117/D-122. Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button، Icon Button، Checkbox، Text Input، Amount Input، OTP Input، Search Input، Alert و Toast در وضعیت `Candidate / Awaiting owner visual review` باقی می‌مانند و تا عبور QA انسانی و وابستگی‌های ثبت‌شده `Stable` اعلام نمی‌شوند.
+
+اولویت اجرایی فعلی: `Binance pattern extraction → Catalog/Mapping → Visual Direction Contract → Foundation Candidate تازه → Pilot Trade/Home/Trust`. ساخت یا Review فنی اجزای فعلی می‌تواند ادامه یابد، اما بازطراحی بصری گسترده یا Promote مبتنی بر Competitor پیش از Gateهای D-163 انجام نمی‌شود.

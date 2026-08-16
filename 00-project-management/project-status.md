@@ -11,13 +11,18 @@
 | ارزیابی فعلی | 🟡 پوشش ساخت افقی همه موج‌ها کامل است: ۲۸ خروجی هدف، پنج State اتصال W0 و چهار حالت Review دریافت فیزیکی در Prototype وجود دارند. بلوغ همه `MM-W0..MM-W8` برابر **۷۵٪** می‌ماند؛ Review جزئی مالک محصول و تصمیم‌های باز شرط ۱۰۰٪ هستند |
 | مسئول تصمیم نهایی | مالک محصول / بیزینس |
 | سند فعال | `06-wireframes-and-testing/multi-metal-physical-delivery-flow-spec.md`؛ بسته مادر: `06-wireframes-and-testing/multi-metal-full-app-wireframe-readiness-pack.md` |
-| آخرین اصلاح قابل Review | فرم برداشت با هشدار اختلال بانکی، موجودی کامل، گزینه «همه موجودی»، بازه داخل کنترل مبلغ و CTA «برداشت» بازطراحی شد؛ Lead تکراری حذف شد — V-083 |
-| قدم بعدی | مالک محصول Header خانه، معامله، خدمات و حداقل دو زیرصفحه را Review کند؛ خانه/خدمات D-145، قرارداد CTA پایین D-144، خانه/Donut D-141، `WF-MM-027`، پروفایل `WF-MM-029` و دریافت فیزیکی `WF-MM-014/014A..D` همچنان باز هستند. OQ-054/OQ-060 و Gateهای مالی/حقوقی موازی‌اند |
+| آخرین اصلاح قابل Review | حالت بدون قرارداد اقساط مینیمال شد: Asset Tab همسان معامله، Slider مبلغ ۱۰–۱۰۰ میلیون، دوره‌های Candidate شش/دوازده‌ماهه و محاسبه زنده قسط/بازپرداخت با نرخ سالیانه ۲۳٪ — V-086 / OQ-005 |
+| قدم بعدی | مالک محصول دو حالت اقساط `WF-MM-023A/B` و سپس Header خانه، معامله، خدمات و حداقل دو زیرصفحه را Review کند؛ خانه/خدمات D-145، قرارداد CTA پایین D-144، خانه/Donut D-141، `WF-MM-027`، پروفایل `WF-MM-029` و دریافت فیزیکی `WF-MM-014/014A..D` همچنان باز هستند. OQ-054/OQ-060 و Gateهای مالی/حقوقی موازی‌اند |
 | مسیر موازی داخلی | Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند. خانواده Input در صفحه واحد `15 Inputs` شامل Text Input ۱۴تایی، Amount Input ۱۶تایی، OTP Input ۳۲تایی و Search Input ۱۲تایی با Radius مشترک ۱۴ و Final technical audit صفر Issue روی مجموع ۷۴ Variant است. Alert در صفحه مستقل `16 Alert` با ۱۰ Variant `Tone × Layout` و Toast در صفحه مستقل `17 Toast` با ۵ Variant `Tone` و چهار Property عمومی ساخته و با audit فنی/بصری صفر Issue تأیید شدند. OTP دارای Success گذرا تا Redirect است؛ تأیید بصری مالک محصول برای Promote Setهای Candidate باز می‌ماند. Button، Icon Button، Checkbox، Alert و Toast نیز منتظر تأیید بصری‌اند. Palette نمودار، Accent و اجزای فلزمحور تا OQ-056 Candidate می‌مانند — D-134/D-136/D-143/D-148 |
+| مسیر موازی استخراج بصری | Audit رسمی Binance iOS با Snapshot اولیه ۱٬۴۵۲ Screen / ۴۶۹ Flow در `02-research-and-audit/competitors/binance/` فعال شد. روش Flow-first، Shortlist، نمونه‌گیری لایه‌ای، اثبات Pattern و نگاشت `Adopt / Adapt / Reject / Defer` است. هدف فعلی ۱۲۰–۱۶۰ Screen منحصربه‌فرد و Gate فعلی `Sufficient to start extraction` است؛ Stage 6 و بلوغ Candidateهای Figma تغییر نمی‌کنند — D-163 |
 | مسیر موازی بیرونی | هشت تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی عددهای پورتفوی |
 
 ## آنچه تا امروز داریم
 
+- بازطراحی Candidate حالت بدون قرارداد اقساط: حذف Lead/Tag/عنوان/Labelهای تکراری، انتخاب فلز با Asset Tab مشترک معامله، Slider مبلغ ۱۰ تا ۱۰۰ میلیون تومان و Summary زنده قسط/نرخ/مجموع بازپرداخت. دوره‌های ۶/۱۲ و نرخ ۲۳٪ تا تأیید جایگزینی D-089 قانون رسمی نیستند — V-086 / OQ-005
+- ثبت مسیر رسمی استخراج Pattern بایننس در پنج سند `02-research-and-audit/competitors/binance/`: قرارداد منبع/Evidence، Census و Shortlist، Catalog، Mapping و Gateهای G0..G5. Snapshot اولیه Mobbin عددهای ۱٬۴۵۲ Screen، ۴۶۹ Flow و ۱۷ خانواده سطح بالا را نشان می‌دهد؛ رفتار رقیب قانون شمش نیست و هیچ تغییر تخریبی Figma پیش از Mapping انجام نمی‌شود — D-163 / R-016
+- اصلاح جزئی صفحه معامله و خانه: Border پایین Asset Tab حذف و چهار Shortcut خانه با Padding داخلی ۸px، Gap چهارپیکسلی و Radius ده‌پیکسلی از لبه‌های قاب جدا شدند — V-085
+- یکپارچه‌سازی خرید اقساطی در مقصد صفحه‌ای واحد با دو State قابل Review: `WF-MM-023A` برای قرارداد فعال و `WF-MM-023B` برای کاربر بدون قرارداد فعال و شروع خرید جدید؛ صفحه جداگانه Setup حذف و Preview/Result حفظ شد — D-162 / V-084
 - `Observed fact` — ثبت مراجع رسمی ارائه مدیریتی وایرفریم در `06-wireframes-and-testing/README.md`: فایل `multi-metal-waves-1-and-3-wireframe.html` برای بیشتر فلوها و فلو سبز، و فایل `wave-1-auth-kyc-wireframe.html` برای ورود/ثبت‌نام و احراز هویت. `Design assumption` — هدف انتشار بعدی یک آدرس وب ثابت با به‌روزرسانی خودکار از نسخه Push‌شده مخزن است؛ این ثبت Gate مرحله را تغییر نمی‌دهد
 - `Observed fact` — اسکریپت `scripts/build-wireframe-share.mjs` برای انتشار Cloudflare Pages اضافه شد؛ خروجی محدود `dist-wireframes/` شامل صفحه انتخاب، دو مرجع رسمی، فونت موردنیاز و Header جلوگیری از Index شدن است و با هر Build از فایل‌های منبع تازه ساخته می‌شود
 - ممیزی اختصاصی صفحه خانه با Mobbin در `06-wireframes-and-testing/home-mobbin-structure-audit-2026-08-15.md`: هفت Preview از Revolut، Coinbase، N26 و Fidelity مستقیماً بررسی شد. پس از تأیید D-159، Candidate سه‌ردیفه تاریخی شد و نسخه Cardمحور با اولویت بصری طلا در `06-wireframes-and-testing/artifacts/home-mobbin-card-priority-candidate-v2.png` ثبت شد؛ Gate مرحله تغییر نکرد
@@ -330,6 +335,11 @@
 - [x] افزودن پنج صفحه/State `MM-W2` به Prototype مشترک و پاس Assertionهای ساختاری
 - [x] ساخت و QA Prototype مستقل تست تحقیق Mobbin برای معامله با Preview، کارمزد عددی، نرخ ۲۰ثانیه‌ای و چهار Result؛ فایل مرجع اصلی بدون تغییر ماند
 - [x] ساخت و QA Candidate مستقل Binance/Kraken برای چیدمان ورودی معامله و ثبت OQ-061 برای جای موجودی؛ D-154 و Prototype مرجع بدون تغییر ماندند
+- [x] تصویب و مستندسازی Workflow رسمی استخراج Binance iOS و همگام‌سازی Stage 2/6/7 — D-163 / R-016
+- [x] ثبت Snapshot اولیه ۱٬۴۵۲ Screen، ۴۶۹ Flow، ۱۷ خانواده و ساخت قالب‌های Evidence/Shortlist/Catalog/Mapping
+- [ ] تکمیل Census و Shortlist اولیه ۲۵–۳۵ Flow مرتبط با شمش
+- [ ] اجرای Batchهای A..D و رسیدن به Saturation Pattern در نمونه هدف ۱۲۰–۱۶۰ Screen منحصربه‌فرد
+- [ ] تکمیل Catalog و Mapping پیش از Visual Direction Contract و Candidate تازه Figma
 - [x] تعریف برنامه رسمی مرحله ۷ و تعیین فاز ۱ Foundations به‌عنوان زیرتسک فعال
 - [x] ممیزی اولیه Prep، موج ۱ و PDF برندگاید قبلی و ثبت `Promote / Revise / Keep Draft`
 - [x] استخراج Candidateهای Logo، Color و Typography و تست کنتراست اولیه
@@ -375,15 +385,13 @@
 
 ## نزدیک‌ترین کارهای بعدی
 
-1. Review دستی فلو زنده `WF-MM-014` و حالت‌های `014A..014D` توسط مالک محصول
-2. ثبت اصلاحات MM-W4 و سپس ادامه جزئیات موج‌به‌موج؛ ارتقا از ۷۵٪ به ۱۰۰٪ فقط پس از تأیید
-3. Review موازی ماتریس `Feature × Asset` پیش از نهایی‌کردن `MM-W5..MM-W8` — D-127/D-130/D-131/D-133/OQ-054
-4. بازبینی بصری نهایی مالک محصول روی Button ۱۰۸تایی صفحه `10 Button` و Promote در صورت تأیید — D-122
-5. بازبینی بصری نهایی ماتریس ۷۲تایی Icon Button در صفحه `11 Icon Button` و Promote در صورت تأیید — D-133
-6. تأیید بصری خانواده Input در صفحه واحد `15 Inputs` و Promote هر Set در صورت تأیید — D-143
-7. تأیید بصری ماتریس کامل OTP Input و Search Input در صفحه `15 Inputs` و سپس انتخاب Component بعدی خانواده Input با تأیید مالک محصول
-8. ساخت Feedback باقی‌مانده، یعنی Skeleton، طبق `07-design-system/base-components-candidate-v0.2.md`
-9. اخذ تأییدهای مالی/حسابداری باقی‌مانده OQ-055 — مسیر موازی D-118
+1. تکمیل Census خانواده‌ها و ساخت Shortlist اولیه ۲۵–۳۵ Flow بایننس؛ سپس شروع Deep audit معامله — D-163
+2. Review دستی فلو زنده `WF-MM-014` و حالت‌های `014A..014D` توسط مالک محصول در مسیر موازی وایرفریم
+3. ثبت اصلاحات MM-W4 و سپس ادامه جزئیات موج‌به‌موج؛ ارتقا از ۷۵٪ به ۱۰۰٪ فقط پس از تأیید
+4. Review موازی ماتریس `Feature × Asset` پیش از نهایی‌کردن `MM-W5..MM-W8` — D-127/D-130/D-131/D-133/OQ-054
+5. نگه‌داشت Candidateهای فعلی Figma و تکمیل Reviewهای مالک؛ بازتنظیم گسترده Visual Foundation پس از Catalog/Mapping بایننس انجام شود
+6. ساخت Feedback باقی‌مانده، یعنی Skeleton، فقط در صورت عدم تعارض با مسیر استخراج و طبق `07-design-system/base-components-candidate-v0.2.md`
+7. اخذ تأییدهای مالی/حسابداری باقی‌مانده OQ-055 — مسیر موازی D-118
 
 ## موانع و وابستگی‌های مهم
 
