@@ -1,6 +1,6 @@
 # فهرست مرجع و Census بایننس
 
-وضعیت: `Census and within-batch G2 complete / G3 cross-batch complete / G4 global mapping pending`
+وضعیت: `Census and G2/G3 complete / G4 global candidate mapping complete / Owner review pending`
 تاریخ Snapshot: ۲۵ مرداد ۱۴۰۵ / 16 Aug 2026
 
 ## منبع اصلی

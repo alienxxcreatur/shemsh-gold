@@ -75,7 +75,7 @@
     button.live-price-ticker{cursor:pointer}
     .live-price-label{font-size:10px;color:var(--muted);white-space:nowrap}
     .live-price-window{direction:ltr;height:38px;overflow:hidden;min-width:0}
-    .live-price-track{height:38px;transform:translateY(0);will-change:transform}
+    .live-price-track{position:relative;top:0;height:38px}
     .live-price-row{direction:rtl;height:38px;display:flex;align-items:center;justify-content:flex-start;gap:6px;white-space:nowrap}
     .live-price-row strong{direction:ltr;font-size:15px;line-height:1;font-weight:750;font-variant-numeric:tabular-nums}
     .live-price-row span{font-size:12px;font-weight:650}
@@ -90,7 +90,7 @@
     .summary-meta strong{color:#fff}
     .portfolio-rail{direction:rtl;display:flex;gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;padding:2px 0;scrollbar-width:none;-ms-overflow-style:none}
     .portfolio-rail::-webkit-scrollbar{display:none}
-    .portfolio-card{position:relative;flex:0 0 calc(100% - 104px);min-height:98px;scroll-snap-align:start;scroll-snap-stop:always;border:1px solid var(--border);border-radius:var(--r-md);text-align:right;background:var(--surface)}
+    .portfolio-card{position:relative;flex:0 0 calc(100% - 64px);min-height:98px;scroll-snap-align:start;scroll-snap-stop:always;border:1px solid var(--border);border-radius:var(--r-md);text-align:right;background:var(--surface)}
     .portfolio-card-main{width:100%;min-height:96px;border:0;background:transparent;color:inherit;text-align:right;padding:10px 12px;display:grid;align-content:space-between;gap:8px;border-radius:inherit;cursor:pointer}
     .portfolio-total{background:var(--primary);border-color:var(--primary);color:#fff}
     .portfolio-total .balance-toggle{color:#fff}
@@ -736,7 +736,7 @@
     ];
 
     const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeInputUnit:'toman',tradeAmount:'',tradeUseWallet:false,quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,balanceVisibility:{total:false,gold:false,silver:false,copper:false,wallet:false},campaignIndex:0,
-      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:true,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
+      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:false,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
     const appMain=document.getElementById('app-main'), headerTitle=document.getElementById('header-title');
     const headerLeft=document.getElementById('header-left'), headerRight=document.getElementById('header-right');
     const bottomNav=document.getElementById('bottom-nav'), overlayRoot=document.getElementById('overlay-root');
@@ -747,11 +747,7 @@
       if(['auth-login','kyc','deposit','deposit-no-card','withdraw','money-preview','physical-preview','physical-failed','physical-success','target-preview','installment-payment','installment-preview','installment-fee-payment','installment-gateway','installment-success','gift-preview','bank-accounts','bank-add','bank-add-preview','security','change-password','licenses','legal','profile','feature-processing','feature-result','trade-preview','trade-processing','receipt'].includes(scenario)||scenario.startsWith('deposit-method-'))return [];
       if(scenario==='market3'||scenario==='market16'||scenario.startsWith('trade-'))return [];
       if(scenario.startsWith('detail-'))return [];
-      if(scenario==='chart-single')return [state.chartAsset];
-      if(scenario.startsWith('physical-')||scenario==='market-services'||scenario.startsWith('target-')||scenario.startsWith('installment-')||scenario.startsWith('gift-'))return [state.featureAsset];
-      if((scenario==='history'||scenario==='history-filtered')&&state.metal!=='all')return [state.metal];
-      if(['home','home-partial','outage','portfolio-mix','services','zero','guest','history','history-filtered','referral'].includes(scenario))return ['gold','silver','copper'];
-      return [];
+      return ['gold','silver','copper'];
     }
     function livePriceUnavailable(asset){return asset==='silver'&&['home-partial','outage'].includes(state.scenario)}
     function livePriceRow(asset){
@@ -765,14 +761,14 @@
       return `<${tag} class="live-price-ticker" ${attrs} data-price-assets="${assets.join(',')}" data-price-index="${livePriceIndex}"><span class="live-price-label">قیمت فروش لحظه‌ای</span><span class="live-price-window"><span class="live-price-track">${livePriceRow(asset)}</span></span></${tag}>`;
     }
     function finishLivePriceMotion(ticker,nextIndex,nextAsset,token){
-      if(token!==livePriceMotionToken||!ticker.isConnected)return;const track=ticker.querySelector('.live-price-track');ticker.classList.remove('is-shifting');track.innerHTML=livePriceRow(nextAsset);ticker.dataset.priceIndex=String(nextIndex);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex;
+      if(token!==livePriceMotionToken||!ticker.isConnected)return;const track=ticker.querySelector('.live-price-track');ticker.classList.remove('is-shifting');track.style.top='';track.innerHTML=livePriceRow(nextAsset);ticker.dataset.priceIndex=String(nextIndex);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex;
     }
     function advanceLivePrice(){
       const ticker=appMain.querySelector('.live-price-ticker[data-price-assets]');if(!ticker||ticker.classList.contains('is-preparing')||ticker.classList.contains('is-shifting'))return;
       const assets=ticker.dataset.priceAssets.split(',');if(assets.length<2)return;
       const currentIndex=Number(ticker.dataset.priceIndex||0),currentAsset=assets[currentIndex],nextIndex=(currentIndex+1)%assets.length,nextAsset=assets[nextIndex],track=ticker.querySelector('.live-price-track'),token=++livePriceMotionToken;
       if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ticker.dataset.priceIndex=String(nextIndex);track.innerHTML=livePriceRow(nextAsset);ticker.setAttribute('aria-label',`قیمت فروش لحظه‌ای؛ ${metals[nextAsset].name}؛ ${livePriceUnavailable(nextAsset)?'نرخ معتبر در دسترس نیست':metals[nextAsset].rate+' تومان برای هر گرم'}؛ نمایش نرخ فلز بعدی`);livePriceIndex=nextIndex;return}
-      ticker.classList.add('is-shifting');track.innerHTML=livePriceRow(currentAsset)+livePriceRow(nextAsset);const motion=track.animate([{transform:'translateY(0)'},{transform:'translateY(-38px)'}],{duration:420,easing:'cubic-bezier(.4,0,.2,1)'});motion.addEventListener('finish',()=>finishLivePriceMotion(ticker,nextIndex,nextAsset,token),{once:true});
+      ticker.classList.add('is-shifting');track.innerHTML=livePriceRow(currentAsset)+livePriceRow(nextAsset);let startedAt=null;const step=timestamp=>{if(token!==livePriceMotionToken||!ticker.isConnected)return;if(startedAt===null)startedAt=timestamp;const progress=Math.min((timestamp-startedAt)/460,1),eased=.5-Math.cos(Math.PI*progress)/2;track.style.top=`${-38*eased}px`;if(progress<1)requestAnimationFrame(step);else finishLivePriceMotion(ticker,nextIndex,nextAsset,token)};requestAnimationFrame(step);
     }
     function scheduleLivePriceTicker(){
       clearInterval(livePriceTimer);const assets=livePriceAssets();if(assets.length<2||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;

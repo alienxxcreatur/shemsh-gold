@@ -10,7 +10,7 @@
 
 این سند `BN-P-009..029` و توسعه‌های سراسری `BN-P-003/007` را با Prototype مرجع شمش و Design System فعلی مقایسه می‌کند. خروجی، قرارداد Candidate برای Review است؛ نه تصمیم نهایی هویت بصری، نه مجوز تغییر وایرفریم و نه مجوز Promote/Demote در Figma.
 
-- **Observed fact:** ساختار و رفتار مرجع شمش در [`multi-metal-waves-1-and-3-wireframe.html`](../../../../06-wireframes-and-testing/artifacts/multi-metal-waves-1-and-3-wireframe.html) باقی می‌ماند.
+- **Observed fact:** ساختار و رفتار مرجع شمش در [`multi-metal-waves-1-and-3-wireframe.html`](../../../06-wireframes-and-testing/artifacts/multi-metal-waves-1-and-3-wireframe.html) باقی می‌ماند.
 - **Observed fact:** Pilot موجود `multi-metal-waves-1-and-3-binance-alignment-pilot.html` در این مرحله تغییر نکرد.
 - **Observed fact:** Foundations فعلی `Black-neutral / Candidate / Not Stable` است؛ Radius، Elevation و قراردادهای Overlay هنوز نهایی نیستند.
 - **Design assumption:** نظم سفید، سلسله‌مراتب عددی، Flat row و Grouping انتخابی بایننس برای شمش مفید است؛ رنگ زرد، Taxonomy کریپتو و اندازه‌های دقیق آن منتقل نمی‌شوند.

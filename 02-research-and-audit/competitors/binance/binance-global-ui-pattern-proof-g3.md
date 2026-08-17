@@ -71,14 +71,15 @@
 - مناسب‌بودن مستقیم Yellow، Crypto taxonomy، Social feed، Futures density یا Buy/Sell color برای شمش.
 - Global Unique count بین چهار Batch؛ شمارش ۱۵۸ فقط جمع Uniqueهای درون‌Batch است.
 
-## ورودی G4/G5
+## تحویل به G4/G5
 
-مرحله بعد باید برای هر `BN-P-009..029` و توسعه‌های `BN-P-003/007` مشخص کند:
+G4 برای هر `BN-P-009..029` و توسعه‌های `BN-P-003/007` این موارد را در [`binance-global-to-shemsh-mapping-g4.md`](binance-global-to-shemsh-mapping-g4.md) ثبت کرده است:
 
 1. `Adopt / Adapt / Reject / Defer` برای شمش.
 2. اثر بر Foundation، Component، Composition، Behavior و State فعلی.
 3. ریسک RTL/PWA/فارسی/تومان و چندفلزی.
 4. اینکه Pattern در Home، Trade، Trust/Receipt یا Component sandbox آزموده شود.
 
-Gate G3 Cross-batch: `Complete / Sufficient to proceed to G4 global mapping; no automatic transfer to Shemsh`.
+Gate G3 Cross-batch: `Complete`.
 
+Gate بعدی: `G4 complete as candidate mapping / Sufficient for owner review؛ no automatic transfer to Shemsh before G5 contract`.
