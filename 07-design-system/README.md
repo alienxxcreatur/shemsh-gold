@@ -36,7 +36,7 @@
 - وضعیت Color/Typography: `Tested Candidate / Not Stable`
 - Typography و معماری توکن‌های عمومی به‌عنوان Candidate قابل استفاده مجدد باقی می‌مانند.
 - جهت Candidate عمومی به `Black-neutral` تغییر کرده و Purple دیگر Primary پیش‌فرض نیست؛ Statusها معنایی و Accent فلزها کمکی باقی می‌مانند — D-117.
-- مسیر Evidence تازه D-163 در `../02-research-and-audit/competitors/binance/` فعال است. G4 معامله با هشت نگاشت `3 Adopt + 5 Adapt` و Pilot غیرمخرب HTML/Figma کامل شده است؛ Batchهای A/B/D و Pilotهای Home/Trust هنوز بازند. این مسیر Candidateهای موجود را خودکار Demote/Promote نمی‌کند و رفتار رقیب قانون شمش نیست.
+- مسیر Evidence تازه D-163 در `../02-research-and-audit/competitors/binance/` فعال است. G2/G3 سراسری و G4 Candidate mapping کامل شده‌اند: هشت نگاشت معامله `3 Adopt + 5 Adapt` و ۲۳ نگاشت سراسری `9 Adopt + 13 Adapt + 1 Defer`. Pilotهای Home/Trust هنوز بازند. این مسیر Candidateهای موجود را خودکار Demote/Promote نمی‌کند و رفتار رقیب قانون شمش نیست.
 - Sandbox موجود مبنای اجرایی است. ممیزی تازه Button فعلی ۷۲تایی، ۱۴۰ ناسازگاری fallback/resolved و ساختار Focus ناهماهنگ یافت؛ این Set حفظ می‌شود اما `Needs revision` است. قرارداد Candidate تازه با ۱۰۸ Variant در `button-component-contract-v0.3.md` تأیید شده است — D-122.
 - ساخت Foundations و Base componentهای مستقل از فلز فعال است. Gold/Metal Accent، نمودار چندسری، نمادگذاری فلز و Asset selector پیش از OQ-056 `Stable` نمی‌شوند.
 - Motion، Foundation، Responsive، سه Grid Style و Tier 0 شامل Spinner، Progress، Status Badge و Divider در Figma ساخته شده‌اند.
@@ -56,4 +56,4 @@
 
 وضعیت: `In progress / Sufficient to proceed` با D-117/D-122. Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button، Icon Button، Checkbox، Text Input، Amount Input، OTP Input، Search Input، Alert و Toast در وضعیت `Candidate / Awaiting owner visual review` باقی می‌مانند و تا عبور QA انسانی و وابستگی‌های ثبت‌شده `Stable` اعلام نمی‌شوند.
 
-اولویت اجرایی فعلی: `Owner review of G4 Trade pilot → G5 Visual Direction Contract → Foundation Candidate تازه → Pilot Home/Trust` همراه با ادامه Dedupe Batchهای A/B/D. کپی Figma با صفحه `18 Trade G4 Pilot` فقط Reference/Candidate board است؛ صفحات و Componentهای فعلی دست‌نخورده‌اند. ساخت یا Review فنی اجزای فعلی می‌تواند ادامه یابد، اما بازطراحی بصری گسترده یا Promote مبتنی بر Competitor پیش از Gateهای D-163 انجام نمی‌شود.
+اولویت اجرایی فعلی: `Owner review of G4 global mapping → G5 Visual Direction Contract → Foundation Candidate تازه → Pilot Home/Assets → Pilot Trust/Receipt`. چهار موضوع P0 Review عبارت‌اند از Canvas/Surface، Card taxonomy، Title hierarchy و Numeric anchor. کپی Figma با صفحه `18 Trade G4 Pilot` فقط Reference/Candidate board است؛ صفحات و Componentهای فعلی دست‌نخورده‌اند. ساخت یا Review فنی اجزای فعلی می‌تواند ادامه یابد، اما بازطراحی بصری گسترده یا Promote مبتنی بر Competitor پیش از Gateهای D-163 انجام نمی‌شود.

@@ -184,6 +184,6 @@ Screen 1 همان `c3dd...` است و دوباره شمرده نشده است.
 ## Gate
 
 - G2 برای **Batch C**: `Complete`.
-- G2 کل Audit: `In progress`؛ Batchهای A/B/D هنوز Dedupe نشده‌اند.
-- G3 برای Batch C: `Complete — 8 Corroborated / 0 Mapped`.
-- آمادگی مرحله بعد: `Sufficient to proceed to G4 Trade mapping`.
+- G2 کل Audit: `Complete within batches`؛ Ledger سراسری در [`binance-cross-batch-evidence-ledger-g2.md`](binance-cross-batch-evidence-ledger-g2.md) ثبت شده است.
+- G3 برای Batch C: `Complete — 8 Corroborated`؛ G4 معامله نیز برای هر هشت Pattern کامل است.
+- G3 سراسری: `Complete — 29 Corroborated`؛ G4 سراسری Patternهای `BN-P-009..029` باز است.

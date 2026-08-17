@@ -241,7 +241,6 @@ G4 باید برای هر `BN-P-001..008` این تصمیم‌ها را جدا �
 ## Gate
 
 - G3 برای **Batch C**: `Complete`.
-- نتیجه: `8 Corroborated / 0 Rejected as Binance patterns / 0 Mapped to Shemsh`.
-- آمادگی مرحله بعد: `Sufficient to proceed to G4 Trade mapping`.
-- G2 کل Audit: `In progress`؛ Batchهای A/B/D هنوز بازند.
-
+- نتیجه تاریخی این سند: `8 Corroborated / 0 Rejected as Binance patterns`.
+- وضعیت بعدی: G4 معامله برای هر هشت Pattern کامل و Mapped شده است.
+- G2/G3 کل Audit نیز در [`binance-cross-batch-evidence-ledger-g2.md`](binance-cross-batch-evidence-ledger-g2.md) و [`binance-global-ui-pattern-proof-g3.md`](binance-global-ui-pattern-proof-g3.md) کامل شده است؛ G4 سراسری باز می‌ماند.

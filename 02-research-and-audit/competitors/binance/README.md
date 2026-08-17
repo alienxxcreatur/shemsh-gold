@@ -1,6 +1,6 @@
 # ممیزی بایننس برای زبان بصری و Patternهای شمش
 
-وضعیت: `Active / Cross-batch UI language matrix v0.1 drafted / A-B-D dedupe and proof pending`
+وضعیت: `Active / G2-G4 complete as evidence + candidate mapping / 29 corroborated patterns / Owner review pending`
 تاریخ شروع: ۲۵ مرداد ۱۴۰۵ / 16 Aug 2026
 تصمیم مرجع: D-163
 
@@ -16,11 +16,14 @@
 
 - [`binance-reference-index.md`](binance-reference-index.md): Snapshot منبع، Census خانواده‌ها، معیار ورود و ثبت Evidence.
 - [`binance-flow-shortlist.md`](binance-flow-shortlist.md): فهرست جریان‌ها و Batchهای نمونه‌گیری با اولویت `Core / Supporting / Pattern-only / Exclude`.
+- [`binance-cross-batch-evidence-ledger-g2.md`](binance-cross-batch-evidence-ledger-g2.md): Dedupe و Observationهای A/B/C/D؛ ۱۷۳ Screen خام و ۱۵۸ Unique درون-Batch، بدون ادعای Global Unique.
 - [`binance-trade-batch-c-evidence-ledger.md`](binance-trade-batch-c-evidence-ledger.md): Dedupe و Ledger اسکرین‌به‌اسکرین هشت Flow معامله؛ ۴۱ Screen خام و ۳۸ Screen منحصربه‌فرد.
 - [`binance-trade-pattern-proof-g3.md`](binance-trade-pattern-proof-g3.md): اثبات هشت Pattern معامله با تکرار، State depth، Counter-example و محدودیت انتقال.
+- [`binance-global-ui-pattern-proof-g3.md`](binance-global-ui-pattern-proof-g3.md): اثبات ۲۴ Candidate سراسری و حل آن‌ها به ۲۱ Pattern تازه به‌علاوه توسعه دامنه `BN-P-003/007`.
 - [`binance-pattern-catalog.md`](binance-pattern-catalog.md): کاتالوگ Patternهای تکرارشونده در Foundation، Component، Composition، Behavior و State.
 - [`binance-global-ui-language-matrix-v0.1.md`](binance-global-ui-language-matrix-v0.1.md): سنتز سراسری Candidate برای انتخاب `Inline / Sheet / Page / Modal`، Surface/Border/Divider، Title، Color، Action، State و Component taxonomy در Home، Settings، Markets، Assets، Auth/KYC، Security، Payment و Deposit.
 - [`binance-to-shemsh-mapping.md`](binance-to-shemsh-mapping.md): نگاشت هر Pattern به وایرفریم، سیستم طراحی و تصمیم `Adopt / Adapt / Reject / Defer`.
+- [`binance-global-to-shemsh-mapping-g4.md`](binance-global-to-shemsh-mapping-g4.md): نگاشت سراسری ۲۱ Pattern تازه و توسعه‌های `BN-P-003/007` به Foundation، Component و Composition شمش؛ `9 Adopt + 13 Adapt + 1 Defer` در ۲۳ رکورد.
 
 ## ترتیب اجرا
 
@@ -57,9 +60,9 @@
 |---|---|---|
 | G0 — Workflow | منبع، روش، برچسب‌ها، Batchها و خروجی‌ها روشن باشند | `Complete` |
 | G1 — Census | خانواده‌های مرتبط و Shortlist اولیه ثبت شوند | `Complete — 17 families / 32 flows / 173 raw screens` |
-| G2 — Evidence | نمونه هدف با لینک، Context و حذف تکرار پوشش داده شود | `Batch C complete — 8 flows / 41 raw / 38 unique؛ نمونه‌گیری مستقیم A/B/D و Matrix v0.1 انجام شده، Dedupe A/B/D pending` |
-| G3 — Pattern | هر Rule شاهد تکرار، Confidence و Counter-example داشته باشد | `Batch C complete — 8 corroborated؛ 24 Cross-batch UI candidates awaiting proof` |
-| G4 — Mapping | اثر هر Rule روی وایرفریم و DS فعلی مشخص باشد | `Trade complete — 8 mapped / 3 Adopt / 5 Adapt` |
+| G2 — Evidence | نمونه هدف با لینک، Context و حذف تکرار پوشش داده شود | `Complete within batches — A 42/39، B 44/39، C 41/38، D 46/42؛ Global union not claimed` |
+| G3 — Pattern | هر Rule شاهد تکرار، Confidence و Counter-example داشته باشد | `Complete — 29 corroborated؛ 21 new cross-batch patterns + scope extension of BN-P-003/007` |
+| G4 — Mapping | اثر هر Rule روی وایرفریم و DS فعلی مشخص باشد | `Complete as candidate mapping — Trade 8 records + Global 23 records؛ Owner review pending` |
 | G5 — Pilot-ready | قرارداد بصری قابل تست برای Trade/Home/Trust آماده باشد | `Trade candidate built in HTML + Figma / Owner review pending؛ Home/Trust pending` |
 
-Gate فعلی: `Cross-batch matrix v0.1 sufficient to proceed to A/B/D dedupe and G3 proof; no Home/DS transfer before proof`.
+Gate فعلی: `G4 global mapping complete as candidate / Sufficient for owner review؛ G5 Visual Direction Contract پیش از هر انتقال تازه Home/DS لازم است`.

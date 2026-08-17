@@ -1,6 +1,6 @@
 # نگاشت Patternهای بایننس به شمش
 
-وضعیت: `G4 Trade complete / 8 mapped / HTML and Figma pilot built / Owner review pending`
+وضعیت: `G4 Trade + Global complete as candidate mapping / 31 mapping records / Owner review pending`
 
 ## اصل نگاشت
 
@@ -39,6 +39,14 @@ Current Shemsh Design System
 - `BN-P-001..008` در [`binance-trade-pattern-proof-g3.md`](binance-trade-pattern-proof-g3.md) وضعیت `Corroborated` دارند.
 - هر هشت Pattern در G4 با صفحه معامله وایرفریم و Candidateهای فعلی Figma مقایسه و تصمیم‌گذاری شدند.
 - نتیجه فعلی `3 Adopt + 5 Adapt + 0 Reject + 0 Defer` است؛ تصمیم‌ها Candidate هستند و تا Review مالک محصول باعث Promote/Demote کامپوننت‌های موجود نمی‌شوند.
+
+## نگاشت سراسری G4
+
+- `BN-P-009..029` و توسعه‌های سراسری `BN-P-003/007` در [`binance-global-to-shemsh-mapping-g4.md`](binance-global-to-shemsh-mapping-g4.md) نگاشت شده‌اند.
+- نتیجه این بخش `23 mapping records = 9 Adopt + 13 Adapt + 0 Reject + 1 Defer` است.
+- تنها مورد Deferred، Composition گزارش تحلیلی Card-heavy است؛ چون Report مستقل هنوز در Scope قطعی Release شمش نیست.
+- این Mapping اثر Patternها را روی Foundation، Component و Composition روشن می‌کند، اما هنوز مجوز تغییر Home، Foundation یا Figma نیست. انتقال بصری پس از Review مالک و قرارداد G5 انجام می‌شود.
+- با احتساب هشت Mapping معامله، پوشش G4 اکنون `31 mapping records` دارد. Patternهای `BN-P-003/007` در دو Scope معامله و سراسری عمداً دو رکورد دارند و تعداد رکوردها برابر تعداد Pattern یکتا نیست.
 
 ## ماتریس نگاشت
 

@@ -1,6 +1,6 @@
 # ماتریس زبان رابط و تصمیم‌های UI بایننس — نسخه ۰.۱
 
-وضعیت: `Cross-batch candidate synthesis / A-B-D dedupe and G3 proof pending`
+وضعیت: `Cross-batch synthesis complete / 24 candidates resolved in G3 proof`
 
 تاریخ: ۲۶ مرداد ۱۴۰۵ / 17 Aug 2026
 
@@ -27,7 +27,7 @@
 - Login، Onboarding، KYC، Verification و Recovery
 - Payment method، Bank form، Deposit و Export records
 
-مجموع Census رسمی همچنان ۳۲ Flow و ۱۷۳ Screen خام است. Batch C دارای ۳۸ Screen منحصربه‌فرد و Proof کامل است؛ Dedupe عددی Batchهای A/B/D هنوز باز است، بنابراین Patternهای جدید این سند `Candidate` هستند.
+مجموع Census رسمی ۳۲ Flow و ۱۷۳ Screen خام است. Dedupe درون هر Batch تکمیل شد: A برابر ۳۹، B برابر ۳۹، C برابر ۳۸ و D برابر ۴۲ Screen منحصربه‌فرد. جمع ۱۵۸، جمع درون-Batch است و به‌دلیل تکرار میان Batchها Global Unique محسوب نمی‌شود. نتیجه Proof هر Candidate در [`binance-global-ui-pattern-proof-g3.md`](binance-global-ui-pattern-proof-g3.md) ثبت شده است.
 
 ## خلاصه مدل تصمیم
 
@@ -359,7 +359,7 @@ Section headingها نیز دو نقش دارند:
 
 ## Evidence gap و کار باقی‌مانده
 
-- Dedupe عددی و Ledger Screen-by-screen برای A/B/D کامل نشده است.
+- Union سراسری Screen ID میان چهار Batch ساخته نشده است؛ عدد ۱۵۸ فقط جمع Uniqueهای درون-Batch است.
 - Help & Support و چند Flow Privacy/Notification فقط Preview-reviewed هستند و هنوز در Matrix شواهد تفصیلی ندارند.
 - اندازه دقیق Typography، Spacing، Radius، Icon و Touch target از Screenshot قابل‌اثبات نیست و باید Qualitative بماند.
 - Error/Offline/Timeout در همه خانواده‌ها پوشش یکنواخت ندارد.
@@ -368,7 +368,6 @@ Section headingها نیز دو نقش دارند:
 
 ## Gate
 
-- Cross-batch language matrix v0.1: `Sufficient to proceed to A/B/D dedupe and G3 proof`.
-- Foundation/Component exact specification: `Needs revision` تا اثبات Pattern و اندازه‌گیری مستقل.
-- انتقال به شمش یا ویرایش وایرفریم: `Not authorized by this document`.
-
+- Cross-batch language matrix v0.1: `Complete as synthesis / G3 proof complete`.
+- Foundation/Component exact specification: `Needs revision` تا G4 mapping، اندازه‌گیری مستقل و آزمون RTL/PWA.
+- انتقال به شمش یا ویرایش وایرفریم: `Requires G4 global mapping; not authorized by this document`.

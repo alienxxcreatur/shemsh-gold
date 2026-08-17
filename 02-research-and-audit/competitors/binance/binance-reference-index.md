@@ -1,6 +1,6 @@
 # فهرست مرجع و Census بایننس
 
-وضعیت: `Census complete / G3 Batch C complete / G4 Trade mapping next`
+وضعیت: `Census and within-batch G2 complete / G3 cross-batch complete / G4 global mapping pending`
 تاریخ Snapshot: ۲۵ مرداد ۱۴۰۵ / 16 Aug 2026
 
 ## منبع اصلی
@@ -24,7 +24,8 @@
 - **Observed fact:** هم‌پوشانی Screen ID میان Flowهای والد/فرزند وجود دارد؛ عدد ۱۷۳ «Raw» است و Unique count در G2 با Dedupe ثبت می‌شود.
 - **Observed fact:** در Batch C، هشت Flow و ۴۱ Screen خام با Screen ID Dedupe شدند؛ دو ID مشترک سه تکرار ایجاد می‌کردند و نتیجه ۳۸ Screen منحصربه‌فرد است.
 - **Observed fact:** Ledger معامله ۳۷ Screen منحصربه‌فرد را با Asset مستقیم و یک Screen را با Preview واقعی Mobbin پوشش می‌دهد.
-- **Observed fact:** G3 هر هشت Candidate معامله را با آستانه تکرار/Flow کامل، Counter-example و Confidence سنجید و هر هشت مورد به‌عنوان Pattern بایننس `Corroborated` شدند؛ هیچ موردی هنوز به شمش Mapped نشده است.
+- **Observed fact:** Dedupe درون چهار Batch کامل شد: A برابر ۴۲ Raw/۳۹ Unique، B برابر ۴۴/۳۹، C برابر ۴۱/۳۸ و D برابر ۴۶/۴۲. عدد ۱۵۸ جمع Uniqueهای درون-Batch است و به‌دلیل تکرار میان Batchها Global Unique محسوب نمی‌شود.
+- **Observed fact:** G3 هشت Pattern معامله و ۲۱ Pattern سراسری تازه را Corroborate کرد؛ دو Candidate دامنه `BN-P-007` و یک Candidate دامنه `BN-P-003` را توسعه دادند. فقط `BN-P-001..008` در G4 معامله به شمش Mapped شده‌اند و G4 سراسری برای `BN-P-009..029` باز است.
 - **Design assumption:** بازه ۱۲۰–۱۶۰ Screen منحصربه‌فرد پس از Dedupe همچنان تخمین عملی مناسبی است؛ Saturation معیار توقف نهایی می‌ماند.
 - **Evidence gap:** جست‌وجوی هدفمند برای Fiat/Cash withdrawal Flow نتیجه مستقیم نداد. این نتیجه نبودن Flow یا نبودن قابلیت را ثابت نمی‌کند و برای Pattern برداشت به منبع دیگری نیاز است.
 
@@ -101,6 +102,10 @@
 | BN-E-016 | [Buying with USD](https://mobbin.com/flows/9d499db5-05ac-4c6d-a668-094099eafdc5) | Trade / Retail fiat buy | Behavior | مسیر Amount-first با Keypad، Payment method، Fee/Total review، Processing، Success و Home-after پوشش داده شده است | 1 full 9-screen flow | High | `G2 evidence` |
 | BN-E-017 | [Batch C evidence ledger](binance-trade-batch-c-evidence-ledger.md#observationهای-بینفلو) | Trade / Surface hierarchy | Foundation | سطح پایه سفید، Surface خاکستری برای Field/Grouping و Border برجسته برای Choice/Card واقعی در چند Context تکرار می‌شوند | 8 flows / 38 unique screens | High | `G2 evidence` |
 | BN-E-018 | [Batch C evidence ledger](binance-trade-batch-c-evidence-ledger.md#ریسکهای-دسترسپذیری-و-pwartl) | Trade / Accessibility | Component | تراکم Spot، کنترل‌های کوچک، سبز/قرمز و Chart بدون معادل متنی مستقیم برای PWA فارسی/RTL ریسک انتقال دارند | 4 trade contexts | Medium | `G2 risk evidence` |
+| BN-E-019 | [Cross-batch G2 ledger](binance-cross-batch-evidence-ledger-g2.md#batch-a--foundations-app-shell-و-شروع-تجربه) | A / Foundation and shell | Foundation/Composition | Home، Settings، Login، Onboarding، Help و Privacy در ۴۲ Raw/۳۹ Unique، Title/Surface/Nav/Auth container را پوشش می‌دهند | 6 flows / 39 unique in batch | High | `G2 evidence` |
+| BN-E-020 | [Cross-batch G2 ledger](binance-cross-batch-evidence-ledger-g2.md#batch-b--data-list-detail-و-report) | B / Data and assets | Foundation/Component/Composition | Markets، Detail، Assets، History، Report و Privacy/Export در ۴۴ Raw/۳۹ Unique، List/Card/Data/Report را پوشش می‌دهند | 10 flows / 39 unique in batch | High | `G2 evidence` |
+| BN-E-021 | [Cross-batch G2 ledger](binance-cross-batch-evidence-ledger-g2.md#batch-d--identity-security-payment-و-recovery) | D / State and supporting | Component/Behavior/State | KYC، Recovery، Password، Payment و Deposit در ۴۶ Raw/۴۲ Unique، Sheet/Page/Modal/Form/Feedback را پوشش می‌دهند | 8 flows / 42 unique in batch | High | `G2 evidence` |
+| BN-E-022 | [Global UI G3 proof](binance-global-ui-pattern-proof-g3.md) | Cross-batch / Global | All layers | ۲۴ Candidate سراسری با تکرار، Flow depth و Counter-example سنجیده و به ۲۱ Pattern تازه و سه Scope extension حل شدند | A/B/C/D | High | `G3 proof` |
 
 ## معیار پایان Census
 
@@ -108,6 +113,6 @@
 - [x] Shortlist اولیه ۳۲ Flow مرتبط ساخته شده است.
 - [x] Flowهای واضحاً خارج از Scope حذف و Parent/Child overlap ثبت شده است.
 - [x] Batch و مسیر Review هر Flow مشخص است.
-- [x] Dedupe و استخراج Evidence لایه‌ای Batch C در سطح Screen ID — ۴۱ Raw / ۳۸ Unique.
-- [x] Proof هشت Pattern Batch C در G3 — هشت Corroborated / صفر Mapped.
-- [ ] Dedupe و استخراج Evidence Batchهای A/B/D؛ G2 کل Audit هنوز باز است.
+- [x] Dedupe و استخراج Evidence لایه‌ای همه Batchها در سطح Screen ID — A: ۴۲/۳۹، B: ۴۴/۳۹، C: ۴۱/۳۸، D: ۴۶/۴۲.
+- [x] Proof Cross-batch در G3 — ۲۹ Pattern Corroborated؛ `BN-P-001..008` Trade-mapped و `BN-P-009..029` global mapping pending.
+- [ ] Union سراسری Screen ID میان چهار Batch؛ برای جلوگیری از ادعای نادرست، Global Unique count هنوز اعلام نمی‌شود.
