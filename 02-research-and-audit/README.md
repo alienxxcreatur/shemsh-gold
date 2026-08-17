@@ -29,4 +29,4 @@
 
 🟡 **Sufficient to proceed** — ورودی لازم برای مدل محصول فراهم و شکاف‌ها ثبت شده‌اند؛ تحقیق تازه به‌صورت موردی و اعتبارسنجی اصلی در مرحله وایرفریم/پروتوتایپ انجام می‌شود. مرجع D-032.
 
-مسیر D-163 یک تحقیق تکمیلی برای مرحله ۷ است و Gate 2 را باز نمی‌کند. وضعیت داخلی آن `Sufficient to start extraction` است؛ رفتار بایننس فقط پس از Evidence، تکرار، Counter-example و نگاشت به شمش می‌تواند Candidate طراحی شود.
+مسیر D-163 یک تحقیق تکمیلی برای مرحله ۷ است و Gate 2 را باز نمی‌کند. G1 آن با ۱۷ خانواده و Shortlist ۳۲ Flow / ۱۷۳ Screen خام، G2 Batch C با ۸ Flow / ۴۱ Raw / ۳۸ Unique و G3 Batch C با هشت Pattern `Corroborated` کامل شده است. G4 معامله نیز با هشت نگاشت `3 Adopt + 5 Adapt`، کپی HTML غیرمخرب و برد Candidate مستقل Figma کامل است. وضعیت داخلی `G4 Trade complete / Owner review pending` است؛ Batchهای A/B/D و Pilotهای Home/Trust باز می‌مانند و رفتار بایننس فقط پس از نگاشت به Context شمش می‌تواند Candidate طراحی شود.

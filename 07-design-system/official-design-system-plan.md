@@ -33,8 +33,13 @@ Gate: `Complete`
 ### فاز ۱ — زبان بصری و Foundations واقعی
 
 - [x] تصویب Workflow رسمی استخراج Pattern از Binance iOS و ثبت مسیر Evidence/Shortlist/Catalog/Mapping — D-163.
-- [ ] تکمیل Census و Shortlist بایننس، سپس استخراج Foundation/Component/Composition/Behavior/State با Evidence و Counter-example.
-- [ ] تکمیل نگاشت `Adopt / Adapt / Reject / Defer` به وایرفریم و Candidateهای فعلی پیش از بازتنظیم گسترده Visual Foundation.
+- [x] تکمیل Census هر ۱۷ خانواده و Shortlist ۳۲ Flow / ۱۷۳ Screen خام بایننس.
+- [x] اجرای Dedupe و استخراج Foundation/Component/Composition/Behavior/State برای Batch C معامله؛ ۸ Flow / ۴۱ Raw / ۳۸ Unique و Counter-exampleهای Spot در برابر مسیرهای Amount-first ثبت شد.
+- [x] اثبات هشت Candidate معامله در G3؛ Rule، Variant، Counter-example، Confidence و Evidence gap ثبت و هر هشت مورد `Corroborated` شدند.
+- [x] نگاشت `BN-P-001..008` در G4 معامله با نتیجه `3 Adopt + 5 Adapt`.
+- [x] ساخت Pilot غیرمخرب G4 در کپی HTML و Duplicate مستقل Figma؛ فایل‌ها و Componentهای مرجع تغییر نکردند.
+- [ ] ادامه Dedupe برای Batchهای A/B/D و رسیدن به Saturation هدف.
+- [x] تکمیل نگاشت `Adopt / Adapt / Reject / Defer` معامله به وایرفریم و Candidateهای فعلی پیش از بازتنظیم گسترده Visual Foundation.
 - [x] ممیزی اولیه خروجی‌های Prep و موج ۱ با نتیجه `Promote / Revise / Keep Draft` در `foundations/phase-1-input-audit.md`.
 - [x] ممیزی کامل PDF برندگاید قبلی و ثبت Candidateها در `foundations/legacy-brand-candidate-map.md`.
 - [x] ساخت Candidate Set نسخه ۰.۱ برای Color و Typography.
@@ -121,7 +126,7 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 ## زیرتسک فعال
 
-فاز ۱ — تکمیل Census و Shortlist بایننس در `../02-research-and-audit/competitors/binance/` و سپس Deep audit معامله. Reviewهای بصری Candidateهای فعلی باز می‌مانند، اما بازتنظیم گسترده Visual Foundation و Patternهای Home/Trade پس از Catalog/Mapping انجام می‌شود — D-163.
+فاز ۱ — G4 معامله با هشت Pattern نگاشت‌شده، کپی HTML قابل تست و برد مستقل Figma کامل است. زیرتسک بعدی Review مالک محصول روی Pilot معامله و سپس تدوین G5 Visual Direction Contract برای Surface/Border/Spacing/Radius/Typography است؛ Dedupe Batchهای A/B/D و Pilotهای Home/Trust موازی باز می‌مانند. Reviewهای بصری Candidateهای فعلی باز است و هیچ Promote/Demote خودکاری انجام نمی‌شود — D-163.
 
 ## Guardrailها
 
@@ -137,6 +142,6 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 فاز ۰: `Complete`
 
-فاز ۱: `In progress / Sufficient to proceed` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و خانواده Input Final audit صفر Issue را پاس کرده‌اند. مسیر استخراج بایننس در G1 Census است؛ تأیید بصری نهایی مالک محصول و Catalog/Mapping پیش از بازتنظیم رسمی بازند و هیچ Foundation یا Component هنوز `Stable` نیست.
+فاز ۱: `In progress / Sufficient to proceed` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و خانواده Input Final audit صفر Issue را پاس کرده‌اند. مسیر استخراج بایننس G4 معامله را با هشت Mapping و Pilot HTML/Figma بسته است؛ G2 Batchهای A/B/D، Pilotهای Home/Trust، G5 Visual Direction Contract و تأیید بصری مالک محصول بازند و هیچ Foundation یا Component هنوز `Stable` نیست.
 
 مرحله ۷: `Sufficient to proceed`

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
-  <title>وایرفریم سرتاسری چندفلزی شمش — MM-W0 تا MM-W8</title>
+  <title>پایلوت هم‌راستاسازی شمش با Patternهای بایننس — کپی کاری</title>
   <style>
     @font-face {
       font-family: "Yekan Bakh";
@@ -85,6 +85,7 @@
     .live-price-row.unavailable strong{direction:rtl;font-size:12px;color:var(--muted)}
     @media (hover:hover) and (pointer:fine){button.live-price-ticker:hover{background:color-mix(in srgb,var(--strong) 48%,transparent)}}
     @media (prefers-reduced-motion:reduce){.live-price-ticker.is-preparing .live-price-track,.live-price-ticker.is-shifting .live-price-track{transform:none;transition:none}}
+    .app-main.home-scrollless>.live-price-ticker{min-height:40px;margin-bottom:14px;padding-inline:2px;border-radius:0;border-bottom:1px solid var(--border);background:transparent}
     .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px}
     .summary-card{background:var(--primary);color:#fff;border-color:var(--primary);padding:18px}
     .summary-label{font-size:12px;color:#d6d9dd}
@@ -123,11 +124,21 @@
     .portfolio-total .portfolio-card-title-copy small,.portfolio-total .portfolio-card-balance span{color:#d6d9dd}
     .portfolio-card:hover{border-color:var(--border-strong)}
     .portfolio-card:active{background:var(--strong)}
-    .home-card-variant .portfolio-card{position:relative;overflow:hidden;border-radius:14px;border-color:var(--border);box-shadow:0 3px 10px rgba(27,35,45,.055)}
-    .home-card-variant .portfolio-total{box-shadow:0 7px 18px rgba(29,37,48,.17)}
+    .home-portfolio-summary{position:relative;min-height:92px;margin-bottom:12px;padding:4px 2px 10px 52px;border-bottom:1px solid var(--border);display:grid;align-items:center}
+    .home-portfolio-summary-main{width:100%;border:0;background:transparent;color:var(--text);padding:0;text-align:right;display:grid;gap:5px;cursor:pointer}
+    .home-portfolio-summary-copy{display:grid;gap:1px}.home-portfolio-summary-copy>span{font-size:13px;font-weight:750}.home-portfolio-summary-copy>small{font-size:11px;color:var(--muted)}
+    .home-portfolio-summary-value{font-size:26px;line-height:1.25;font-weight:760;font-variant-numeric:tabular-nums;display:inline-flex;align-items:baseline;gap:5px}
+    .home-portfolio-summary-value .balance-unit{font-size:.52em;color:var(--muted)}
+    .home-portfolio-summary .balance-toggle{left:0;right:auto;top:50%;bottom:auto;width:44px;height:44px;transform:translateY(-50%)}
+    .home-card-variant .portfolio-card{position:relative;overflow:hidden;flex-basis:62%;min-height:108px;border-radius:14px;border-color:var(--border);box-shadow:none}
+    .home-card-variant .portfolio-card[data-asset-card="gold"]{flex-basis:76%;min-height:114px}
+    .home-card-variant .portfolio-card-main{min-height:106px;padding:12px}
+    .home-card-variant .portfolio-card[data-asset-card="gold"] .portfolio-card-main{min-height:112px}
+    .home-card-variant .portfolio-card-pnl>small,.home-card-variant .portfolio-card-balance>span{font-size:11px}
+    .home-card-variant .portfolio-card-meta{font-size:11px}
     .home-monochrome .portfolio-card .positive,.home-monochrome .portfolio-card .negative{color:var(--text)}
     .home-monochrome .portfolio-card .inline-status,.home-monochrome .portfolio-card .inline-status.success,.home-monochrome .portfolio-card .inline-status.warning,.home-monochrome .portfolio-card .inline-status.danger{background:var(--strong);color:var(--text)}
-    .home-trade-cta{width:100%;min-height:44px;margin-top:4px;padding-block:7px;font-size:13px}
+    .home-trade-cta{width:100%;min-height:48px;margin-top:8px;padding-block:8px;border-radius:14px;box-shadow:none;font-size:14px}
     .home-monochrome .alert,.home-monochrome .alert.danger{background:var(--strong);color:var(--text);border-color:var(--border-strong)}
     .portfolio-hint{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:11px;margin-top:2px}
     .portfolio-mix-hero{background:var(--primary);color:#fff;border-color:var(--primary);display:grid;gap:10px;padding:13px 14px}
@@ -204,9 +215,13 @@
     .wallet-balance-copy{display:grid;gap:1px}.wallet-balance-copy>span{font-size:11px;color:var(--muted)}.wallet-balance-copy strong{width:max-content;max-width:calc(100% - 36px);font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap;display:inline-flex;align-items:baseline;gap:4px}
     .wallet-chevron{width:22px;height:22px;display:grid;place-items:center;color:var(--muted);direction:ltr}
     .wallet-chevron svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-    .home-monochrome .wallet-balance-card{background:var(--surface);border-color:var(--border-strong);box-shadow:0 5px 14px rgba(27,35,45,.07)}
-    .home-monochrome .wallet-balance-card::before{background:var(--primary)}
-    .home-monochrome .wallet-balance-icon{color:var(--primary);border-color:var(--border-strong);background:var(--surface)}
+    .home-monochrome .wallet-balance-card{min-height:72px;background:transparent;border:0;border-block:1px solid var(--border);border-radius:0;box-shadow:none}
+    .home-monochrome .wallet-balance-card::before{display:none}
+    .home-monochrome .wallet-balance-main{min-height:70px;grid-template-columns:32px minmax(0,1fr);padding:10px 4px 10px 52px;gap:10px}
+    .home-monochrome .wallet-balance-icon{width:32px;height:32px;color:var(--primary);border:0;border-radius:0;background:transparent}
+    .home-monochrome .wallet-balance-icon svg{width:22px;height:22px}
+    .home-monochrome .wallet-balance-copy>span{font-size:12px}.home-monochrome .wallet-balance-copy strong{font-size:18px}
+    .home-monochrome .wallet-balance-card .balance-toggle{left:0;right:auto;top:50%;bottom:auto;width:44px;height:44px;transform:translateY(-50%)}
     .wallet-sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
     .wallet-sheet-action{min-height:72px;border:1px solid var(--border);background:var(--surface);border-radius:12px;padding:10px;text-align:center;display:grid;place-items:center;align-content:center;gap:5px}
     .wallet-sheet-action svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.wallet-sheet-action strong{font-size:14px}
@@ -215,10 +230,12 @@
     .campaign-copy{display:grid;gap:4px}.campaign-copy small{font-size:10px;color:var(--muted)}.campaign-copy strong{font-size:14px}.campaign-copy span{font-size:11px;color:var(--muted);line-height:1.7}
     .campaign-action{width:32px;height:32px;border:0;border-radius:50%;display:grid;place-items:center;color:var(--text);background:transparent}
     .campaign-action svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-    .campaign-dots{display:flex;justify-content:center;gap:6px}
-    .campaign-dot{width:22px;height:22px;min-height:22px;border:0;background:transparent;display:grid;place-items:center;padding:0}
+    .campaign-dots{min-height:24px;display:flex;align-items:center;justify-content:center;gap:0}
+    .campaign-dot{width:44px;height:44px;min-height:44px;margin-block:-10px;border:0;background:transparent;display:grid;place-items:center;padding:0}
     .campaign-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--border-strong)}
     .campaign-dot.active::before{width:16px;border-radius:999px;background:var(--text)}
+    .home-monochrome .campaign-card{min-height:82px;border:0;border-radius:14px;background:var(--strong);box-shadow:none}
+    .home-monochrome .campaign-copy small{font-size:11px}.home-monochrome .campaign-copy span{font-size:12px;line-height:1.65}
     .money-balance-mini{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:0 5px 14px rgba(27,35,45,.06)}
     .money-balance-mini span{display:grid;gap:1px;font-size:11px;color:var(--muted)}.money-balance-mini strong{font-size:15px;color:var(--text);font-variant-numeric:tabular-nums}
     .money-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:10px}.money-preset{min-height:38px;border:1px solid var(--border);border-radius:999px;background:var(--surface);padding:4px 5px;font-size:11px;white-space:nowrap}.money-preset.selected{border-color:var(--primary);background:var(--strong);font-weight:700}
@@ -284,10 +301,13 @@
     .service-strip-item .service-icon{width:40px;height:40px;border-radius:10px;background:transparent;color:var(--text)}
     .service-strip-item .service-icon svg{width:21px;height:21px}
     .service-strip-item strong{max-width:100%;font-size:11px;line-height:1.45;font-weight:700;white-space:normal}
-    .home-service-strip .service-strip-item strong{font-size:clamp(9px,2.8vw,11px);white-space:nowrap}
     .service-strip-item:active{background:var(--strong)}
     .service-strip-item:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
     @media (hover:hover) and (pointer:fine){.service-strip-item:hover{background:var(--strong)}}
+    .home-service-strip{gap:8px;padding:0;border:0;border-radius:0;background:transparent;overflow:visible}
+    .home-service-strip .service-strip-item{min-height:84px;padding:4px 2px;gap:6px}
+    .home-service-strip .service-strip-item .service-icon{width:44px;height:44px;border:0;background:var(--strong)}
+    .home-service-strip .service-strip-item strong{font-size:clamp(10px,3.1vw,12px)}
     .feature-grid{display:grid;gap:8px}
     .feature-card{width:100%;min-height:88px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:13px;text-align:right;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
     .feature-card strong{font-size:14px}.feature-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.feature-card .inline-status{align-self:start}
@@ -339,19 +359,12 @@
     .trade-wallet-allocation{display:grid;gap:0;padding-top:2px}
     .toggle:disabled{opacity:.45;cursor:not-allowed}
     .installment-upfront-note{margin:10px 0 0;color:var(--muted);font-size:11px;line-height:1.7}
-    .installment-contract-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--strong)}
+    .installment-contract-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;margin-bottom:12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--strong)}
     .installment-contract-tab{min-width:0;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--muted);padding:6px;font-size:12px;font-weight:650}
     .installment-contract-tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-    .installment-tab-panel{display:grid;gap:12px}
     .installment-contract-card{display:grid;gap:16px}
     .installment-contract-card .asset-proof{margin:0}
     .installment-contract-id{display:block;margin-top:2px;color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums}
-    .installment-contract-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .installment-overview-item{display:grid;gap:3px;padding:11px 12px;border-radius:var(--r-sm);background:var(--strong)}
-    .installment-overview-item span{font-size:11px;color:var(--muted)}
-    .installment-overview-item strong{font-size:14px;font-variant-numeric:tabular-nums}
-    .installment-contract-link{width:100%;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--text);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 2px;font-size:12px;font-weight:750;text-align:right}
-    .installment-contract-link span:last-child{font-size:18px;color:var(--muted)}
     .installment-progress{display:grid;gap:9px;padding-top:14px;border-top:1px solid var(--border)}
     .installment-progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .installment-progress-head span{font-size:12px;color:var(--muted)}
@@ -366,33 +379,12 @@
     .installment-next-head h3{margin:0;font-size:16px}.installment-next-head p{margin:3px 0 0;color:var(--muted);font-size:11px}
     .installment-next-amount{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px;border-radius:var(--r-sm);background:var(--strong)}
     .installment-next-amount span{font-size:12px;color:var(--muted)}.installment-next-amount strong{font-size:20px;font-variant-numeric:tabular-nums}
-    .installment-next-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .installment-next-meta div{display:grid;gap:3px}
-    .installment-next-meta span{font-size:11px;color:var(--muted)}
-    .installment-next-meta strong{font-size:13px;font-variant-numeric:tabular-nums}
     .installment-locked-note{display:flex;align-items:flex-start;gap:8px;color:var(--muted);font-size:11px;line-height:1.7}
     .installment-locked-note svg{width:18px;height:18px;flex:0 0 18px;margin-top:1px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .installment-schedule-card{padding:0;overflow:hidden}
-    .installment-schedule-head{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:14px 14px 10px}
-    .installment-schedule-head h3{margin:0;font-size:15px}.installment-schedule-head span{font-size:11px;color:var(--muted)}
-    .installment-schedule-list{display:grid}
-    .installment-schedule-row{min-height:64px;display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 14px;border-top:1px solid var(--border)}
-    .installment-schedule-number{width:32px;height:32px;border-radius:10px;background:var(--strong);display:grid;place-items:center;font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
-    .installment-schedule-copy{display:grid;gap:2px}.installment-schedule-copy strong{font-size:13px}.installment-schedule-copy span{font-size:10px;color:var(--muted)}
-    .installment-schedule-side{display:grid;justify-items:end;gap:3px}.installment-schedule-side strong{font-size:12px;font-variant-numeric:tabular-nums}.installment-schedule-side span{font-size:10px;color:var(--muted)}
-    .installment-schedule-row.is-due{background:var(--subtle)}
-    .installment-schedule-row.is-due .installment-schedule-number{background:var(--primary);color:#fff}
-    .installment-contract-empty{min-height:250px;display:grid;place-items:center;text-align:center}
-    .installment-contract-empty div{display:grid;gap:6px;max-width:250px}.installment-contract-empty h3,.installment-contract-empty p{margin:0}.installment-contract-empty p{color:var(--muted);font-size:12px;line-height:1.8}
-    .installment-detail-card{display:grid;gap:14px}
-    .installment-detail-card .asset-proof{margin:0}
-    .installment-detail-card .receipt-grid{margin-top:0}
     .installment-payment-alert{margin:0}
     .installment-payment-card{display:grid;gap:14px}
-    .installment-payment-head{display:flex;align-items:start;justify-content:space-between;gap:12px}.installment-payment-head h3{margin:0;font-size:17px}.installment-payment-head p{margin:3px 0 0;color:var(--muted);font-size:11px}
     .installment-payment-total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:13px;border-radius:var(--r-sm);background:var(--strong)}
     .installment-payment-total span{font-size:12px;color:var(--muted)}.installment-payment-total strong{font-size:21px;font-variant-numeric:tabular-nums}
-    .installment-payment-source{display:grid;gap:12px}.installment-payment-source h3{margin:0;font-size:15px}.installment-payment-source-row{display:flex;align-items:center;justify-content:space-between;gap:14px}.installment-payment-source-row div{display:grid;gap:2px}.installment-payment-source-row span{font-size:11px;color:var(--muted)}.installment-payment-source-row strong{font-size:15px;font-variant-numeric:tabular-nums}
     .installment-result-progress{margin-top:14px}
     @media (hover:hover) and (pointer:fine){.installment-contract-tab:hover:not([aria-selected="true"]){background:var(--surface)}}
     .assumption{margin:0 0 12px;padding:10px 12px;border:1px dashed var(--border-strong);border-radius:var(--r-sm);background:var(--info);color:var(--muted);font-size:12px}
@@ -438,9 +430,9 @@
     .quote-row span{color:var(--muted)}
     .quote-row strong{font-variant-numeric:tabular-nums}
     .trade-layout{flex:1;min-height:0;padding:8px 16px 0;display:flex;flex-direction:column;background:var(--surface)}
-    .trade-toolbar{direction:rtl;min-height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .trade-mode-switch{direction:rtl;flex:0 0 118px;height:40px;display:grid;grid-template-columns:1fr 1fr;padding:2px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
-    .trade-mode-switch button{position:relative;min-width:0;min-height:34px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:11px}
+    .trade-toolbar{direction:rtl;min-height:54px;flex:0 0 54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .trade-mode-switch{direction:rtl;flex:0 0 118px;height:48px;display:grid;grid-template-columns:1fr 1fr;padding:2px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
+    .trade-mode-switch button{position:relative;min-width:0;min-height:44px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:11px}
     .trade-mode-switch button::before{content:"";position:absolute;inset-block:-5px;inset-inline:0}
     .trade-mode-switch button.selected{background:var(--primary);color:#fff;font-weight:750}
     .trade-rate-summary{min-width:0;display:grid;justify-items:end;gap:1px;text-align:left}
@@ -451,7 +443,7 @@
     .trade-balance-context strong{direction:ltr;color:var(--text);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
     .trade-amount-label{color:var(--muted);font-size:11px;margin-bottom:5px}
     .trade-amount-control{direction:ltr;width:100%;display:grid;grid-template-columns:70px minmax(0,1fr) 70px;grid-template-areas:"unit amount spacer";align-items:center}
-    .trade-amount-control input{grid-area:amount;direction:rtl;unicode-bidi:isolate;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:30px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
+    .trade-amount-control input{grid-area:amount;direction:ltr;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:48px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
     .trade-amount-control input::placeholder{color:#c4c8cc;opacity:1}
     .trade-unit-toggle{grid-area:unit;justify-self:start;min-width:70px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 7px;border:0;border-radius:9px;background:transparent;font-size:13px;font-weight:750}
     .trade-unit-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -469,6 +461,23 @@
     .trade-key[disabled]{color:var(--border-strong);cursor:not-allowed}
     @media (hover:hover) and (pointer:fine){.trade-key:hover:not([disabled]),.trade-unit-toggle:hover{background:var(--strong)}}
     @media(max-width:350px){.trade-layout{padding-inline:14px}.trade-mode-switch{flex-basis:112px}.trade-rate-summary strong{font-size:12px}.trade-amount-control{grid-template-columns:64px minmax(0,1fr) 64px}.trade-unit-toggle{min-width:64px}.trade-amount-spacer{width:64px}}
+    .app-main.trade-review{background:var(--surface)}
+    .trade-review-intro{margin:0 2px 14px}
+    .trade-review-intro h3{font-size:20px;margin:0 0 4px}.trade-review-intro p{font-size:12px;color:var(--muted);margin:0}
+    .trade-review-surface{background:var(--surface)}
+    .trade-review-surface>.asset-proof{padding:0 2px 12px;border-bottom:1px solid var(--border)}
+    .trade-pair{display:grid;margin-top:4px;border-bottom:1px solid var(--border)}
+    .trade-pair-row{min-height:58px;display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:10px;align-items:center;border-bottom:1px solid var(--border)}
+    .trade-pair-row:last-child{border-bottom:0}.trade-pair-row>span{font-size:12px;color:var(--muted)}
+    .trade-pair-row>strong{font-size:14px}.trade-pair-row>small{direction:ltr;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:left}
+    .trade-review-surface .receipt-grid{margin-top:8px;border-top:0}
+    .trade-commitment-note{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:12px;border-radius:var(--r-sm);background:var(--subtle);color:var(--text);font-size:12px}
+    .trade-commitment-note svg{flex:0 0 18px;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .trade-commitment-copy{display:grid;gap:2px}.trade-commitment-copy span{color:var(--muted)}
+    .trade-state-card{min-height:420px;display:grid;align-content:center;justify-items:center;text-align:center;gap:10px;padding:24px 10px}
+    .trade-state-mark{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--strong);font-size:22px;font-weight:800}
+    .trade-state-mark.danger{background:var(--danger-bg);color:var(--danger)}.trade-state-mark.warning{background:var(--warning-bg);color:var(--warning)}
+    .trade-state-card h3{font-size:19px;margin:0}.trade-state-card p{max-width:290px;color:var(--muted);font-size:13px;margin:0}
     .chart-asset-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
     .chart-asset-button{min-height:48px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:7px 10px;display:flex;align-items:center;gap:8px}
     .dialog-wrap{align-items:center;padding:20px}
@@ -727,6 +736,9 @@
       ['WF-MM-007','detail-copper','جزئیات مس'],['WF-MM-008','trade-gold','معامله — طلای پیش‌فرض'],
       ['WF-MM-009','trade-selector3','انتخاب‌گر معامله — ۳'],['WF-MM-010','trade-selector16','انتخاب‌گر معامله — ۱۶'],
       ['WF-MM-011','trade-quote-switch','تغییر فلز با Quote'],['WF-MM-012','chart-single','نمودار تک‌فلز'],
+      ['G4-T-01','trade-preview','پایلوت G4 — بررسی معامله'],['G4-T-02','trade-processing','پایلوت G4 — در حال ثبت'],
+      ['G4-T-03','trade-expired','پایلوت G4 — نرخ منقضی'],['G4-T-04','trade-failed','پایلوت G4 — ثبت ناموفق'],
+      ['G4-T-05','trade-offline','پایلوت G4 — آفلاین پیش از ثبت'],
       ['WF-MM-013','services','Hub خدمات'],['WF-MM-014','physical-select','دریافت فیزیکی — ورود'],
       ['WF-MM-014A','physical-insufficient','دریافت — موجودی ناکافی'],['WF-MM-014B','physical-unavailable','دریافت — سرویس غیرفعال'],
       ['WF-MM-014C','physical-failed','دریافت — ناموفق'],['WF-MM-014D','physical-success','دریافت — موفق'],
@@ -740,8 +752,8 @@
       ['WF-MM-029','profile','حساب کاربری']
     ];
 
-    const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeInputUnit:'toman',tradeAmount:'',tradeUseWallet:false,quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,balanceVisibility:{total:false,gold:false,silver:false,copper:false,wallet:false},campaignIndex:0,
-      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:true,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
+    const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeInputUnit:'toman',tradeAmount:'',quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,balanceVisibility:{total:false,gold:false,silver:false,copper:false,wallet:false},campaignIndex:0,
+      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:true,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
     const appMain=document.getElementById('app-main'), headerTitle=document.getElementById('header-title');
     const headerLeft=document.getElementById('header-left'), headerRight=document.getElementById('header-right');
     const bottomNav=document.getElementById('bottom-nav'), overlayRoot=document.getElementById('overlay-root');
@@ -793,10 +805,11 @@
       state.operation=key==='history-filtered'?'buy':'all'; state.metal=key==='history-filtered'?'silver':'all'; state.status='all'; state.date='all';
       state.draftStatus=state.status;state.draftDate=state.date;
       if(key.startsWith('trade-')){
-        state.tradeAsset='gold';state.tradeMode='buy';state.tradeInputUnit='toman';state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;state.pendingTradeAsset=null;
+        state.tradeAsset='gold';state.tradeMode='buy';state.tradeInputUnit='toman';state.tradeAmount='';state.quoteActive=false;state.pendingTradeAsset=null;
         if(key==='trade-selector3')state.sheet='trade-asset-3';
         if(key==='trade-selector16')state.sheet='trade-asset-16';
         if(key==='trade-quote-switch'){state.tradeAmount='۲۵٬۰۰۰٬۰۰۰';state.quoteActive=true;state.pendingTradeAsset='copper';state.sheet='quote-confirm'}
+        if(['trade-preview','trade-processing','trade-expired','trade-failed','trade-offline'].includes(key)){state.tradeAmount='۲۵٬۰۰۰٬۰۰۰';state.quoteActive=true}
       }
       if(key==='chart-single'){state.chartAsset='silver';state.period='month'}
       if(key==='receipt') state.receipt=activities[0];
@@ -815,13 +828,13 @@
       if(key==='target-setup'){state.featureAsset='gold';state.targetKind='alert';state.targetDirection='buy';state.targetPrice='';state.targetAmount='';state.targetExpiry='7'}
       if(key==='market-services')state.featureAsset='gold';
       if(key==='installment-active'||key==='installment-empty'){
-        state.hasActiveInstallment=key==='installment-active';state.featureAsset=state.hasActiveInstallment?'silver':'gold';state.installmentTerm='6';state.installmentAmount=state.hasActiveInstallment?'':String(INSTALLMENT_MIN);state.installmentPaid=false;state.installmentContractTab='current';state.installmentTermsAccepted=false;state.installmentActivationMethod='gateway';
+        state.hasActiveInstallment=key==='installment-active';state.featureAsset=state.hasActiveInstallment?'silver':'gold';state.installmentTerm='6';state.installmentAmount=state.hasActiveInstallment?'':String(INSTALLMENT_MIN);state.installmentPaid=false;state.installmentTermsAccepted=false;state.installmentActivationMethod='gateway';
       }
       if(key==='gift-hub'||key==='gift-setup'){state.featureAsset='gold';state.giftMode='send';state.giftSource='toman';state.giftAmount='';state.giftRecipient='';state.giftCode=''}
       render(); appMain.scrollTop=0;
     }
     function captureView(){
-      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,tradeUseWallet:state.tradeUseWallet,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyTransferRail:state.moneyTransferRail,moneyDestination:state.moneyDestination,hasBankCards:state.hasBankCards,depositSourceCard:state.depositSourceCard,bankCardPickerTarget:state.bankCardPickerTarget,bankAddReturn:state.bankAddReturn,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,hasActiveInstallment:state.hasActiveInstallment,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,installmentPaid:state.installmentPaid,installmentContractTab:state.installmentContractTab,installmentTermsAccepted:state.installmentTermsAccepted,installmentActivationMethod:state.installmentActivationMethod,giftMode:state.giftMode,giftSource:state.giftSource,giftAmount:state.giftAmount,giftRecipient:state.giftRecipient,giftCode:state.giftCode,resultKind:state.resultKind,bankCardNumber:state.bankCardNumber,bankAdded:state.bankAdded,currentPassword:state.currentPassword,newPassword:state.newPassword,confirmPassword:state.confirmPassword,twoFactor:state.twoFactor,balanceVisibility:{...state.balanceVisibility},campaignIndex:state.campaignIndex,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
+      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyTransferRail:state.moneyTransferRail,moneyDestination:state.moneyDestination,hasBankCards:state.hasBankCards,depositSourceCard:state.depositSourceCard,bankCardPickerTarget:state.bankCardPickerTarget,bankAddReturn:state.bankAddReturn,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,hasActiveInstallment:state.hasActiveInstallment,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,installmentTermsAccepted:state.installmentTermsAccepted,installmentActivationMethod:state.installmentActivationMethod,giftMode:state.giftMode,giftSource:state.giftSource,giftAmount:state.giftAmount,giftRecipient:state.giftRecipient,giftCode:state.giftCode,resultKind:state.resultKind,bankCardNumber:state.bankCardNumber,bankAdded:state.bankAdded,currentPassword:state.currentPassword,newPassword:state.newPassword,confirmPassword:state.confirmPassword,twoFactor:state.twoFactor,balanceVisibility:{...state.balanceVisibility},campaignIndex:state.campaignIndex,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
     }
     function restoreView(view){
       const scrollTop=view.scrollTop||0,portfolioScrollLeft=view.portfolioScrollLeft||0;Object.assign(state,view,{sheet:null,pendingTradeAsset:null});render();
@@ -884,9 +897,9 @@
     }
     function summary(partial=false){
       const value=partial?'۱٬۰۴۹٬۰۰۰٬۰۰۰':'۱٬۲۴۵٬۵۰۰٬۰۰۰',shown=balanceShown('total');
-      return `<article class="portfolio-card portfolio-total">${balanceToggle('total','دارایی کل')}<button type="button" class="portfolio-card-main" data-go="portfolio-mix" aria-label="${shown?'مشاهده دارایی‌های من و ترکیب کل دارایی‌ها، ارزش '+value+' تومان':'مشاهده دارایی‌های من و ترکیب کل دارایی‌ها، موجودی مخفی است'}">
-        <div class="portfolio-card-title-copy"><strong>دارایی کل</strong><small>${partial?'نرخ نقره در محاسبه موجود نیست':'مجموع ارزش فعلی فلزها'}</small></div>
-        <div class="portfolio-card-balance"><span>ارزش کل دارایی</span><strong>${visibleOrHidden('total',value,'تومان')}</strong></div>
+      return `<article class="home-portfolio-summary">${balanceToggle('total','دارایی کل')}<button type="button" class="home-portfolio-summary-main" data-go="portfolio-mix" aria-label="${shown?'مشاهده دارایی‌های من و ترکیب کل دارایی‌ها، ارزش '+value+' تومان':'مشاهده دارایی‌های من و ترکیب کل دارایی‌ها، موجودی مخفی است'}">
+        <span class="home-portfolio-summary-copy"><span>دارایی‌های من</span><small>${partial?'جمع بدون نرخ معتبر نقره نمایش داده می‌شود':'مجموع ارزش فعلی فلزها'}</small></span>
+        <strong class="home-portfolio-summary-value">${visibleOrHidden('total',value,'تومان')}</strong>
       </button></article>`;
     }
     function trendIcon(up){
@@ -902,7 +915,7 @@
     function portfolioAssetCard(key,variant='normal'){
       const m=metals[key],missing=variant==='missing'||variant==='outage';
       const pnl=portfolioPnl(m,missing,variant)(key),shown=balanceShown(key);
-      return `<article class="portfolio-card" data-asset-card="${key}">${balanceToggle(key,m.name)}<button type="button" class="portfolio-card-main" data-detail="${key}" aria-label="${shown?`مشاهده جزئیات ${m.name}، موجودی ${m.weight} گرم، ${missing?'ارزش فعلاً ناموجود':m.value+' تومان'}`:`مشاهده جزئیات ${m.name}، موجودی مخفی است`}">
+      return `<article class="portfolio-card portfolio-asset-card" data-asset-card="${key}">${balanceToggle(key,m.name)}<button type="button" class="portfolio-card-main" data-detail="${key}" aria-label="${shown?`مشاهده جزئیات ${m.name}، موجودی ${m.weight} گرم، ${missing?'ارزش فعلاً ناموجود':m.value+' تومان'}`:`مشاهده جزئیات ${m.name}، موجودی مخفی است`}">
         <span class="portfolio-card-head"><span class="portfolio-card-title-copy"><strong>${m.name}<span class="portfolio-card-meta"> · ${m.grade}</span></strong></span>${pnl}</span>
         <span class="portfolio-card-balance"><span>موجودی من</span><strong>${visibleOrHidden(key,m.weight,'گرم')}</strong><small class="portfolio-card-value">${missing?'معادل تومانی ناموجود':visibleOrHidden(key,m.value,'تومان')}</small></span>
       </button></article>`;
@@ -921,9 +934,9 @@
       const alert=kind==='partial'?`<div class="alert">${icons.warn}<span>نرخ معتبر نقره دریافت نشد. وزن دارایی حفظ شده و جمع پورتفوی «برآورد ناقص» است.</span></div>`:
         kind==='outage'?`<div class="alert danger">${icons.warn}<span>معامله نقره موقتاً متوقف است. طلا و مس همچنان فعال‌اند و سوابق نقره قابل مشاهده است.</span></div>`:'';
       return `<div class="home-monochrome">${alert}<section aria-label="دارایی‌های من">
-          <div class="portfolio-rail home-card-variant" role="region" aria-label="کارت‌های دارایی؛ برای دیدن فلزهای بعدی افقی پیمایش کنید">${summary(partial)}${portfolioAssetCard('gold')}${portfolioAssetCard('silver',kind==='normal'?'normal':kind==='partial'?'missing':'outage')}${portfolioAssetCard('copper')}</div><button class="primary-button home-trade-cta" type="button" data-home-trade>خرید و فروش</button>
+          ${summary(partial)}<div class="portfolio-rail home-card-variant" role="region" aria-label="کارت‌های دارایی؛ طلا در اولویت است و برای دیدن نقره و مس افقی پیمایش کنید">${portfolioAssetCard('gold')}${portfolioAssetCard('silver',kind==='normal'?'normal':kind==='partial'?'missing':'outage')}${portfolioAssetCard('copper')}</div><button class="primary-button home-trade-cta" type="button" data-home-trade>خرید و فروش</button>
           </section>
-        <article class="section wallet-balance-card">${balanceToggle('wallet','کیف پول تومان')}<button class="wallet-balance-main" type="button" data-sheet="wallet-actions" aria-label="${balanceShown('wallet')?'کیف پول تومان، موجودی ۳۸ میلیون و ۶۰۰ هزار تومان؛ مشاهده واریز و برداشت':'کیف پول تومان، موجودی مخفی است؛ مشاهده واریز و برداشت'}"><span class="wallet-balance-icon" aria-hidden="true">${icons.wallet}</span><span class="wallet-balance-copy"><span>کیف پول تومان</span><strong>${visibleOrHidden('wallet','۳۸٬۶۰۰٬۰۰۰','تومان')}</strong></span><span class="wallet-chevron" aria-hidden="true">${icons.chevronLeft}</span></button></article>
+        <article class="section wallet-balance-card">${balanceToggle('wallet','کیف پول تومان')}<button class="wallet-balance-main" type="button" data-sheet="wallet-actions" aria-label="${balanceShown('wallet')?'کیف پول تومان، موجودی ۳۸ میلیون و ۶۰۰ هزار تومان؛ مشاهده واریز و برداشت':'کیف پول تومان، موجودی مخفی است؛ مشاهده واریز و برداشت'}"><span class="wallet-balance-icon" aria-hidden="true">${icons.wallet}</span><span class="wallet-balance-copy"><span>کیف پول تومان</span><strong>${visibleOrHidden('wallet','۳۸٬۶۰۰٬۰۰۰','تومان')}</strong></span></button></article>
         <section class="section service-strip home-service-strip" aria-label="دسترسی‌های اصلی"><button class="service-strip-item" type="button" data-go="history"><span class="service-icon" aria-hidden="true">${icons.history}</span><strong>تاریخچه</strong></button><button class="service-strip-item" type="button" data-installment-open><span class="service-icon" aria-hidden="true">${icons.installment}</span><strong>خرید قسطی</strong></button><button class="service-strip-item" type="button" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><strong>دریافت فیزیکی</strong></button><button class="service-strip-item" type="button" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><strong>سفارش قیمت</strong></button></section>${campaignSlider()}</div>`;
     }
     function portfolioMix(){
@@ -1005,18 +1018,7 @@
           <div class="periods">${[['day','روزانه'],['month','ماهانه'],['year','سالانه']].map(([id,label])=>`<button class="period ${state.period===id?'selected':''}" type="button" data-period="${id}" aria-pressed="${state.period===id}">${label}</button>`).join('')}</div>${chart(state.period)}</section>
         <div class="section"><button class="primary-button" style="width:100%" type="button" data-trade-asset="${key}">معامله ${m.name}</button></div>`;
     }
-    const TRADE_MAX_DIGITS={toman:11,gram:10},TRADE_MIN_WEIGHT=.001,TRADE_MAX_TOMAN=50000000000,TRADE_MAX_WEIGHT=10000,TRADE_WALLET_BALANCE=38600000;
     function tradePrecision(key=state.tradeAsset){return key==='gold'?3:key==='silver'?2:0}
-    function formatTradeInput(value,unit=state.tradeInputUnit){
-      const localized=String(value||'').replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)]).replace(/[٬,\s]/g,'').replace('.', '٫');
-      if(unit==='toman'){
-        let digits=localized.replace(/[^۰-۹]/g,'').slice(0,TRADE_MAX_DIGITS.toman);
-        digits=digits.replace(/^۰+(?=.)/,'');
-        return digits.replace(/([۰-۹])(?=(?:[۰-۹]{3})+$)/g,'$1٬');
-      }
-      const hasDecimal=localized.includes('٫'),parts=localized.split('٫'),whole=(parts.shift()||'').replace(/[^۰-۹]/g,'').slice(0,TRADE_MAX_DIGITS.gram),fraction=parts.join('').replace(/[^۰-۹]/g,'').slice(0,Math.min(tradePrecision(),TRADE_MAX_DIGITS.gram-whole.length));
-      return whole+(hasDecimal&&tradePrecision()>0&&whole.length<TRADE_MAX_DIGITS.gram?'٫'+fraction:'');
-    }
     function numericValue(value){
       const latin=String(value||'').replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/[٬,\s]/g,'').replace('٫','.');
       return Math.max(0,Number(latin)||0);
@@ -1027,7 +1029,7 @@
       return {input,weight,amount,weightLabel:faNumber(weight,tradePrecision()),amountLabel:faNumber(Math.round(amount),0)};
     }
     function applyTradeKey(key){
-      let value=String(state.tradeAmount||'').replace(/[٬,\s]/g,''),precision=tradePrecision();
+      let value=state.tradeAmount,precision=tradePrecision();
       if(key==='backspace')value=value.slice(0,-1);
       else if(key==='decimal'){
         if(state.tradeInputUnit!=='gram'||precision===0||value.includes('٫'))return;
@@ -1036,65 +1038,70 @@
         const digit=({0:'۰',1:'۱',2:'۲',3:'۳',4:'۴',5:'۵',6:'۶',7:'۷',8:'۸',9:'۹'})[key]||key;
         const parts=value.split('٫');
         if(parts.length===2&&parts[1].length>=precision)return;
-        if((value.match(/[۰-۹]/g)||[]).length>=TRADE_MAX_DIGITS[state.tradeInputUnit])return;
-        value=value==='۰'?(digit==='۰'?value:digit):value+digit;
+        if(parts.length===1&&parts[0].length>=12)return;
+        value=value==='۰'&&digit!=='۰'?digit:value+digit;
       }
-      state.tradeAmount=formatTradeInput(value);state.quoteActive=numericValue(state.tradeAmount)>0;
+      state.tradeAmount=value;state.quoteActive=numericValue(value)>0;
       const scrollTop=appMain.scrollTop;render();
       requestAnimationFrame(()=>{appMain.scrollTop=scrollTop;document.getElementById('trade-amount')?.focus({preventScroll:true})});
     }
     function toggleTradeUnit(){
       const calc=tradeCalculation(),next=state.tradeInputUnit==='toman'?'gram':'toman';
       state.tradeInputUnit=next;
-      state.tradeAmount=calc.input?formatTradeInput(faNumber(next==='gram'?calc.weight:calc.amount,next==='gram'?tradePrecision():0),next):'';
+      state.tradeAmount=calc.input?faNumber(next==='gram'?calc.weight:calc.amount,next==='gram'?tradePrecision():0):'';
       state.quoteActive=numericValue(state.tradeAmount)>0;render();
       requestAnimationFrame(()=>document.getElementById('trade-amount')?.focus({preventScroll:true}));
     }
-    function tradeValidation(calc=tradeCalculation()){
-      const hasExplicitInput=String(state.tradeAmount||'').trim().length>0;
-      if(hasExplicitInput&&calc.weight<TRADE_MIN_WEIGHT)return 'حداقل مقدار معامله ۱ سوت است.';
-      if(calc.amount>TRADE_MAX_TOMAN)return `حداکثر مبلغ معامله ${faNumber(TRADE_MAX_TOMAN,0)} تومان است.`;
-      if(calc.weight>TRADE_MAX_WEIGHT)return `حداکثر وزن معامله ${faNumber(TRADE_MAX_WEIGHT,0)} گرم است.`;
-      return '';
-    }
-    function tradeWalletPayment(calc=tradeCalculation()){
-      const total=Math.round(calc.amount),walletUsed=state.tradeUseWallet?Math.min(total,TRADE_WALLET_BALANCE):0;
-      return {total,walletBalance:TRADE_WALLET_BALANCE,walletUsed,gatewayAmount:Math.max(0,total-walletUsed)};
-    }
     function trade(){
       const m=metals[state.tradeAsset],calc=tradeCalculation(),hasAmount=calc.input>0,byToman=state.tradeInputUnit==='toman',action=state.tradeMode==='buy'?'خرید':'فروش';
-      const inputError=tradeValidation(calc),hasError=!!inputError;
+      const available=state.tradeMode==='buy'?38600000:numericValue(m.weight),exceedsBalance=hasAmount&&(state.tradeMode==='buy'?calc.amount>available:calc.weight>available);
+      const inputError=exceedsBalance?(state.tradeMode==='buy'?'مبلغ واردشده بیشتر از موجودی کیف تومان است.':`وزن واردشده بیشتر از موجودی ${m.name} است.`):'';
       const assetTabs=Object.entries(metals).map(([id,item])=>`<button type="button" role="tab" aria-selected="${state.tradeAsset===id}" aria-controls="trade-panel" tabindex="${state.tradeAsset===id?'0':'-1'}" class="trade-asset-tab ${state.tradeAsset===id?'selected':''}" data-select-trade-asset="${id}"><strong>${item.name}</strong></button>`).join('');
       const keypad=['۱','۲','۳','۴','۵','۶','۷','۸','۹'].map(d=>`<button type="button" class="trade-key" data-trade-key="${'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}" aria-label="${d}">${d}</button>`).join('');
       const decimalDisabled=byToman||tradePrecision()===0;
+      const amountSize=state.tradeAmount.length>9?30:state.tradeAmount.length>7?35:state.tradeAmount.length>5?42:48;
       setChrome('معامله',state.stack.length>0,true,'معامله');
       return `<div class="trade-asset-tabs" role="tablist" aria-label="انتخاب فلز معامله">${assetTabs}</div>
         <section class="trade-layout" id="trade-panel" role="tabpanel">
           <div class="trade-toolbar"><div class="trade-mode-switch" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div><div class="trade-rate-summary" aria-live="polite"><span>نرخ ${action} هر گرم ${m.name}</span><strong>${m.rate} تومان</strong></div></div>
-          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?faNumber(TRADE_WALLET_BALANCE,0)+' تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${formatTradeInput(state.tradeAmount)}" placeholder="۰" aria-describedby="trade-equivalent trade-input-message" aria-invalid="${hasError}" data-max-digits="${TRADE_MAX_DIGITS[state.tradeInputUnit]}"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><div class="trade-conversion" id="trade-equivalent">${icons.trade}<span>تقریباً دریافت می‌کنید</span><strong>${hasAmount?(byToman?calc.weightLabel+' گرم':calc.amountLabel+' تومان'):(byToman?'۰ گرم':'۰ تومان')}</strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
-          <button class="primary-button trade-submit" type="button" ${hasAmount&&!hasError?'':'disabled'} data-trade-preview>${action} ${m.name}</button>
-          <div class="trade-keypad" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.erase}</button></div>
+          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?'۳۸٬۶۰۰٬۰۰۰ تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="${byToman?'numeric':'decimal'}" autocomplete="off" enterkeyhint="done" value="${state.tradeAmount}" placeholder="۰" aria-describedby="trade-input-help trade-equivalent trade-input-message" aria-invalid="${exceedsBalance}" style="font-size:${amountSize}px"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><span class="sr-only" id="trade-input-help">می‌توانید از صفحه‌کلید داخلی، صفحه‌کلید دستگاه، Paste یا صفحه‌کلید فیزیکی استفاده کنید.</span><div class="trade-conversion" id="trade-equivalent">${icons.trade}<span>تقریباً دریافت می‌کنید</span><strong>${hasAmount?(byToman?calc.weightLabel+' گرم':calc.amountLabel+' تومان'):(byToman?'۰ گرم':'۰ تومان')}</strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
+          <button class="primary-button trade-submit" type="button" ${hasAmount&&!exceedsBalance?'':'disabled'} data-trade-preview>${action} ${m.name}</button>
+          <div class="trade-keypad" role="group" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.erase}</button></div>
         </section>`;
     }
     function tradePreview(){
-      const m=metals[state.tradeAsset],calc=tradeCalculation(),unit=state.tradeInputUnit==='toman'?'تومان':'گرم',isBuy=state.tradeMode==='buy',payment=tradeWalletPayment(calc);setChrome('تأیید معامله',true,false);
-      const action=isBuy?'خرید':'فروش',useWallet=isBuy&&state.tradeUseWallet,buyCta=!useWallet?'پرداخت از درگاه بانکی':payment.gatewayAmount>0?'پرداخت باقی‌مانده از درگاه':'پرداخت از کیف پول';
-      return `<div class="page-lead"><h3>جزئیات ${action} ${m.name}</h3><p>پیش از ثبت، فلز، مقدار و مبلغ را بررسی کنید.</p></div>
-        <section class="card"><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade}</small></div></div>
-          <div class="receipt-grid"><div class="receipt-row"><span>نوع عملیات</span><strong>${action}</strong></div><div class="receipt-row"><span>ورودی معامله</span><strong>${formatTradeInput(state.tradeAmount)} ${unit}</strong></div><div class="receipt-row"><span>وزن تقریبی</span><strong>${calc.weightLabel} گرم</strong></div><div class="receipt-row"><span>نرخ هر گرم</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>${isBuy?'پرداخت تقریبی':'دریافتی تقریبی'}</span><strong>${calc.amountLabel} تومان</strong></div></div>
-          <p class="market-note">نرخ و محاسبات این Prototype آزمایشی‌اند.</p></section>
-        ${isBuy?`<section class="card installment-wallet-box"><div class="installment-wallet-head"><h3>پرداخت از کیف پول</h3><button class="toggle" type="button" role="switch" aria-label="پرداخت خرید از کیف پول" aria-pressed="${useWallet}" data-toggle-trade-wallet></button></div><div class="installment-wallet-balance"><span>موجودی کیف پول</span><strong>${faNumber(payment.walletBalance,0)} تومان</strong></div>${useWallet?`<div class="trade-wallet-allocation" aria-live="polite"><div class="receipt-row"><span>پرداخت از کیف پول</span><strong>${faNumber(payment.walletUsed,0)} تومان</strong></div><div class="receipt-row"><span>باقی‌مانده از درگاه</span><strong>${faNumber(payment.gatewayAmount,0)} تومان</strong></div></div>`:''}</section>`:''}
-        <div class="action-stack"><button class="primary-button" type="button" data-confirm-trade>${isBuy?buyCta:'تأیید و ثبت فروش'}</button><button class="secondary-button" type="button" data-edit-trade>ویرایش معامله</button></div>`;
+      const m=metals[state.tradeAsset],calc=tradeCalculation(),unit=state.tradeInputUnit==='toman'?'تومان':'گرم';setChrome('تأیید معامله',true,false);
+      const action=state.tradeMode==='buy'?'خرید':'فروش';
+      const source=state.tradeMode==='buy'?'کیف تومان':`دارایی ${m.name}`,destination=state.tradeMode==='buy'?`دارایی ${m.name}`:'کیف تومان';
+      const sourceAmount=state.tradeMode==='buy'?`${calc.amountLabel} تومان`:`${calc.weightLabel} گرم`,destinationAmount=state.tradeMode==='buy'?`${calc.weightLabel} گرم`:`${calc.amountLabel} تومان`;
+      return `<div class="trade-review-intro"><h3>بررسی نهایی ${action} ${m.name}</h3><p>مبدأ، مقصد، نرخ و اثر مالی را پیش از ثبت بررسی کنید.</p></div>
+        <section class="trade-review-surface"><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name} <span dir="ltr">${m.symbol}</span></strong><small>${m.grade}</small></div></div>
+          <div class="trade-pair" aria-label="مبدأ و مقصد معامله"><div class="trade-pair-row"><span>مبدأ</span><strong>${source}</strong><small>${sourceAmount}</small></div><div class="trade-pair-row"><span>مقصد</span><strong>${destination}</strong><small>${destinationAmount}</small></div></div>
+          <div class="receipt-grid"><div class="receipt-row"><span>نوع عملیات</span><strong>${action}</strong></div><div class="receipt-row"><span>ورودی معامله</span><strong>${state.tradeAmount} ${unit}</strong></div><div class="receipt-row"><span>نرخ هر گرم</span><strong>${m.rate} تومان</strong></div><div class="receipt-row"><span>کارمزد برآوردی</span><strong>طبق قواعد ${m.name} · داده آزمایشی</strong></div><div class="receipt-row emphasis"><span>${state.tradeMode==='buy'?'پرداخت نهایی':'دریافتی تقریبی'}</span><strong>${calc.amountLabel} تومان</strong></div></div>
+          <div class="trade-commitment-note" role="note">${icons.info}<span class="trade-commitment-copy"><strong>نرخ هنگام تأیید دوباره بررسی می‌شود.</strong><span>اگر نرخ معتبر نباشد، ثبت متوقف می‌شود و مقدارهای شما برای تازه‌سازی حفظ خواهند شد.</span></span></div></section>
+        <div class="action-stack"><button class="primary-button" type="button" data-confirm-trade>تأیید ${action} · ${calc.amountLabel} تومان</button><button class="secondary-button" type="button" data-edit-trade>ویرایش معامله</button></div>`;
     }
     function tradeProcessing(){
       setChrome('ثبت معامله',false,false);
       return `<section class="processing" aria-live="polite"><div class="processing-card"><span class="spinner" aria-hidden="true"></span><h3>در حال ثبت معامله</h3><p>لطفاً این صفحه را نبندید. نتیجه تا چند لحظه دیگر نمایش داده می‌شود.</p></div></section>`;
     }
+    function tradeExpired(){
+      setChrome('نرخ منقضی شد',true,false);
+      return `<section class="trade-state-card" role="status"><span class="trade-state-mark warning" aria-hidden="true">↻</span><span class="inline-status warning">نیازمند نرخ تازه</span><h3>نرخ این معامله دیگر معتبر نیست</h3><p>مبلغ و فلز انتخاب‌شده حفظ شده‌اند. برای ادامه، نرخ تازه را دریافت و جزئیات را دوباره بررسی کنید.</p></section><div class="action-stack"><button class="primary-button" type="button" data-refresh-trade-quote>دریافت نرخ تازه</button><button class="secondary-button" type="button" data-return-trade>ویرایش معامله</button></div>`;
+    }
+    function tradeFailed(){
+      setChrome('ثبت ناموفق',true,false);
+      return `<section class="trade-state-card" role="alert"><span class="trade-state-mark danger" aria-hidden="true">!</span><span class="inline-status danger">ناموفق</span><h3>معامله ثبت نشد</h3><p>هیچ مبلغ یا فلزی از دارایی شما کم نشده است. با نرخ تازه دوباره تلاش کنید یا در صورت تکرار با پشتیبانی تماس بگیرید.</p></section><div class="action-stack"><button class="primary-button" type="button" data-trade-retry>تلاش دوباره با نرخ تازه</button><button class="secondary-button" type="button" data-toast="پشتیبانی معامله با Context فعلی باز می‌شود.">ارتباط با پشتیبانی</button></div>`;
+    }
+    function tradeOffline(){
+      setChrome('اتصال اینترنت',true,false);
+      return `<section class="trade-state-card" role="alert"><span class="trade-state-mark warning" aria-hidden="true">×</span><span class="inline-status warning">آفلاین</span><h3>پیش از ثبت، اتصال قطع شد</h3><p>این معامله ارسال نشده و دارایی شما تغییر نکرده است. مقدار واردشده حفظ می‌شود تا پس از اتصال دوباره بررسی کنید.</p></section><div class="action-stack"><button class="primary-button" type="button" data-refresh-trade-quote>بررسی اتصال و نرخ</button><button class="secondary-button" type="button" data-return-trade>بازگشت به معامله</button></div>`;
+    }
     function completeTrade(){
       const m=metals[state.tradeAsset],isBuy=state.tradeMode==='buy',calc=tradeCalculation();
       const demo={id:'demo-trade',op:isBuy?'buy':'sell',title:`${isBuy?'خرید':'فروش'} ${m.name}`,asset:state.tradeAsset,amount:`${calc.amountLabel} تومان`,weight:`${calc.weightLabel} گرم`,status:'موفق',statusKey:'final',dateKey:'month',time:'همین حالا',tracking:`SH-${m.symbol}-DEMO`};
       const old=activities.findIndex(a=>a.id===demo.id);if(old>=0)activities.splice(old,1);activities.unshift(demo);
-      state.receipt=demo;state.operation=demo.op;state.metal=demo.asset;state.status='all';state.date='all';state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;state.stack=[];state.scenario='receipt';render();appMain.scrollTop=0;showToast('معامله با موفقیت ثبت شد.');
+      state.receipt=demo;state.operation=demo.op;state.metal=demo.asset;state.status='all';state.date='all';state.tradeAmount='';state.quoteActive=false;state.stack=[];state.scenario='receipt';render();appMain.scrollTop=0;showToast('معامله با موفقیت ثبت شد.');
     }
     function assetChoices(){
       return `<div class="choice-grid" aria-label="انتخاب فلز">${Object.entries(metals).map(([id,m])=>`<button type="button" class="choice ${state.featureAsset===id?'selected':''}" data-feature-asset="${id}" aria-pressed="${state.featureAsset===id}">${m.name}</button>`).join('')}</div>`;
@@ -1298,50 +1305,31 @@
     }
     function activeInstallmentData(){
       const paidCount=state.installmentPaid?5:4,installmentNumber=state.installmentPaid?6:5;
-      const dates=['۲۵ فروردین ۱۴۰۵','۲۵ اردیبهشت ۱۴۰۵','۲۵ خرداد ۱۴۰۵','۲۵ تیر ۱۴۰۵','۲۵ مرداد ۱۴۰۵','۲۵ شهریور ۱۴۰۵'];
-      const schedule=dates.map((date,index)=>{const number=index+1,status=number<=paidCount?'paid':number===installmentNumber?'due':'upcoming';return {number,date,status,amount:'۵٬۰۰۰٬۰۰۰ تومان'}});
-      return {paidCount,installmentNumber,dueDate:state.installmentPaid?'۲۵ شهریور ۱۴۰۵':'۲۵ مرداد ۱۴۰۵',remaining:state.installmentPaid?'۵٬۰۰۰٬۰۰۰':'۱۰٬۰۰۰٬۰۰۰',credit:'۲۵٬۰۰۰٬۰۰۰',total:'۳۰٬۰۰۰٬۰۰۰',amountDue:'۵٬۰۰۰٬۰۰۰ تومان',progress:paidCount/6*100,schedule};
+      return {paidCount,installmentNumber,dueDate:state.installmentPaid?'۲۵ شهریور':'۲۵ مرداد',remaining:state.installmentPaid?'۵٬۰۰۰٬۰۰۰':'۱۰٬۰۰۰٬۰۰۰',progress:paidCount/6*100};
     }
     function installmentProgress(data,extraClass=''){
       return `<div class="installment-progress ${extraClass}" role="progressbar" aria-label="پیشرفت بازپرداخت اقساط" aria-valuemin="0" aria-valuemax="6" aria-valuenow="${data.paidCount}" aria-valuetext="${faNumber(data.paidCount,0)} قسط از ۶ قسط پرداخت شده"><div class="installment-progress-head"><strong>${faNumber(data.paidCount,0)} از ۶ قسط پرداخت شده</strong><span>${faNumber(Math.round(data.progress),0)}٪</span></div><div class="installment-progress-track" aria-hidden="true"><span style="width:${data.progress}%"></span></div><div class="installment-progress-labels" aria-hidden="true">${[1,2,3,4,5,6].map(step=>`<span class="${step<=data.paidCount?'paid':''}">${faNumber(step,0)}</span>`).join('')}</div></div>`;
     }
-    function installmentContractTabs(activeTab){
-      return `<nav class="installment-contract-tabs" role="tablist" aria-label="وضعیت قراردادهای اقساطی">${[['current','جاری'],['settled','تسویه‌شده'],['terminated','فسخ‌شده']].map(([id,label])=>`<button type="button" class="installment-contract-tab" role="tab" aria-selected="${activeTab===id}" data-installment-contract-tab="${id}">${label}</button>`).join('')}</nav>`;
-    }
-    function installmentSchedule(data){
-      const statusLabel={paid:'پرداخت‌شده',due:'قابل پرداخت',upcoming:'پیش‌رو'};
-      return `<section class="card installment-schedule-card"><div class="installment-schedule-head"><h3>برنامه اقساط</h3><span>${faNumber(data.paidCount,0)} پرداخت از ۶</span></div><div class="installment-schedule-list">${data.schedule.map(item=>`<div class="installment-schedule-row ${item.status==='due'?'is-due':''}"><span class="installment-schedule-number">${faNumber(item.number,0)}</span><span class="installment-schedule-copy"><strong>قسط ${faNumber(item.number,0)}</strong><span>${item.date}</span></span><span class="installment-schedule-side"><strong>${item.amount}</strong><span>${statusLabel[item.status]}</span></span></div>`).join('')}</div></section>`;
-    }
-    function installmentCurrentPanel(){
-      const m=metals.silver,data=activeInstallmentData();
-      return `<div class="installment-tab-panel" role="tabpanel"><section class="card installment-contract-card"><div class="section-head"><div><span class="installment-contract-id">قرارداد SH-INST-247381</span><h3>خرید قسطی ${m.name}</h3></div><span class="inline-status success">جاری</span></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>دارایی قفل‌شده · قرارداد ۶ ماهه</small></div></div><div class="installment-contract-overview"><div class="installment-overview-item"><span>اعتبار خرید</span><strong>${data.credit} تومان</strong></div><div class="installment-overview-item"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div></div>${installmentProgress(data)}<button class="installment-contract-link" type="button" data-installment-detail><span>جزئیات قرارداد</span><span aria-hidden="true">‹</span></button></section><section class="card installment-next-card"><div class="installment-next-head"><div><h3>قسط بعدی</h3><p>قسط ${faNumber(data.installmentNumber,0)} از ۶</p></div><span class="inline-status warning">قابل پرداخت</span></div><div class="installment-next-amount"><span>مبلغ قابل پرداخت</span><strong>${data.amountDue}</strong></div><div class="installment-next-meta"><div><span>سررسید</span><strong>${data.dueDate}</strong></div><div><span>جریمه تا این لحظه</span><strong>۰ تومان</strong></div></div></section>${installmentSchedule(data)}<div class="installment-locked-note card">${icons.shield}<span><strong>دارایی تا تسویه کامل قفل است</strong>پس از پرداخت تمام اقساط، کل دارایی قرارداد آزاد می‌شود.</span></div><div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت ${data.amountDue}</button></div></div>`;
-    }
-    function installmentEmptyContracts(tab){
-      const settled=tab==='settled';
-      return `<section class="card installment-contract-empty" role="tabpanel"><div><h3>${settled?'قرارداد تسویه‌شده‌ای ندارید':'قرارداد فسخ‌شده‌ای ندارید'}</h3><p>${settled?'قراردادهایی که همه اقساط آن‌ها پرداخت و دارایی‌شان آزاد شده، اینجا نمایش داده می‌شوند.':'اگر قراردادی طبق شرایط قرارداد فسخ شود، صورت‌حساب و وضعیت دارایی آن اینجا قابل پیگیری است.'}</p></div></section>`;
-    }
-    function installmentActivePage(tabOverride=null){
-      const activeTab=tabOverride||state.installmentContractTab||'current';setChrome('قسط‌های من',true,false);
-      return `${installmentContractTabs(activeTab)}${activeTab==='current'?installmentCurrentPanel():installmentEmptyContracts(activeTab)}`;
-    }
-    function installmentContractDetail(){
-      const m=metals.silver,data=activeInstallmentData();setChrome('جزئیات قرارداد',true,false);
-      return `<section class="card installment-detail-card"><div class="section-head"><div><span class="installment-contract-id">SH-INST-247381</span><h3>خرید قسطی ${m.name}</h3></div><span class="inline-status success">جاری</span></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>قفل‌شده تا تسویه کامل</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>اعتبار خرید</span><strong>${data.credit} تومان</strong></div><div class="receipt-row"><span>تعداد اقساط</span><strong>۶ قسط</strong></div><div class="receipt-row"><span>مبلغ هر قسط</span><strong>${data.amountDue}</strong></div><div class="receipt-row"><span>مجموع بازپرداخت</span><strong>${data.total} تومان</strong></div><div class="receipt-row"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div><div class="receipt-row"><span>تاریخ شروع</span><strong>۲۵ اسفند ۱۴۰۴</strong></div></div><button class="installment-contract-link" type="button" data-sheet="installment-terms"><span>مشاهده شرایط قرارداد</span><span aria-hidden="true">‹</span></button><div class="installment-locked-note">${icons.shield}<span><strong>آزادسازی یک‌باره دارایی</strong>دارایی پس از تسویه کامل قرارداد آزاد می‌شود؛ آزادسازی مرحله‌ای در این قرارداد وجود ندارد.</span></div></section>${installmentSchedule(data)}<div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت قسط ${faNumber(data.installmentNumber,0)}</button></div>`;
+    function installmentActivePage(){
+      const m=metals.silver,data=activeInstallmentData();setChrome('قسط‌های من',true,false);
+      return `<nav class="installment-contract-tabs" role="tablist" aria-label="وضعیت قراردادهای اقساطی"><button type="button" class="installment-contract-tab selected" role="tab" aria-selected="true">جاری</button><button type="button" class="installment-contract-tab" role="tab" aria-selected="false" data-go="installment-history">تسویه‌شده</button><button type="button" class="installment-contract-tab" role="tab" aria-selected="false" data-go="installment-history">فسخ‌شده</button></nav><section class="card installment-contract-card"><div class="section-head"><div><span class="installment-contract-id">قرارداد SH-INST-247381</span><h3>خرید قسطی ${m.name}</h3></div><span class="inline-status success">فعال</span></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>قرارداد ۶ ماهه</small></div></div>${installmentProgress(data)}<div class="installment-locked-note">${icons.shield}<span><strong>دارایی تا تسویه کامل قفل است</strong>فروش یا دریافت فیزیکی این دارایی پس از پرداخت همه اقساط در دسترس قرار می‌گیرد.</span></div></section><section class="card installment-next-card"><div class="installment-next-head"><div><h3>قسط ${faNumber(data.installmentNumber,0)} از ۶</h3><p>سررسید ${data.dueDate}</p></div><span class="inline-status warning">سررسید نزدیک است</span></div><div class="installment-next-amount"><span>مبلغ قسط</span><strong>۵٬۰۰۰٬۰۰۰ تومان</strong></div><div class="receipt-grid"><div class="receipt-row"><span>جریمه دیرکرد</span><strong>۰ تومان</strong></div><div class="receipt-row"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div></div></section><div class="alert installment-payment-alert">${icons.warn}<span><strong>پرداخت در انتظار شماست</strong>جزئیات مبلغ و منبع پرداخت را پیش از تأیید نهایی بررسی کنید.</span></div><div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت قسط ${faNumber(data.installmentNumber,0)}</button><button class="secondary-button" type="button" data-go="installment-history">تاریخچه پرداخت‌ها</button></div>`;
     }
     function installmentPage(){
       setChrome('خرید اقساطی',true,false);
       if(state.hasActiveInstallment){
-        return installmentActivePage();
+        return `<div class="page-lead"><h3>خرید اقساطی فلز</h3><p>قرارداد فعال و پرداخت بعدی خود را مدیریت کنید.</p></div><section class="card"><div class="section-head"><h3>قرارداد فعال من</h3><span class="inline-status success">فعال</span></div><div class="status-item"><span>خرید قسطی نقره</span><strong>${state.installmentPaid?'۵':'۴'} از ۶ قسط</strong></div><div class="status-item"><span>قسط بعدی</span><strong>۵٬۰۰۰٬۰۰۰ تومان</strong></div><div class="status-item"><span>سررسید</span><strong>${state.installmentPaid?'۲۵ شهریور':'۲۵ مرداد'}</strong></div><div class="status-item"><span>دارایی قرارداد</span><strong>۲۴٫۰۵ گرم</strong></div><div class="status-item"><span>وضعیت دارایی</span><strong>قفل تا تسویه کامل</strong></div></section><div class="action-stack"><button class="primary-button" data-installment-pay>پرداخت قسط</button><button class="secondary-button" data-go="installment-history">تاریخچه اقساط</button></div>`;
       }
       const calc=installmentCalculation();
       return `<section class="card installment-form"><div class="trade-asset-tabs installment-asset-tabs" role="tablist" aria-label="انتخاب فلز خرید اقساطی">${installmentAssetTabs()}</div><div class="installment-amount"><div class="installment-amount-head"><label for="installment-amount">مبلغ خرید</label><output id="installment-amount-output" for="installment-amount">${faNumber(calc.principal,0)} تومان</output></div><div class="installment-metal-estimate" id="installment-metal-estimate" aria-live="polite"><strong id="installment-metal-estimate-output">${calc.weightLabel} گرم</strong> ${metals[state.featureAsset].name}</div><input class="installment-range" id="installment-amount" type="range" dir="ltr" min="${INSTALLMENT_MIN}" max="${INSTALLMENT_MAX}" step="${INSTALLMENT_STEP}" value="${calc.principal}" style="--progress:${calc.progress}%" aria-describedby="installment-range-limits installment-metal-estimate" aria-valuetext="${faNumber(calc.principal,0)} تومان"><div class="installment-range-labels" id="installment-range-limits"><span>۱۰ میلیون تومان</span><span>۱۰۰ میلیون تومان</span></div></div><div class="field"><label>مدت بازپرداخت</label><div class="choice-grid installment-term-grid">${['6','12'].map(v=>`<button type="button" class="choice ${state.installmentTerm===v?'selected':''}" data-installment-term="${v}" aria-pressed="${state.installmentTerm===v}">${v} ماهه</button>`).join('')}</div></div><div class="quote-card installment-summary"><div class="quote-row"><span>مبلغ هر قسط</span><strong id="installment-payment-output">${faNumber(calc.payment,0)} تومان</strong></div><div class="quote-row"><span>سود سالیانه</span><strong>۲۳٪</strong></div><div class="quote-row"><span>مجموع بازپرداخت</span><strong id="installment-total-output">${faNumber(calc.total,0)} تومان</strong></div></div></section><div class="action-stack"><button class="primary-button" data-installment-preview>خرید قسطی</button></div>`;
     }
     function installmentHistory(){
-      return installmentActivePage('settled');
+      setChrome('تاریخچه اقساط',true,false);
+      const rows=activities.filter(a=>['installment','installment-pay'].includes(a.op));
+      return `<div class="page-lead"><h3>سوابق خرید و پرداخت</h3><p>تمام قراردادها و پرداخت‌های اقساطی اینجا ثبت می‌شوند.</p></div><section class="card"><div class="status-item"><span>قرارداد فعال نقره</span><strong>${state.installmentPaid?'۵':'۴'} از ۶ قسط</strong></div><div class="status-item"><span>مبلغ باقی‌مانده</span><strong>${state.installmentPaid?'۵٬۰۰۰٬۰۰۰':'۱۰٬۰۰۰٬۰۰۰'} تومان</strong></div></section><div class="section activity-list">${rows.map(activityRow).join('')}</div><div class="action-stack"><button class="primary-button" data-installment-pay>پرداخت قسط بعدی</button></div>`;
     }
     function installmentPayment(){
       const m=metals.silver,data=activeInstallmentData();setChrome('پرداخت قسط',true,false);
-      return `<section class="card installment-payment-card"><div class="installment-payment-head"><div><h3>قسط ${faNumber(data.installmentNumber,0)} از ۶</h3><p>قرارداد SH-INST-247381 · ${m.name}</p></div><span class="inline-status warning">قابل پرداخت</span></div><div class="installment-payment-total"><span>مبلغ قابل پرداخت</span><strong>${data.amountDue}</strong></div><div class="receipt-grid"><div class="receipt-row"><span>اصل قسط</span><strong>${data.amountDue}</strong></div><div class="receipt-row"><span>جریمه دیرکرد</span><strong>۰ تومان</strong></div><div class="receipt-row"><span>تاریخ سررسید</span><strong>${data.dueDate}</strong></div></div></section><section class="card installment-payment-source"><h3>منبع پرداخت</h3><div class="installment-payment-source-row"><div><span>کیف تومان</span><strong>۳۸٬۶۰۰٬۰۰۰ تومان موجودی</strong></div><span class="inline-status success">کافی</span></div></section><div class="alert">${icons.info}<span><strong>بعد از پرداخت</strong>پیشرفت قرارداد و مانده بدهی به‌روزرسانی می‌شود؛ دارایی تا تسویه کامل قفل می‌ماند.</span></div><div class="action-stack"><button class="primary-button" type="button" data-confirm-feature="installment-pay">پرداخت ${data.amountDue}</button><button class="secondary-button" type="button" data-go="installment-active">بازگشت به اقساط</button></div>`;
+      return `<div class="page-lead"><h3>پرداخت قسط ${faNumber(data.installmentNumber,0)} از ۶</h3><p>مبلغ نهایی و منبع پرداخت را پیش از تأیید بررسی کنید.</p></div><section class="card installment-payment-card"><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>خرید قسطی ${m.name}</strong><small>قرارداد SH-INST-247381 · ۲۴٫۰۵ گرم</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>مبلغ قسط</span><strong>۵٬۰۰۰٬۰۰۰ تومان</strong></div><div class="receipt-row"><span>جریمه دیرکرد</span><strong>۰ تومان</strong></div><div class="receipt-row"><span>تاریخ سررسید</span><strong>${data.dueDate}</strong></div><div class="receipt-row"><span>پرداخت از</span><strong>کیف تومان</strong></div><div class="receipt-row"><span>موجودی کیف</span><strong>۳۸٬۶۰۰٬۰۰۰ تومان</strong></div><div class="receipt-row emphasis installment-payment-total"><span>مبلغ نهایی</span><strong>۵٬۰۰۰٬۰۰۰ تومان</strong></div></div></section><div class="alert">${icons.info}<span><strong>اثر این پرداخت</strong>پس از تأیید موفق، پیشرفت قرارداد و قسط بعدی به‌روزرسانی می‌شود.</span></div><div class="action-stack"><button class="primary-button" type="button" data-confirm-feature="installment-pay">پرداخت ۵٬۰۰۰٬۰۰۰ تومان</button><button class="secondary-button" type="button" data-go="installment-active">بازگشت به قرارداد</button></div>`;
     }
     function installmentPreview(){
       const m=metals[state.featureAsset],calc=installmentCalculation();setChrome('بررسی قرارداد',true,false);
@@ -1381,7 +1369,7 @@
     }
     function installmentPaymentResult(a){
       const m=metals.silver,data=activeInstallmentData();setChrome('نتیجه پرداخت',true,false);
-      return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><h3>قسط با موفقیت پرداخت شد</h3><p>${a.weight} ثبت شد.</p></div><div class="receipt-grid"><div class="receipt-row"><span>مبلغ پرداخت‌شده</span><strong>${a.amount}</strong></div><div class="receipt-row"><span>روش پرداخت</span><strong>کیف تومان</strong></div><div class="receipt-row"><span>زمان پرداخت</span><strong>${a.time}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a.tracking}</strong></div></div></section><section class="card installment-contract-card"><div class="section-head"><div><span class="installment-contract-id">قرارداد SH-INST-247381</span><h3>وضعیت به‌روزشده</h3></div><span class="inline-status success">${faNumber(data.paidCount,0)} از ۶</span></div>${installmentProgress(data)}<div class="installment-contract-overview"><div class="installment-overview-item"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div><div class="installment-overview-item"><span>سررسید بعدی</span><strong>${data.dueDate}</strong></div></div><div class="installment-locked-note">${icons.shield}<span><strong>۲۴٫۰۵ گرم ${m.name} همچنان قفل است</strong>پس از پرداخت آخرین قسط، دارایی آزاد می‌شود.</span></div></section><div class="action-stack"><button class="primary-button" type="button" data-go="installment-active">مشاهده اقساط</button><button class="secondary-button" type="button" data-open-result-receipt>مشاهده رسید پرداخت</button></div>`;
+      return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><span class="inline-status success">موفق</span><h3>قسط با موفقیت پرداخت شد</h3><p>پرداخت ثبت شد و وضعیت قرارداد شما به‌روزرسانی شد.</p></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>خرید قسطی ${m.name}</strong><small>قرارداد SH-INST-247381</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>مبلغ پرداخت‌شده</span><strong>${a.amount}</strong></div><div class="receipt-row"><span>قسط پرداخت‌شده</span><strong>${a.weight}</strong></div><div class="receipt-row"><span>زمان</span><strong>${a.time}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a.tracking}</strong></div></div>${installmentProgress(data,'installment-result-progress')}<div class="receipt-grid"><div class="receipt-row"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div><div class="receipt-row"><span>سررسید بعدی</span><strong>${data.dueDate}</strong></div></div></section><div class="action-stack"><button class="primary-button" type="button" data-go="installment-active">بازگشت به قسط‌های من</button><button class="secondary-button" type="button" data-open-result-receipt>مشاهده رسید کامل</button></div>`;
     }
     function featureResult(){
       const a=state.receipt,m=a.asset?metals[a.asset]:null;setChrome('نتیجه درخواست',true,false);
@@ -1522,7 +1510,6 @@
       else if(state.scenario==='target-setup')html=targetSetup();
       else if(state.scenario==='target-preview')html=targetPreview();
       else if(state.scenario==='installment-active')html=installmentActivePage();
-      else if(state.scenario==='installment-contract-detail')html=installmentContractDetail();
       else if(state.scenario==='installment-empty')html=installmentPage();
       else if(state.scenario==='installment-history')html=installmentHistory();
       else if(state.scenario==='installment-payment')html=installmentPayment();
@@ -1553,6 +1540,9 @@
       else if(state.scenario.startsWith('detail-'))html=detail(state.scenario.replace('detail-',''));
       else if(state.scenario==='trade-preview')html=tradePreview();
       else if(state.scenario==='trade-processing')html=tradeProcessing();
+      else if(state.scenario==='trade-expired')html=tradeExpired();
+      else if(state.scenario==='trade-failed')html=tradeFailed();
+      else if(state.scenario==='trade-offline')html=tradeOffline();
       else if(state.scenario.startsWith('trade-'))html=trade();
       else if(state.scenario==='chart-single')html=singleChart();
       else if(state.scenario==='services')html=services();
@@ -1563,6 +1553,7 @@
       appMain.innerHTML=livePriceTicker()+html;
       appMain.classList.toggle('home-scrollless',['home','home-partial','outage'].includes(state.scenario));
       appMain.classList.toggle('trade-compact',['trade-gold','trade-selector3','trade-selector16','trade-quote-switch'].includes(state.scenario));
+      appMain.classList.toggle('trade-review',['trade-preview','trade-expired','trade-failed','trade-offline'].includes(state.scenario));
       // D-144: every direct page-level action group becomes a safe-area-aware bottom action bar.
       appMain.querySelectorAll(':scope > .action-stack:not(.inline-action)').forEach(actions=>actions.classList.add('sticky-action'));
       overlay();
@@ -1659,9 +1650,7 @@
       if(t.hasAttribute('data-physical-back')){back();return}
       if(t.hasAttribute('data-physical-request')){state.operation='physical';state.metal=state.featureAsset;state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();return}
       if(t.dataset.targetKind){state.targetKind=t.dataset.targetKind;state.targetPrice='';state.targetAmount='';navigate('target-setup');return}
-      if(t.hasAttribute('data-installment-open')){state.installmentContractTab='current';navigate(state.hasActiveInstallment?'installment-active':'installment-empty');return}
-      if(t.dataset.installmentContractTab){state.installmentContractTab=t.dataset.installmentContractTab;render();appMain.scrollTop=0;return}
-      if(t.hasAttribute('data-installment-detail')){navigate('installment-contract-detail');return}
+      if(t.hasAttribute('data-installment-open')){navigate(state.hasActiveInstallment?'installment-active':'installment-empty');return}
       if(t.dataset.featureAsset){state.featureAsset=t.dataset.featureAsset;if(state.scenario==='installment-empty')state.installmentAmount=String(INSTALLMENT_MIN);render();return}
       if(t.dataset.targetDirection){state.targetDirection=t.dataset.targetDirection;render();return}
       if(t.dataset.targetExpiry){state.targetExpiry=t.dataset.targetExpiry;render();return}
@@ -1670,7 +1659,6 @@
       if(t.hasAttribute('data-installment-pay')){state.featureAsset='silver';navigate('installment-payment');return}
       if(t.hasAttribute('data-installment-preview')){state.installmentTermsAccepted=false;state.installmentActivationMethod='gateway';navigate('installment-preview');return}
       if(t.hasAttribute('data-installment-activation-preview')){state.installmentActivationMethod='gateway';navigate('installment-fee-payment');return}
-      if(t.hasAttribute('data-toggle-trade-wallet')){if(state.tradeMode!=='buy'||TRADE_WALLET_BALANCE<=0)return;state.tradeUseWallet=!state.tradeUseWallet;render();return}
       if(t.hasAttribute('data-toggle-installment-wallet')){const calc=installmentActivationCalculation();if(!calc.canUseWallet)return;state.installmentActivationMethod=state.installmentActivationMethod==='wallet'?'gateway':'wallet';render();return}
       if(t.dataset.installmentPaymentMethod){const calc=installmentActivationCalculation();if(t.dataset.installmentPaymentMethod==='wallet'&&!calc.canUseWallet)return;state.installmentActivationMethod=t.dataset.installmentPaymentMethod;render();return}
       if(t.hasAttribute('data-installment-activation-pay')){const method=state.installmentActivationMethod==='wallet'&&installmentActivationCalculation().canUseWallet?'wallet':'gateway';state.installmentActivationMethod=method;if(method==='wallet'){state.hasActiveInstallment=true;navigate('installment-success');}else{navigate('installment-gateway');const token=state.processingToken;setTimeout(()=>{if(state.processingToken===token&&state.scenario==='installment-gateway'){state.hasActiveInstallment=true;navigate('installment-success',{replace:true});}},900);}return}
@@ -1688,31 +1676,34 @@
       if(t.hasAttribute('data-change-password')){state.currentPassword='';state.newPassword='';state.confirmPassword='';navigate('change-password');return}
       if(t.hasAttribute('data-password-submit')){state.currentPassword='';state.newPassword='';state.confirmPassword='';state.stack=[];state.scenario='security';render();showToast('رمز عبور با موفقیت تغییر کرد.');return}
       if(t.dataset.togglePageSetting){state[t.dataset.togglePageSetting]=!state[t.dataset.togglePageSetting];render();return}
-      if(t.hasAttribute('data-home-trade')){state.tradeMode='buy';state.tradeInputUnit='toman';state.tradeAsset='gold';state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;navigate('trade-gold');return}
+      if(t.hasAttribute('data-home-trade')){state.tradeMode='buy';state.tradeInputUnit='toman';state.tradeAsset='gold';state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
       if(t.hasAttribute('data-live-price-next')){advanceLivePrice();scheduleLivePriceTicker();return}
-      if(t.dataset.go){if(t.dataset.go==='physical-select')resetPhysical('gold');if(t.dataset.go==='installment-active')state.installmentContractTab='current';if(t.dataset.historyMetal){state.operation='all';state.metal=t.dataset.historyMetal}navigate(t.dataset.go);return}
+      if(t.dataset.go){if(t.dataset.go==='physical-select')resetPhysical('gold');if(t.dataset.historyMetal){state.operation='all';state.metal=t.dataset.historyMetal}navigate(t.dataset.go);return}
       if(t.dataset.detail){navigate('detail-'+t.dataset.detail);return}
-      if(t.dataset.tradeAsset){state.tradeAsset=t.dataset.tradeAsset;state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;navigate('trade-gold');return}
+      if(t.dataset.tradeAsset){state.tradeAsset=t.dataset.tradeAsset;state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
       if(t.dataset.toast){showToast(t.dataset.toast);return}
       if(t.dataset.period){state.period=t.dataset.period;render();return}
-      if(t.dataset.tradeMode){state.tradeMode=t.dataset.tradeMode;state.tradeUseWallet=false;render();return}
+      if(t.dataset.tradeMode){state.tradeMode=t.dataset.tradeMode;render();return}
       if(t.hasAttribute('data-toggle-trade-unit')){toggleTradeUnit();return}
       if(t.dataset.tradeKey){applyTradeKey(t.dataset.tradeKey);return}
       if(t.dataset.openFullChart){state.chartAsset=t.dataset.openFullChart;navigate('chart-single');return}
       if(t.dataset.openTradeAssets){const size=t.dataset.openTradeAssets==='16'?'16':'3';state.scenario=size==='16'?'trade-selector16':'trade-selector3';openOverlay(`trade-asset-${size}`,t);return}
       if(t.dataset.selectTradeAsset){
         if(state.quoteActive&&t.dataset.selectTradeAsset!==state.tradeAsset){state.pendingTradeAsset=t.dataset.selectTradeAsset;state.scenario='trade-quote-switch';state.sheet='quote-confirm';overlay()}
-        else{state.tradeAsset=t.dataset.selectTradeAsset;state.tradeUseWallet=false;state.pendingTradeAsset=null;state.sheet=null;state.scenario='trade-gold';render()}
+        else{state.tradeAsset=t.dataset.selectTradeAsset;state.pendingTradeAsset=null;state.sheet=null;state.scenario='trade-gold';render()}
         return;
       }
-      if(t.hasAttribute('data-confirm-trade-switch')){state.tradeAsset=state.pendingTradeAsset;state.tradeUseWallet=false;state.pendingTradeAsset=null;state.tradeAmount='';state.quoteActive=false;state.sheet=null;state.scenario='trade-gold';render();showToast('فلز تغییر کرد؛ مبلغ و نرخ قبلی پاک شدند.');return}
+      if(t.hasAttribute('data-confirm-trade-switch')){state.tradeAsset=state.pendingTradeAsset;state.pendingTradeAsset=null;state.tradeAmount='';state.quoteActive=false;state.sheet=null;state.scenario='trade-gold';render();showToast('فلز تغییر کرد؛ مبلغ و نرخ قبلی پاک شدند.');return}
       if(t.hasAttribute('data-cancel-switch')){closeOverlay();return}
-      if(t.hasAttribute('data-trade-preview')){state.tradeUseWallet=false;navigate('trade-preview');return}
+      if(t.hasAttribute('data-trade-preview')){navigate('trade-preview');return}
       if(t.hasAttribute('data-edit-trade')){back();return}
+      if(t.hasAttribute('data-refresh-trade-quote')){state.scenario='trade-preview';state.sheet=null;state.quoteActive=true;render();showToast('نرخ تازه دریافت شد؛ جزئیات را دوباره بررسی کنید.');return}
+      if(t.hasAttribute('data-trade-retry')){state.scenario='trade-preview';state.sheet=null;state.quoteActive=true;render();showToast('نرخ تازه دریافت شد.');return}
+      if(t.hasAttribute('data-return-trade')){state.scenario='trade-gold';state.sheet=null;render();requestAnimationFrame(()=>document.getElementById('trade-amount')?.focus({preventScroll:true}));return}
       if(t.hasAttribute('data-confirm-trade')){navigate('trade-processing');const token=state.processingToken;setTimeout(()=>{if(state.processingToken===token&&state.scenario==='trade-processing')completeTrade()},800);return}
       if(t.hasAttribute('data-open-chart-assets')){openOverlay('chart-asset',t);return}
       if(t.dataset.chartAsset){state.chartAsset=t.dataset.chartAsset;state.sheet=null;render();return}
-      if(t.hasAttribute('data-trade-from-chart')){state.tradeAsset=state.chartAsset;state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;navigate('trade-gold');return}
+      if(t.hasAttribute('data-trade-from-chart')){state.tradeAsset=state.chartAsset;state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
       if(t.dataset.operation){state.operation=t.dataset.operation;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();return}
       if(t.dataset.sheet){openOverlay(t.dataset.sheet,t);return}
       if(t.dataset.toggleSetting){state[t.dataset.toggleSetting]=!state[t.dataset.toggleSetting];overlay(false);return}
@@ -1727,7 +1718,7 @@
       if(t.hasAttribute('data-back-history')){state.operation=state.receipt.op;state.metal=state.receipt.asset||'all';state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();appMain.scrollTop=0;return}
       if(t.dataset.copy){try{await navigator.clipboard.writeText(t.dataset.copy)}catch{}showToast(`${t.dataset.copyLabel||'مقدار'} کپی شد.`);return}
       if(t.dataset.nav==='خانه'){setScenario('home');return}
-      if(t.dataset.nav==='معامله'){state.scenario='trade-gold';state.stack=[];state.sheet=null;state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;render();appMain.scrollTop=0;return}
+      if(t.dataset.nav==='معامله'){state.scenario='trade-gold';state.stack=[];state.sheet=null;state.tradeAmount='';state.quoteActive=false;render();appMain.scrollTop=0;return}
       if(t.dataset.nav==='خدمات'){state.scenario='services';state.stack=[];state.sheet=null;render();appMain.scrollTop=0;return}
     });
     document.addEventListener('change',e=>{
@@ -1754,7 +1745,7 @@
         requestAnimationFrame(()=>{appMain.scrollTop=scrollTop;const input=document.getElementById(id);if(input){input.focus();input.setSelectionRange(input.value.length,input.value.length)}});return;
       }
       if(e.target.id==='trade-amount'){
-        const value=formatTradeInput(e.target.value);state.tradeAmount=value;state.quoteActive=numericValue(value)>0;render();
+        const value=e.target.value;state.tradeAmount=value;state.quoteActive=value.trim().length>0;render();
         requestAnimationFrame(()=>{const input=document.getElementById('trade-amount');if(input){input.focus();input.setSelectionRange(input.value.length,input.value.length)}});
       }
     });

@@ -1,7 +1,7 @@
 # ممیزی بایننس برای زبان بصری و Patternهای شمش
 
-وضعیت: `Active / Sufficient to start extraction`  
-تاریخ شروع: ۲۵ مرداد ۱۴۰۵ / 16 Aug 2026  
+وضعیت: `Active / Cross-batch UI language matrix v0.1 drafted / A-B-D dedupe and proof pending`
+تاریخ شروع: ۲۵ مرداد ۱۴۰۵ / 16 Aug 2026
 تصمیم مرجع: D-163
 
 ## هدف
@@ -16,7 +16,10 @@
 
 - [`binance-reference-index.md`](binance-reference-index.md): Snapshot منبع، Census خانواده‌ها، معیار ورود و ثبت Evidence.
 - [`binance-flow-shortlist.md`](binance-flow-shortlist.md): فهرست جریان‌ها و Batchهای نمونه‌گیری با اولویت `Core / Supporting / Pattern-only / Exclude`.
+- [`binance-trade-batch-c-evidence-ledger.md`](binance-trade-batch-c-evidence-ledger.md): Dedupe و Ledger اسکرین‌به‌اسکرین هشت Flow معامله؛ ۴۱ Screen خام و ۳۸ Screen منحصربه‌فرد.
+- [`binance-trade-pattern-proof-g3.md`](binance-trade-pattern-proof-g3.md): اثبات هشت Pattern معامله با تکرار، State depth، Counter-example و محدودیت انتقال.
 - [`binance-pattern-catalog.md`](binance-pattern-catalog.md): کاتالوگ Patternهای تکرارشونده در Foundation، Component، Composition، Behavior و State.
+- [`binance-global-ui-language-matrix-v0.1.md`](binance-global-ui-language-matrix-v0.1.md): سنتز سراسری Candidate برای انتخاب `Inline / Sheet / Page / Modal`، Surface/Border/Divider، Title، Color، Action، State و Component taxonomy در Home، Settings، Markets، Assets، Auth/KYC، Security، Payment و Deposit.
 - [`binance-to-shemsh-mapping.md`](binance-to-shemsh-mapping.md): نگاشت هر Pattern به وایرفریم، سیستم طراحی و تصمیم `Adopt / Adapt / Reject / Defer`.
 
 ## ترتیب اجرا
@@ -34,7 +37,8 @@
 
 ## نقش ابزارها
 
-- **Browser MCP:** مشاهده Session واردشده Mobbin، جست‌وجوی Flow، خواندن تعداد/رابطه‌ها، بازکردن Screen و ثبت Evidence.
+- **Mobbin MCP:** جست‌وجوی معنایی Flowها، دریافت لینک/شناسه/تعداد Screen و بازبینی Previewهای واقعی.
+- **Browser MCP:** کنترل Snapshot کلان، عدد ۴۶۹ Flow و Taxonomy کامل Filter در Session واردشده Mobbin.
 - **Markdown این مخزن:** منبع حقیقت تحلیل، Confidence، تصمیم و Gate.
 - **Figma MCP:** بعد از تثبیت Ruleها برای Reference board، Candidate، Pilot و مقایسه؛ نه برای استخراج خام.
 
@@ -52,10 +56,10 @@
 | Gate | معیار | وضعیت |
 |---|---|---|
 | G0 — Workflow | منبع، روش، برچسب‌ها، Batchها و خروجی‌ها روشن باشند | `Complete` |
-| G1 — Census | خانواده‌های مرتبط و Shortlist اولیه ثبت شوند | `In progress` |
-| G2 — Evidence | نمونه هدف با لینک، Context و حذف تکرار پوشش داده شود | `Not started` |
-| G3 — Pattern | هر Rule شاهد تکرار، Confidence و Counter-example داشته باشد | `Not started` |
-| G4 — Mapping | اثر هر Rule روی وایرفریم و DS فعلی مشخص باشد | `Not started` |
-| G5 — Pilot-ready | قرارداد بصری قابل تست برای Trade/Home/Trust آماده باشد | `Not started` |
+| G1 — Census | خانواده‌های مرتبط و Shortlist اولیه ثبت شوند | `Complete — 17 families / 32 flows / 173 raw screens` |
+| G2 — Evidence | نمونه هدف با لینک، Context و حذف تکرار پوشش داده شود | `Batch C complete — 8 flows / 41 raw / 38 unique؛ نمونه‌گیری مستقیم A/B/D و Matrix v0.1 انجام شده، Dedupe A/B/D pending` |
+| G3 — Pattern | هر Rule شاهد تکرار، Confidence و Counter-example داشته باشد | `Batch C complete — 8 corroborated؛ 24 Cross-batch UI candidates awaiting proof` |
+| G4 — Mapping | اثر هر Rule روی وایرفریم و DS فعلی مشخص باشد | `Trade complete — 8 mapped / 3 Adopt / 5 Adapt` |
+| G5 — Pilot-ready | قرارداد بصری قابل تست برای Trade/Home/Trust آماده باشد | `Trade candidate built in HTML + Figma / Owner review pending؛ Home/Trust pending` |
 
-Gate فعلی: `Sufficient to start extraction`.
+Gate فعلی: `Cross-batch matrix v0.1 sufficient to proceed to A/B/D dedupe and G3 proof; no Home/DS transfer before proof`.

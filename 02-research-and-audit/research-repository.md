@@ -17,7 +17,7 @@
 | R-013 | `competitors/synthesis/auth-signup-kyc-benchmark.md` و برد FigJam لینک‌شده در آن | بنچمارک مستقیم چهار رقیب | 18 Jul 2026 | بالا برای اسکرین‌ها و رفتارهای یادداشت‌شده؛ ناقص برای نتیجه نهایی KYC و Permissionها | ورود، ثبت‌نام، OTP، رمز، ترک احراز و recovery |
 | R-014 | `competitors/synthesis/unverified-user-access-benchmark-2026-07-18.md` | بنچمارک مستقیم سه رقیب | 18 Jul 2026 | بالا برای خانه و فرم‌های مشاهده‌شده؛ ناقص برای تکمیل عملیات حساس میلی و وال‌گلد | دسترسی کاربر احرازنشده، پیش‌نمایش و قفل اقدام مالی |
 | R-015 | `competitors/synthesis/mobbin-global-pattern-benchmark-2026-08-15.md` | بنچمارک پترن جهانی با Mobbin MCP | 15 Aug 2026 | بالا برای Previewهای مشاهده‌شده؛ محدود به نمونه‌های موجود Mobbin و عمدتاً iOS | پورتفوی چنددارایی، فلزات، معامله، کیف، تاریخچه، هشدار، Pickup/دریافت فیزیکی و اعتماد نزدیک اقدام |
-| R-016 | `competitors/binance/` | Audit اختصاصی Binance iOS با Mobbin و روش Flow-first | 16 Aug 2026 | Snapshot منبع ثالث؛ بالا برای Screen/Flow مشاهده‌شده، استنباط فقط پس از تکرار و Counter-example | زبان بصری، Surface/Border/Spacing/Type، Component، Composition، Behavior و نگاشت به Home/Trade/Assets شمش |
+| R-016 | `competitors/binance/` | Audit اختصاصی Binance iOS با Mobbin و روش Flow-first؛ G1 شامل ۱۷ خانواده و ۳۲ Flow / ۱۷۳ Raw، G2 Batch C شامل ۸ Flow / ۴۱ Raw / ۳۸ Unique و G3 شامل هشت Pattern Corroborated | 16 Aug 2026 | Snapshot منبع ثالث؛ بالا برای Filter، Screen ID و Assetهای مشاهده‌شده؛ Patternهای Corroborated تا G4 Rule شمش نیستند | زبان بصری، Surface/Border/Spacing/Type، Component، Composition، Behavior و نگاشت به Home/Trade/Assets شمش |
 
 ## منابع هنوز لازم
 
