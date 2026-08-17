@@ -126,7 +126,7 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 ## زیرتسک فعال
 
-فاز ۱ — G4 معامله با هشت Pattern نگاشت‌شده، کپی HTML قابل تست و برد مستقل Figma کامل است. زیرتسک بعدی Review مالک محصول روی Pilot معامله و سپس تدوین G5 Visual Direction Contract برای Surface/Border/Spacing/Radius/Typography است؛ Dedupe Batchهای A/B/D و Pilotهای Home/Trust موازی باز می‌مانند. Reviewهای بصری Candidateهای فعلی باز است و هیچ Promote/Demote خودکاری انجام نمی‌شود — D-163.
+فاز ۱ — G2/G3 سراسری، G4 Candidate mapping و G5 Visual Direction Contract v0.1 کامل‌اند. زیرتسک بعدی Pilot غیرمخرب Home/Assets و ثبت Findingهاست؛ Pilot Trust/Receipt پس از آن می‌آید. Reviewهای بصری Candidateهای فعلی باز است و هیچ Migration یا Promote/Demote خودکاری انجام نمی‌شود — D-163/D-177.
 
 ## Guardrailها
 
@@ -142,6 +142,6 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 فاز ۰: `Complete`
 
-فاز ۱: `In progress / Sufficient to proceed` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و خانواده Input Final audit صفر Issue را پاس کرده‌اند. مسیر استخراج بایننس G4 معامله را با هشت Mapping و Pilot HTML/Figma بسته است؛ G2 Batchهای A/B/D، Pilotهای Home/Trust، G5 Visual Direction Contract و تأیید بصری مالک محصول بازند و هیچ Foundation یا Component هنوز `Stable` نیست.
+فاز ۱: `In progress / Sufficient to pilot` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و خانواده Input Final audit صفر Issue را پاس کرده‌اند. G5 v0.1 مقدارهای Pilot و قواعد مصرف را بسته؛ Pilotهای Home/Assets و Trust/Receipt و تأیید بصری مالک بازند و هیچ Foundation یا Component هنوز `Stable` نیست.
 
 مرحله ۷: `Sufficient to proceed`

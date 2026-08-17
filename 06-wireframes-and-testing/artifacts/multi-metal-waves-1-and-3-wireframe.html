@@ -18,6 +18,7 @@
       --canvas:#eef0f2; --surface:#fff; --subtle:#f6f7f8; --strong:#eceff1;
       --text:#17191c; --muted:#626870; --border:#d6dae0; --border-strong:#aeb4bc;
       --primary:#1d2530; --primary-pressed:#0e1217; --focus:#1d64d8;
+      --cta:#0b0c0e; --cta-hover:#191b1f; --cta-foreground:#fff;
       --danger:#a92820; --danger-bg:#fff1f0; --warning:#815600; --warning-bg:#fff8e7;
       --success:#176b47; --success-bg:#edf8f2; --info:#eef3f7;
       --wallet-surface:#f3f7fa; --wallet-border:#bdccd8; --wallet-accent:#315d7a;
@@ -50,6 +51,7 @@
     .phone{--app-chrome-top:84px;width:390px;height:820px;border-radius:28px;overflow:hidden;position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
     .statusbar{height:26px;background:var(--surface);display:flex;align-items:end;justify-content:space-between;padding:0 18px 3px;font-size:10px;direction:ltr}
     .app-header{min-height:58px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:48px 1fr 48px;grid-template-areas:"left title right";align-items:center;padding:0 10px;background:var(--surface);z-index:10;direction:ltr}
+    .app-header.hidden{display:none}
     .app-header h2{grid-area:title;direction:rtl;font-size:18px;margin:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     #header-left{grid-area:left}
     #header-right{grid-area:right}
@@ -90,8 +92,8 @@
     .summary-meta strong{color:#fff}
     .portfolio-rail{direction:rtl;display:flex;gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;padding:2px 0;scrollbar-width:none;-ms-overflow-style:none}
     .portfolio-rail::-webkit-scrollbar{display:none}
-    .portfolio-card{position:relative;flex:0 0 calc(100% - 64px);min-height:98px;scroll-snap-align:start;scroll-snap-stop:always;border:1px solid var(--border);border-radius:var(--r-md);text-align:right;background:var(--surface)}
-    .portfolio-card-main{width:100%;min-height:96px;border:0;background:transparent;color:inherit;text-align:right;padding:10px 12px;display:grid;align-content:space-between;gap:8px;border-radius:inherit;cursor:pointer}
+    .portfolio-card{position:relative;flex:0 0 calc(100% - 84px);min-height:148px;scroll-snap-align:start;scroll-snap-stop:always;border:1px solid var(--border);border-radius:var(--r-md);text-align:right;background:var(--surface)}
+    .portfolio-card-main{width:100%;min-height:146px;border:0;background:transparent;color:inherit;text-align:right;padding:16px 12px;display:grid;align-content:space-between;gap:14px;border-radius:inherit;cursor:pointer}
     .portfolio-total{background:var(--primary);border-color:var(--primary);color:#fff}
     .portfolio-total .balance-toggle{color:#fff}
     .portfolio-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;min-width:0}
@@ -106,11 +108,15 @@
     .portfolio-card-pnl{text-align:left;justify-items:end}
     .portfolio-card-balance{display:grid;gap:1px}
     .portfolio-card-balance>span{font-size:10px;color:var(--muted)}
-    .portfolio-card-balance strong{width:max-content;max-width:calc(100% - 36px);font-size:22px;line-height:1.2;font-variant-numeric:tabular-nums;display:inline-flex;align-items:baseline;gap:4px}
+    .portfolio-card-balance strong{width:max-content;max-width:calc(100% - 36px);min-width:0;font-size:clamp(18px,5vw,20px);line-height:1.2;font-variant-numeric:tabular-nums;display:inline-flex;align-items:baseline;gap:3px;white-space:nowrap}
+    .portfolio-card-balance>strong .balance-number{min-width:0}
+    .portfolio-card-balance>strong .balance-number.is-long{font-size:.9em;letter-spacing:-.01em}
+    .portfolio-card-balance>strong .balance-number.is-xlong{font-size:.72em;letter-spacing:-.02em}
     .balance-unit{font-size:1em;font-weight:inherit;color:inherit}
-    .balance-unit.gram{font-size:.72em;font-weight:650}
+    .portfolio-card-balance>strong .balance-unit{font-size:.72em;font-weight:650}
     .portfolio-total .balance-unit{color:#d6d9dd}
-    .portfolio-card-value{width:max-content;max-width:100%;font-size:13px;color:var(--text);font-weight:650;font-variant-numeric:tabular-nums}
+    .portfolio-card-value{width:max-content;max-width:100%;font-size:12px;color:var(--text);font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .portfolio-card-value .balance-unit{font-size:.88em}
     .balance-toggle{position:absolute;left:10px;bottom:10px;z-index:2;width:32px;height:32px;border:0;border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--text);cursor:pointer}
     .portfolio-card .balance-toggle{left:auto;right:calc(12px + var(--balance-width, 0px) + 4px);top:calc(var(--balance-top, 58px) + (var(--balance-height, 23px) - 32px)/2);bottom:auto}
     .balance-toggle svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -121,10 +127,18 @@
     .portfolio-card:hover{border-color:var(--border-strong)}
     .portfolio-card:active{background:var(--strong)}
     .home-card-variant .portfolio-card{position:relative;overflow:hidden;border-radius:14px;border-color:var(--border);box-shadow:0 3px 10px rgba(27,35,45,.055)}
-    .home-card-variant .portfolio-total{box-shadow:0 7px 18px rgba(29,37,48,.17)}
+    .home-card-variant .portfolio-total{background:color-mix(in srgb,var(--primary) 6%,var(--surface));border-color:color-mix(in srgb,var(--border) 72%,transparent);color:var(--text);box-shadow:0 3px 10px rgba(27,35,45,.045)}
+    .home-card-variant .portfolio-total .balance-toggle{color:var(--text)}
+    .home-card-variant .portfolio-total .portfolio-card-title-copy small,.home-card-variant .portfolio-total .portfolio-card-balance>span,.home-card-variant .portfolio-total .balance-unit{color:var(--muted)}
+    .home-card-variant .portfolio-total .portfolio-card-balance>span{color:var(--text);font-weight:650}
+    .home-card-variant .portfolio-total .balance-number{color:var(--text);font-weight:780}
+    .home-card-variant .portfolio-card-title-copy strong{font-size:15px}
     .home-monochrome .portfolio-card .positive,.home-monochrome .portfolio-card .negative{color:var(--text)}
     .home-monochrome .portfolio-card .inline-status,.home-monochrome .portfolio-card .inline-status.success,.home-monochrome .portfolio-card .inline-status.warning,.home-monochrome .portfolio-card .inline-status.danger{background:var(--strong);color:var(--text)}
-    .home-trade-cta{width:100%;min-height:44px;margin-top:4px;padding-block:7px;font-size:13px}
+    .primary-button.home-trade-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;margin:12px 0 0;padding:10px 18px;border-color:var(--cta);border-radius:12px;background:var(--cta);color:var(--cta-foreground);font-size:14px;font-weight:750;line-height:1.4;box-shadow:0 8px 20px rgba(11,12,14,.16);transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease,opacity .16s ease}
+    .home-trade-cta svg{width:20px;height:20px;flex:0 0 20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .primary-button.home-trade-cta:active{background:var(--primary-pressed);border-color:var(--primary-pressed);opacity:.9;box-shadow:0 4px 12px rgba(11,12,14,.14)}
+    @media (hover:hover) and (pointer:fine){.primary-button.home-trade-cta:hover{background:var(--cta-hover);border-color:var(--cta-hover);box-shadow:0 10px 24px rgba(11,12,14,.2)}}
     .home-monochrome .alert,.home-monochrome .alert.danger{background:var(--strong);color:var(--text);border-color:var(--border-strong)}
     .portfolio-hint{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:11px;margin-top:2px}
     .portfolio-mix-hero{background:var(--primary);color:#fff;border-color:var(--primary);display:grid;gap:10px;padding:13px 14px}
@@ -276,6 +290,19 @@
     .service-tile strong{font-size:14px;line-height:1.45}
     .service-icon{width:42px;height:42px;border-radius:12px;background:var(--strong);border:1px solid var(--border);display:grid;place-items:center;color:var(--primary)}
     .service-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .service-hub-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-content:start}
+    .service-hub-grid .service-tile{aspect-ratio:1;min-height:0;padding:8px 6px;align-content:center;justify-items:center;gap:7px;text-align:center}
+    .service-hub-grid .service-icon{width:30px;height:30px;border:0;border-radius:0;background:transparent}
+    .service-hub-grid .service-icon svg{width:24px;height:24px}
+    .service-hub-grid .service-copy{justify-items:center}
+    .service-hub-grid .service-tile strong{font-size:11px;line-height:1.45;font-weight:700}
+    .service-hub-grid:has(.service-tile:nth-child(10)){grid-template-columns:repeat(4,minmax(0,1fr))}
+    .service-hub-grid:has(.service-tile:nth-child(10)) .service-tile{padding:5px 3px;gap:3px}
+    .service-hub-grid:has(.service-tile:nth-child(10)) .service-icon{width:24px;height:24px}
+    .service-hub-grid:has(.service-tile:nth-child(10)) .service-icon svg{width:20px;height:20px}
+    .service-hub-grid:has(.service-tile:nth-child(10)) .service-tile strong{font-size:10px;line-height:1.3}
+    .service-hub-grid .service-tile:active{background:var(--strong)}
+    .service-hub-grid .service-tile:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
     .service-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
     .service-strip-item{position:relative;min-width:0;min-height:78px;padding:4px 5px;border:0;border-radius:10px;background:transparent;color:var(--text);display:grid;justify-items:center;align-content:center;gap:8px;text-align:center}
     .service-strip-item .service-icon{width:40px;height:40px;border-radius:10px;background:transparent;color:var(--text)}
@@ -453,14 +480,14 @@
     .trade-unit-toggle{grid-area:unit;justify-self:start;min-width:70px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 7px;border:0;border-radius:9px;background:transparent;font-size:13px;font-weight:750}
     .trade-unit-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
     .trade-amount-spacer{grid-area:spacer;width:70px;height:1px}
-    .trade-conversion{min-height:34px;display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;color:var(--muted);font-size:12px}
-    .trade-conversion svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .trade-conversion strong{direction:ltr;color:var(--text);border-bottom:1px dashed var(--border-strong);font-size:13px;font-variant-numeric:tabular-nums}
+    .trade-conversion{min-height:34px;display:inline-flex;align-items:center;justify-content:center;margin-top:2px;color:var(--text);font-size:13px}
+    .trade-conversion strong{direction:rtl;display:inline-flex;align-items:baseline;gap:4px;color:var(--text);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+    .trade-conversion-value{direction:ltr}
     .trade-input-message{min-height:18px;margin-top:2px;color:var(--danger);font-size:10px;font-weight:650}
     .trade-submit{width:100%;min-height:50px;flex:0 0 50px;margin:0 4px 8px;width:calc(100% - 8px)}
-    .trade-keypad{direction:ltr;flex:0 0 210px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,1fr);gap:0;padding:4px 2px 8px;border-top:1px solid var(--border);background:var(--surface)}
-    .trade-key{min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:24px;font-weight:650;font-variant-numeric:tabular-nums;cursor:pointer}
-    .trade-key svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .trade-keypad{direction:ltr;flex:0 0 210px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,1fr);gap:0;padding:4px 2px 8px;background:var(--surface)}
+    .trade-key{min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:24px;font-weight:650;font-variant-numeric:tabular-nums;cursor:pointer;display:grid;place-items:center;padding:0;line-height:1}
+    .trade-key svg{display:block;width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
     .trade-key:active{background:var(--strong)}
     .trade-key:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
     .trade-key[disabled]{color:var(--border-strong);cursor:not-allowed}
@@ -645,6 +672,7 @@
       installment:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>`,
       giftSend:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m17 3 3 3-3 3"/></svg>`,
       giftReceive:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m7 3-3 3 3 3"/></svg>`,
+      gift:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/></svg>`,
       referral:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 16a5 5 0 0 1 7 4"/></svg>`,
       deposit:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 12h18M8 16h4M17 2v7M14 6l3 3 3-3"/></svg>`,
       withdraw:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 15h4M17 2v6M14 5l3 3 3-3"/></svg>`,
@@ -737,7 +765,7 @@
 
     const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeInputUnit:'toman',tradeAmount:'',tradeUseWallet:false,quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,balanceVisibility:{total:false,gold:false,silver:false,copper:false,wallet:false},campaignIndex:0,
       authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:false,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
-    const appMain=document.getElementById('app-main'), headerTitle=document.getElementById('header-title');
+    const appMain=document.getElementById('app-main'),appHeader=document.querySelector('.app-header'),headerTitle=document.getElementById('header-title');
     const headerLeft=document.getElementById('header-left'), headerRight=document.getElementById('header-right');
     const bottomNav=document.getElementById('bottom-nav'), overlayRoot=document.getElementById('overlay-root');
     let overlayTrigger=null,livePriceTimer=null,livePriceIndex=0,livePriceMotionToken=0;
@@ -853,7 +881,8 @@
       clearTimeout(state.toastTimer);document.getElementById('toast-root').innerHTML=`<div class="toast">${message}</div>`;
       state.toastTimer=setTimeout(()=>document.getElementById('toast-root').innerHTML='',2600);
     }
-    function setChrome(title,backVisible=false,navVisible=false,activeNav='خانه'){
+    function setChrome(title,backVisible=false,navVisible=false,activeNav='خانه',headerVisible=true){
+      appHeader.classList.toggle('hidden',!headerVisible);
       headerTitle.textContent=title;
       const rootHeader=navVisible&&!backVisible;
       headerLeft.innerHTML=rootHeader?icons.user:'';headerLeft.style.visibility=rootHeader?'visible':'hidden';
@@ -868,7 +897,11 @@
     function balanceShown(key){return Boolean(state.balanceVisibility?.[key])}
     function unitText(unit=''){return unit?`<span class="balance-unit ${unit==='گرم'?'gram':''}">${unit}</span>`:''}
     function hiddenValue(unit=''){return `<span class="secret-value">••••••</span>${unitText(unit)}`}
-    function visibleOrHidden(key,value,unit=''){return balanceShown(key)?`<span class="balance-number">${value}</span>${unitText(unit)}`:hiddenValue(unit)}
+    function balanceNumberSize(value=''){
+      const digits=(String(value).match(/[۰-۹0-9]/g)||[]).length;
+      return digits>=13?'is-xlong':digits>=10?'is-long':'';
+    }
+    function visibleOrHidden(key,value,unit=''){return balanceShown(key)?`<span class="balance-number ${balanceNumberSize(value)}">${value}</span>${unitText(unit)}`:hiddenValue(unit)}
     function balanceToggle(key,label){
       const shown=balanceShown(key);
       return `<button type="button" class="balance-toggle" data-toggle-balance="${key}" aria-label="${shown?'مخفی کردن':'نمایش'} موجودی ${label}">${shown?icons.eyeOff:icons.eye}</button>`;
@@ -912,7 +945,7 @@
       const alert=kind==='partial'?`<div class="alert">${icons.warn}<span>نرخ معتبر نقره دریافت نشد. وزن دارایی حفظ شده و جمع پورتفوی «برآورد ناقص» است.</span></div>`:
         kind==='outage'?`<div class="alert danger">${icons.warn}<span>معامله نقره موقتاً متوقف است. طلا و مس همچنان فعال‌اند و سوابق نقره قابل مشاهده است.</span></div>`:'';
       return `<div class="home-monochrome">${alert}<section aria-label="دارایی‌های من">
-          <div class="portfolio-rail home-card-variant" role="region" aria-label="کارت‌های دارایی؛ برای دیدن فلزهای بعدی افقی پیمایش کنید">${summary(partial)}${portfolioAssetCard('gold')}${portfolioAssetCard('silver',kind==='normal'?'normal':kind==='partial'?'missing':'outage')}${portfolioAssetCard('copper')}</div><button class="primary-button home-trade-cta" type="button" data-home-trade>خرید و فروش</button>
+          <div class="portfolio-rail home-card-variant" role="region" aria-label="کارت‌های دارایی؛ برای دیدن فلزهای بعدی افقی پیمایش کنید">${summary(partial)}${portfolioAssetCard('gold')}${portfolioAssetCard('silver',kind==='normal'?'normal':kind==='partial'?'missing':'outage')}${portfolioAssetCard('copper')}</div><button class="primary-button home-trade-cta" type="button" data-home-trade><span aria-hidden="true">${icons.trade}</span><span>خرید و فروش</span></button>
           </section>
         <article class="section wallet-balance-card">${balanceToggle('wallet','کیف پول تومان')}<button class="wallet-balance-main" type="button" data-sheet="wallet-actions" aria-label="${balanceShown('wallet')?'کیف پول تومان، موجودی ۳۸ میلیون و ۶۰۰ هزار تومان؛ مشاهده واریز و برداشت':'کیف پول تومان، موجودی مخفی است؛ مشاهده واریز و برداشت'}"><span class="wallet-balance-icon" aria-hidden="true">${icons.wallet}</span><span class="wallet-balance-copy"><span>کیف پول تومان</span><strong>${visibleOrHidden('wallet','۳۸٬۶۰۰٬۰۰۰','تومان')}</strong></span><span class="wallet-chevron" aria-hidden="true">${icons.chevronLeft}</span></button></article>
         <section class="section service-strip home-service-strip" aria-label="دسترسی‌های اصلی"><button class="service-strip-item" type="button" data-go="history"><span class="service-icon" aria-hidden="true">${icons.history}</span><strong>تاریخچه</strong></button><button class="service-strip-item" type="button" data-installment-open><span class="service-icon" aria-hidden="true">${icons.installment}</span><strong>خرید قسطی</strong></button><button class="service-strip-item" type="button" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><strong>دریافت فیزیکی</strong></button><button class="service-strip-item" type="button" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><strong>سفارش قیمت</strong></button></section>${campaignSlider()}</div>`;
@@ -1057,11 +1090,11 @@
       const inputError=tradeValidation(calc),hasError=!!inputError;
       const keypad=['۱','۲','۳','۴','۵','۶','۷','۸','۹'].map(d=>`<button type="button" class="trade-key" data-trade-key="${'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}" aria-label="${d}">${d}</button>`).join('');
       const decimalDisabled=byToman||tradePrecision()===0;
-      setChrome('معامله',state.stack.length>0,true,'معامله');
-      return `${metalTabs({selected:state.tradeAsset,action:'select-trade-asset',label:'انتخاب فلز معامله',controls:'trade-panel'})}
+      setChrome('معامله',state.stack.length>0,true,'معامله',false);
+      return `<h1 class="sr-only">معامله</h1>${metalTabs({selected:state.tradeAsset,action:'select-trade-asset',label:'انتخاب فلز معامله',controls:'trade-panel'})}
         <section class="trade-layout" id="trade-panel" role="tabpanel">
           <div class="trade-toolbar"><div class="trade-mode-switch" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div><div class="trade-rate-summary" aria-live="polite"><span>نرخ ${action} هر گرم ${m.name}</span><strong>${m.rate} تومان</strong></div></div>
-          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?faNumber(TRADE_WALLET_BALANCE,0)+' تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${formatTradeInput(state.tradeAmount)}" placeholder="۰" aria-describedby="trade-equivalent trade-input-message" aria-invalid="${hasError}" data-max-digits="${TRADE_MAX_DIGITS[state.tradeInputUnit]}"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><div class="trade-conversion" id="trade-equivalent">${icons.trade}<span>تقریباً دریافت می‌کنید</span><strong>${hasAmount?(byToman?calc.weightLabel+' گرم':calc.amountLabel+' تومان'):(byToman?'۰ گرم':'۰ تومان')}</strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
+          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?faNumber(TRADE_WALLET_BALANCE,0)+' تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${formatTradeInput(state.tradeAmount)}" placeholder="۰" aria-describedby="trade-equivalent trade-input-message" aria-invalid="${hasError}" data-max-digits="${TRADE_MAX_DIGITS[state.tradeInputUnit]}"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><div class="trade-conversion" id="trade-equivalent"><strong><span class="trade-conversion-value" dir="ltr">${hasAmount?calc.weightLabel:'۰'}</span><span>گرم ${m.name}</span></strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
           <button class="primary-button trade-submit" type="button" ${hasAmount&&!hasError?'':'disabled'} data-trade-preview>${action} ${m.name}</button>
           <div class="trade-keypad" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.erase}</button></div>
         </section>`;
@@ -1400,18 +1433,17 @@
     }
     function services(){
       setChrome('خدمات',false,true,'خدمات');
-      return `<div class="page-lead"><h3>خدمات</h3></div><div class="service-grid">
+      return `<section class="service-grid service-hub-grid" aria-label="فهرست خدمات">
         <button class="service-tile" data-installment-open><span class="service-icon" aria-hidden="true">${icons.installment}</span><span class="service-copy"><strong>خرید اقساطی</strong></span></button>
         <button class="service-tile" data-go="physical-select"><span class="service-icon" aria-hidden="true">${icons.physical}</span><span class="service-copy"><strong>دریافت فیزیکی</strong></span></button>
         <button class="service-tile" data-go="history"><span class="service-icon" aria-hidden="true">${icons.history}</span><span class="service-copy"><strong>تاریخچه</strong></span></button>
         <button class="service-tile" data-target-kind="order"><span class="service-icon" aria-hidden="true">${icons.target}</span><span class="service-copy"><strong>سفارش قیمت</strong></span></button>
         <button class="service-tile" data-target-kind="alert"><span class="service-icon" aria-hidden="true">${icons.alert}</span><span class="service-copy"><strong>هشدار قیمت</strong></span></button>
-        <button class="service-tile" data-gift-mode="send"><span class="service-icon" aria-hidden="true">${icons.giftSend}</span><span class="service-copy"><strong>صدور هدیه</strong></span></button>
-        <button class="service-tile" data-gift-mode="receive"><span class="service-icon" aria-hidden="true">${icons.giftReceive}</span><span class="service-copy"><strong>دریافت هدیه</strong></span></button>
+        <button class="service-tile" data-go="gift-hub"><span class="service-icon" aria-hidden="true">${icons.gift}</span><span class="service-copy"><strong>هدیه</strong></span></button>
         <button class="service-tile" data-go="deposit"><span class="service-icon" aria-hidden="true">${icons.deposit}</span><span class="service-copy"><strong>واریز</strong></span></button>
         <button class="service-tile" data-go="withdraw"><span class="service-icon" aria-hidden="true">${icons.withdraw}</span><span class="service-copy"><strong>برداشت</strong></span></button>
         <button class="service-tile" data-go="referral"><span class="service-icon" aria-hidden="true">${icons.referral}</span><span class="service-copy"><strong>معرفی دوستان</strong></span></button>
-      </div>`;
+      </section>`;
     }
     function history(){
       setChrome('تاریخچه عملیات',true,false); const moneyOnly=['deposit','withdraw'].includes(state.operation);

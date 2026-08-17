@@ -7,6 +7,7 @@
 - Candidate رنگ: `foundations/color-candidate-v0.1.md`
 - Candidate جایگزین جهت Primary و Sandbox: `foundations/black-neutral-foundations-candidate-v0.2.md`
 - Candidate تایپوگرافی: `foundations/typography-candidate-v0.1.md`
+- قرارداد جهت بصری و مقدارهای Pilot: `visual-direction-contract-g5-v0.1.md`
 - گزارش تست: `foundations/candidate-v0.1-test-report.md`
 - منبع برند: `legacy-brand/shemshbrand guideline.V.1.pdf`
 - هیچ مقدار برندگاید در این مرحله خودکار `Stable` نیست.
@@ -15,9 +16,9 @@
 |---|---|---|---|
 | Color | Semantic colors برای Surface، Text، Action، Status، Financial و Accent فلز | `Candidate v0.2 / In implementation` با Black-neutral؛ هنوز `Stable` نیست؛ D-117/OQ-052/OQ-056 | کنتراست Light/Dark، Device واقعی و Palette فلز/نمودار |
 | Typography | مقیاس فارسی، وزن‌ها، اعداد انسانی/ماشینی | `Tested Candidate v0.1`؛ مجوز و Dynamic Type باز؛ OQ-052 | خوانایی، Fallback و Dynamic Type |
-| Spacing | ریتم 4/8 | Draft؛ زیرتسک فعال بعدی | ثبات صفحه و کامپوننت |
-| Radius | مقیاس محدود | Draft؛ مقادیر ۱۰/۱۴/۱۸ وایرفریم فقط شاهد مصرف‌اند | هماهنگی حس برند |
-| Elevation | سطح‌های مشخص | باز | بدون سایه‌های پراکنده |
+| Spacing | ریتم محدود ۴/۸ و Scale `4..48` | `G5 Pilot Candidate / Not Stable` | Home/Assets، Form، List و Receipt |
+| Radius | نقش‌های Control/Input/Container/Overlay/Full | `G5 Pilot Candidate` برابر ۱۲/۱۴/۱۶/۲۰/Full؛ Migration نشده | هماهنگی حس برند و مصرف واقعی |
+| Elevation | None/Sticky/Overlay/Modal | `G5 Pilot Candidate`؛ Card عادی بدون Shadow | Light/Dark و هم‌پوشانی واقعی |
 | Iconography | یک خانواده و Stroke ثابت | باز | Label و کنتراست |
 | Motion | Duration و Easing معنایی | باز | Reduced Motion |
 | Grid | Mobile-first و Breakpointها | باز | کوچک، بزرگ، تبلت، Landscape |

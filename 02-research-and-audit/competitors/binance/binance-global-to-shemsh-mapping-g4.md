@@ -195,9 +195,9 @@
 
 ## پیشنهاد ترتیب اجرای بعدی
 
-1. Review مالک محصول روی ۲۳ Mapping و به‌ویژه چهار موضوع حساس: Canvas/Surface، Card taxonomy، Title hierarchy و Numeric anchor.
-2. تدوین `G5 Visual Direction Contract` برای Surface، Border/Divider، Spacing/Density، Radius/Elevation، Typography/Title، Color role و Overlay.
-3. ساخت Pilot غیرمخرب `Home / Assets` در کپی تازه یا همان مسیر Pilot فقط پس از تأیید قرارداد.
+1. ~~Review مالک محصول روی ۲۳ Mapping و چهار موضوع حساس~~ — عبور به G5 با D-177 تأیید شد.
+2. ~~تدوین `G5 Visual Direction Contract`~~ — نسخه ۰.۱ به‌عنوان Candidate کامل شد.
+3. ساخت Pilot غیرمخرب `Home / Assets` در کپی مستقل براساس Test matrix قرارداد G5.
 4. ساخت Pilot `Trust / Receipt` برای سنجش Evidence، Result/Receipt، Status و Support.
 5. بازنگری Foundation Candidate و Component consumption در Duplicate Figma؛ فایل اصلی دست‌نخورده بماند.
 
@@ -214,6 +214,6 @@
 ## Gate
 
 - G4 global mapping: `Complete as candidate mapping`.
-- Owner decision: `Needs review`.
-- G5 Visual Direction Contract: `Sufficient to proceed after owner review of the four P0 topics`.
+- Owner decision: `Approved to proceed to G5 — D-177`؛ Rowها همچنان Candidate انتقال‌اند، نه قانون Stable.
+- G5 Visual Direction Contract: `Complete as Candidate` در [`visual-direction-contract-g5-v0.1.md`](../../../07-design-system/visual-direction-contract-g5-v0.1.md).
 - Home/Assets و Trust/Receipt Pilot: `Not started / no transfer before G5 contract`.

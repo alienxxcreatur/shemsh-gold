@@ -24,6 +24,7 @@
 - [`binance-global-ui-language-matrix-v0.1.md`](binance-global-ui-language-matrix-v0.1.md): سنتز سراسری Candidate برای انتخاب `Inline / Sheet / Page / Modal`، Surface/Border/Divider، Title، Color، Action، State و Component taxonomy در Home، Settings، Markets، Assets، Auth/KYC، Security، Payment و Deposit.
 - [`binance-to-shemsh-mapping.md`](binance-to-shemsh-mapping.md): نگاشت هر Pattern به وایرفریم، سیستم طراحی و تصمیم `Adopt / Adapt / Reject / Defer`.
 - [`binance-global-to-shemsh-mapping-g4.md`](binance-global-to-shemsh-mapping-g4.md): نگاشت سراسری ۲۱ Pattern تازه و توسعه‌های `BN-P-003/007` به Foundation، Component و Composition شمش؛ `9 Adopt + 13 Adapt + 1 Defer` در ۲۳ رکورد.
+- [`../../../07-design-system/visual-direction-contract-g5-v0.1.md`](../../../07-design-system/visual-direction-contract-g5-v0.1.md): قرارداد Candidate قابل‌آزمون Surface، Grouping، Card، Title، Numeric hierarchy، Spacing، Radius، Elevation و Overlay برای Pilotهای شمش.
 
 ## ترتیب اجرا
 
@@ -63,6 +64,6 @@
 | G2 — Evidence | نمونه هدف با لینک، Context و حذف تکرار پوشش داده شود | `Complete within batches — A 42/39، B 44/39، C 41/38، D 46/42؛ Global union not claimed` |
 | G3 — Pattern | هر Rule شاهد تکرار، Confidence و Counter-example داشته باشد | `Complete — 29 corroborated؛ 21 new cross-batch patterns + scope extension of BN-P-003/007` |
 | G4 — Mapping | اثر هر Rule روی وایرفریم و DS فعلی مشخص باشد | `Complete as candidate mapping — Trade 8 records + Global 23 records؛ Owner review pending` |
-| G5 — Pilot-ready | قرارداد بصری قابل تست برای Trade/Home/Trust آماده باشد | `Trade candidate built in HTML + Figma / Owner review pending؛ Home/Trust pending` |
+| G5 — Pilot-ready | قرارداد بصری قابل تست برای Trade/Home/Trust آماده باشد | `Complete as Candidate contract — Home/Assets pilot authorized non-destructively؛ Trust/Receipt follows findings` |
 
-Gate فعلی: `G4 global mapping complete as candidate / Sufficient for owner review؛ G5 Visual Direction Contract پیش از هر انتقال تازه Home/DS لازم است`.
+Gate فعلی: `G5 contract complete as Candidate / Sufficient to proceed to non-destructive Home/Assets pilot؛ no Foundation/Figma migration`.

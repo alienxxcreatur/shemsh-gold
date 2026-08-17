@@ -18,7 +18,7 @@
 
 | بخش | وضعیت | قرارداد |
 |---|---|---|
-| Bottom Navigation و Header | `Reuse` | `خانه / معامله / خدمات` و Avatar/اعلان حفظ می‌شوند |
+| Bottom Navigation و Header | `Reuse + trade exception` | `خانه / معامله / خدمات` حفظ می‌شود؛ Avatar/اعلان در خانه و خدمات باقی می‌مانند اما Entry اصلی معامله Header مشترک ندارد — D-179 |
 | Auth/KYC و Session | `Reuse` | رفتار D-092/D-093 بدون تغییر فلزمحور |
 | کیف تومان، واریز و برداشت | `Reuse + connect` | ساختار ریالی حفظ؛ به خرید هر `assetId` متصل می‌شود |
 | خانه | `Revise` | Rail کارت‌های مستقل فلز با اولویت بصری طلا و کشف نقره/مس، موجودی مخفی پیش‌فرض و چشم مستقل، کیف تومان جدا، CTA معامله، Shortcutها، Slider کمپین و ورودی همه فلزها |
@@ -26,7 +26,7 @@
 | جزئیات فلز | `Add from shared template` | Position، ارزش، P&L، نمودار و CTAهای Capability-aware |
 | معامله | `Revise` | مدل B، پیش‌فرض طلا، Sheet انتخاب و Rules فلز‌ویژه |
 | نمودار | `Revise` | تک‌فلز، State مستقل، روزانه/ماهانه/سالانه |
-| خدمات | `Reuse + revise` | Hub مشترک؛ قابلیت و Context فلز از `AssetCapability` |
+| خدمات | `Reuse + revise` | Hub مشترک با ۹ Tile مربع ۳×۳ و آیکن بدون قاب؛ ۱۰–۱۲ خدمت Adaptive چهارستونه، بدون Scroll؛ هدیه ورودی واحد — D-182/D-184 |
 | تاریخچه/رسید | `Revise` | Timeline مشترک، هویت فلز صریح و فیلتر OQ-059 |
 | انتقال دارایی | `Exclude` | برای هیچ فلزی CTA یا صفحه فعال ساخته نمی‌شود |
 
@@ -44,12 +44,12 @@
 | `Business decision` | شل سه‌تبی و Template مشترک + `assetId` قطعی‌اند | D-120 | شل موازی فلزها ساخته نمی‌شود |
 | `Business decision` | نمودار مستقل تک‌فلز و بازه‌ها روزانه/ماهانه/سالانه‌اند؛ سه فلز Release اول در معامله Tab مستقیم دارند و کاتالوگ بزرگ‌تر Overlay تطبیقی دارد | D-121/D-152 | Tab/Quote/Chart و حالت Scale کاتالوگ مشخص‌اند |
 | `Business decision` | Baseline تجربه Mobile-first/Touch-first است و وب با Progressive Enhancement، Focus/Keyboard و Hover شرطی پشتیبانی می‌شود | D-151 | هیچ عملکرد ضروری Hover-only نیست؛ QA ورودی/کیبورد/Safe Area موبایل و Mouse/Keyboard وب را پوشش می‌دهد |
-| `Business decision` | Entry معامله در Portrait استاندارد بدون اسکرول و مطابق Candidate منتخب است؛ Asset Tab متنی، عدد مرکزچین و کیبورد همیشه‌باز دارد | D-154/D-157/D-158 | نرخ کنار سگمنت خرید/فروش، موجودی Contextual، تغییر مستقیم تومان/گرم با آیکن و بدون Listbox و CTA نام فلز؛ راهنما/Preset حذف و محل پیام فقط Error است |
+| `Business decision` | Entry معامله در Portrait استاندارد بدون اسکرول و مطابق Candidate منتخب است؛ Header مشترک و Divider بالای کیبورد ندارد و Asset Tab متنی، عدد مرکزچین و کیبورد همیشه‌باز دارد | D-154/D-157/D-158/D-179 | نرخ کنار سگمنت خرید/فروش، موجودی Contextual، تغییر مستقیم تومان/گرم با آیکن و بدون Listbox و CTA نام فلز؛ عنوان معنایی `sr-only` حفظ و Header بازگشت Preview پابرجاست |
 | `Business decision` | Entry معامله فقط حدود ۱ سوت، ۵۰ میلیارد تومان و ۱۰٬۰۰۰ گرم را خطا می‌دهد؛ کسری کیف خرید در Preview با پرداخت کامل یا ترکیبی کیف+درگاه حل می‌شود | D-169 | تومان تا ۱۱ رقم و با جداکننده درست؛ Card کیف فقط در Preview خرید، با Switch و Breakdown سهم کیف/درگاه |
 | `Business decision` | درگاه واریز Preview داخلی ندارد؛ روش‌های دیگر بدون مبلغ قابل مرور و صفحاتشان فقط اطلاعاتی‌اند | D-155 | Redirect درگاه مستقیم شبیه‌سازی می‌شود؛ صفحات کارت/شبا/حساب CTA ثبت ندارند و Card مقصد خنثی و متراکم است |
 | `Business decision` | همه Contextهای انتخاب کارت بانکی از Component، Picker و منبع داده مشترک استفاده می‌کنند | D-156 | افزایش موجودی، سه روش واریز و برداشت فقط Context را به `bankCardSelector` می‌دهند؛ Cardهای نمایشی پروفایل خارج از قراردادند |
 | `Business decision` | Rail فلزهای خانه Cardمحور و نامتقارن است؛ طلا به‌دلیل اولویت تقاضا Card اصلی، نقره ثانویه و مس از ادامه Carousel قابل کشف است | D-159 | Candidate سه‌ردیفه کنار گذاشته می‌شود؛ برجستگی طلا فقط Geometry خانه است و به هویت، رنگ یا Capability برتر تبدیل نمی‌شود |
-| `Business decision` | قیمت فروش لحظه‌ای حداقل Context صفحه‌های غیرحساس است؛ عمومی حلقه عمودی سه‌فلزی و فلزمحور نرخ ثابت Asset منتخب دارد | D-160 | بازار/معامله/جزئیات نرخ اصلی خود را دارند؛ Auth/KYC، Preview/Result/Receipt، درگاه/بانک و امنیت مستثنا هستند؛ منبع نرخ زیر OQ-020 باز است |
+| `Business decision` | قیمت فروش لحظه‌ای حداقل Context صفحه‌های غیرحساس است؛ هر Instance موجود، حتی کنار Tab فلز، حلقه عمودی سه‌فلزی دارد | D-160/D-176 | بازار/معامله/جزئیات نرخ اصلی خود را دارند؛ Auth/KYC، Preview/Result/Receipt، درگاه/بانک و امنیت مستثنا هستند؛ منبع نرخ زیر OQ-020 باز است |
 | `Business decision` | Prototype در گوشی App-mode تمام‌صفحه و در Desktop محیط Review دو ستونه است | D-161 | Mobile پنل سناریو/قاب/Statusbar ساختگی ندارد؛ `100dvh`، Safe Area و Scroll داخلی Main الزامی است |
 | `Business decision` | فلز پیش‌فرض ورود مستقیم معامله طلاست | D-123 | Trade default با طلا باز می‌شود؛ Context صریح مقدم است |
 | `Business decision` | سطح اول تاریخچه ۱۲ کنترل مستقیم D-124 را نشان می‌دهد؛ سفارش یک Tab، پاداش زیر واریز و فلز برای Operationهای فلزی مستقل است | D-124/OQ-059 | Taxonomy قطعی |
@@ -71,12 +71,12 @@
 | `WF-MM-005` | جزئیات طلا | Position/P&L/نمودار/CTAها | خانه/بازار/رسید | معامله، دریافت فیزیکی، تاریخچه |
 | `WF-MM-006` | جزئیات نقره | Template مشترک با دقت و قواعد نقره | خانه/بازار | همان مقصدها با Context نقره |
 | `WF-MM-007` | جزئیات مس | Template مشترک با وزن بدون اعشار | خانه/بازار | همان مقصدها با Context مس |
-| `WF-MM-008` | معامله با طلا پیش‌فرض | Entry Candidate بدون اسکرول، عدد مرکزچین، تبدیل مستقیم تومان/گرم و کیبورد همیشه‌باز؛ پیام فقط Error | تب معامله | Preview |
+| `WF-MM-008` | معامله با طلا پیش‌فرض | Entry Candidate بدون Header مشترک و Divider کیبورد، بدون اسکرول، عدد مرکزچین، تبدیل مستقیم تومان/گرم و کیبورد همیشه‌باز؛ پیام فقط Error | تب معامله | Preview با Header بازگشت |
 | `WF-MM-009` | Asset Tab معامله — ۳ Asset | تعویض مستقیم و امن طلا/نقره/مس | Tablist بالای فرم | معامله با Asset منتخب |
 | `WF-MM-010` | کاتالوگ انتخاب فلز — ۱۶ Asset | Search و status کاتالوگ در Scale | Bottom Sheet موبایل / Popover وب | معامله با Asset منتخب |
 | `WF-MM-011` | تغییر فلز با Quote فعال | جلوگیری از معامله روی فلز اشتباه | Selector | Confirm + پاک‌سازی Quote یا Cancel |
 | `WF-MM-012` | نمودار تک‌فلز | دیدن روند مستقل از معامله | خانه/جزئیات | بازه، CTA صریح معامله |
-| `WF-MM-013` | Hub خدمات | فهم خدمات مشترک/فلز‌ویژه | تب خدمات | دریافت فیزیکی، هشدار، اقساط، هدیه و خدمات ریالی |
+| `WF-MM-013` | Hub خدمات | ۹ Tile مربع در ۳×۳؛ آیکن بدون Background/Border؛ ورودی واحد هدیه و تغییر خودکار ۱۰–۱۲ خدمت به ۴×۳ بدون Scroll | تب خدمات | دریافت فیزیکی، هشدار، اقساط، Hub هدیه و خدمات ریالی |
 | `WF-MM-014` | فلو کامل دریافت فیزیکی | انتخاب فلز، قوانین، کاتالوگ Multi-select، جزئیات تحویل، تأیید مالی و نتیجه | خدمات/جزئیات | درخواست‌ها/تاریخچه |
 | `WF-MM-014A..D` | حالت‌های Review دریافت | موجودی ناکافی، سرویس غیرفعال، ناموفق و موفق | پنل سناریو | Recovery یا پیگیری |
 | `WF-MM-015` | تاریخچه یکپارچه | یافتن عملیات و رسید | خانه/کیف/جزئیات/اعلان | فیلتر و جزئیات |
@@ -128,7 +128,7 @@
 | ردیف پورتفوی | `MetalPositionRow` | Owned/Zero/Rate missing/Restricted | وزن و ارزش در نام خوانش؛ رنگ تنها شناسه نیست |
 | ردیف بازار | `AssetMarketRow` | Tradable/Unavailable/No data | نام/Icon/Symbol/status صریح |
 | نمودار | Line chart تک‌فلز | Loading/Empty/Stale/Error و ۳ بازه | خلاصه متنی، Tooltip با Tap/Keyboard |
-| Context نرخ | `LivePriceTicker` مشترک | سه‌فلزی حلقه‌ای با ورود از بالا/خروج از پایین، Asset ثابت، نرخ نامعتبر، Reduced Motion، استثنای صفحه | Label «قیمت فروش لحظه‌ای»، نام فلز در accessible name، بدون اعلان زنده دوره‌ای، Tap برای نرخ بعدی و توقف Auto در Reduced Motion — D-160 |
+| Context نرخ | `LivePriceTicker` مشترک | سه‌فلزی حلقه‌ای در همه Instanceها با حرکت فریم‌به‌فریم پایین→بالا، نرخ نامعتبر، Reduced Motion و استثنای صفحه | Label «قیمت فروش لحظه‌ای»، نام فلز در accessible name، بدون اعلان زنده دوره‌ای، Tap برای نرخ بعدی و توقف Auto در Focus/Reduced Motion — D-160/D-173/D-176 |
 | فیلتر تاریخچه | ریل Tabهای Operation + Selector تک‌انتخابی فلز + Sheet از `AssetCatalog` + فیلتر status/date | Selected/Overflow/Search/Filtered empty/Reset/Back restore | State غیررنگی، Scroll selected into view، Focus return و Live announcement |
 | ردیف تاریخچه | `OperationRow` | Pending/Final/Failed/Restricted | نوع، فلز، مقدار، زمان و status در accessible name |
 | Receipt | Template مشترک نوع‌محور | Success/Failed/Pending | ترتیب خوانش ثابت و کد پیگیری قابل کپی |

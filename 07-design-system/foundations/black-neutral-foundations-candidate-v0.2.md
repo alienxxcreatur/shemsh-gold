@@ -31,6 +31,8 @@
 
 Focus باید حلقه مستقل و قابل مشاهده با فاصله از Control باشد. رنگ‌های Info/Link و Status از Rampهای معنایی استفاده می‌کنند و بخشی از هویت Primary نیستند.
 
+یادداشت D-177: قرارداد [`visual-direction-contract-g5-v0.1.md`](../visual-direction-contract-g5-v0.1.md) برای Pilot Home/Assets مقدار Light Canvas برابر `#FFFFFF` را در برابر `#FAFAFA` این Candidate می‌آزماید. این Override فقط Pilot است و تا نتیجه QA، مقدار این سند یا Variableهای Figma را جایگزین نمی‌کند.
+
 ## موارد قابل استفاده مجدد از Sandbox
 
 - Collectionهای `Primitive`، `Semantic` و `State` و قرارداد Alias.

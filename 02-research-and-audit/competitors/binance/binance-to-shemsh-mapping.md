@@ -47,6 +47,7 @@ Current Shemsh Design System
 - تنها مورد Deferred، Composition گزارش تحلیلی Card-heavy است؛ چون Report مستقل هنوز در Scope قطعی Release شمش نیست.
 - این Mapping اثر Patternها را روی Foundation، Component و Composition روشن می‌کند، اما هنوز مجوز تغییر Home، Foundation یا Figma نیست. انتقال بصری پس از Review مالک و قرارداد G5 انجام می‌شود.
 - با احتساب هشت Mapping معامله، پوشش G4 اکنون `31 mapping records` دارد. Patternهای `BN-P-003/007` در دو Scope معامله و سراسری عمداً دو رکورد دارند و تعداد رکوردها برابر تعداد Pattern یکتا نیست.
+- عبور مالک به G5 با D-177 تأیید و قرارداد Pilot-ready در [`visual-direction-contract-g5-v0.1.md`](../../../07-design-system/visual-direction-contract-g5-v0.1.md) ثبت شده است. این قرارداد هنوز Migration یا تصمیم `Stable` برای Foundation/Figma نیست.
 
 ## ماتریس نگاشت
 

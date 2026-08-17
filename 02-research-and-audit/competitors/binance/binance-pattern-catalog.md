@@ -78,7 +78,7 @@ Proof کامل Batch C در [`binance-trade-pattern-proof-g3.md`](binance-trade-
 - G3: `Complete — 29 Corroborated patterns`.
 - G4: `Complete as candidate mapping`؛ معامله در [`binance-to-shemsh-mapping.md`](binance-to-shemsh-mapping.md) و Scope سراسری در [`binance-global-to-shemsh-mapping-g4.md`](binance-global-to-shemsh-mapping-g4.md) ثبت شده‌اند؛ Owner review هنوز باز است.
 - Evidence gapهای محدودکننده: Tokenهای دقیق، Dynamic Type/VoiceOver/Keyboard/Motion، Global cross-batch unique count و رفتار واقعی PWA/RTL.
-- قدم بعدی: Review مالک روی G4 و تدوین G5 Visual Direction Contract؛ بدون انتقال تازه Home/DS پیش از قرارداد G5.
+- قدم بعدی: Pilot غیرمخرب Home/Assets طبق G5 v0.1 و سپس ثبت Findingها؛ بدون Migration یا Promote/Demote خودکار — D-177.
 
 | Lead | مشاهده اولیه | Flowهای شروع بررسی | Counter-example موردنیاز |
 |---|---|---|---|
