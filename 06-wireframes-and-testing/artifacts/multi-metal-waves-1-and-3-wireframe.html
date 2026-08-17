@@ -42,11 +42,30 @@
     .review-panel p{font-size:13px;color:var(--muted);margin:0 0 16px}
     .wave-label{display:inline-flex;min-height:28px;align-items:center;padding:2px 9px;background:var(--strong);border-radius:999px;font-size:12px;margin-bottom:10px}
     .scenario-list{display:grid;gap:8px}
-    .scenario{min-height:48px;text-align:right;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:9px 11px;display:grid;grid-template-columns:74px 1fr;gap:8px;align-items:center}
-    .scenario span{font-size:12px;color:var(--muted);direction:ltr;text-align:left}
-    .scenario strong{font-size:13px;font-weight:650}
-    .scenario.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-    .scenario.active span{color:#d7dbe0}
+    .scenario-list-actions{display:flex;justify-content:flex-end;margin-bottom:2px}
+    .scenario-groups-toggle{min-height:44px;border:0;background:transparent;color:var(--muted);border-radius:8px;padding:5px 8px;font:inherit;font-size:12px}
+    .scenario-groups-toggle:hover{background:var(--subtle);color:var(--text)}
+    .scenario-group{overflow:hidden;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface)}
+    .scenario-group.has-active{border-color:color-mix(in srgb,var(--primary) 42%,var(--border));box-shadow:0 0 0 1px color-mix(in srgb,var(--primary) 4%,transparent)}
+    .scenario-group-toggle{width:100%;min-height:52px;border:0;background:transparent;color:var(--text);padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:right;font:inherit}
+    .scenario-group-toggle:hover{background:var(--subtle)}
+    .scenario-group-toggle:focus-visible,.scenario-groups-toggle:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+    .scenario-group-copy{min-width:0;display:grid;gap:2px}
+    .scenario-group-copy strong{font-size:13px;font-weight:700}
+    .scenario-group-copy small{font-size:11px;color:var(--muted)}
+    .scenario-group-chevron{width:20px;height:20px;display:grid;place-items:center;color:var(--muted);transform:rotate(0deg);transition:transform 180ms ease}
+    .scenario-group-chevron svg{width:16px;height:16px}
+    .scenario-group-toggle[aria-expanded="true"] .scenario-group-chevron{transform:rotate(-90deg)}
+    .scenario-group-items{display:grid;gap:6px;padding:0 7px 7px;border-top:1px solid var(--border)}
+    .scenario-group-items[hidden]{display:none}
+    .scenario{width:100%;min-height:44px;text-align:right;border:0;background:var(--subtle);border-radius:8px;padding:7px 9px;display:grid;grid-template-columns:minmax(0,1fr) 72px;gap:8px;align-items:center;font:inherit}
+    .scenario:first-child{margin-top:7px}
+    .scenario-label{min-width:0;font-size:12px;font-weight:650;line-height:1.45;color:var(--text);direction:rtl;text-align:right}
+    .scenario-id{font-size:10px;color:var(--muted);direction:ltr;text-align:left;white-space:nowrap}
+    .scenario:hover{background:color-mix(in srgb,var(--primary) 10%,var(--surface))}
+    .scenario.active{background:var(--primary);color:#fff}
+    .scenario.active .scenario-label{color:#fff}
+    .scenario.active .scenario-id{color:#d7dbe0}
     .legend{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
     .phone{--app-chrome-top:84px;width:390px;height:820px;border-radius:28px;overflow:hidden;position:relative;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
     .statusbar{height:26px;background:var(--surface);display:flex;align-items:end;justify-content:space-between;padding:0 18px 3px;font-size:10px;direction:ltr}
@@ -63,9 +82,12 @@
     .app-main.home-scrollless{scrollbar-width:none;-ms-overflow-style:none}
     .app-main.home-scrollless::-webkit-scrollbar{display:none}
     .app-main:has(> .live-price-ticker){padding-top:7px}
-    .app-main:has(> .sticky-action){display:flex;flex-direction:column;padding-bottom:0}
     .bottom-nav{min-height:74px;background:var(--surface);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding:7px 8px max(7px,env(safe-area-inset-bottom));z-index:10}
     .bottom-nav.hidden{display:none}
+    .page-action-root{z-index:9;padding:10px 16px calc(12px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--surface) 97%,transparent);border-top:1px solid var(--border);box-shadow:0 -10px 24px rgba(26,31,38,.08)}
+    .page-action-root:empty{display:none}
+    .page-action-root .page-action{display:grid;margin:0;gap:8px}
+    .page-action-root .primary-button,.page-action-root .secondary-button{width:100%;min-height:48px}
     .nav-item{min-height:56px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;align-content:center;gap:2px;font-size:11px;border-radius:12px}
     .nav-item.active{color:var(--text);background:var(--strong);font-weight:650}
     .section{margin-top:16px}
@@ -145,7 +167,7 @@
     .portfolio-mix-hero .muted{color:#d6d9dd}.mix-total{display:grid;gap:2px}.mix-total strong{font-size:20px;font-variant-numeric:tabular-nums}.mix-total span{font-size:11px}
     .mix-chart-layout{display:grid;place-items:center}
     .mix-donut-wrap{width:122px;aspect-ratio:1;position:relative;display:grid;place-items:center;cursor:pointer}
-    .mix-donut{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#17191c 0 69.5%,#626870 69.5% 90.9%,#aeb4bc 90.9% 97%,#eceff1 97% 100%);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+    .mix-donut{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#17191c 0 var(--mix-gold-stop,60.9%),#626870 var(--mix-gold-stop,60.9%) var(--mix-silver-stop,88.9%),#aeb4bc var(--mix-silver-stop,88.9%) var(--mix-copper-stop,90.1%),#eceff1 var(--mix-copper-stop,90.1%) 100%);box-shadow:0 8px 24px rgba(0,0,0,.2)}
     .mix-donut::after{content:"";position:absolute;inset:26px;border-radius:50%;background:var(--primary);box-shadow:inset 0 0 0 1px rgba(255,255,255,.13)}
     .mix-donut-center{position:relative;z-index:1;display:grid;text-align:center;line-height:1.2}.mix-donut-center strong{font-size:15px}.mix-donut-center span{font-size:9px;color:#d6d9dd}
     .mix-card-list{display:grid;gap:8px}
@@ -291,7 +313,7 @@
     .service-icon{width:42px;height:42px;border-radius:12px;background:var(--strong);border:1px solid var(--border);display:grid;place-items:center;color:var(--primary)}
     .service-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .service-hub-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-content:start}
-    .service-hub-grid .service-tile{aspect-ratio:1;min-height:0;padding:8px 6px;align-content:center;justify-items:center;gap:7px;text-align:center}
+    .service-hub-grid .service-tile{width:100%;height:auto;aspect-ratio:1 / 1;min-height:0;align-self:start;justify-self:stretch;overflow:hidden;padding:8px 6px;align-content:center;justify-items:center;gap:7px;text-align:center}
     .service-hub-grid .service-icon{width:30px;height:30px;border:0;border-radius:0;background:transparent}
     .service-hub-grid .service-icon svg{width:24px;height:24px}
     .service-hub-grid .service-copy{justify-items:center}
@@ -315,6 +337,35 @@
     .feature-grid{display:grid;gap:8px}
     .feature-card{width:100%;min-height:88px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-md);padding:13px;text-align:right;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
     .feature-card strong{font-size:14px}.feature-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.feature-card .inline-status{align-self:start}
+    .gift-hub-grid{margin-top:0}
+    .gift-history-links{overflow:hidden;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}.gift-history-link{width:100%;min-height:64px;border:0;background:var(--surface);padding:10px 12px;display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:10px;text-align:right}.gift-history-link+.gift-history-link{border-top:1px solid var(--border)}.gift-history-link:active{background:var(--strong)}.gift-history-link-icon{width:40px;height:40px;border-radius:10px;background:var(--strong);display:grid;place-items:center}.gift-history-link-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.gift-history-link-copy{display:grid;gap:1px}.gift-history-link-copy strong{font-size:13px}.gift-history-link-copy small{font-size:10px;color:var(--muted)}.gift-history-link-chevron{color:var(--muted)}.gift-history-link-chevron svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .gift-progress{display:grid;gap:6px;margin-bottom:12px}.gift-progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;color:var(--muted)}.gift-progress-head strong{color:var(--text);font-size:11px}.gift-progress-track{display:grid;grid-template-columns:repeat(var(--gift-steps),minmax(0,1fr));gap:4px}.gift-progress-track span{height:3px;border-radius:999px;background:var(--border)}.gift-progress-track span.active{background:var(--primary)}
+    .gift-lead{display:grid;gap:3px;margin-bottom:12px}.gift-lead h3{margin:0;font-size:17px}.gift-lead p{margin:0;color:var(--muted);font-size:11px;line-height:1.75}
+    .gift-metal-tabs{margin:0 -16px 14px}
+    .gift-catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .gift-product{min-width:0;min-height:142px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:11px;display:grid;align-content:space-between;gap:10px}
+    .gift-product[aria-disabled="true"]{background:var(--subtle);color:var(--muted)}
+    .gift-product-head{display:grid;gap:2px}.gift-product-head strong{font-size:15px;font-variant-numeric:tabular-nums}.gift-product-head span{font-size:10px;color:var(--muted)}
+    .gift-product-price{font-size:11px;color:var(--text);font-weight:650;font-variant-numeric:tabular-nums}
+    .gift-product-add{width:100%;min-height:44px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);font-size:12px;font-weight:750}
+    .gift-product-add:disabled{opacity:.5;cursor:not-allowed}
+    .gift-stepper{direction:ltr;display:grid;grid-template-columns:44px minmax(28px,1fr) 44px;align-items:center;gap:2px}
+    .gift-stepper button{width:44px;height:44px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:19px;line-height:1}
+    .gift-stepper strong{text-align:center;font-size:13px;font-variant-numeric:tabular-nums}
+    .gift-cart-summary{display:grid;gap:8px;margin-top:12px;padding:12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}
+    .gift-cart-summary-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px}.gift-cart-summary-row span{color:var(--muted)}.gift-cart-summary-row strong{font-variant-numeric:tabular-nums}
+    .gift-cart-summary-row.total{padding-top:8px;border-top:1px solid var(--border);font-size:13px}.gift-cart-summary-row.total span{color:var(--text)}
+    .gift-option-list{display:grid;gap:8px}
+    .gift-option{width:100%;min-height:76px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:11px 12px;display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:10px;text-align:right}
+    .gift-option.selected{border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary)}
+    .gift-option:disabled{opacity:.5;cursor:not-allowed}.gift-option-icon{width:42px;height:42px;border-radius:11px;background:var(--strong);display:grid;place-items:center}.gift-option-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .gift-option-copy{display:grid;gap:2px;min-width:0}.gift-option-copy strong{font-size:13px}.gift-option-copy small{font-size:10px;color:var(--muted);line-height:1.55}.gift-option-check{width:20px;height:20px;border:1px solid var(--border-strong);border-radius:50%;display:grid;place-items:center}.gift-option.selected .gift-option-check{background:var(--primary);border-color:var(--primary);color:#fff}.gift-option-check svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:0}.gift-option.selected .gift-option-check svg{opacity:1}
+    .gift-inline-alert{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;margin-top:10px;padding:10px;border-radius:10px;background:var(--danger-bg);color:var(--danger);font-size:11px;line-height:1.7}.gift-inline-alert svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8}
+    .gift-delivery-fields{display:grid;gap:10px;margin-top:12px}.gift-delivery-fields .field{margin-top:0}.gift-delivery-fields .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .gift-test-codes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.gift-test-code{min-height:36px;border:1px solid var(--border);border-radius:999px;background:var(--surface);padding:5px 10px;font-size:10px;color:var(--muted)}
+    .gift-code-panel{display:grid;gap:10px;padding:14px;border-radius:var(--r-md);background:var(--primary);color:#fff}.gift-code-panel small{color:#d6d9dd;font-size:10px}.gift-code-line{direction:ltr;display:flex;align-items:center;justify-content:space-between;gap:10px}.gift-code-line strong{font-size:18px;letter-spacing:.05em}.gift-code-line button{min-height:40px;border:1px solid rgba(255,255,255,.35);border-radius:9px;background:transparent;color:#fff;padding:6px 10px;font-size:11px}
+    .gift-success-mark{width:58px;height:58px;margin:0 auto 12px;border-radius:50%;background:var(--strong);display:grid;place-items:center}.gift-success-mark svg{width:28px;height:28px;fill:none;stroke:var(--success);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .gift-success-copy{text-align:center;margin-bottom:14px}.gift-success-copy h3{margin:0 0 4px;font-size:18px}.gift-success-copy p{margin:0;color:var(--muted);font-size:11px;line-height:1.7}
     .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
     .choice{min-height:48px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:8px;font-size:12px}
     .choice.selected{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:700}
@@ -562,7 +613,6 @@
     .stepper button{width:44px;height:44px;border:1px solid var(--border-strong);background:var(--surface);border-radius:10px;font-size:20px;line-height:1}.stepper strong{text-align:center;font-size:14px;font-variant-numeric:tabular-nums}
     .bullion-add:disabled,.stepper button:disabled{opacity:.38;cursor:not-allowed}
     /* Global wireframe rule: the final action group of a full-page flow stays at the bottom. */
-    .app-main>.sticky-action{position:sticky;z-index:9;bottom:0;flex:0 0 auto;margin:auto -16px -28px;padding:12px 16px calc(16px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--surface) 96%,transparent);border-top:1px solid var(--border);box-shadow:0 -10px 24px rgba(26,31,38,.08)}
     .sticky-summary{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:10px}.sticky-summary-copy{display:grid;gap:2px}.sticky-summary-copy span{font-size:11px;color:var(--muted)}.sticky-summary-copy strong{font-size:15px;font-variant-numeric:tabular-nums}.sticky-summary-copy:last-child{text-align:left}
     .context-card{display:grid;gap:12px}.context-row{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px}.context-row-icon{width:32px;height:32px;border-radius:9px;background:var(--strong);display:grid;place-items:center}.context-row-copy{display:grid;gap:3px}.context-row-copy strong{font-size:14px}.context-row-copy p{font-size:12px;color:var(--muted);margin:0}.context-row-copy small{font-size:11px;color:var(--muted)}
     .selected-bullion-rail{display:grid;grid-template-columns:1fr;gap:8px;padding:2px 0 6px}.selected-bullion{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:10px;display:grid;gap:3px}.selected-bullion strong{font-size:13px}.selected-bullion span{font-size:11px;color:var(--muted)}
@@ -590,6 +640,57 @@
     .notification-dot{width:7px;height:7px;border-radius:50%;background:var(--primary)}
     @media (hover:hover) and (pointer:fine){.notification-item:hover{background:var(--strong)}}
     .sheet-footer{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));display:grid;grid-template-columns:2fr 1fr;gap:8px;margin:14px -16px calc(-18px - env(safe-area-inset-bottom));padding:12px 16px calc(18px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--border)}
+    /* Adaptive viewport fit: preserve readable type and 44px touch targets, then
+       keep scrolling only for genuinely long collections and documents. */
+    .app-main.viewport-fit-soft{padding:10px 14px 16px}
+    .app-main.viewport-fit-soft:has(> .live-price-ticker){padding-top:6px}
+    .app-main.viewport-fit-soft .live-price-ticker{min-height:44px;margin-bottom:8px}
+    .app-main.viewport-fit-soft .section{margin-top:10px}
+    .app-main.viewport-fit-soft .section:first-child{margin-top:0}
+    .app-main.viewport-fit-soft .card{padding:12px}
+    .app-main.viewport-fit-soft .page-lead{margin-bottom:10px}
+    .app-main.viewport-fit-soft .page-lead h3{margin-bottom:2px}
+    .app-main.viewport-fit-soft .action-stack{gap:6px;margin-top:8px}
+    .app-main.viewport-fit-tight{padding:8px 12px 0}
+    .app-main.viewport-fit-tight:has(> .live-price-ticker){padding-top:4px}
+    .app-main.viewport-fit-tight .live-price-ticker{margin-bottom:6px}
+    .app-main.viewport-fit-tight .section{margin-top:8px}
+    .app-main.viewport-fit-tight .card{padding:10px}
+    .app-main.viewport-fit-tight .page-lead{margin-bottom:8px}
+    .app-main.viewport-fit-tight .page-lead h3{font-size:18px;line-height:1.4}
+    .app-main.viewport-fit-tight .page-lead p{line-height:1.45}
+    .app-main.viewport-fit-tight .market-note{margin-block:6px 8px}
+    .app-main.viewport-fit-tight .alert{margin-top:8px;padding:9px 10px}
+    .app-main.viewport-fit-tight .empty{padding-block:18px}
+    .app-main.viewport-fit-tight .empty-mark{margin-bottom:8px}
+    .app-main.viewport-fit-tight .empty p{margin-bottom:10px}
+    .app-main.viewport-fit-tight .receipt-head{padding:8px 8px 6px}
+    .app-main.viewport-fit-tight .receipt-mark{width:48px;height:48px;margin-bottom:6px}
+    .app-main.viewport-fit-tight .receipt-grid{margin-top:8px}
+    .app-main.viewport-fit-tight .receipt-row{min-height:42px}
+    .app-main.viewport-fit-tight .asset-proof{margin-top:8px;padding:8px}
+    .app-main.viewport-fit-tight .primary-button,
+    .app-main.viewport-fit-tight .secondary-button{min-height:44px;padding-block:8px}
+    .app-main.viewport-fit-tight.home-scrollless .home-trade-cta{min-height:44px;margin-top:8px;padding-block:8px}
+    .app-main.viewport-fit-tight.home-scrollless .wallet-balance-card{min-height:74px}
+    .app-main.viewport-fit-tight.home-scrollless .wallet-balance-main{min-height:72px;padding-block:8px}
+    .app-main.viewport-fit-tight.home-scrollless .campaign-card{min-height:76px;padding-block:9px}
+    .app-main.viewport-fit-tight.home-scrollless .campaign-copy{gap:2px}
+    .app-main.viewport-fit-tight.home-scrollless .campaign-copy span{line-height:1.45}
+    .app-main.viewport-fit-tight.home-scrollless .campaign-slider{gap:4px}
+    .app-main.viewport-scrollless{overflow-y:hidden;overscroll-behavior:none}
+    .app-main.viewport-scroll-required{overflow-y:auto}
+    .sheet.sheet-fit-soft{padding-top:6px}
+    .sheet.sheet-fit-soft .sheet-head{margin-bottom:7px}
+    .sheet.sheet-fit-soft .sheet-list{gap:6px}
+    .sheet.sheet-fit-soft .sheet-choice{min-height:48px;padding-block:7px}
+    .sheet.sheet-fit-soft .market-note{margin-block:6px 8px}
+    .sheet.sheet-fit-soft .sheet-footer{margin-top:9px;padding-top:9px}
+    .sheet.sheet-fit-tight .sheet-choice{min-height:44px;padding-block:5px}
+    .sheet.sheet-fit-tight .receipt-row{padding-block:7px}
+    .sheet.sheet-fit-tight .rules-list{gap:6px;line-height:1.45}
+    .sheet.sheet-scrollless{overflow-y:hidden}
+    .sheet.sheet-scroll-required{overflow-y:auto}
     .processing{min-height:520px;display:grid;place-items:center;text-align:center}
     .processing-card{display:grid;justify-items:center;gap:10px;max-width:260px}
     .spinner{width:46px;height:46px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
@@ -600,7 +701,7 @@
     @media(max-width:780px){
       .workspace{grid-template-columns:1fr;padding:12px;gap:14px}
       .review-panel{position:static;max-height:none}
-      .scenario-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .scenario-list{grid-template-columns:1fr}
       .phone{width:min(390px,100%);margin:0 auto;height:760px;border-radius:22px}
     }
     @media (max-width:430px), (pointer:coarse) and (max-width:900px){
@@ -612,7 +713,6 @@
       .app-header{min-height:calc(58px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 10px 0}
       .app-main{min-height:0;padding-bottom:calc(28px + env(safe-area-inset-bottom));scrollbar-width:none;-ms-overflow-style:none}
       .app-main::-webkit-scrollbar{display:none}
-      .app-main>.sticky-action{margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
       .bottom-nav{min-height:calc(74px + env(safe-area-inset-bottom))}
       .toast{bottom:calc(92px + env(safe-area-inset-bottom))}
     }
@@ -630,7 +730,7 @@
     <aside class="review-panel" aria-label="انتخاب سناریوی وایرفریم">
       <span class="wave-label">MM-W0 → MM-W8</span>
       <h1>وایرفریم کل اپ چندفلزی</h1>
-      <p>۴۱ سناریوی قابل مرور از شل، فلوها و حالت‌های چندفلزی؛ داده‌های بانکی، وزن و کارمزد فعلاً نمونه‌اند.</p>
+      <p>۴۱ صفحه و حالت در ۱۰ فلو؛ هر فلو را باز کنید یا همه را یک‌جا ببینید. داده‌های بانکی، وزن و کارمزد فعلاً نمونه‌اند.</p>
       <div class="scenario-list" id="scenario-list"></div>
       <div class="legend">شل سه‌تبی قبلی حفظ شده است. رنگ شناسه فلز نیست و هیچ مسیر انتقال دارایی در این Prototype وجود ندارد.</div>
     </aside>
@@ -644,6 +744,7 @@
         </header>
       </div>
       <main class="app-main" id="app-main"></main>
+      <div class="page-action-root" id="page-action-root" aria-label="اقدام‌های نهایی صفحه"></div>
       <nav class="bottom-nav" id="bottom-nav" aria-label="ناوبری اصلی"></nav>
       <div id="overlay-root"></div>
       <div id="toast-root" aria-live="polite"></div>
@@ -673,6 +774,10 @@
       giftSend:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m17 3 3 3-3 3"/></svg>`,
       giftReceive:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/><path d="m7 3-3 3 3 3"/></svg>`,
       gift:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M7.5 9C5 9 4 7.8 4 6.4 4 5.1 5 4 6.4 4 8.5 4 10.2 6 12 9M16.5 9C19 9 20 7.8 20 6.4 20 5.1 19 4 17.6 4 15.5 4 13.8 6 12 9"/></svg>`,
+      link:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.2 1.2"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.2-1.2"/></svg>`,
+      truck:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h11v12H3Z"/><path d="M14 9h4l3 3v5h-7Z"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>`,
+      check:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>`,
+      checkCircle:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>`,
       referral:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 16a5 5 0 0 1 7 4"/></svg>`,
       deposit:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 12h18M8 16h4M17 2v7M14 6l3 3 3-3"/></svg>`,
       withdraw:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 15h4M17 2v6M14 5l3 3 3-3"/></svg>`,
@@ -694,10 +799,13 @@
     };
 
     const metals = {
-      gold:{name:'طلا',symbol:'AU',mark:'ط',icon:icons.goldBar,weight:'۱۲٫۴۸۳',value:'۸۹۲٬۴۰۰٬۰۰۰',pnl:'+۸۴٬۲۰۰٬۰۰۰',grade:'۱۸ عیار',rate:'۷۱٬۴۹۰٬۰۰۰'},
-      silver:{name:'نقره',symbol:'AG',mark:'ن',icon:icons.silverCoins,weight:'۲۶۴٫۳۵',value:'۲۷۴٬۸۰۰٬۰۰۰',pnl:'+۱۹٬۶۰۰٬۰۰۰',grade:'۹۹۹',rate:'۱٬۰۳۹٬۵۰۰'},
-      copper:{name:'مس',symbol:'CU',mark:'م',icon:icons.copperCoil,weight:'۱٬۸۴۰',value:'۷۸٬۳۰۰٬۰۰۰',pnl:'−۳٬۱۰۰٬۰۰۰',grade:'کاتد استاندارد',rate:'۴۲٬۵۵۰'}
+      gold:{name:'طلا',symbol:'AU',mark:'ط',icon:icons.goldBar,weight:'۱۲٫۴۸۳',weightValue:12.483,value:'۲۳۸٬۴۰۰٬۰۰۰',pnl:'+۱۶٬۴۰۰٬۰۰۰',grade:'۱۸ عیار',rate:'۱۹٬۱۰۰٬۰۰۰',rateValue:19100000},
+      silver:{name:'نقره',symbol:'AG',mark:'ن',icon:icons.silverCoins,weight:'۲۶۴٫۳۵',weightValue:264.35,value:'۱۰۹٬۴۰۰٬۰۰۰',pnl:'+۷٬۵۰۰٬۰۰۰',grade:'۹۹۹',rate:'۴۱۴٬۰۰۰',rateValue:414000},
+      copper:{name:'مس',symbol:'CU',mark:'م',icon:icons.copperCoil,weight:'۱٬۸۴۰',weightValue:1840,value:'۴٬۷۰۰٬۰۰۰',pnl:'−۱۸۰٬۰۰۰',grade:'کاتد استاندارد',rate:'۲٬۵۴۰',rateValue:2540}
     };
+    const priceState={status:'fallback',refreshing:false,updatedAt:null,liveAssets:new Set(),seenAssets:new Set()};
+    const PRICE_REFRESH_MS=300000,PRICE_LOCAL_ENDPOINT='http://127.0.0.1:4173/api/live-prices';
+    const PRICE_RANGES={gold:[5000000,100000000],silver:[50000,5000000],copper:[100,100000]};
     const userBankCards = [
       {id:'bank-1',bank:'بانک سامان',number:'۶۲۱۹-۸۶۱۰-••••-۲۴۸۱',last4:'۲۴۸۱',tejarat:false},
       {id:'bank-2',bank:'بانک تجارت',number:'۵۸۵۹-۸۳۱۱-••••-۸۴۲۱',last4:'۸۴۲۱',tejarat:true}
@@ -713,6 +821,18 @@
         {id:'c-100',grams:100,label:'۱۰۰ گرم'},{id:'c-250',grams:250,label:'۲۵۰ گرم'},{id:'c-500',grams:500,label:'۵۰۰ گرم'},{id:'c-1000',grams:1000,label:'۱ کیلوگرم'},{id:'c-2000',grams:2000,label:'۲ کیلوگرم',available:false}
       ]}
     };
+    const giftCatalog = {
+      gold:[
+        {id:'gift-g-60',grams:.06,label:'۶۰ میلی‌گرم'},{id:'gift-g-100',grams:.1,label:'۱۰۰ میلی‌گرم'},{id:'gift-g-200',grams:.2,label:'۲۰۰ میلی‌گرم'},{id:'gift-g-250',grams:.25,label:'۲۵۰ میلی‌گرم'},{id:'gift-g-500',grams:.5,label:'۵۰۰ میلی‌گرم'},{id:'gift-g-1000',grams:1,label:'۱ گرم'},{id:'gift-g-2000',grams:2,label:'۲ گرم'},{id:'gift-g-2500',grams:2.5,label:'۲٫۵ گرم'},{id:'gift-g-5000',grams:5,label:'۵ گرم'},{id:'gift-g-10000',grams:10,label:'۱۰ گرم'}
+      ],
+      silver:[
+        {id:'gift-s-1',grams:1,label:'۱ گرم'},{id:'gift-s-2',grams:2,label:'۲ گرم'},{id:'gift-s-5',grams:5,label:'۵ گرم'},{id:'gift-s-10',grams:10,label:'۱۰ گرم'},{id:'gift-s-20',grams:20,label:'۲۰ گرم'},{id:'gift-s-50',grams:50,label:'۵۰ گرم'},{id:'gift-s-100',grams:100,label:'۱۰۰ گرم'},{id:'gift-s-250',grams:250,label:'۲۵۰ گرم'},{id:'gift-s-500',grams:500,label:'۵۰۰ گرم',available:false}
+      ],
+      copper:[
+        {id:'gift-c-100',grams:100,label:'۱۰۰ گرم'},{id:'gift-c-250',grams:250,label:'۲۵۰ گرم'},{id:'gift-c-500',grams:500,label:'۵۰۰ گرم'},{id:'gift-c-1000',grams:1000,label:'۱ کیلوگرم'},{id:'gift-c-2000',grams:2000,label:'۲ کیلوگرم'},{id:'gift-c-5000',grams:5000,label:'۵ کیلوگرم'},{id:'gift-c-10000',grams:10000,label:'۱۰ کیلوگرم',available:false}
+      ]
+    };
+    const GIFT_WALLET_BALANCE=38600000,GIFT_SHIPPING_FEE=120000;
     const futureMetals = [
       ['platinum','پلاتین','PT','پ'],['palladium','پالادیوم','PD','پ'],['zinc','روی','ZN','ر'],
       ['aluminium','آلومینیوم','AL','آ'],['nickel','نیکل','NI','ن'],['lead','سرب','PB','س'],
@@ -762,16 +882,63 @@
       ['WF-MM-027','referral','معرفی دوستان و دعوت‌های موفق'],
       ['WF-MM-029','profile','حساب کاربری']
     ];
+    const scenarioGroups = [
+      {id:'account',label:'ورود و حساب کاربری',keys:['auth-login','kyc','guest','profile']},
+      {id:'home',label:'خانه و دارایی',keys:['home','home-partial','portfolio-mix','zero','outage']},
+      {id:'wallet',label:'کیف تومان و بانک',keys:['deposit','deposit-no-card','deposit-method-card','deposit-method-shaba','deposit-method-account','withdraw']},
+      {id:'market',label:'بازار و جزئیات فلز',keys:['market3','market16','detail-gold','detail-silver','detail-copper','chart-single']},
+      {id:'trade',label:'معامله',keys:['trade-gold','trade-selector3','trade-selector16','trade-quote-switch']},
+      {id:'services',label:'خدمات',keys:['services','market-services','target-setup','referral']},
+      {id:'physical',label:'دریافت فیزیکی',keys:['physical-select','physical-insufficient','physical-unavailable','physical-failed','physical-success']},
+      {id:'installment',label:'خرید اقساطی',keys:['installment-active','installment-empty']},
+      {id:'gift',label:'هدیه',keys:['gift-hub','gift-setup']},
+      {id:'history',label:'تاریخچه و رسید',keys:['history','history-filtered','receipt']}
+    ];
+    const openScenarioGroups = new Set();
+    let scenarioGroupScenario = null;
 
     const state = {scenario:'home',stack:[],operation:'all',metal:'all',status:'all',date:'all',draftStatus:'all',draftDate:'all',receipt:activities[0],period:'month',sheet:null,toastTimer:null,tradeAsset:'gold',tradeMode:'buy',tradeInputUnit:'toman',tradeAmount:'',tradeUseWallet:false,quoteActive:false,pendingTradeAsset:null,chartAsset:'silver',processingToken:0,lastFocus:null,balanceVisibility:{total:false,gold:false,silver:false,copper:false,wallet:false},campaignIndex:0,
-      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:false,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftSource:'toman',giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
+      authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:false,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftItems:{gold:{},silver:{},copper:{}},giftPayment:'wallet',giftDelivery:'digital',giftRecipientName:'',giftRecipientMobile:'',giftAddress:'',giftPickupCenter:'tehran-1',giftClaimNumber:'',giftClaimCode:'',giftClaimError:'',giftClaim:null,giftRedeemedCodes:[],giftIssued:null,giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
+    const requestedScenario=new URLSearchParams(location.search).get('scenario');
+    if(requestedScenario&&scenarios.some(([,key])=>key===requestedScenario))state.scenario=requestedScenario;
+    const reviewSheets=['wallet-actions','money-methods','bank-card-picker','trade-details','physical-rules','physical-confirm','installment-terms','asset','filters','chart-asset','notifications','profile-info','notification-settings','support','install-pwa','app-version','trade-asset-3','trade-asset-16'];
+    const requestedSheet=new URLSearchParams(location.search).get('sheet');
+    if(requestedSheet&&reviewSheets.includes(requestedSheet))state.sheet=requestedSheet;
     const appMain=document.getElementById('app-main'),appHeader=document.querySelector('.app-header'),headerTitle=document.getElementById('header-title');
     const headerLeft=document.getElementById('header-left'), headerRight=document.getElementById('header-right');
-    const bottomNav=document.getElementById('bottom-nav'), overlayRoot=document.getElementById('overlay-root');
-    let overlayTrigger=null,livePriceTimer=null,livePriceIndex=0,livePriceMotionToken=0;
+    const bottomNav=document.getElementById('bottom-nav'),pageActionRoot=document.getElementById('page-action-root'),overlayRoot=document.getElementById('overlay-root');
+    let overlayTrigger=null,livePriceTimer=null,livePriceIndex=0,livePriceMotionToken=0,priceRefreshTimer=null,lastPriceRefresh=0;
+
+    function metalValue(asset){const metal=metals[asset];return Math.round(metal.weightValue*metal.rateValue)}
+    function syncMetalValues(){Object.entries(metals).forEach(([asset,metal])=>{metal.rate=faNumber(metal.rateValue,0);metal.value=faNumber(metalValue(asset),0)})}
+    function portfolioMetalTotal(excluded=[]){return Object.keys(metals).filter(asset=>!excluded.includes(asset)).reduce((total,asset)=>total+metalValue(asset),0)}
+    function portfolioMixData(){
+      const wallet=38600000,entries=[['#17191c','ط','طلا',metalValue('gold'),'دارایی فلزی'],['#626870','ن','نقره',metalValue('silver'),'دارایی فلزی'],['#aeb4bc','م','مس',metalValue('copper'),'دارایی فلزی'],['#eceff1','ت','کیف تومان',wallet,'موجودی ریالی']],total=entries.reduce((sum,item)=>sum+item[3],0),shares=entries.map(item=>item[3]/total*100),stops=[shares[0],shares[0]+shares[1],shares[0]+shares[1]+shares[2]];
+      return {wallet,total,shares,stops,rows:entries.map((item,index)=>[...item,shares[index]])};
+    }
+    function validLiveRate(asset,value){const rate=Number(value),range=PRICE_RANGES[asset];return Number.isFinite(rate)&&rate>=range[0]&&rate<=range[1]}
+    function priceEndpointCandidates(){return location.protocol==='file:'?[PRICE_LOCAL_ENDPOINT]:['/api/live-prices',PRICE_LOCAL_ENDPOINT]}
+    async function fetchPricePayload(url){
+      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+      try{const response=await fetch(url,{headers:{Accept:'application/json'},cache:'no-store',signal:controller.signal});if(!response.ok)throw new Error(`HTTP ${response.status}`);return await response.json()}finally{clearTimeout(timer)}
+    }
+    function renderAfterPriceUpdate(){
+      const scrollTop=appMain.scrollTop,railScroll=appMain.querySelector('.portfolio-rail')?.scrollLeft||0,focusedId=document.activeElement?.id||'';render();appMain.scrollTop=scrollTop;const rail=appMain.querySelector('.portfolio-rail');if(rail)rail.scrollLeft=railScroll;if(focusedId)document.getElementById(focusedId)?.focus({preventScroll:true});
+    }
+    async function refreshLivePrices(){
+      clearTimeout(priceRefreshTimer);priceState.refreshing=true;let payload=null;
+      for(const endpoint of priceEndpointCandidates()){try{payload=await fetchPricePayload(endpoint);break}catch(error){}}
+      const rates=payload?.rates||{},accepted=[];
+      for(const asset of Object.keys(metals)){if(validLiveRate(asset,rates[asset])){metals[asset].rateValue=Math.round(Number(rates[asset]));priceState.liveAssets.add(asset);accepted.push(asset)}}
+      const hadLiveRates=priceState.liveAssets.size>0;priceState.liveAssets=new Set(accepted);accepted.forEach(asset=>priceState.seenAssets.add(asset));
+      if(accepted.length){syncMetalValues();priceState.updatedAt=payload.updatedAt||new Date().toISOString();priceState.status=accepted.length===Object.keys(metals).length?'live':'partial';renderAfterPriceUpdate()}
+      else{priceState.status=priceState.seenAssets.size?'stale':'fallback';if(hadLiveRates)renderAfterPriceUpdate()}
+      priceState.refreshing=false;lastPriceRefresh=Date.now();priceRefreshTimer=setTimeout(refreshLivePrices,PRICE_REFRESH_MS);
+    }
 
     function livePriceAssets(){
       const scenario=state.scenario;
+      if(scenario.startsWith('gift-'))return [];
       if(['auth-login','kyc','deposit','deposit-no-card','withdraw','money-preview','physical-preview','physical-failed','physical-success','target-preview','installment-payment','installment-preview','installment-fee-payment','installment-gateway','installment-success','gift-preview','bank-accounts','bank-add','bank-add-preview','security','change-password','licenses','legal','profile','feature-processing','feature-result','trade-preview','trade-processing','receipt'].includes(scenario)||scenario.startsWith('deposit-method-'))return [];
       if(scenario==='market3'||scenario==='market16'||scenario.startsWith('trade-'))return [];
       if(scenario.startsWith('detail-'))return [];
@@ -804,7 +971,24 @@
     }
 
     function renderScenarioList(){
-      document.getElementById('scenario-list').innerHTML=scenarios.map(([id,key,label])=>`<button type="button" class="scenario ${state.scenario===key?'active':''}" data-scenario="${key}"><span>${id}</span><strong>${label}</strong></button>`).join('');
+      const scenarioByKey=new Map(scenarios.map(item=>[item[1],item]));
+      const activeGroup=scenarioGroups.find(group=>group.keys.includes(state.scenario));
+      if(activeGroup&&scenarioGroupScenario!==state.scenario)openScenarioGroups.add(activeGroup.id);
+      scenarioGroupScenario=state.scenario;
+      const allOpen=scenarioGroups.every(group=>openScenarioGroups.has(group.id));
+      const groups=scenarioGroups.map(group=>{
+        const items=group.keys.map(key=>scenarioByKey.get(key)).filter(Boolean),open=openScenarioGroups.has(group.id),hasActive=items.some(([,key])=>key===state.scenario),panelId=`scenario-group-${group.id}`;
+        return `<section class="scenario-group ${hasActive?'has-active':''}">
+          <button type="button" class="scenario-group-toggle" data-scenario-group="${group.id}" aria-expanded="${open}" aria-controls="${panelId}">
+            <span class="scenario-group-copy"><strong>${group.label}</strong><small>${faNumber(items.length,0)} صفحه و حالت</small></span>
+            <span class="scenario-group-chevron" aria-hidden="true">${icons.chevronLeft}</span>
+          </button>
+          <div class="scenario-group-items" id="${panelId}" ${open?'':'hidden'}>
+            ${items.map(([id,key,label])=>`<button type="button" class="scenario ${state.scenario===key?'active':''}" data-scenario="${key}" ${state.scenario===key?'aria-current="page"':''}><span class="scenario-label">${label}</span><span class="scenario-id">${id}</span></button>`).join('')}
+          </div>
+        </section>`;
+      }).join('');
+      document.getElementById('scenario-list').innerHTML=`<div class="scenario-list-actions"><button type="button" class="scenario-groups-toggle" data-scenario-groups="${allOpen?'collapse':'expand'}">${allOpen?'بستن همه':'باز کردن همه'}</button></div>${groups}`;
     }
     function setScenario(key){
       state.processingToken++;
@@ -836,11 +1020,11 @@
       if(key==='installment-active'||key==='installment-empty'){
         state.hasActiveInstallment=key==='installment-active';state.featureAsset=state.hasActiveInstallment?'silver':'gold';state.installmentTerm='6';state.installmentAmount=state.hasActiveInstallment?'':String(INSTALLMENT_MIN);state.installmentPaid=false;state.installmentContractTab='current';state.installmentTermsAccepted=false;state.installmentActivationMethod='gateway';
       }
-      if(key==='gift-hub'||key==='gift-setup'){state.featureAsset='gold';state.giftMode='send';state.giftSource='toman';state.giftAmount='';state.giftRecipient='';state.giftCode=''}
+      if(key==='gift-hub'||key==='gift-setup')resetGiftFlow('send');
       render(); appMain.scrollTop=0;
     }
     function captureView(){
-      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,tradeUseWallet:state.tradeUseWallet,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyTransferRail:state.moneyTransferRail,moneyDestination:state.moneyDestination,hasBankCards:state.hasBankCards,depositSourceCard:state.depositSourceCard,bankCardPickerTarget:state.bankCardPickerTarget,bankAddReturn:state.bankAddReturn,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,hasActiveInstallment:state.hasActiveInstallment,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,installmentPaid:state.installmentPaid,installmentContractTab:state.installmentContractTab,installmentTermsAccepted:state.installmentTermsAccepted,installmentActivationMethod:state.installmentActivationMethod,giftMode:state.giftMode,giftSource:state.giftSource,giftAmount:state.giftAmount,giftRecipient:state.giftRecipient,giftCode:state.giftCode,resultKind:state.resultKind,bankCardNumber:state.bankCardNumber,bankAdded:state.bankAdded,currentPassword:state.currentPassword,newPassword:state.newPassword,confirmPassword:state.confirmPassword,twoFactor:state.twoFactor,balanceVisibility:{...state.balanceVisibility},campaignIndex:state.campaignIndex,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
+      return {scenario:state.scenario,operation:state.operation,metal:state.metal,status:state.status,date:state.date,receipt:state.receipt,period:state.period,tradeAsset:state.tradeAsset,tradeMode:state.tradeMode,tradeAmount:state.tradeAmount,tradeUseWallet:state.tradeUseWallet,quoteActive:state.quoteActive,chartAsset:state.chartAsset,authMobile:state.authMobile,authPassword:state.authPassword,kycNationalId:state.kycNationalId,kycBirth:state.kycBirth,moneyMode:state.moneyMode,moneyAmount:state.moneyAmount,moneyMethod:state.moneyMethod,moneyTransferRail:state.moneyTransferRail,moneyDestination:state.moneyDestination,hasBankCards:state.hasBankCards,depositSourceCard:state.depositSourceCard,bankCardPickerTarget:state.bankCardPickerTarget,bankAddReturn:state.bankAddReturn,featureAsset:state.featureAsset,physicalItems:JSON.parse(JSON.stringify(state.physicalItems)),physicalUnavailableAsset:state.physicalUnavailableAsset,physicalBalanceOverrides:{...state.physicalBalanceOverrides},physicalCenter:state.physicalCenter,targetKind:state.targetKind,targetDirection:state.targetDirection,targetPrice:state.targetPrice,targetAmount:state.targetAmount,targetExpiry:state.targetExpiry,hasActiveInstallment:state.hasActiveInstallment,installmentTerm:state.installmentTerm,installmentAmount:state.installmentAmount,installmentPaid:state.installmentPaid,installmentContractTab:state.installmentContractTab,installmentTermsAccepted:state.installmentTermsAccepted,installmentActivationMethod:state.installmentActivationMethod,giftMode:state.giftMode,giftItems:JSON.parse(JSON.stringify(state.giftItems)),giftPayment:state.giftPayment,giftDelivery:state.giftDelivery,giftRecipientName:state.giftRecipientName,giftRecipientMobile:state.giftRecipientMobile,giftAddress:state.giftAddress,giftPickupCenter:state.giftPickupCenter,giftClaimNumber:state.giftClaimNumber,giftClaimCode:state.giftClaimCode,giftClaimError:state.giftClaimError,giftClaim:state.giftClaim?{...state.giftClaim}:null,giftIssued:state.giftIssued?{...state.giftIssued}:null,giftRedeemedCodes:[...state.giftRedeemedCodes],resultKind:state.resultKind,bankCardNumber:state.bankCardNumber,bankAdded:state.bankAdded,currentPassword:state.currentPassword,newPassword:state.newPassword,confirmPassword:state.confirmPassword,twoFactor:state.twoFactor,balanceVisibility:{...state.balanceVisibility},campaignIndex:state.campaignIndex,scrollTop:appMain.scrollTop,portfolioScrollLeft:appMain.querySelector('.portfolio-rail')?.scrollLeft||0};
     }
     function restoreView(view){
       const scrollTop=view.scrollTop||0,portfolioScrollLeft=view.portfolioScrollLeft||0;Object.assign(state,view,{sheet:null,pendingTradeAsset:null});render();
@@ -907,7 +1091,7 @@
       return `<button type="button" class="balance-toggle" data-toggle-balance="${key}" aria-label="${shown?'مخفی کردن':'نمایش'} موجودی ${label}">${shown?icons.eyeOff:icons.eye}</button>`;
     }
     function summary(partial=false){
-      const value=partial?'۱٬۰۴۹٬۰۰۰٬۰۰۰':'۱٬۲۴۵٬۵۰۰٬۰۰۰',shown=balanceShown('total');
+      const value=faNumber(portfolioMetalTotal(partial?['silver']:[]),0),shown=balanceShown('total');
       return `<article class="portfolio-card portfolio-total">${balanceToggle('total','دارایی کل')}<button type="button" class="portfolio-card-main" data-go="portfolio-mix" aria-label="${shown?'مشاهده دارایی‌های من و ترکیب کل دارایی‌ها، ارزش '+value+' تومان':'مشاهده دارایی‌های من و ترکیب کل دارایی‌ها، موجودی مخفی است'}">
         <div class="portfolio-card-title-copy"><strong>دارایی کل</strong><small>${partial?'نرخ نقره در محاسبه موجود نیست':'مجموع ارزش فعلی فلزها'}</small></div>
         <div class="portfolio-card-balance"><span>ارزش کل دارایی</span><strong>${visibleOrHidden('total',value,'تومان')}</strong></div>
@@ -952,14 +1136,9 @@
     }
     function portfolioMix(){
       setChrome('ترکیب دارایی',true,false);
-      const rows=[
-        ['#17191c','ط','طلا','۸۹۲٬۴۰۰٬۰۰۰ تومان','۶۹٫۵٪','69.5%','دارایی فلزی'],
-        ['#626870','ن','نقره','۲۷۴٬۸۰۰٬۰۰۰ تومان','۲۱٫۴٪','21.4%','دارایی فلزی'],
-        ['#aeb4bc','م','مس','۷۸٬۳۰۰٬۰۰۰ تومان','۶٫۱٪','6.1%','دارایی فلزی'],
-        ['#eceff1','ت','کیف تومان','۳۸٬۶۰۰٬۰۰۰ تومان','۳٫۰٪','3%','موجودی ریالی']
-      ];
-      return `<div class="portfolio-mix-monochrome"><section class="card portfolio-mix-hero" aria-label="خلاصه ترکیب دارایی"><div class="mix-total"><span class="muted">جمع دارایی‌ها</span><strong>۱٫۲۸۴ میلیارد تومان</strong></div><div class="mix-chart-layout"><div class="mix-donut-wrap" role="img" aria-label="نمودار حلقه‌ای سهم دارایی‌ها: طلا ۶۹٫۵ درصد، نقره ۲۱٫۴ درصد، مس ۶٫۱ درصد، کیف تومان ۳ درصد"><div class="mix-donut"></div><div class="mix-donut-center"><strong>۱۰۰٪</strong><span>کل دارایی</span></div></div></div></section>
-        <section class="section mix-card-list">${rows.map(([color,mark,name,value,share,,type],index)=>`<article class="mix-card" data-mix-index="${index}"><span class="mix-mark" style="background:color-mix(in srgb,${color} 24%,var(--surface));border:1px solid ${color}">${mark}</span><span class="mix-copy"><strong>${name}</strong><small>${type} · ${value}</small></span><span class="mix-share"><strong>${share}</strong><span>از کل</span></span></article>`).join('')}</section></div>`;
+      const mix=portfolioMixData(),labels=mix.shares.map(share=>faNumber(share,1));
+      return `<div class="portfolio-mix-monochrome"><section class="card portfolio-mix-hero" aria-label="خلاصه ترکیب دارایی"><div class="mix-total"><span class="muted">جمع دارایی‌ها</span><strong>${faNumber(mix.total/1000000,1)} میلیون تومان</strong></div><div class="mix-chart-layout"><div class="mix-donut-wrap" data-mix-stops="${mix.stops.join(',')}" role="img" aria-label="نمودار حلقه‌ای سهم دارایی‌ها: طلا ${labels[0]} درصد، نقره ${labels[1]} درصد، مس ${labels[2]} درصد، کیف تومان ${labels[3]} درصد"><div class="mix-donut" style="--mix-gold-stop:${mix.stops[0]}%;--mix-silver-stop:${mix.stops[1]}%;--mix-copper-stop:${mix.stops[2]}%"></div><div class="mix-donut-center"><strong>۱۰۰٪</strong><span>کل دارایی</span></div></div></div></section>
+        <section class="section mix-card-list">${mix.rows.map(([color,mark,name,value,type,share],index)=>`<article class="mix-card" data-mix-index="${index}"><span class="mix-mark" style="background:color-mix(in srgb,${color} 24%,var(--surface));border:1px solid ${color}">${mark}</span><span class="mix-copy"><strong>${name}</strong><small>${type} · ${faNumber(value,0)} تومان</small></span><span class="mix-share"><strong>${faNumber(share,1)}٪</strong><span>از کل</span></span></article>`).join('')}</section></div>`;
     }
     function profile(){
       setChrome('حساب کاربری',true,false);
@@ -1094,7 +1273,7 @@
       return `<h1 class="sr-only">معامله</h1>${metalTabs({selected:state.tradeAsset,action:'select-trade-asset',label:'انتخاب فلز معامله',controls:'trade-panel'})}
         <section class="trade-layout" id="trade-panel" role="tabpanel">
           <div class="trade-toolbar"><div class="trade-mode-switch" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div><div class="trade-rate-summary" aria-live="polite"><span>نرخ ${action} هر گرم ${m.name}</span><strong>${m.rate} تومان</strong></div></div>
-          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?faNumber(TRADE_WALLET_BALANCE,0)+' تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${formatTradeInput(state.tradeAmount)}" placeholder="۰" aria-describedby="trade-equivalent trade-input-message" aria-invalid="${hasError}" data-max-digits="${TRADE_MAX_DIGITS[state.tradeInputUnit]}"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><div class="trade-conversion" id="trade-equivalent"><strong><span class="trade-conversion-value" dir="ltr">${hasAmount?calc.weightLabel:'۰'}</span><span>گرم ${m.name}</span></strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
+          <section class="trade-amount-zone"><div class="trade-balance-context" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?faNumber(TRADE_WALLET_BALANCE,0)+' تومان':m.weight+' گرم'}</strong></div><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="none" readonly autocomplete="off" value="${formatTradeInput(state.tradeAmount)}" placeholder="۰" aria-describedby="trade-equivalent trade-input-message" aria-invalid="${hasError}" data-max-digits="${TRADE_MAX_DIGITS[state.tradeInputUnit]}"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><div class="trade-conversion" id="trade-equivalent" aria-live="polite"><strong><span class="trade-conversion-value" dir="ltr">${hasAmount?(byToman?calc.weightLabel:calc.amountLabel):'۰'}</span><span>${byToman?`گرم ${m.name}`:'تومان'}</span></strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
           <button class="primary-button trade-submit" type="button" ${hasAmount&&!hasError?'':'disabled'} data-trade-preview>${action} ${m.name}</button>
           <div class="trade-keypad" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.erase}</button></div>
         </section>`;
@@ -1230,10 +1409,10 @@
       const unavailable=state.physicalUnavailableAsset===asset,insufficient=!unavailable&&balance<minTotal;
       setChrome('دریافت فیزیکی',true,false);
       const content=unavailable
-        ?`<section class="card empty physical-state"><div class="empty-mark">${icons.physical}</div><h3>دریافت فیزیکی ${m.name} موقتاً غیرفعال است</h3><p>در حال حاضر امکان ثبت درخواست دریافت ${m.name} وجود ندارد. می‌توانید فلز دیگری را انتخاب کنید.</p></section><div class="sticky-action"><button class="secondary-button" style="width:100%" type="button" data-physical-back>بازگشت</button></div>`
+        ?`<section class="card empty physical-state"><div class="empty-mark">${icons.physical}</div><h3>دریافت فیزیکی ${m.name} موقتاً غیرفعال است</h3><p>در حال حاضر امکان ثبت درخواست دریافت ${m.name} وجود ندارد. می‌توانید فلز دیگری را انتخاب کنید.</p></section><div class="action-stack physical-page-action"><button class="secondary-button" style="width:100%" type="button" data-physical-back>بازگشت</button></div>`
         :insufficient
-          ?`${physicalInfoButton()}<div class="alert danger physical-state">${icons.warn}<span><strong>موجودی ${m.name} شما برای دریافت فیزیکی کافی نیست.</strong><br>برای دریافت حداقل شمش ${physicalMeasure(config.minGrams)}، با احتساب کارمزد به ${physicalMeasure(minTotal)} ${m.name} نیاز دارید.</span></div><div class="sticky-action"><button class="primary-button" style="width:100%" type="button" data-trade-asset="${asset}">خرید ${m.name}</button></div>`
-          :`${physicalInfoButton()}<div class="sticky-action"><button class="primary-button" style="width:100%" type="button" data-physical-catalog>انتخاب شمش</button></div>`;
+          ?`${physicalInfoButton()}<div class="alert danger physical-state">${icons.warn}<span><strong>موجودی ${m.name} شما برای دریافت فیزیکی کافی نیست.</strong><br>برای دریافت حداقل شمش ${physicalMeasure(config.minGrams)}، با احتساب کارمزد به ${physicalMeasure(minTotal)} ${m.name} نیاز دارید.</span></div><div class="action-stack physical-page-action"><button class="primary-button" style="width:100%" type="button" data-trade-asset="${asset}">خرید ${m.name}</button></div>`
+          :`${physicalInfoButton()}<div class="action-stack physical-page-action"><button class="primary-button" style="width:100%" type="button" data-physical-catalog>انتخاب شمش</button></div>`;
       return `${metalTabs({selected:asset,action:'physical-tab',label:'انتخاب فلز دریافت فیزیکی',className:'physical-asset-tabs'})}
         <section class="card physical-balance"><span class="physical-balance-copy"><span>موجودی ${m.name}</span><strong>${physicalMeasure(balance)}</strong></span><span class="service-icon" aria-hidden="true">${icons.physical}</span></section>${content}`;
     }
@@ -1246,14 +1425,14 @@
       }).join('');
       return `<section class="card physical-balance compact"><span class="physical-balance-copy"><span>موجودی ${m.name}</span><strong>${physicalMeasure(summary.balance)}</strong></span><span class="metal-symbol" aria-hidden="true">${m.mark}</span></section>${physicalInfoButton(true)}
         <section class="section"><div class="section-head"><div><h3>شمش موردنظر خود را انتخاب کنید</h3><p class="market-note" style="margin:2px 0 0">می‌توانید یک یا چند وزن را هم‌زمان انتخاب کنید.</p></div></div><div class="bullion-grid">${cards}</div></section>
-        <div class="sticky-action"><div class="sticky-summary">${hasSelection?`<span class="sticky-summary-copy"><span>مقدار شمش‌ها</span><strong>${physicalMeasure(summary.selected)}</strong></span><span class="sticky-summary-copy"><span>با احتساب کارمزد</span><strong>${physicalMeasure(summary.total)}</strong></span>`:`<span class="sticky-summary-copy"><strong>هنوز شمشی انتخاب نکرده‌اید</strong><span>برای ادامه یک وزن را اضافه کنید.</span></span>`}</div><button class="primary-button" style="width:100%" type="button" data-physical-preview ${hasSelection?'':'disabled'}>ادامه</button></div>`;
+        <div class="action-stack physical-page-action"><div class="sticky-summary">${hasSelection?`<span class="sticky-summary-copy"><span>مقدار شمش‌ها</span><strong>${physicalMeasure(summary.selected)}</strong></span><span class="sticky-summary-copy"><span>با احتساب کارمزد</span><strong>${physicalMeasure(summary.total)}</strong></span>`:`<span class="sticky-summary-copy"><strong>هنوز شمشی انتخاب نکرده‌اید</strong><span>برای ادامه یک وزن را اضافه کنید.</span></span>`}</div><button class="primary-button" style="width:100%" type="button" data-physical-preview ${hasSelection?'':'disabled'}>ادامه</button></div>`;
     }
     function physicalPreview(){
       const asset=state.featureAsset,m=metals[asset],entries=physicalEntries(asset);setChrome(`دریافت فیزیکی ${m.name}`,true,false);
       return `<section class="card context-card"><div class="context-row"><span class="context-row-icon">${icons.location}</span><span class="context-row-copy"><strong>محل دریافت</strong><p>تهران، محله پونک، خیابان اشرفی اصفهانی، بلوار همیلا، برج اداری تجاری همیلا سنتر، طبقه اول، واحد ۱۱۵</p><button class="text-button" style="justify-self:start;padding-inline:0" type="button" data-toast="موقعیت مرکز دریافت روی نقشه باز می‌شود.">مشاهده روی نقشه</button></span></div><div class="context-row"><span class="context-row-icon">${icons.clock}</span><span class="context-row-copy"><strong>زمان دریافت</strong><p>زمان دقیق دریافت پس از آماده‌شدن سفارش به شما اعلام می‌شود.</p><small>وضعیت درخواست و زمان مراجعه از بخش «درخواست‌های من» قابل پیگیری است.</small></span></div></section>
         <div class="info-banner" role="note">${icons.idCard}<span class="info-banner-copy"><strong>برای دریافت حضوری، همراه داشتن کارت ملی صاحب حساب الزامی است.</strong></span></div>
         <section class="section"><div class="section-head"><h3>شمش‌های انتخابی</h3></div><div class="selected-bullion-rail">${entries.map(item=>`<article class="selected-bullion"><strong>شمش ${m.name} ${item.label}</strong><span>تعداد ${faNumber(item.qty,0)}</span></article>`).join('')}</div></section>
-        <div class="sticky-action"><button class="primary-button" style="width:100%" type="button" data-open-physical-confirm>تأیید و ادامه</button></div>`;
+        <div class="action-stack physical-page-action"><button class="primary-button" style="width:100%" type="button" data-open-physical-confirm>تأیید و ادامه</button></div>`;
     }
     function physicalFailed(){
       const m=metals[state.featureAsset];setChrome('نتیجه درخواست',true,false);
@@ -1315,7 +1494,7 @@
     }
     function installmentSuccess(){
       const m=metals[state.featureAsset],calc=installmentActivationCalculation(),wallet=state.installmentActivationMethod==='wallet';setChrome('خرید اقساطی',false,false);
-      return `<section class="card installment-success-card"><div class="receipt-head"><div class="receipt-mark">✓</div><h3>خرید قسطی با موفقیت فعال شد</h3></div><div class="receipt-grid installment-confirm-grid"><div class="receipt-row"><span>مقدار اعتبار</span><strong>${faNumber(calc.principal,0)} تومان</strong></div><div class="receipt-row"><span>مقدار ${m.name}</span><strong>${calc.weightLabel} گرم</strong></div><div class="receipt-row"><span>دوره بازپرداخت</span><strong>${state.installmentTerm} ماه</strong></div><div class="receipt-row"><span>هزینه پرداخت‌شده</span><strong>${faNumber(calc.feesTotal,0)} تومان</strong></div><div class="receipt-row"><span>روش پرداخت</span><strong>${wallet?'کیف پول تومان':'درگاه بانکی'}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">SH-INST-248021</strong></div></div></section><div class="alert installment-guarantee-alert">${icons.warn}<span><strong>دارایی تا پایان اقساط قفل است</strong>${calc.weightLabel} گرم ${m.name} تا تسویه کامل قابل فروش یا دریافت فیزیکی نیست.</span></div><div class="action-stack inline-action"><button class="primary-button" type="button" data-go="installment-active">مشاهده اقساط</button><button class="secondary-button" type="button" data-go-home>صفحه اصلی</button></div>`;
+      return `<section class="card installment-success-card"><div class="receipt-head"><div class="receipt-mark">✓</div><h3>خرید قسطی با موفقیت فعال شد</h3></div><div class="receipt-grid installment-confirm-grid"><div class="receipt-row"><span>مقدار اعتبار</span><strong>${faNumber(calc.principal,0)} تومان</strong></div><div class="receipt-row"><span>مقدار ${m.name}</span><strong>${calc.weightLabel} گرم</strong></div><div class="receipt-row"><span>دوره بازپرداخت</span><strong>${state.installmentTerm} ماه</strong></div><div class="receipt-row"><span>هزینه پرداخت‌شده</span><strong>${faNumber(calc.feesTotal,0)} تومان</strong></div><div class="receipt-row"><span>روش پرداخت</span><strong>${wallet?'کیف پول تومان':'درگاه بانکی'}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">SH-INST-248021</strong></div></div></section><div class="alert installment-guarantee-alert">${icons.warn}<span><strong>دارایی تا پایان اقساط قفل است</strong>${calc.weightLabel} گرم ${m.name} تا تسویه کامل قابل فروش یا دریافت فیزیکی نیست.</span></div><div class="action-stack"><button class="primary-button" type="button" data-go="installment-active">مشاهده اقساط</button><button class="secondary-button" type="button" data-go-home>صفحه اصلی</button></div>`;
     }
     function activeInstallmentData(){
       const paidCount=state.installmentPaid?5:4,installmentNumber=state.installmentPaid?6:5;
@@ -1366,20 +1545,98 @@
     }
     function installmentPreview(){
       const m=metals[state.featureAsset],calc=installmentCalculation();setChrome('بررسی قرارداد',true,false);
-      return `<section class="card receipt-grid installment-confirm-grid"><div class="receipt-row"><span>فلز</span><strong>${m.name}</strong></div><div class="receipt-row"><span>مبلغ خرید</span><strong>${faNumber(calc.principal,0)} تومان</strong></div><div class="receipt-row"><span>مقدار تقریبی ${m.name}</span><strong>${calc.weightLabel} گرم</strong></div><div class="receipt-row"><span>دوره بازپرداخت</span><strong>${state.installmentTerm} ماه</strong></div><div class="receipt-row"><span>مبلغ هر قسط</span><strong>${faNumber(calc.payment,0)} تومان</strong></div><div class="receipt-row"><span>سود سالیانه</span><strong>۲۳٪</strong></div><div class="receipt-row"><span>مجموع بازپرداخت</span><strong>${faNumber(calc.total,0)} تومان</strong></div></section><div class="alert installment-guarantee-alert">${icons.warn}<span><strong>دارایی تا تسویه کامل قفل می‌ماند</strong>${m.name} خریداری‌شده متعلق به شماست، اما تا پایان اقساط قابل فروش یا دریافت فیزیکی نیست.</span></div><div class="installment-terms-consent"><div class="installment-terms-check"><input id="installment-terms-accepted" type="checkbox" ${state.installmentTermsAccepted?'checked':''}><div class="installment-terms-check-copy"><button class="installment-terms-link" type="button" data-sheet="installment-terms">شرایط و مقررات</button><label for="installment-terms-accepted">را خوانده‌ام و می‌پذیرم.</label></div></div></div><div class="action-stack inline-action"><button class="primary-button" data-installment-activation-preview ${state.installmentTermsAccepted?'':'disabled'}>تأیید و ادامه</button></div>`;
+      return `<section class="card receipt-grid installment-confirm-grid"><div class="receipt-row"><span>فلز</span><strong>${m.name}</strong></div><div class="receipt-row"><span>مبلغ خرید</span><strong>${faNumber(calc.principal,0)} تومان</strong></div><div class="receipt-row"><span>مقدار تقریبی ${m.name}</span><strong>${calc.weightLabel} گرم</strong></div><div class="receipt-row"><span>دوره بازپرداخت</span><strong>${state.installmentTerm} ماه</strong></div><div class="receipt-row"><span>مبلغ هر قسط</span><strong>${faNumber(calc.payment,0)} تومان</strong></div><div class="receipt-row"><span>سود سالیانه</span><strong>۲۳٪</strong></div><div class="receipt-row"><span>مجموع بازپرداخت</span><strong>${faNumber(calc.total,0)} تومان</strong></div></section><div class="alert installment-guarantee-alert">${icons.warn}<span><strong>دارایی تا تسویه کامل قفل می‌ماند</strong>${m.name} خریداری‌شده متعلق به شماست، اما تا پایان اقساط قابل فروش یا دریافت فیزیکی نیست.</span></div><div class="installment-terms-consent"><div class="installment-terms-check"><input id="installment-terms-accepted" type="checkbox" ${state.installmentTermsAccepted?'checked':''}><div class="installment-terms-check-copy"><button class="installment-terms-link" type="button" data-sheet="installment-terms">شرایط و مقررات</button><label for="installment-terms-accepted">را خوانده‌ام و می‌پذیرم.</label></div></div></div><div class="action-stack"><button class="primary-button" data-installment-activation-preview ${state.installmentTermsAccepted?'':'disabled'}>تأیید و ادامه</button></div>`;
     }
+    function resetGiftFlow(mode='send'){
+      state.giftMode=mode;state.featureAsset='gold';state.giftItems={gold:{},silver:{},copper:{}};state.giftPayment='wallet';state.giftDelivery='digital';state.giftRecipientName='';state.giftRecipientMobile='';state.giftAddress='';state.giftPickupCenter='tehran-1';state.giftClaimNumber='';state.giftClaimCode='';state.giftClaimError='';state.giftClaim=null;state.giftIssued=null;
+    }
+    function giftSelection(asset=state.featureAsset){
+      const quantities=state.giftItems?.[asset]||{},rate=numericValue(metals[asset].rate);
+      const items=giftCatalog[asset].map(item=>({...item,qty:Number(quantities[item.id]||0)})).filter(item=>item.qty>0);
+      const quantity=items.reduce((sum,item)=>sum+item.qty,0),weight=items.reduce((sum,item)=>sum+item.grams*item.qty,0),amount=Math.round(weight*rate);
+      return {asset,items,quantity,weight,amount};
+    }
+    function giftWeight(weight){return `${faNumber(weight,3)} گرم`}
+    function giftPaymentState(selection=giftSelection()){
+      const metalBalance=physicalCatalog[selection.asset].balance,walletBalance=GIFT_WALLET_BALANCE,metalEnough=selection.weight<=metalBalance,walletEnough=selection.amount<=walletBalance;
+      const error=state.giftPayment==='metal'&&!metalEnough?`موجودی ${metals[selection.asset].name} برای این سبد کافی نیست.`:state.giftPayment==='wallet'&&!walletEnough?'موجودی کیف تومان برای پرداخت این سفارش کافی نیست.':'';
+      return {metalBalance,walletBalance,metalEnough,walletEnough,error};
+    }
+    function giftDeliveryFee(){return state.giftDelivery==='shipping'?GIFT_SHIPPING_FEE:0}
+    function giftDeliveryReady(){
+      if(state.giftDelivery==='shipping')return state.giftRecipientName.trim().length>1&&state.giftRecipientMobile.trim().length>=10&&state.giftAddress.trim().length>=10;
+      return state.giftDelivery==='digital'||Boolean(state.giftPickupCenter);
+    }
+    function giftProgress(step,total,label){return `<div class="gift-progress" aria-label="مرحله ${faNumber(step,0)} از ${faNumber(total,0)}"><div class="gift-progress-head"><strong>${label}</strong><span>مرحله ${faNumber(step,0)} از ${faNumber(total,0)}</span></div><div class="gift-progress-track" style="--gift-steps:${total}">${Array.from({length:total},(_,index)=>`<span class="${index<step?'active':''}"></span>`).join('')}</div></div>`}
     function giftHub(){
-      setChrome('هدیه فلزی',true,false);
-      return `<div class="page-lead"><h3>هدیه فلزی</h3></div><div class="service-grid"><button class="service-tile" data-gift-mode="send"><span class="service-icon" aria-hidden="true">${icons.giftSend}</span><span class="service-copy"><strong>صدور هدیه</strong></span></button><button class="service-tile" data-gift-mode="receive"><span class="service-icon" aria-hidden="true">${icons.giftReceive}</span><span class="service-copy"><strong>دریافت هدیه</strong></span></button></div>`;
+      setChrome('هدیه',true,false);
+      return `<div class="service-grid gift-hub-grid"><button class="service-tile" data-gift-mode="send"><span class="service-icon" aria-hidden="true">${icons.giftSend}</span><span class="service-copy"><strong>صدور هدیه</strong></span></button><button class="service-tile" data-gift-mode="receive"><span class="service-icon" aria-hidden="true">${icons.giftReceive}</span><span class="service-copy"><strong>دریافت هدیه</strong></span></button></div><section class="section"><div class="section-head"><h3>تاریخچه هدیه‌ها</h3></div><div class="gift-history-links"><button class="gift-history-link" type="button" data-gift-history="gift-send"><span class="gift-history-link-icon" aria-hidden="true">${icons.giftSend}</span><span class="gift-history-link-copy"><strong>هدیه‌های صادرشده</strong><small>مشاهده وضعیت صدور و ارسال</small></span><span class="gift-history-link-chevron" aria-hidden="true">${icons.chevronLeft}</span></button><button class="gift-history-link" type="button" data-gift-history="gift-receive"><span class="gift-history-link-icon" aria-hidden="true">${icons.giftReceive}</span><span class="gift-history-link-copy"><strong>هدیه‌های دریافت‌شده</strong><small>مشاهده هدیه‌های اضافه‌شده به کیف</small></span><span class="gift-history-link-chevron" aria-hidden="true">${icons.chevronLeft}</span></button></div></section>`;
     }
-    function giftSetup(){
-      const send=state.giftMode==='send',ready=send?state.giftAmount.trim().length>0&&state.giftRecipient.trim().length>0:state.giftCode.trim().length>3;setChrome(send?'صدور هدیه':'دریافت هدیه',true,false);
-      return `<section class="card">${send?`${metalTabs({label:'انتخاب فلز هدیه'})}<div class="field"><label>منبع تأمین</label><div class="segment"><button class="${state.giftSource==='toman'?'selected':''}" data-gift-source="toman">کیف تومان</button><button class="${state.giftSource==='metal'?'selected':''}" data-gift-source="metal">دارایی فلزی</button></div></div><div class="field"><label for="gift-amount">مقدار</label><div class="input-wrap"><input id="gift-amount" inputmode="decimal" value="${state.giftAmount}" placeholder="۰"><span>گرم</span></div></div><div class="field"><label for="gift-recipient">شماره موبایل گیرنده</label><div class="input-wrap"><input id="gift-recipient" inputmode="numeric" value="${state.giftRecipient}" placeholder="۰۹۱۲۱۲۳۴۵۶۷"><span>موبایل</span></div></div>`:`<div class="field"><label for="gift-code">کد هدیه</label><div class="input-wrap"><input id="gift-code" value="${state.giftCode}" placeholder="SH-GIFT-••••"><span>کد</span></div></div><p class="market-note">برای دریافت هدیه، ورود و احراز هویت لازم است.</p>`}</section><div class="action-stack"><button class="primary-button" data-gift-preview ${ready?'':'disabled'}>بررسی ${send?'صدور':'دریافت'}</button></div>`;
+    function giftCatalogPage(){
+      const asset=state.featureAsset,m=metals[asset],selection=giftSelection();setChrome('صدور هدیه',true,false);
+      const cards=giftCatalog[asset].map(item=>{const qty=Number(state.giftItems[asset]?.[item.id]||0),available=item.available!==false,price=Math.round(item.grams*numericValue(m.rate));return `<article class="gift-product" ${available?'':'aria-disabled="true"'}><div class="gift-product-head"><strong>${item.label}</strong><span>${m.name} · ${m.grade}</span></div><div class="gift-product-price">${available?faNumber(price,0)+' تومان':'فعلاً ناموجود'}</div>${qty>0?`<div class="gift-stepper" aria-label="تعداد ${item.label} ${m.name}"><button type="button" data-gift-remove="${item.id}" aria-label="کم کردن">−</button><strong>${faNumber(qty,0)}</strong><button type="button" data-gift-add="${item.id}" aria-label="اضافه کردن">+</button></div>`:`<button type="button" class="gift-product-add" data-gift-add="${item.id}" ${available?'':'disabled'}>افزودن</button>`}</article>`}).join('');
+      return `${giftProgress(1,4,'انتخاب کارت')}<div class="gift-lead"><h3>کارت هدیه را انتخاب کنید</h3><p>وزن‌های آماده را می‌توانید تا ۱۰ عدد به سبد اضافه کنید.</p></div>${metalTabs({selected:asset,action:'gift-asset',label:'انتخاب فلز هدیه',className:'gift-metal-tabs'})}<section class="gift-catalog-grid" aria-label="وزن‌های کارت هدیه ${m.name}">${cards}</section><section class="gift-cart-summary" aria-live="polite"><div class="gift-cart-summary-row"><span>تعداد کارت</span><strong>${faNumber(selection.quantity,0)}</strong></div><div class="gift-cart-summary-row"><span>وزن کل</span><strong>${giftWeight(selection.weight)}</strong></div><div class="gift-cart-summary-row total"><span>مبلغ تقریبی</span><strong>${faNumber(selection.amount,0)} تومان</strong></div></section><div class="action-stack"><button class="primary-button" type="button" data-gift-checkout ${selection.quantity?'':'disabled'}>ادامه و انتخاب پرداخت</button></div>`;
     }
+    function giftCheckout(){
+      const selection=giftSelection(),m=metals[selection.asset],payment=giftPaymentState(selection);setChrome('روش پرداخت',true,false);
+      const check=`<span class="gift-option-check" aria-hidden="true">${icons.check}</span>`;
+      return `${giftProgress(2,4,'روش پرداخت')}<div class="gift-lead"><h3>پرداخت هدیه</h3><p>${faNumber(selection.quantity,0)} کارت · ${giftWeight(selection.weight)} ${m.name}</p></div><section class="gift-option-list" aria-label="انتخاب روش پرداخت"><button class="gift-option ${state.giftPayment==='metal'?'selected':''}" type="button" data-gift-payment="metal" ${payment.metalEnough?'':'disabled'}><span class="gift-option-icon" aria-hidden="true">${m.icon}</span><span class="gift-option-copy"><strong>از موجودی ${m.name}</strong><small>موجودی: ${faNumber(payment.metalBalance,3)} گرم · ${payment.metalEnough?'کسر دقیق وزن':'برای این سبد ناکافی'}</small></span>${check}</button><button class="gift-option ${state.giftPayment==='wallet'?'selected':''}" type="button" data-gift-payment="wallet" ${payment.walletEnough?'':'disabled'}><span class="gift-option-icon" aria-hidden="true">${icons.wallet}</span><span class="gift-option-copy"><strong>از کیف تومان</strong><small>موجودی: ${faNumber(payment.walletBalance,0)} تومان${payment.walletEnough?'':' · ناکافی'}</small></span>${check}</button></section>${payment.error?`<div class="gift-inline-alert" role="alert">${icons.warn}<span>${payment.error}</span></div>`:''}<section class="gift-cart-summary"><div class="gift-cart-summary-row"><span>وزن هدیه</span><strong>${giftWeight(selection.weight)} ${m.name}</strong></div><div class="gift-cart-summary-row total"><span>مبلغ</span><strong>${faNumber(selection.amount,0)} تومان</strong></div></section><div class="action-stack"><button class="primary-button" type="button" data-gift-delivery ${payment.error?'disabled':''}>ادامه و انتخاب نوع هدیه</button></div>`;
+    }
+    function giftDelivery(){
+      const check=`<span class="gift-option-check" aria-hidden="true">${icons.check}</span>`,ready=giftDeliveryReady();setChrome('نوع دریافت هدیه',true,false);
+      const fields=state.giftDelivery==='digital'?`<div class="gift-delivery-fields"><div class="field"><label for="gift-recipient-name">نام گیرنده <span class="muted">(اختیاری)</span></label><div class="input-wrap"><input id="gift-recipient-name" value="${state.giftRecipientName}" placeholder="مثلاً سارا"><span>نام</span></div></div><div class="field"><label for="gift-recipient-mobile">موبایل گیرنده <span class="muted">(اختیاری)</span></label><div class="input-wrap"><input id="gift-recipient-mobile" inputmode="numeric" value="${state.giftRecipientMobile}" placeholder="۰۹۱۲۱۲۳۴۵۶۷"><span>موبایل</span></div></div></div>`:state.giftDelivery==='pickup'?`<div class="gift-delivery-fields"><div class="field"><label>مرکز دریافت</label><div class="choice-grid"><button class="choice ${state.giftPickupCenter==='tehran-1'?'selected':''}" type="button" data-gift-pickup="tehran-1">تهران مرکزی</button><button class="choice ${state.giftPickupCenter==='tehran-2'?'selected':''}" type="button" data-gift-pickup="tehran-2">تهران غرب</button></div><div class="field-help">تحویل با کارت ملی صاحب سفارش انجام می‌شود.</div></div></div>`:`<div class="gift-delivery-fields"><div class="field"><label for="gift-recipient-name">نام گیرنده</label><div class="input-wrap"><input id="gift-recipient-name" value="${state.giftRecipientName}" placeholder="نام و نام خانوادگی"><span>گیرنده</span></div></div><div class="field"><label for="gift-recipient-mobile">شماره موبایل</label><div class="input-wrap"><input id="gift-recipient-mobile" inputmode="numeric" value="${state.giftRecipientMobile}" placeholder="۰۹۱۲۱۲۳۴۵۶۷"><span>موبایل</span></div></div><div class="field"><label for="gift-address">نشانی ارسال</label><div class="input-wrap"><input id="gift-address" value="${state.giftAddress}" placeholder="شهر، خیابان، پلاک و واحد"><span>آدرس</span></div></div><div class="field-help">هزینه ارسال نمونه: ${faNumber(GIFT_SHIPPING_FEE,0)} تومان</div></div>`;
+      return `${giftProgress(3,4,'نوع تحویل')}<div class="gift-lead"><h3>هدیه چطور تحویل شود؟</h3><p>برای هدیه دیجیتال کد و لینک ساخته می‌شود.</p></div><section class="gift-option-list"><button class="gift-option ${state.giftDelivery==='digital'?'selected':''}" type="button" data-gift-delivery-method="digital"><span class="gift-option-icon" aria-hidden="true">${icons.link}</span><span class="gift-option-copy"><strong>دیجیتال</strong><small>ساخت شماره، کد دریافت و لینک اشتراک</small></span>${check}</button><button class="gift-option ${state.giftDelivery==='pickup'?'selected':''}" type="button" data-gift-delivery-method="pickup"><span class="gift-option-icon" aria-hidden="true">${icons.physical}</span><span class="gift-option-copy"><strong>دریافت حضوری</strong><small>آماده‌سازی کارت فیزیکی در مرکز تحویل</small></span>${check}</button><button class="gift-option ${state.giftDelivery==='shipping'?'selected':''}" type="button" data-gift-delivery-method="shipping"><span class="gift-option-icon" aria-hidden="true">${icons.truck}</span><span class="gift-option-copy"><strong>ارسال به نشانی</strong><small>کارت فیزیکی با بسته‌بندی هدیه</small></span>${check}</button></section>${fields}<div class="action-stack"><button class="primary-button" type="button" data-gift-preview ${ready?'':'disabled'}>بررسی نهایی</button></div>`;
+    }
+    function giftDeliveryLabel(){return state.giftDelivery==='digital'?'دیجیتال · لینک و کد':state.giftDelivery==='pickup'?`دریافت حضوری · ${state.giftPickupCenter==='tehran-2'?'تهران غرب':'تهران مرکزی'}`:`ارسال به ${state.giftRecipientName}`}
     function giftPreview(){
-      const send=state.giftMode==='send',m=metals[state.featureAsset];setChrome('بررسی هدیه',true,false);
-      return `<div class="page-lead"><h3>${send?'صدور':'دریافت'} هدیه</h3><p>اثر مالی فقط پس از تأیید قطعی ثبت می‌شود.</p></div><section class="card receipt-grid">${send?`<div class="receipt-row"><span>فلز / مقدار</span><strong>${m.name} · ${state.giftAmount} گرم</strong></div><div class="receipt-row"><span>گیرنده</span><strong>${state.giftRecipient}</strong></div><div class="receipt-row"><span>منبع</span><strong>${state.giftSource==='toman'?'کیف تومان':'دارایی '+m.name}</strong></div>`:`<div class="receipt-row"><span>کد</span><strong dir="ltr">${state.giftCode}</strong></div><div class="receipt-row"><span>اثر</span><strong>افزایش یک‌باره دارایی</strong></div>`}</section><div class="action-stack"><button class="primary-button" data-confirm-feature="${send?'gift-send':'gift-receive'}">تأیید ${send?'صدور':'دریافت'}</button><button class="secondary-button" data-edit-feature>ویرایش</button></div>`;
+      const selection=giftSelection(),m=metals[selection.asset],payment=giftPaymentState(selection),fee=giftDeliveryFee(),walletFinalEnough=state.giftPayment!=='wallet'||selection.amount+fee<=GIFT_WALLET_BALANCE,feeEnough=state.giftPayment!=='metal'||fee<=GIFT_WALLET_BALANCE,ready=!payment.error&&walletFinalEnough&&feeEnough&&giftDeliveryReady();setChrome('بررسی هدیه',true,false);
+      const finalError=!walletFinalEnough?'با احتساب هزینه ارسال، موجودی کیف تومان کافی نیست.':!feeEnough?'موجودی کیف تومان برای هزینه ارسال کافی نیست.':'';
+      return `${giftProgress(4,4,'بررسی نهایی')}<div class="gift-lead"><h3>تأیید صدور هدیه</h3><p>پیش از پرداخت، وزن، روش پرداخت و نوع تحویل را بررسی کنید.</p></div><section class="card receipt-grid"><div class="receipt-row"><span>هدیه</span><strong>${faNumber(selection.quantity,0)} کارت ${m.name}</strong></div><div class="receipt-row"><span>وزن کل</span><strong>${giftWeight(selection.weight)}</strong></div><div class="receipt-row"><span>روش پرداخت</span><strong>${state.giftPayment==='metal'?'موجودی '+m.name:'کیف تومان'}</strong></div><div class="receipt-row"><span>نوع تحویل</span><strong>${giftDeliveryLabel()}</strong></div><div class="receipt-row"><span>مبلغ فلز</span><strong>${faNumber(selection.amount,0)} تومان</strong></div>${fee?`<div class="receipt-row"><span>هزینه ارسال از کیف تومان</span><strong>${faNumber(fee,0)} تومان</strong></div>`:''}</section>${finalError?`<div class="gift-inline-alert" role="alert">${icons.warn}<span>${finalError}</span></div>`:''}<div class="action-stack"><button class="primary-button" type="button" data-gift-confirm ${ready?'':'disabled'}>${state.giftPayment==='metal'?'تأیید و صدور':'پرداخت و صدور هدیه'}</button><button class="secondary-button" type="button" data-edit-feature>ویرایش</button></div>`;
     }
+    function giftProcessing(){
+      setChrome('صدور هدیه',false,false);return `<section class="processing" aria-live="polite"><div class="processing-card"><span class="spinner" aria-hidden="true"></span><h3>در حال صدور هدیه</h3><p>پرداخت و ساخت اطلاعات هدیه در حال انجام است.</p></div></section>`;
+    }
+    function completeGiftIssue(){
+      const selection=giftSelection(),m=metals[selection.asset],digital=state.giftDelivery==='digital',tracking='SHG-248120',code='742915';
+      state.giftIssued={number:tracking,code,link:`shemsh.ir/g/${tracking}`,asset:selection.asset,weight:selection.weight,quantity:selection.quantity,delivery:state.giftDelivery,recipient:state.giftRecipientName};
+      const demo={id:'demo-gift-send',op:'gift-send',title:`صدور هدیه ${m.name}`,asset:selection.asset,amount:giftWeight(selection.weight),weight:giftDeliveryLabel(),status:digital?'آماده ارسال':'در حال آماده‌سازی',statusKey:digital?'final':'pending',dateKey:'month',time:'همین حالا',tracking};
+      const old=activities.findIndex(a=>a.id===demo.id);if(old>=0)activities.splice(old,1);activities.unshift(demo);state.receipt=demo;state.stack=[];state.scenario='gift-success';render();appMain.scrollTop=0;showToast('هدیه با موفقیت صادر شد.');
+    }
+    function giftSuccess(){
+      const issued=state.giftIssued,m=metals[issued?.asset||state.featureAsset],digital=issued?.delivery==='digital';setChrome('هدیه صادر شد',true,false);
+      const detail=digital?`<section class="gift-code-panel"><small>شماره هدیه</small><div class="gift-code-line"><strong>${issued.number}</strong><button type="button" data-copy="${issued.number}" data-copy-label="شماره هدیه">کپی</button></div><small>کد دریافت</small><div class="gift-code-line"><strong>${issued.code}</strong><button type="button" data-copy="${issued.code}" data-copy-label="کد دریافت">کپی</button></div><small>لینک هدیه</small><div class="gift-code-line"><strong style="font-size:12px">${issued.link}</strong><button type="button" data-copy="https://${issued.link}" data-copy-label="لینک هدیه">کپی</button></div></section>`:`<section class="card receipt-grid"><div class="receipt-row"><span>وضعیت</span><strong>در حال آماده‌سازی کارت فیزیکی</strong></div><div class="receipt-row"><span>روش تحویل</span><strong>${giftDeliveryLabel()}</strong></div><div class="receipt-row"><span>پیگیری</span><strong dir="ltr">${issued.number}</strong></div></section>`;
+      return `<div class="gift-success-mark" aria-hidden="true">${icons.checkCircle}</div><div class="gift-success-copy"><h3>${digital?'هدیه آماده ارسال است':'سفارش هدیه ثبت شد'}</h3><p>${giftWeight(issued?.weight||0)} ${m.name}${digital?' را با لینک یا شماره و کد برای گیرنده بفرستید.':' پس از آماده‌سازی قابل پیگیری است.'}</p></div>${detail}<div class="action-stack"><button class="primary-button" type="button" data-gift-new>صدور هدیه جدید</button><button class="secondary-button" type="button" data-go="gift-hub">بازگشت به هدیه</button></div>`;
+    }
+    function giftLookup(){
+      const number=state.giftClaimNumber.trim().toUpperCase(),code=state.giftClaimCode.trim();
+      if(!number||!code)return {error:'شماره هدیه و کد دریافت را کامل وارد کنید.'};
+      if(!/^SHG-\d{6}$/.test(number)||!/^\d{6}$/.test(code))return {error:'فرمت شماره یا کد هدیه درست نیست.'};
+      if(state.giftRedeemedCodes.includes(number))return {error:'این هدیه قبلاً دریافت شده است.'};
+      if(number==='SHG-240001'&&code==='111111')return {error:'مهلت دریافت این هدیه به پایان رسیده است.'};
+      if(number==='SHG-240002'&&code==='222222')return {error:'این هدیه قبلاً توسط گیرنده دریافت شده است.'};
+      if(state.giftIssued?.delivery==='digital'&&number===state.giftIssued.number&&code===state.giftIssued.code)return {claim:{number,asset:state.giftIssued.asset,weight:state.giftIssued.weight,sender:'فرستنده هدیه'}};
+      const samples={'SHG-248051':{code:'583921',asset:'gold',weight:.06,sender:'یک دوست'},'SHG-248052':{code:'735104',asset:'silver',weight:10,sender:'یک دوست'}};
+      const sample=samples[number];if(sample&&sample.code===code)return {claim:{number,asset:sample.asset,weight:sample.weight,sender:sample.sender}};
+      return {error:'شماره هدیه یا کد دریافت با هم مطابقت ندارند.'};
+    }
+    function giftRedeem(){
+      const ready=state.giftClaimNumber.trim().length>0&&state.giftClaimCode.trim().length>0;setChrome('دریافت هدیه',true,false);
+      return `${giftProgress(1,2,'ورود اطلاعات')}<div class="gift-lead"><h3>اطلاعات هدیه را وارد کنید</h3><p>شماره و کد روی کارت یا داخل لینک هدیه قرار دارد.</p></div><section class="card"><div class="field" style="margin-top:0"><label for="gift-claim-number">شماره هدیه</label><div class="input-wrap"><input id="gift-claim-number" dir="ltr" value="${state.giftClaimNumber}" placeholder="SHG-248051"><span>شماره</span></div></div><div class="field"><label for="gift-claim-code">کد دریافت</label><div class="input-wrap"><input id="gift-claim-code" dir="ltr" inputmode="numeric" value="${state.giftClaimCode}" placeholder="۶ رقم"><span>کد</span></div></div>${state.giftClaimError?`<div class="gift-inline-alert" role="alert">${icons.warn}<span>${state.giftClaimError}</span></div>`:''}<div class="gift-test-codes" aria-label="نمونه‌های تست"><button class="gift-test-code" type="button" data-gift-sample="valid">نمونه معتبر</button><button class="gift-test-code" type="button" data-gift-sample="expired">منقضی‌شده</button><button class="gift-test-code" type="button" data-gift-sample="used">قبلاً دریافت‌شده</button></div></section><div class="action-stack"><button class="primary-button" type="button" data-gift-redeem ${ready?'':'disabled'}>بررسی هدیه</button></div>`;
+    }
+    function giftRedeemPreview(){
+      const claim=state.giftClaim,m=metals[claim.asset];setChrome('تأیید دریافت',true,false);
+      return `${giftProgress(2,2,'تأیید دریافت')}<div class="gift-lead"><h3>این هدیه به کیف شما اضافه می‌شود</h3><p>پس از تأیید، کد یک‌بارمصرف خواهد شد.</p></div><section class="card"><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${giftWeight(claim.weight)} ${m.name}</strong><small>${m.grade}</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>شماره هدیه</span><strong dir="ltr">${claim.number}</strong></div><div class="receipt-row"><span>فرستنده</span><strong>${claim.sender}</strong></div><div class="receipt-row"><span>مقصد</span><strong>کیف ${m.name} شما</strong></div></div></section><div class="action-stack"><button class="primary-button" type="button" data-gift-claim-confirm>افزودن به کیف ${m.name}</button><button class="secondary-button" type="button" data-edit-feature>ویرایش اطلاعات</button></div>`;
+    }
+    function completeGiftRedeem(){
+      const claim=state.giftClaim,m=metals[claim.asset];if(!state.giftRedeemedCodes.includes(claim.number))state.giftRedeemedCodes.push(claim.number);
+      const demo={id:'demo-gift-receive',op:'gift-receive',title:`دریافت هدیه ${m.name}`,asset:claim.asset,amount:giftWeight(claim.weight),weight:`به کیف ${m.name} اضافه شد`,status:'موفق',statusKey:'final',dateKey:'month',time:'همین حالا',tracking:claim.number};
+      const old=activities.findIndex(a=>a.id===demo.id);if(old>=0)activities.splice(old,1);activities.unshift(demo);state.receipt=demo;state.stack=[];state.scenario='gift-redeem-success';render();appMain.scrollTop=0;showToast('هدیه به دارایی شما اضافه شد.');
+    }
+    function giftRedeemSuccess(){
+      const claim=state.giftClaim,m=metals[claim.asset];setChrome('هدیه دریافت شد',true,false);
+      return `<div class="gift-success-mark" aria-hidden="true">${icons.checkCircle}</div><div class="gift-success-copy"><h3>${giftWeight(claim.weight)} ${m.name} اضافه شد</h3><p>موجودی کیف ${m.name} شما به‌روزرسانی شد و این کد دیگر قابل استفاده نیست.</p></div><section class="card receipt-grid"><div class="receipt-row"><span>شماره هدیه</span><strong dir="ltr">${claim.number}</strong></div><div class="receipt-row"><span>وضعیت</span><strong>دریافت‌شده</strong></div></section><div class="action-stack"><button class="primary-button" type="button" data-detail="${claim.asset}">مشاهده دارایی ${m.name}</button><button class="secondary-button" type="button" data-gift-mode="receive">دریافت هدیه دیگر</button></div>`;
+    }
+    function giftSetup(){return state.giftMode==='send'?giftCatalogPage():giftRedeem()}
     function referral(){
       setChrome('معرفی دوستان',true,false);
       return `<div class="page-lead"><h3>دوستانت را دعوت کن</h3><p>کد یا لینک دعوتت را برای دوستانت بفرست و جایزه بگیر.</p></div><section class="card summary-card"><div class="summary-label">مجموع جایزه دریافتی</div><div class="summary-value">۷۵٬۰۰۰ تومان</div><div class="summary-meta"><span>۳ دعوت موفق</span></div><div class="code-box"><strong dir="ltr">SHEMSH-7K2P</strong><button class="secondary-button" data-copy="SHEMSH-7K2P" data-copy-label="کد دعوت">کپی کد</button></div></section><section class="section"><button class="primary-button" style="width:100%" data-toast="لینک دعوت برای اشتراک آماده شد.">اشتراک لینک دعوت</button></section><section class="section"><div class="section-head"><h3>دوستان دعوت‌شده</h3><span>۳ نفر موفق</span></div><div class="card status-list"><div class="status-item"><span><strong>سارا محمدی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div><div class="status-item"><span><strong>مریم کریمی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div><div class="status-item"><span><strong>نازنین رضایی</strong><small>عضویت موفق</small></span><strong class="positive">۲۵٬۰۰۰ تومان</strong></div></div></section>`;
@@ -1521,6 +1778,7 @@
           body=`${stress?`<div class="search"><label class="sr-only" for="trade-asset-search">جست‌وجوی فلز معامله</label>${icons.search}<input id="trade-asset-search" type="search" placeholder="جست‌وجوی نام یا نماد فلز" autocomplete="off"></div><p class="market-note">فلزهای بعد از مس فقط برای Stress test ساختارند.</p>`:''}<div class="sheet-list" id="trade-asset-list">${list.map(item=>{const active=!!metals[item.id];return `<button class="sheet-choice ${state.tradeAsset===item.id?'selected':''}" ${active?`data-select-trade-asset="${item.id}"`:'disabled'} data-search="${item.name} ${item.symbol}"><span>${item.name} <span dir="ltr" class="muted">${item.symbol}</span></span><span>${active?(state.tradeAsset===item.id?'انتخاب‌شده':'فعال'):item.status}</span></button>`}).join('')}</div>`;
         }
         overlayRoot.innerHTML=`<div class="scrim" data-close-sheet><section class="sheet ${sheetClass}" role="dialog" aria-modal="true" aria-label="${label}"><div class="handle"></div><div class="sheet-head"><h3>${title}</h3><button class="icon-button" data-close-sheet aria-label="بستن">×</button></div>${body}</section></div>`;
+        requestAnimationFrame(fitOpenSheet);
       }
       if(focus){const first=overlayRoot.querySelector('button');if(first)first.focus()}
     }
@@ -1552,7 +1810,15 @@
       else if(state.scenario==='installment-success')html=installmentSuccess();
       else if(state.scenario==='gift-hub')html=giftHub();
       else if(state.scenario==='gift-setup')html=giftSetup();
+      else if(state.scenario==='gift-catalog')html=giftCatalogPage();
+      else if(state.scenario==='gift-checkout')html=giftCheckout();
+      else if(state.scenario==='gift-delivery')html=giftDelivery();
       else if(state.scenario==='gift-preview')html=giftPreview();
+      else if(state.scenario==='gift-processing')html=giftProcessing();
+      else if(state.scenario==='gift-success')html=giftSuccess();
+      else if(state.scenario==='gift-redeem')html=giftRedeem();
+      else if(state.scenario==='gift-redeem-preview')html=giftRedeemPreview();
+      else if(state.scenario==='gift-redeem-success')html=giftRedeemSuccess();
       else if(state.scenario==='referral')html=referral();
       else if(state.scenario==='profile')html=profile();
       else if(state.scenario==='bank-accounts')html=bankAccounts();
@@ -1580,15 +1846,59 @@
       else if(state.scenario==='guest')html=guest();
       else if(state.scenario==='history'||state.scenario==='history-filtered')html=history();
       else if(state.scenario==='receipt')html=receipt();
+      pageActionRoot.replaceChildren();
       appMain.innerHTML=livePriceTicker()+html;
       appMain.classList.toggle('home-scrollless',['home','home-partial','outage'].includes(state.scenario));
       appMain.classList.toggle('trade-compact',['trade-gold','trade-selector3','trade-selector16','trade-quote-switch'].includes(state.scenario));
-      // D-144: every direct page-level action group becomes a safe-area-aware bottom action bar.
-      appMain.querySelectorAll(':scope > .action-stack:not(.inline-action)').forEach(actions=>actions.classList.add('sticky-action'));
+      mountPageActions();
       overlay();
-      requestAnimationFrame(syncBalanceTogglePositions);
+      requestAnimationFrame(()=>{syncBalanceTogglePositions();fitViewportContent()});
       scheduleLivePriceTicker();
     }
+
+    function mountPageActions(){
+      const direct=[...appMain.querySelectorAll(':scope > .action-stack')];
+      const nested=[...appMain.querySelectorAll(':scope > .installment-tab-panel > .action-stack')];
+      [...new Set([...direct,...nested])].forEach(actions=>{
+        actions.classList.add('page-action');
+        pageActionRoot.append(actions);
+      });
+    }
+
+    function fitViewportContent(){
+      appMain.classList.remove('viewport-fit-soft','viewport-fit-tight','viewport-scrollless','viewport-scroll-required');
+      if(appMain.classList.contains('trade-compact')){appMain.classList.add('viewport-scrollless');return}
+      const rawOverflow=appMain.scrollHeight-appMain.clientHeight;
+      if(rawOverflow<=1){appMain.classList.add('viewport-scrollless');return}
+      // Long histories, catalogs, contracts and legal documents remain scrollable;
+      // compressing those would damage hierarchy, readability and touch targets.
+      if(rawOverflow>160){appMain.classList.add('viewport-scroll-required');return}
+      appMain.classList.add('viewport-fit-soft');
+      if(appMain.scrollHeight-appMain.clientHeight<=1){appMain.classList.add('viewport-scrollless');return}
+      appMain.classList.add('viewport-fit-tight');
+      const fittedOverflow=appMain.scrollHeight-appMain.clientHeight;
+      if(fittedOverflow<=2){
+        appMain.classList.add('viewport-scrollless');
+      }else{
+        appMain.classList.add('viewport-scroll-required');
+      }
+    }
+
+    function fitOpenSheet(){
+      const sheet=overlayRoot.querySelector('.sheet');
+      if(!sheet)return;
+      sheet.classList.remove('sheet-fit-soft','sheet-fit-tight','sheet-scrollless','sheet-scroll-required');
+      const rawOverflow=sheet.scrollHeight-sheet.clientHeight;
+      if(rawOverflow<=1){sheet.classList.add('sheet-scrollless');return}
+      sheet.classList.add('sheet-fit-soft');
+      if(sheet.scrollHeight-sheet.clientHeight<=1){sheet.classList.add('sheet-scrollless');return}
+      sheet.classList.add('sheet-fit-tight');
+      if(sheet.scrollHeight-sheet.clientHeight<=1||(sheet.scrollHeight-sheet.clientHeight<=24&&sheet.querySelector('.sheet-footer'))){
+        sheet.classList.add('sheet-scrollless');
+      }else sheet.classList.add('sheet-scroll-required');
+    }
+
+    window.addEventListener('resize',()=>requestAnimationFrame(()=>{fitViewportContent();fitOpenSheet()}));
 
     function clearMixHover(){appMain.querySelectorAll('.mix-card.is-chart-hovered').forEach(card=>card.classList.remove('is-chart-hovered'))}
     function syncBalanceTogglePositions(){
@@ -1613,7 +1923,7 @@
       const rect=donut.getBoundingClientRect(),x=e.clientX-(rect.left+rect.width/2),y=e.clientY-(rect.top+rect.height/2),radius=Math.hypot(x,y),outer=rect.width/2,inner=outer-26;
       if(radius<inner||radius>outer){clearMixHover();return}
       const share=((Math.atan2(y,x)*180/Math.PI+90+360)%360)/3.6;
-      const index=share<69.5?0:share<90.9?1:share<97?2:3;
+      const stops=(donut.dataset.mixStops||'60.9,88.9,90.1').split(',').map(Number),index=share<stops[0]?0:share<stops[1]?1:share<stops[2]?2:3;
       appMain.querySelectorAll('.mix-card').forEach(card=>card.classList.toggle('is-chart-hovered',Number(card.dataset.mixIndex)===index));
     });
 
@@ -1633,6 +1943,16 @@
         if(action===0){state.tradeMode='buy';state.tradeAsset='gold';state.tradeAmount='';state.quoteActive=false;navigate('trade-gold');return}
         if(action===1){resetPhysical('gold');navigate('physical-select');return}
         navigate('referral');return;
+      }
+      if(t.dataset.scenarioGroups){
+        if(t.dataset.scenarioGroups==='expand')scenarioGroups.forEach(group=>openScenarioGroups.add(group.id));
+        else openScenarioGroups.clear();
+        renderScenarioList();return;
+      }
+      if(t.dataset.scenarioGroup){
+        const groupId=t.dataset.scenarioGroup;
+        if(openScenarioGroups.has(groupId))openScenarioGroups.delete(groupId);else openScenarioGroups.add(groupId);
+        renderScenarioList();return;
       }
       if(t.dataset.scenario){setScenario(t.dataset.scenario);return}
       if(t===headerLeft){if(headerLeft.dataset.headerRole==='account')navigate('profile');return}
@@ -1695,9 +2015,26 @@
       if(t.hasAttribute('data-toggle-installment-wallet')){const calc=installmentActivationCalculation();if(!calc.canUseWallet)return;state.installmentActivationMethod=state.installmentActivationMethod==='wallet'?'gateway':'wallet';render();return}
       if(t.dataset.installmentPaymentMethod){const calc=installmentActivationCalculation();if(t.dataset.installmentPaymentMethod==='wallet'&&!calc.canUseWallet)return;state.installmentActivationMethod=t.dataset.installmentPaymentMethod;render();return}
       if(t.hasAttribute('data-installment-activation-pay')){const method=state.installmentActivationMethod==='wallet'&&installmentActivationCalculation().canUseWallet?'wallet':'gateway';state.installmentActivationMethod=method;if(method==='wallet'){state.hasActiveInstallment=true;navigate('installment-success');}else{navigate('installment-gateway');const token=state.processingToken;setTimeout(()=>{if(state.processingToken===token&&state.scenario==='installment-gateway'){state.hasActiveInstallment=true;navigate('installment-success',{replace:true});}},900);}return}
-      if(t.dataset.giftMode){state.giftMode=t.dataset.giftMode;state.giftAmount='';state.giftRecipient='';state.giftCode='';navigate('gift-setup');return}
-      if(t.dataset.giftSource){state.giftSource=t.dataset.giftSource;render();return}
+      if(t.dataset.giftMode){resetGiftFlow(t.dataset.giftMode);navigate(t.dataset.giftMode==='send'?'gift-catalog':'gift-redeem');return}
+      if(t.dataset.giftHistory){navigate('history-filtered');state.operation=t.dataset.giftHistory;state.metal='all';state.status='all';state.date='all';state.draftStatus='all';state.draftDate='all';render();appMain.scrollTop=0;return}
+      if(t.dataset.giftAsset){state.featureAsset=t.dataset.giftAsset;render();appMain.scrollTop=0;return}
+      if(t.dataset.giftAdd){
+        const asset=state.featureAsset,item=giftCatalog[asset].find(entry=>entry.id===t.dataset.giftAdd);if(!item||item.available===false)return;
+        const current=Number(state.giftItems[asset]?.[item.id]||0);if(current>=10){showToast('از هر وزن حداکثر ۱۰ کارت می‌توانید اضافه کنید.');return}
+        state.giftItems[asset][item.id]=current+1;render();return;
+      }
+      if(t.dataset.giftRemove){const asset=state.featureAsset,id=t.dataset.giftRemove,current=Number(state.giftItems[asset]?.[id]||0);if(current<=1)delete state.giftItems[asset][id];else state.giftItems[asset][id]=current-1;render();return}
+      if(t.hasAttribute('data-gift-checkout')){navigate('gift-checkout');return}
+      if(t.dataset.giftPayment){state.giftPayment=t.dataset.giftPayment;render();return}
+      if(t.hasAttribute('data-gift-delivery')){navigate('gift-delivery');return}
+      if(t.dataset.giftDeliveryMethod){state.giftDelivery=t.dataset.giftDeliveryMethod;render();return}
+      if(t.dataset.giftPickup){state.giftPickupCenter=t.dataset.giftPickup;render();return}
       if(t.hasAttribute('data-gift-preview')){navigate('gift-preview');return}
+      if(t.hasAttribute('data-gift-confirm')){navigate('gift-processing');const token=state.processingToken;setTimeout(()=>{if(state.processingToken===token&&state.scenario==='gift-processing')completeGiftIssue()},800);return}
+      if(t.hasAttribute('data-gift-new')){resetGiftFlow('send');navigate('gift-catalog');return}
+      if(t.dataset.giftSample){const samples={valid:['SHG-248051','583921'],expired:['SHG-240001','111111'],used:['SHG-240002','222222']},sample=samples[t.dataset.giftSample];state.giftClaimNumber=sample[0];state.giftClaimCode=sample[1];state.giftClaimError='';render();return}
+      if(t.hasAttribute('data-gift-redeem')){const result=giftLookup();if(result.error){state.giftClaimError=result.error;render();return}state.giftClaimError='';state.giftClaim=result.claim;navigate('gift-redeem-preview');return}
+      if(t.hasAttribute('data-gift-claim-confirm')){completeGiftRedeem();return}
       if(t.dataset.confirmFeature){beginFeature(t.dataset.confirmFeature);return}
       if(t.hasAttribute('data-edit-feature')){back();return}
       if(t.hasAttribute('data-open-result-receipt')){navigate('receipt');return}
@@ -1754,7 +2091,7 @@
     document.addEventListener('change',e=>{
       if(e.target.id==='installment-terms-accepted'){
         state.installmentTermsAccepted=e.target.checked;
-        const confirm=appMain.querySelector('[data-installment-activation-preview]');if(confirm)confirm.disabled=!state.installmentTermsAccepted;
+        const confirm=pageActionRoot.querySelector('[data-installment-activation-preview]');if(confirm)confirm.disabled=!state.installmentTermsAccepted;
       }
     });
     document.addEventListener('input',e=>{
@@ -1768,10 +2105,10 @@
         state.installmentAmount=e.target.value;syncInstallmentCalculator();return;
       }
       const fieldMap={
-        'auth-mobile':'authMobile','auth-password':'authPassword','kyc-national':'kycNationalId','kyc-birth':'kycBirth','money-amount':'moneyAmount','target-price':'targetPrice','target-amount':'targetAmount','gift-amount':'giftAmount','gift-recipient':'giftRecipient','gift-code':'giftCode','bank-card-number':'bankCardNumber','current-password':'currentPassword','new-password':'newPassword','confirm-password':'confirmPassword'
+        'auth-mobile':'authMobile','auth-password':'authPassword','kyc-national':'kycNationalId','kyc-birth':'kycBirth','money-amount':'moneyAmount','target-price':'targetPrice','target-amount':'targetAmount','gift-amount':'giftAmount','gift-recipient':'giftRecipient','gift-code':'giftCode','gift-recipient-name':'giftRecipientName','gift-recipient-mobile':'giftRecipientMobile','gift-address':'giftAddress','gift-claim-number':'giftClaimNumber','gift-claim-code':'giftClaimCode','bank-card-number':'bankCardNumber','current-password':'currentPassword','new-password':'newPassword','confirm-password':'confirmPassword'
       };
       if(fieldMap[e.target.id]){
-        const id=e.target.id,value=e.target.value,scrollTop=appMain.scrollTop;state[fieldMap[id]]=value;render();
+        const id=e.target.id,value=e.target.value,scrollTop=appMain.scrollTop;state[fieldMap[id]]=value;if(id.startsWith('gift-claim-'))state.giftClaimError='';render();
         requestAnimationFrame(()=>{appMain.scrollTop=scrollTop;const input=document.getElementById(id);if(input){input.focus();input.setSelectionRange(input.value.length,input.value.length)}});return;
       }
       if(e.target.id==='trade-amount'){
@@ -1804,7 +2141,9 @@
         if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
       }
     });
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-lastPriceRefresh>=PRICE_REFRESH_MS)refreshLivePrices()});
     render();
+    refreshLivePrices();
   </script>
 </body>
 </html>

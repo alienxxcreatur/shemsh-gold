@@ -49,7 +49,7 @@
 | `Business decision` | درگاه واریز Preview داخلی ندارد؛ روش‌های دیگر بدون مبلغ قابل مرور و صفحاتشان فقط اطلاعاتی‌اند | D-155 | Redirect درگاه مستقیم شبیه‌سازی می‌شود؛ صفحات کارت/شبا/حساب CTA ثبت ندارند و Card مقصد خنثی و متراکم است |
 | `Business decision` | همه Contextهای انتخاب کارت بانکی از Component، Picker و منبع داده مشترک استفاده می‌کنند | D-156 | افزایش موجودی، سه روش واریز و برداشت فقط Context را به `bankCardSelector` می‌دهند؛ Cardهای نمایشی پروفایل خارج از قراردادند |
 | `Business decision` | Rail فلزهای خانه Cardمحور و نامتقارن است؛ طلا به‌دلیل اولویت تقاضا Card اصلی، نقره ثانویه و مس از ادامه Carousel قابل کشف است | D-159 | Candidate سه‌ردیفه کنار گذاشته می‌شود؛ برجستگی طلا فقط Geometry خانه است و به هویت، رنگ یا Capability برتر تبدیل نمی‌شود |
-| `Business decision` | قیمت فروش لحظه‌ای حداقل Context صفحه‌های غیرحساس است؛ هر Instance موجود، حتی کنار Tab فلز، حلقه عمودی سه‌فلزی دارد | D-160/D-176 | بازار/معامله/جزئیات نرخ اصلی خود را دارند؛ Auth/KYC، Preview/Result/Receipt، درگاه/بانک و امنیت مستثنا هستند؛ منبع نرخ زیر OQ-020 باز است |
+| `Business decision` | قیمت فروش حداقل Context صفحه‌های غیرحساس است؛ هر Instance موجود، حتی کنار Tab فلز، حلقه عمودی سه‌فلزی دارد و Status label منبع کنار قیمت نمایش داده نمی‌شود | D-160/D-176/D-188/D-190 | بازار/معامله/جزئیات نرخ اصلی خود را دارند؛ Auth/KYC، Preview/Result/Receipt، درگاه/بانک و امنیت مستثنا هستند؛ منابع عمومی Prototype جای منبع رسمی باز OQ-020 را نمی‌گیرند |
 | `Business decision` | Prototype در گوشی App-mode تمام‌صفحه و در Desktop محیط Review دو ستونه است | D-161 | Mobile پنل سناریو/قاب/Statusbar ساختگی ندارد؛ `100dvh`، Safe Area و Scroll داخلی Main الزامی است |
 | `Business decision` | فلز پیش‌فرض ورود مستقیم معامله طلاست | D-123 | Trade default با طلا باز می‌شود؛ Context صریح مقدم است |
 | `Business decision` | سطح اول تاریخچه ۱۲ کنترل مستقیم D-124 را نشان می‌دهد؛ سفارش یک Tab، پاداش زیر واریز و فلز برای Operationهای فلزی مستقل است | D-124/OQ-059 | Taxonomy قطعی |
@@ -118,7 +118,7 @@
 | اختلال یک فلز | Row باقی می‌ماند، status/اثر توضیح داده می‌شود و دو فلز دیگر فعال می‌مانند |
 | Back از رسید | فیلتر و Scroll تاریخچه حفظ می‌شود |
 | Deep Link رسید | رسید مستقیم؛ Back فهرست مرتبط را بازسازی می‌کند |
-| CTA اصلی فلو | گروه اقدام نهایی فلو تمام‌صفحه در نوار پایین Safe-area-aware می‌ماند؛ CTA نهایی Sheet در Footer همان Sheet است — D-144 |
+| CTA اصلی فلو | گروه اقدام نهایی فلو تمام‌صفحه در `page-action-root` مستقل، خارج Main اسکرولی و پایین App Shell می‌ماند؛ CTA نهایی Sheet در Footer همان Sheet است — D-144/D-187 |
 
 ## ۶. قرارداد Component
 
@@ -132,7 +132,7 @@
 | فیلتر تاریخچه | ریل Tabهای Operation + Selector تک‌انتخابی فلز + Sheet از `AssetCatalog` + فیلتر status/date | Selected/Overflow/Search/Filtered empty/Reset/Back restore | State غیررنگی، Scroll selected into view، Focus return و Live announcement |
 | ردیف تاریخچه | `OperationRow` | Pending/Final/Failed/Restricted | نوع، فلز، مقدار، زمان و status در accessible name |
 | Receipt | Template مشترک نوع‌محور | Success/Failed/Pending | ترتیب خوانش ثابت و کد پیگیری قابل کپی |
-| اقدام نهایی صفحه | `PageActionBar` / `SheetFooter` | Primary، Primary+Secondary، Disabled، محتوای کوتاه/بلند | Safe Area، Touch target حداقل ۴۴px، عدم پوشاندن Scroll، ترتیب خوانش منطقی — D-144 |
+| اقدام نهایی صفحه | `PageActionBar` / `SheetFooter` | Primary، Primary+Secondary، Disabled، محتوای کوتاه/بلند | ردیف مستقل شل خارج Main، Safe Area، Touch target حداقل ۴۴px، عدم پوشاندن Scroll، ترتیب خوانش منطقی — D-144/D-187 |
 
 ## ۷. Eligibility و Permission
 
@@ -171,6 +171,7 @@
 ## ۱۰. داده آزمایشی مجاز
 
 - مقدارهای Prototype برای قیمت، P&L، کارمزد، حداقل و گرید با Label `داده آزمایشی` یا Token مشخص استفاده می‌شوند.
+- Prototype طبق D-188 در Load و هر پنج دقیقه نرخ عمومی ملی‌گلد/شمش‌کاپر را از Endpoint محدود دریافت و ارزش‌های نمونه/Donut را دوباره محاسبه می‌کند. Benchmark D-185 برای هر گرم طلا/نقره/مس `۱۹٬۱۰۰٬۰۰۰ / ۴۱۴٬۰۰۰ / ۲٬۵۴۰` تومان فقط Fallback است؛ هیچ‌یک نرخ رسمی شمش یا نرخ قابل معامله نیستند و OQ-020/OQ-033 را نمی‌بندند.
 - فرمول یا عدد باز OQ-054/OQ-055 به‌عنوان قانون نهایی نوشته نمی‌شود.
 - Catalog فرضی ۱۶تایی فقط برای Stress test است و وعده عرضه نیست.
 - رنگ نهایی فلزها تا OQ-056 تصمیم `Stable` نیست؛ Wireframe با Label/Icon کار می‌کند.

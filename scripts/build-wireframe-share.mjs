@@ -65,6 +65,8 @@ for (const relativePath of filesToPublish) {
   await cp(sourcePath, destinationPath);
 }
 
+await cp(join(projectRoot, "scripts/wireframe-price-worker.js"), join(outputRoot, "_worker.js"));
+
 await mkdir(outputRoot, { recursive: true });
 await writeFile(join(outputRoot, "index.html"), landingPage, "utf8");
 await writeFile(join(outputRoot, "_headers"), "/*\n  X-Robots-Tag: noindex, nofollow\n", "utf8");
