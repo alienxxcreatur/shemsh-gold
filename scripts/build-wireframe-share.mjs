@@ -70,5 +70,7 @@ await cp(join(projectRoot, "scripts/wireframe-price-worker.js"), join(outputRoot
 await mkdir(outputRoot, { recursive: true });
 await writeFile(join(outputRoot, "index.html"), landingPage, "utf8");
 await writeFile(join(outputRoot, "_headers"), "/*\n  X-Robots-Tag: noindex, nofollow\n", "utf8");
+// An empty file explicitly confirms that publishing _worker.js is intentional.
+await writeFile(join(outputRoot, ".assetsignore"), "", "utf8");
 
 console.log(`Wireframe share build created at ${outputRoot}`);

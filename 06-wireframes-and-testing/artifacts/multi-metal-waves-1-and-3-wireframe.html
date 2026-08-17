@@ -27,6 +27,8 @@
       font-family:"Yekan Bakh",Tahoma,Arial,sans-serif;
     }
     *{box-sizing:border-box}
+    html,html *{scrollbar-width:none!important;-ms-overflow-style:none}
+    html::-webkit-scrollbar,html *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
     html{min-width:320px;background:var(--canvas)}
     body{margin:0;min-width:320px;min-height:100dvh;background:var(--canvas);color:var(--text);font:16px/1.55 inherit}
     button,input{font:inherit;color:inherit}
@@ -154,6 +156,7 @@
     .home-card-variant .portfolio-total .portfolio-card-title-copy small,.home-card-variant .portfolio-total .portfolio-card-balance>span,.home-card-variant .portfolio-total .balance-unit{color:var(--muted)}
     .home-card-variant .portfolio-total .portfolio-card-balance>span{color:var(--text);font-weight:650}
     .home-card-variant .portfolio-total .balance-number{color:var(--text);font-weight:780}
+    .home-card-variant .portfolio-total .portfolio-card-balance .secret-value{color:var(--text);font-weight:780}
     .home-card-variant .portfolio-card-title-copy strong{font-size:15px}
     .home-monochrome .portfolio-card .positive,.home-monochrome .portfolio-card .negative{color:var(--text)}
     .home-monochrome .portfolio-card .inline-status,.home-monochrome .portfolio-card .inline-status.success,.home-monochrome .portfolio-card .inline-status.warning,.home-monochrome .portfolio-card .inline-status.danger{background:var(--strong);color:var(--text)}
@@ -570,11 +573,8 @@
     .operation-rail{direction:rtl;display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:thin;scroll-snap-type:x proximity}
     .chip{flex:0 0 auto;min-height:44px;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:12px;scroll-snap-align:start;white-space:nowrap}
     .chip.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
-    .filter-row{display:flex;gap:8px;margin-bottom:12px}
-    .filter-control{min-height:44px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:7px 11px;display:inline-flex;align-items:center;gap:6px;font-size:12px}
-    .filter-control.hidden{display:none}
-    .filter-control .count{min-width:20px;height:20px;border-radius:10px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:10px}
-    .reset{margin-inline-start:auto;border:0;background:transparent;color:var(--muted);font-size:12px;min-height:44px}
+    .history-metal-tabs{height:48px;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 0 12px;border-bottom:1px solid var(--border)}
+    .history-metal-tabs .metal-tab{min-height:48px}
     .activity-row{grid-template-columns:44px minmax(0,1fr) auto;min-height:82px}
     .activity-icon{width:44px;height:44px;border-radius:12px;background:var(--strong);display:grid;place-items:center;font-size:12px;font-weight:750}
     .activity-row .row-side strong{font-size:12px}
@@ -618,6 +618,19 @@
     .selected-bullion-rail{display:grid;grid-template-columns:1fr;gap:8px;padding:2px 0 6px}.selected-bullion{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:10px;display:grid;gap:3px}.selected-bullion strong{font-size:13px}.selected-bullion span{font-size:11px;color:var(--muted)}
     .physical-sheet{max-height:78%}.rules-list{margin:0;padding:0 20px 0 0;display:grid;gap:10px;font-size:13px}.rules-list li::marker{font-weight:750}.receipt-row.emphasis{background:var(--strong);margin-inline:-8px;padding-inline:8px;border-radius:8px}.receipt-row.emphasis span,.receipt-row.emphasis strong{color:var(--text);font-weight:750}
     .result-mark-error{background:var(--danger-bg);color:var(--danger)}
+    .operation-state-page{display:grid;gap:12px}
+    .operation-state-hero{padding:22px 16px 16px;text-align:center;display:grid;justify-items:center;gap:8px}
+    .operation-state-icon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:var(--strong);color:var(--text)}
+    .operation-state-icon svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .operation-state-page.success .operation-state-icon{background:var(--success-bg);color:var(--success)}
+    .operation-state-page.warning .operation-state-icon,.operation-state-page.pending .operation-state-icon{background:var(--warning-bg);color:var(--warning)}
+    .operation-state-page.failed .operation-state-icon{background:var(--danger-bg);color:var(--danger)}
+    .operation-state-page.info .operation-state-icon{background:var(--info);color:var(--text)}
+    .operation-state-hero h3{margin:2px 0 0;font-size:19px;line-height:1.55}
+    .operation-state-hero p{margin:0;max-width:290px;color:var(--muted);font-size:12px;line-height:1.8}
+    .operation-state-facts{padding:4px 14px}
+    .operation-state-note{display:grid;grid-template-columns:24px minmax(0,1fr);gap:9px;align-items:start;padding:11px 12px;border-radius:var(--r-sm);background:var(--subtle);font-size:11px;line-height:1.8}
+    .operation-state-note svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .scrim{position:absolute;inset:var(--app-chrome-top) 0 0;background:rgba(16,20,24,.48);z-index:30;display:flex;align-items:end}
     .sheet{width:100%;max-height:72%;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(0,0,0,.18)}
     .sheet.physical-confirm-sheet{max-height:92%;overflow:auto}
@@ -730,7 +743,7 @@
     <aside class="review-panel" aria-label="انتخاب سناریوی وایرفریم">
       <span class="wave-label">MM-W0 → MM-W8</span>
       <h1>وایرفریم کل اپ چندفلزی</h1>
-      <p>۴۱ صفحه و حالت در ۱۰ فلو؛ هر فلو را باز کنید یا همه را یک‌جا ببینید. داده‌های بانکی، وزن و کارمزد فعلاً نمونه‌اند.</p>
+      <p id="scenario-summary">فهرست فلوها و حالت‌ها در حال آماده‌سازی است. داده‌های بانکی، وزن و کارمزد فعلاً نمونه‌اند.</p>
       <div class="scenario-list" id="scenario-list"></div>
       <div class="legend">شل سه‌تبی قبلی حفظ شده است. رنگ شناسه فلز نیست و هیچ مسیر انتقال دارایی در این Prototype وجود ندارد.</div>
     </aside>
@@ -846,6 +859,7 @@
       ['physical','دریافت فیزیکی'],['target','سفارش قیمت'],['alert','هشدار قیمت'],
       ['installment','خرید قسطی'],['installment-pay','پرداخت قسط'],['gift-send','صدور هدیه'],['gift-receive','دریافت هدیه']
     ];
+    const metalHistoryOperations=new Set(['buy','sell','physical','target','alert','installment','gift-send','gift-receive']);
     const activities = [
       {id:'r1',op:'buy',title:'خرید نقره',asset:'silver',amount:'۲۵٬۰۰۰٬۰۰۰ تومان',weight:'۲۴٫۰۵ گرم',status:'موفق',statusKey:'final',dateKey:'month',time:'امروز، ۱۰:۲۴',tracking:'SH-AG-248051'},
       {id:'r2',op:'sell',title:'فروش مس',asset:'copper',amount:'۸٬۴۰۰٬۰۰۰ تومان',weight:'۱۹۸ گرم',status:'در حال انجام',statusKey:'pending',dateKey:'month',time:'امروز، ۰۹:۱۲',tracking:'SH-CU-248046'},
@@ -863,37 +877,126 @@
 
     const scenarios = [
       ['WF-MM-R01','auth-login','اتصال ورود'],['WF-MM-R02','kyc','اتصال احراز هویت'],
+      ['WF-ST-A01','auth-offline','ورود — اختلال اتصال'],['WF-ST-A02','session-expired','نشست — منقضی‌شده'],['WF-ST-A03','kyc-mismatch','احراز — عدم تطابق'],['WF-ST-A04','kyc-underage','احراز — زیر ۱۸ سال'],['WF-ST-A05','account-restricted','حساب — محدودشده'],
       ['WF-MM-R04','deposit','واریز متصل'],['WF-MM-R04A','deposit-no-card','واریز — بدون کارت'],['WF-MM-R04B','deposit-method-card','جزئیات کارت به کارت'],['WF-MM-R04C','deposit-method-shaba','جزئیات واریز با شبا'],['WF-MM-R04D','deposit-method-account','جزئیات حساب به حساب'],['WF-MM-R05','withdraw','برداشت متصل'],
+      ['WF-ST-D01','deposit-processing','واریز — در حال بررسی'],['WF-ST-D02','deposit-pending','واریز — در حال تطبیق'],['WF-ST-D03','deposit-success','واریز — شارژشده'],['WF-ST-D04','deposit-failed','واریز — ناموفق'],['WF-ST-D05','deposit-returned','واریز — برگشتی'],
+      ['WF-ST-W01','withdraw-processing','برداشت — در حال ثبت'],['WF-ST-W02','withdraw-submitted','برداشت — ثبت‌شده'],['WF-ST-W03','withdraw-success','برداشت — واریزشده'],['WF-ST-W04','withdraw-failed','برداشت — ناموفق'],['WF-ST-W05','withdraw-returned','برداشت — برگشتی'],
       ['WF-MM-001','home','خانه — سه فلز'],['WF-MM-002','home-partial','خانه — نرخ ناقص'],['WF-MM-002A','portfolio-mix','ترکیب دارایی'],
       ['WF-MM-003','market3','همه فلزها — ۳'],['WF-MM-004','market16','همه فلزها — ۱۶'],
       ['WF-MM-005','detail-gold','جزئیات طلا'],['WF-MM-006','detail-silver','جزئیات نقره'],
       ['WF-MM-007','detail-copper','جزئیات مس'],['WF-MM-008','trade-gold','معامله — طلای پیش‌فرض'],
       ['WF-MM-009','trade-selector3','انتخاب‌گر معامله — ۳'],['WF-MM-010','trade-selector16','انتخاب‌گر معامله — ۱۶'],
       ['WF-MM-011','trade-quote-switch','تغییر فلز با Quote'],['WF-MM-012','chart-single','نمودار تک‌فلز'],
+      ['WF-ST-T01','trade-state-processing','معامله — در حال نهایی‌شدن'],['WF-ST-T02','trade-buy-success','خرید — موفق'],['WF-ST-T03','trade-sell-success','فروش — موفق'],['WF-ST-T04','trade-failed','معامله — ناموفق'],['WF-ST-T05','trade-unknown','معامله — نتیجه نامشخص'],['WF-ST-T06','trade-offline','معامله — قطع اتصال'],['WF-ST-T07','trade-insufficient','فروش — دارایی ناکافی'],['WF-ST-T08','trade-rate-expired','معامله — نرخ منقضی'],['WF-ST-T09','trade-restricted','معامله — حساب محدود'],
       ['WF-MM-013','services','Hub خدمات'],['WF-MM-014','physical-select','دریافت فیزیکی — ورود'],
       ['WF-MM-014A','physical-insufficient','دریافت — موجودی ناکافی'],['WF-MM-014B','physical-unavailable','دریافت — سرویس غیرفعال'],
       ['WF-MM-014C','physical-failed','دریافت — ناموفق'],['WF-MM-014D','physical-success','دریافت — موفق'],
+      ['WF-ST-P01','physical-processing','دریافت — در حال ثبت'],['WF-ST-P02','physical-preparing','دریافت — در حال آماده‌سازی'],['WF-ST-P03','physical-delivered','دریافت — تحویل‌شده'],['WF-ST-P04','physical-cancelled','دریافت — لغوشده'],
       ['WF-MM-015','history','تاریخچه یکپارچه'],['WF-MM-016','history-filtered','فیلتر تاریخچه U2'],
       ['WF-MM-017','receipt','رسید چندفلزی'],['WF-MM-018','zero','پورتفوی خالی'],
       ['WF-MM-019','guest','مهمان / احرازنشده'],['WF-MM-020','outage','اختلال یک فلز'],
       ['WF-MM-021','market-services','خدمات قیمت'],['WF-MM-022','target-setup','تنظیم هشدار / سفارش'],
+      ['WF-ST-Q01','alert-active','هشدار — فعال'],['WF-ST-Q02','alert-triggered','هشدار — فعال‌شده'],['WF-ST-Q03','alert-off','هشدار — خاموش'],['WF-ST-Q04','target-active','سفارش قیمت — فعال'],['WF-ST-Q05','target-executed','سفارش قیمت — اجراشده'],['WF-ST-Q06','target-cancelled','سفارش قیمت — لغوشده'],['WF-ST-Q07','target-expired','سفارش قیمت — منقضی'],['WF-ST-Q08','target-failed','سفارش قیمت — ناموفق'],
       ['WF-MM-023A','installment-active','اقساط — قرارداد فعال'],['WF-MM-023B','installment-empty','اقساط — بدون قرارداد فعال'],
+      ['WF-ST-I01','installment-activation-processing','اقساط — فعال‌سازی در حال انجام'],['WF-ST-I02','installment-payment-processing','قسط — پرداخت در حال انجام'],['WF-ST-I03','installment-payment-success','قسط — پرداخت موفق'],['WF-ST-I04','installment-payment-failed','قسط — پرداخت ناموفق'],['WF-ST-I05','installment-overdue','قسط — معوق'],['WF-ST-I06','installment-penalty','اقساط — بازه جریمه'],['WF-ST-I07','installment-settled','اقساط — تسویه‌شده'],['WF-ST-I08','installment-terminated','اقساط — فسخ / فروش وثیقه'],
       ['WF-MM-025','gift-hub','هدیه — Hub'],['WF-MM-026','gift-setup','هدیه — صدور / دریافت'],
+      ['WF-ST-G01','gift-issue-processing','هدیه — صدور در حال انجام'],['WF-ST-G02','gift-issued','هدیه — صادرشده'],['WF-ST-G03','gift-issue-failed','هدیه — صدور ناموفق'],['WF-ST-G04','gift-claim-success','هدیه — دریافت موفق'],['WF-ST-G05','gift-claim-invalid','هدیه — کد نامعتبر'],['WF-ST-G06','gift-claim-expired','هدیه — کد منقضی'],['WF-ST-G07','gift-claim-used','هدیه — قبلاً دریافت‌شده'],['WF-ST-G08','gift-claim-offline','هدیه — نتیجه دریافت نامشخص'],
       ['WF-MM-027','referral','معرفی دوستان و دعوت‌های موفق'],
+      ['WF-ST-R01','referral-pending','دعوت — در انتظار'],['WF-ST-R02','referral-achieved','دعوت — محقق‌شده'],['WF-ST-R03','referral-failed','دعوت — ناموفق'],
+      ['WF-ST-H01','history-loading','تاریخچه — در حال بارگذاری'],['WF-ST-H02','history-empty','تاریخچه — بدون نتیجه'],['WF-ST-H03','history-failed','تاریخچه — خطای دریافت'],
+      ['WF-ST-S01','support-case-created','پشتیبانی — پرونده ثبت‌شده'],['WF-ST-S02','support-needs-action','پشتیبانی — نیازمند اقدام'],['WF-ST-S03','support-closed','پشتیبانی — پرونده بسته'],
       ['WF-MM-029','profile','حساب کاربری']
     ];
     const scenarioGroups = [
-      {id:'account',label:'ورود و حساب کاربری',keys:['auth-login','kyc','guest','profile']},
+      {id:'account',label:'ورود و احراز هویت',keys:['auth-login','kyc','auth-offline','session-expired','kyc-mismatch','kyc-underage','account-restricted','guest','profile']},
       {id:'home',label:'خانه و دارایی',keys:['home','home-partial','portfolio-mix','zero','outage']},
-      {id:'wallet',label:'کیف تومان و بانک',keys:['deposit','deposit-no-card','deposit-method-card','deposit-method-shaba','deposit-method-account','withdraw']},
+      {id:'deposit',label:'واریز به کیف تومان',keys:['deposit','deposit-no-card','deposit-method-card','deposit-method-shaba','deposit-method-account','deposit-processing','deposit-pending','deposit-success','deposit-failed','deposit-returned']},
+      {id:'withdraw',label:'برداشت از کیف تومان',keys:['withdraw','withdraw-processing','withdraw-submitted','withdraw-success','withdraw-failed','withdraw-returned']},
       {id:'market',label:'بازار و جزئیات فلز',keys:['market3','market16','detail-gold','detail-silver','detail-copper','chart-single']},
-      {id:'trade',label:'معامله',keys:['trade-gold','trade-selector3','trade-selector16','trade-quote-switch']},
-      {id:'services',label:'خدمات',keys:['services','market-services','target-setup','referral']},
-      {id:'physical',label:'دریافت فیزیکی',keys:['physical-select','physical-insufficient','physical-unavailable','physical-failed','physical-success']},
-      {id:'installment',label:'خرید اقساطی',keys:['installment-active','installment-empty']},
-      {id:'gift',label:'هدیه',keys:['gift-hub','gift-setup']},
-      {id:'history',label:'تاریخچه و رسید',keys:['history','history-filtered','receipt']}
+      {id:'trade',label:'خرید و فروش',keys:['trade-gold','trade-selector3','trade-selector16','trade-quote-switch','trade-state-processing','trade-buy-success','trade-sell-success','trade-failed','trade-unknown','trade-offline','trade-insufficient','trade-rate-expired','trade-restricted']},
+      {id:'services',label:'مرکز خدمات',keys:['services','market-services']},
+      {id:'target',label:'هشدار و سفارش قیمت',keys:['target-setup','alert-active','alert-triggered','alert-off','target-active','target-executed','target-cancelled','target-expired','target-failed']},
+      {id:'physical',label:'دریافت فیزیکی',keys:['physical-select','physical-insufficient','physical-unavailable','physical-failed','physical-success','physical-processing','physical-preparing','physical-delivered','physical-cancelled']},
+      {id:'installment',label:'خرید اقساطی',keys:['installment-empty','installment-activation-processing','installment-active','installment-payment-processing','installment-payment-success','installment-payment-failed','installment-overdue','installment-penalty','installment-settled','installment-terminated']},
+      {id:'gift',label:'هدیه',keys:['gift-hub','gift-setup','gift-issue-processing','gift-issued','gift-issue-failed','gift-claim-success','gift-claim-invalid','gift-claim-expired','gift-claim-used','gift-claim-offline']},
+      {id:'referral',label:'معرفی دوستان',keys:['referral','referral-pending','referral-achieved','referral-failed']},
+      {id:'history',label:'تاریخچه و رسید',keys:['history','history-filtered','receipt','history-loading','history-empty','history-failed']},
+      {id:'support',label:'پیگیری و پشتیبانی',keys:['support-case-created','support-needs-action','support-closed']}
     ];
+    const operationStateDefinitions = [
+      ['auth-offline','ورود','warning','اتصال برقرار نیست','ورود انجام نشد','شماره موبایل حفظ شده، اما سرویس ورود پاسخ نداده است.','بدون اثر مالی','هیچ نشست تازه‌ای ساخته نشده','تلاش دوباره پس از بررسی اتصال',['تلاش دوباره','go','auth-login'],['پشتیبانی','sheet','support']],
+      ['session-expired','ورود','warning','نشست منقضی','برای ادامه دوباره وارد شوید','به‌دلیل پایان نشست، عملیات حساس متوقف شده است.','بدون اثر مالی','ورودی عملیات حساس نباید خودکار ارسال شود','ورود دوباره و شروع امن مسیر',['ورود دوباره','go','auth-login'],['بازگشت به خانه','go','home']],
+      ['kyc-mismatch','احراز هویت','failed','عدم تطابق','اطلاعات هویتی تطبیق پیدا نکرد','کد ملی، تاریخ تولد و مالک شماره موبایل با هم تطبیق داده نشدند.','عملیات مالی فعال نشده','اطلاعات فرم برای اصلاح حفظ می‌شود','اصلاح اطلاعات یا ثبت پیگیری',['اصلاح اطلاعات','go','kyc'],['پشتیبانی','sheet','support']],
+      ['kyc-underage','احراز هویت','info','زیر ۱۸ سال','فعلاً امکان عملیات مالی ندارید','احراز در وضعیت تأییدشده قرار نگرفت و دسترسی مالی تا رسیدن به سن مجاز بسته می‌ماند.','بدون تغییر موجودی','تلاش دوباره با همان اطلاعات راه‌حل نیست','بازگشت به خانه و مشاهده وضعیت',['بازگشت به خانه','go','home'],['راهنما و پشتیبانی','sheet','support']],
+      ['account-restricted','حساب کاربری','failed','حساب محدود','این عملیات برای حساب شما در دسترس نیست','جزئیات قابل نمایش محدودیت و مسیر پیگیری باید بدون وعده رفع خودکار ارائه شود.','موجودی فعلی حفظ شده','عملیات تازه ثبت نشده','مشاهده علت و ثبت پیگیری',['ثبت پیگیری','sheet','support'],['مشاهده تاریخچه','go','history']],
+
+      ['deposit-processing','واریز','pending','در حال بررسی','در حال دریافت نتیجه واریز','نتیجه بانک هنوز قطعی نشده است؛ پرداخت را دوباره تکرار نکنید.','کیف تومان هنوز افزایش نیافته','از تاریخچه نتیجه قطعی پیگیری می‌شود','صبر و بررسی وضعیت',['مشاهده تاریخچه','go','history'],['بازگشت به کیف','go','home']],
+      ['deposit-pending','واریز','warning','در حال تطبیق','پرداخت ثبت شده و در حال تطبیق است','اطلاعات پرداخت رسیده اما تطبیق بانکی هنوز کامل نشده است.','کیف تومان تا تطبیق افزایش نمی‌یابد','کد پیگیری موقت در تاریخچه باقی می‌ماند','پیگیری بدون پرداخت دوباره',['پیگیری واریز','go','history'],['پشتیبانی','sheet','support']],
+      ['deposit-success','واریز','success','شارژشده','کیف تومان شارژ شد','واریز با بانک تطبیق پیدا کرد و موجودی قابل استفاده به‌روزرسانی شد.','۳۸٬۶۰۰٬۰۰۰ تومان اضافه شد','رسید نهایی صادر شده است','مشاهده موجودی یا رسید',['مشاهده کیف','go','home'],['مشاهده رسید','go','history']],
+      ['deposit-failed','واریز','failed','ناموفق','واریز به کیف انجام نشد','پرداخت نهایی نشده و افزایش موجودی ثبت نشده است.','موجودی کیف بدون تغییر','اگر مبلغ از بانک کم شده، وضعیت را از تاریخچه پیگیری کنید','تلاش دوباره فقط پس از بررسی وضعیت',['بررسی تاریخچه','go','history'],['تلاش دوباره','go','deposit']],
+      ['deposit-returned','واریز','warning','برگشتی','مبلغ به حساب بانکی برگشت خورد','واریز شارژ نشده و بانک بازگشت وجه را ثبت کرده است.','کیف تومان افزایش نیافت','زمان بازگشت بانکی در رسید نمایش داده می‌شود','مشاهده رسید یا پیگیری مغایرت',['مشاهده رسید','go','history'],['ثبت پیگیری','sheet','support']],
+
+      ['withdraw-processing','برداشت','pending','در حال ثبت','درخواست برداشت در حال ثبت است','تا مشخص‌شدن نتیجه، درخواست را دوباره ارسال نکنید.','مبلغ در حال کسر از موجودی قابل استفاده است','نتیجه از status درخواست پیگیری می‌شود','انتظار برای نتیجه قطعی',['مشاهده تاریخچه','go','history'],['بازگشت به کیف','go','home']],
+      ['withdraw-submitted','برداشت','warning','ثبت‌شده','درخواست برداشت ثبت شد','درخواست برای بررسی و سپس ارسال به بانک در صف قرار گرفته است.','۱۲٬۰۰۰٬۰۰۰ تومان از موجودی قابل استفاده کسر شد','پس از تأیید، لغو دستی ندارد','پیگیری زمان‌بندی و وضعیت بانک',['پیگیری برداشت','go','history'],['پشتیبانی','sheet','support']],
+      ['withdraw-success','برداشت','success','واریزشده','مبلغ به حساب بانکی واریز شد','بانک مقصد دریافت وجه را تأیید کرده است.','کسر موجودی نهایی شد','رسید نهایی و کد پیگیری بانکی موجود است','مشاهده رسید نهایی',['مشاهده رسید','go','history'],['بازگشت به کیف','go','home']],
+      ['withdraw-failed','برداشت','failed','ناموفق','برداشت انجام نشد','بانک یا سرویس ثبت درخواست را نپذیرفت.','مبلغ با ثبت جبرانی به کیف برمی‌گردد','رکورد ناموفق و جبران باید کنار هم دیده شوند','بررسی موجودی و رسید',['بررسی موجودی','go','home'],['ثبت پیگیری','sheet','support']],
+      ['withdraw-returned','برداشت','warning','برگشتی','بانک مقصد مبلغ را برگشت زد','برداشت ابتدا ارسال شده اما بانک مقصد آن را نپذیرفته است.','مبلغ با رکورد جبرانی به کیف برگشته است','علت قابل نمایش بانک در رسید می‌آید','اصلاح مقصد و ثبت درخواست تازه',['مشاهده حساب‌ها','go','profile'],['برداشت تازه','go','withdraw']],
+
+      ['trade-state-processing','معامله','pending','در حال نهایی‌شدن','نتیجه معامله در حال ثبت است','نرخ تأیید شده و درخواست مالی ارسال شده؛ صفحه را نبندید.','اثر نهایی هنوز قطعی نمایش داده نمی‌شود','Retry خودکار نباید معامله تکراری بسازد','انتظار یا پیگیری از تاریخچه',['مشاهده تاریخچه','go','history'],['پشتیبانی','sheet','support']],
+      ['trade-buy-success','خرید','success','موفق','خرید طلا با موفقیت انجام شد','مقدار خریداری‌شده به کیف فلزی افزوده و رسید نهایی صادر شد.','تومان کم و ۱٫۳۰۹ گرم طلا اضافه شد','نرخ و کارمزد در رسید ثابت است','مشاهده دارایی یا رسید',['مشاهده دارایی','go','home'],['مشاهده رسید','go','history']],
+      ['trade-sell-success','فروش','success','موفق','فروش نقره با موفقیت انجام شد','مقدار فروخته‌شده کسر و مبلغ نهایی به کیف تومان اضافه شد.','۲۴٫۰۵ گرم کم و تومان اضافه شد','رسید نهایی اثر هر دو کیف را نشان می‌دهد','مشاهده کیف یا رسید',['مشاهده کیف','go','home'],['مشاهده رسید','go','history']],
+      ['trade-failed','معامله','failed','ناموفق','معامله انجام نشد','ثبت مالی پیش از نهایی‌شدن شکست خورد و رسید موفق صادر نشده است.','هیچ موجودی تغییر نکرد','Retry فقط با نرخ تازه انجام می‌شود','بازگشت به معامله و دریافت نرخ تازه',['تلاش با نرخ تازه','go','trade-gold'],['پشتیبانی','sheet','support']],
+      ['trade-unknown','معامله','warning','نتیجه نامشخص','فعلاً معامله را تکرار نکنید','ارتباط پس از ارسال درخواست قطع شده و نتیجه مالی باید از دفترکل بررسی شود.','اثر مالی هنوز قابل تأیید نیست','وضعیت با کد پیگیری در تاریخچه نهایی می‌شود','پیگیری وضعیت به‌جای ارسال دوباره',['بررسی وضعیت','go','history'],['ثبت پیگیری','sheet','support']],
+      ['trade-offline','معامله','warning','بدون اتصال','ارسال معامله انجام نشد','اتصال پیش از ثبت مالی قطع شد و درخواست به سیستم نرسید.','هیچ موجودی تغییر نکرد','ورودی معامله حفظ می‌شود اما نرخ باید تازه شود','اتصال مجدد و دریافت Quote تازه',['تلاش دوباره','go','trade-gold'],['بازگشت به خانه','go','home']],
+      ['trade-insufficient','فروش','failed','دارایی ناکافی','مقدار قابل فروش کافی نیست','موجودی آزاد این فلز کمتر از مقدار واردشده است؛ دارایی قفل‌شده قابل فروش نیست.','هیچ موجودی تغییر نکرد','موجودی آزاد و قفل‌شده جدا نمایش داده می‌شوند','اصلاح مقدار براساس موجودی آزاد',['اصلاح مقدار','go','trade-gold'],['مشاهده دارایی','go','home']],
+      ['trade-rate-expired','معامله','warning','نرخ منقضی','قیمت معامله به‌روز نیست','مهلت Quote تمام شده و تأیید قبلی دیگر معتبر نیست.','هیچ موجودی تغییر نکرد','مقدار ورودی حفظ می‌شود','دریافت نرخ تازه و تأیید دوباره',['دریافت نرخ تازه','go','trade-gold'],['انصراف','go','home']],
+      ['trade-restricted','معامله','failed','حساب محدود','خرید و فروش برای حساب متوقف است','پیش از ثبت مالی، Gate محدودیت حساب عملیات را متوقف کرده است.','هیچ موجودی تغییر نکرد','علت قابل نمایش و کد پیگیری ارائه می‌شود','ثبت پیگیری بدون Retry مالی',['ثبت پیگیری','sheet','support'],['مشاهده تاریخچه','go','history']],
+
+      ['alert-active','هشدار قیمت','info','فعال','هشدار قیمت فعال شد','با رسیدن قیمت به شرط انتخاب‌شده، اعلان ارسال می‌شود.','هیچ مبلغ یا فلزی رزرو نشده','هشدار از تاریخچه قابل خاموش‌کردن است','مشاهده یا ویرایش هشدار',['مشاهده تاریخچه','go','history'],['هشدار تازه','go','target-setup']],
+      ['alert-triggered','هشدار قیمت','success','تحریک‌شده','قیمت به شرط هشدار رسید','این یک اعلان است و معامله‌ای به‌صورت خودکار انجام نشده است.','هیچ اثر مالی ندارد','زمان و قیمت تحریک ثبت شده است','مشاهده بازار و تصمیم برای معامله',['مشاهده معامله','go','trade-gold'],['تاریخچه هشدار','go','history']],
+      ['alert-off','هشدار قیمت','info','خاموش','هشدار خاموش شد','تا فعال‌سازی دوباره، اعلان تازه‌ای برای این شرط ارسال نمی‌شود.','هیچ اثر مالی ندارد','رکورد قبلی در تاریخچه حفظ می‌شود','فعال‌سازی یا ساخت هشدار تازه',['ساخت هشدار تازه','go','target-setup'],['مشاهده تاریخچه','go','history']],
+      ['target-active','سفارش قیمت','warning','فعال','سفارش قیمت فعال است','موجودی لازم برای اجرای سفارش طبق قرارداد محصول رزرو شده است.','مقدار رزروشده قابل استفاده نیست','سفارش فعال قابل لغو است','مشاهده جزئیات یا لغو',['مشاهده تاریخچه','go','history'],['ثبت سفارش تازه','go','target-setup']],
+      ['target-executed','سفارش قیمت','success','اجراشده','سفارش در قیمت هدف اجرا شد','معامله قطعی انجام و رزرو به اثر مالی نهایی تبدیل شده است.','اثر خرید یا فروش در کیف‌ها ثبت شد','رسید معامله به سفارش متصل است','مشاهده رسید معامله',['مشاهده رسید','go','history'],['مشاهده دارایی','go','home']],
+      ['target-cancelled','سفارش قیمت','info','لغوشده','سفارش قیمت لغو شد','لغو پیش از اجرا ثبت شده و سفارش دیگر فعال نیست.','رزرو سفارش آزاد شده است','رکورد لغو در تاریخچه باقی می‌ماند','بررسی موجودی یا سفارش تازه',['مشاهده دارایی','go','home'],['سفارش تازه','go','target-setup']],
+      ['target-expired','سفارش قیمت','warning','منقضی','مهلت سفارش تمام شد','شرط قیمت تا پایان مهلت محقق نشد و سفارش اجرا نشد.','رزرو سفارش آزاد شده است','رکورد انقضا قابل پیگیری است','ثبت سفارش با مهلت یا قیمت تازه',['سفارش تازه','go','target-setup'],['مشاهده تاریخچه','go','history']],
+      ['target-failed','سفارش قیمت','failed','ناموفق','اجرای سفارش کامل نشد','پس از تلاش‌های کنترل‌شده، سفارش اجرا نشده و نتیجه ناموفق ثبت شده است.','رزرو باید آزاد یا وضعیت مانع آن روشن شود','رسید ناموفق و اثر موجودی کنار هم نمایش داده می‌شوند','بررسی موجودی و ثبت پیگیری',['مشاهده دارایی','go','home'],['ثبت پیگیری','sheet','support']],
+
+      ['physical-processing','دریافت فیزیکی','pending','در حال ثبت','درخواست دریافت در حال ثبت است','ترکیب شمش‌ها و مرکز تحویل ارسال شده و نتیجه هنوز قطعی نیست.','کسر نهایی هنوز تأیید نشده','درخواست تکراری ارسال نشود','انتظار یا بررسی تاریخچه',['مشاهده تاریخچه','go','history'],['پشتیبانی','sheet','support']],
+      ['physical-preparing','دریافت فیزیکی','warning','در حال آماده‌سازی','شمش‌ها در حال آماده‌سازی‌اند','درخواست ثبت و وارد مرحله تخصیص/آماده‌سازی شده است.','مقدار نهایی همان فلز کسر شده','مرز لغو ممکن است بعد از تخصیص سریال تغییر کند','پیگیری زمان و روش تحویل',['پیگیری درخواست','go','history'],['پشتیبانی','sheet','support']],
+      ['physical-delivered','دریافت فیزیکی','success','تحویل‌شده','دریافت فیزیکی تکمیل شد','تحویل حضوری یا ارسال با تأیید نهایی ثبت شده است.','کسر فلز نهایی و تحویل ثبت شده','رسید تحویل و مشخصات قابل پیگیری است','مشاهده رسید نهایی',['مشاهده رسید','go','history'],['بازگشت به دارایی','go','home']],
+      ['physical-cancelled','دریافت فیزیکی','info','لغوشده','درخواست دریافت لغو شد','درخواست طبق مرحله عملیاتی لغو و نتیجه در تاریخچه ثبت شده است.','بازگشت فلز و هزینه‌ها باید با رکورد جبرانی روشن باشد','مقدار قابل بازگشت وابسته به مرحله لغو است','بررسی موجودی و جزئیات لغو',['مشاهده دارایی','go','home'],['ثبت پیگیری','sheet','support']],
+
+      ['installment-activation-processing','خرید اقساطی','pending','در حال فعال‌سازی','قرارداد در حال ثبت است','پرداخت اولیه ارسال شده اما ایجاد قرارداد هنوز قطعی نمایش داده نشده است.','تا قطعیت، قرارداد یا طلای قفل‌شده تکراری ساخته نمی‌شود','از وضعیت قرارداد پیگیری می‌شود','انتظار و بررسی قراردادها',['مشاهده اقساط','go','installment-active'],['پشتیبانی','sheet','support']],
+      ['installment-payment-processing','پرداخت قسط','pending','در حال پرداخت','نتیجه پرداخت قسط در حال بررسی است','درخواست پرداخت ارسال شده؛ دوباره پرداخت نکنید.','اثر پرداخت هنوز قطعی نیست','status قسط با رسید بانکی تطبیق می‌شود','پیگیری وضعیت قسط',['مشاهده اقساط','go','installment-active'],['پشتیبانی','sheet','support']],
+      ['installment-payment-success','پرداخت قسط','success','پرداخت‌شده','قسط با موفقیت پرداخت شد','مانده قرارداد و تعداد اقساط پرداخت‌شده به‌روزرسانی شده است.','۵٬۰۰۰٬۰۰۰ تومان پرداخت شد','طلای قرارداد تا تسویه کامل قفل می‌ماند','مشاهده قرارداد و رسید',['مشاهده اقساط','go','installment-active'],['مشاهده تاریخچه','go','history']],
+      ['installment-payment-failed','پرداخت قسط','failed','ناموفق','پرداخت قسط انجام نشد','پرداخت نهایی نشده و مانده قرارداد تغییر نکرده است.','بدهی قسط بدون تغییر','اگر مبلغ کسر شده، از تاریخچه پیگیری شود','بررسی وضعیت و تلاش دوباره',['مشاهده اقساط','go','installment-active'],['ثبت پیگیری','sheet','support']],
+      ['installment-overdue','خرید اقساطی','warning','قسط معوق','سررسید این قسط گذشته است','قرارداد وارد تأخیر شده و اقدام بعدی باید با مهلت دقیق نمایش داده شود.','طلای قرارداد همچنان قفل است','جریمه و مرز زمانی نیازمند قاعده نهایی بیزینسی است','پرداخت قسط یا مشاهده قرارداد',['پرداخت قسط','go','installment-active'],['مشاهده قرارداد','go','installment-active']],
+      ['installment-penalty','خرید اقساطی','failed','بازه جریمه','قرارداد وارد بازه جریمه شده است','مبلغ به‌روز بدهی و زمان باقی‌مانده تا اقدام بعدی باید شفاف باشد.','طلای قرارداد قفل می‌ماند','عدد جریمه در Prototype نمونه و نیازمند تأیید است','پرداخت یا تماس با پشتیبانی',['مشاهده اقساط','go','installment-active'],['پشتیبانی','sheet','support']],
+      ['installment-settled','خرید اقساطی','success','تسویه‌شده','همه اقساط پرداخت شد','قرارداد تسویه و دارایی قفل‌شده آزاد شده است.','طلای قرارداد به موجودی آزاد منتقل شد','رسید تسویه و آزادسازی متصل است','مشاهده دارایی و قرارداد',['مشاهده دارایی','go','home'],['مشاهده اقساط','go','installment-active']],
+      ['installment-terminated','خرید اقساطی','failed','فسخ / فروش وثیقه','قرارداد بسته شده است','نتیجه نهایی قرارداد و نحوه محاسبه بدهی/وثیقه باید قابل اثبات نمایش داده شود.','اثر نهایی در رکورد تسویه قرارداد می‌آید','این UI جایگزین تصمیم حقوقی نهایی نیست','مشاهده جزئیات و ثبت اعتراض',['مشاهده اقساط','go','installment-active'],['ثبت پیگیری','sheet','support']],
+
+      ['gift-issue-processing','صدور هدیه','pending','در حال صدور','هدیه در حال ساخت است','پرداخت و ایجاد شماره/کد هنوز به نتیجه قطعی نرسیده است.','اثر مالی هنوز قطعی نمایش داده نمی‌شود','صدور تکراری نباید کد دوم بسازد','انتظار یا بررسی تاریخچه هدیه',['تاریخچه صدور هدیه','go','history'],['پشتیبانی','sheet','support']],
+      ['gift-issued','صدور هدیه','success','صادرشده','هدیه آماده ارسال است','شماره و کد هدیه ساخته شده و روش تحویل انتخابی ثبت شده است.','طلا یا تومان مطابق روش پرداخت کسر شد','کد کامل فقط در مسیر امن نمایش داده می‌شود','ارسال هدیه یا مشاهده تاریخچه',['مشاهده تاریخچه','go','history'],['صدور هدیه تازه','go','gift-setup']],
+      ['gift-issue-failed','صدور هدیه','failed','ناموفق','هدیه صادر نشد','پرداخت یا ساخت کد کامل نشده و هدیه قابل استفاده‌ای ایجاد نشده است.','اگر کسر رخ داده باشد باید با رکورد جبرانی روشن شود','پیش از Retry، تاریخچه بررسی شود','بررسی وضعیت و تلاش دوباره',['بررسی تاریخچه','go','history'],['تلاش دوباره','go','gift-setup']],
+      ['gift-claim-success','دریافت هدیه','success','دریافت‌شده','هدیه به کیف فلزی اضافه شد','کد یک‌بار مصرف با موفقیت دریافت و مقدار فلز ثبت شد.','۰٫۰۶۰ گرم طلا اضافه شد','کد دیگر قابل استفاده نیست','مشاهده دارایی یا رسید',['مشاهده دارایی','go','home'],['تاریخچه دریافت هدیه','go','history']],
+      ['gift-claim-invalid','دریافت هدیه','failed','نامعتبر','شماره یا کد هدیه درست نیست','فرمت یا تطابق شماره و کد تأیید نشد.','هیچ موجودی تغییر نکرد','تعداد تلاش و سیاست قفل نیازمند قاعده نهایی است','اصلاح شماره و کد',['اصلاح کد','go','gift-setup'],['پشتیبانی','sheet','support']],
+      ['gift-claim-expired','دریافت هدیه','warning','منقضی','مهلت استفاده از هدیه گذشته است','این State برای تست پیام و Recovery است؛ قاعده انقضا هنوز تصمیم نهایی محصول نیست.','هیچ موجودی تازه‌ای اضافه نشده','صادرکننده یا پشتیبانی باید وضعیت نهایی را روشن کند','مشاهده جزئیات یا پیگیری',['تاریخچه هدیه','go','history'],['ثبت پیگیری','sheet','support']],
+      ['gift-claim-used','دریافت هدیه','info','قبلاً دریافت‌شده','این هدیه قبلاً استفاده شده است','کد یک‌بار مصرف پیش‌تر به یک کیف فلزی اضافه شده است.','هیچ تغییر تازه‌ای رخ نداد','زمان دریافت قبلی بدون افشای اطلاعات گیرنده نمایش داده می‌شود','بررسی رسید یا ثبت مغایرت',['تاریخچه دریافت هدیه','go','history'],['ثبت مغایرت','sheet','support']],
+      ['gift-claim-offline','دریافت هدیه','warning','نتیجه نامشخص','دریافت هدیه را تکرار نکنید','اتصال پس از ارسال کد قطع شده و نتیجه باید از status دریافت بررسی شود.','افزایش موجودی هنوز قابل تأیید نیست','کد تا مشخص‌شدن نتیجه دوباره مصرف نمی‌شود','بررسی تاریخچه دریافت هدیه',['بررسی وضعیت','go','history'],['پشتیبانی','sheet','support']],
+
+      ['referral-pending','معرفی دوستان','warning','در انتظار','دعوت هنوز کامل نشده است','لینک نسبت‌داده شده اما شرط دریافت پاداش هنوز محقق نشده است.','اعتباری اضافه نشده','وضعیت دعوت بدون افشای اطلاعات حساس نمایش داده می‌شود','صبر یا ارسال دوباره لینک',['مشاهده دعوت‌ها','go','referral'],['اشتراک‌گذاری دوباره','go','referral']],
+      ['referral-achieved','معرفی دوستان','success','محقق‌شده','پاداش دعوت ثبت شد','شرایط کمپین انجام و اعتبار هدیه ثبت شده است.','۲۵٬۰۰۰ تومان اعتبار هدیه اضافه شد','نوع اعتبار و محدودیت برداشت روشن است','مشاهده پاداش‌ها',['مشاهده دعوت‌ها','go','referral'],['بازگشت به خانه','go','home']],
+      ['referral-failed','معرفی دوستان','failed','ناموفق','دعوت واجد شرایط پاداش نشد','شرط کمپین یا کنترل ریسک تکمیل نشده است.','اعتباری اضافه نشده','علت قابل نمایش و مسیر اعتراض ارائه می‌شود','مشاهده علت یا ثبت پیگیری',['مشاهده دعوت‌ها','go','referral'],['ثبت پیگیری','sheet','support']],
+
+      ['history-loading','تاریخچه','pending','در حال بارگذاری','عملیات در حال دریافت است','آخرین فیلترهای انتخاب‌شده حفظ شده‌اند.','هیچ اثر مالی تازه‌ای ندارد','Skeleton جای نتیجه قطعی را نمی‌گیرد','انتظار یا تلاش دوباره',['تلاش دوباره','go','history'],['بازگشت به خانه','go','home']],
+      ['history-empty','تاریخچه','info','بدون نتیجه','عملیاتی با این فیلتر پیدا نشد','این حالت به معنی نداشتن دارایی یا حذف رسیدها نیست.','هیچ اثر مالی ندارد','فیلترها قابل پاک‌کردن‌اند','پاک‌کردن فیلتر و دیدن همه عملیات',['مشاهده همه عملیات','go','history'],['بازگشت به خدمات','go','services']],
+      ['history-failed','تاریخچه','failed','خطای دریافت','تاریخچه به‌روز نشد','آخرین زمان به‌روزرسانی باید دیده شود و موفقیت عملیات از روی خطا حدس زده نشود.','هیچ اثر مالی تازه‌ای ندارد','رسیدهای قبلی حذف نمی‌شوند','تلاش دوباره یا پشتیبانی',['تلاش دوباره','go','history'],['پشتیبانی','sheet','support']],
+
+      ['support-case-created','پشتیبانی','success','ثبت‌شده','پرونده پشتیبانی ساخته شد','موضوع، عملیات مرتبط و کد پیگیری ذخیره شده است.','به‌خودی‌خود موجودی را تغییر نمی‌دهد','هر اصلاح مالی رکورد جبرانی جدا دارد','پیگیری پرونده و اعلان‌ها',['مشاهده تاریخچه','go','history'],['بازگشت به خانه','go','home']],
+      ['support-needs-action','پشتیبانی','warning','نیازمند اقدام شما','برای ادامه بررسی، اطلاعات بیشتری لازم است','مدرک یا توضیح فقط در حد لازم و از مسیر امن درخواست می‌شود.','تا نتیجه بررسی اثر مالی تازه‌ای ندارد','مهلت پاسخ و وضعیت پرونده نمایش داده می‌شود','ارسال اطلاعات یا تماس با پشتیبانی',['بازکردن پشتیبانی','sheet','support'],['مشاهده تاریخچه','go','history']],
+      ['support-closed','پشتیبانی','info','بسته‌شده','بررسی پرونده پایان یافت','نتیجه، دلیل قابل نمایش و مسیر اعتراض ثبت شده است.','اثر مالی احتمالی با رکورد جدا قابل پیگیری است','بستن پرونده رسیدهای قبلی را تغییر نمی‌دهد','مشاهده نتیجه یا ثبت اعتراض',['مشاهده تاریخچه','go','history'],['ثبت اعتراض','sheet','support']]
+    ];
+    const operationStateConfigs=Object.fromEntries(operationStateDefinitions.map(([key,header,tone,status,title,description,effect,followUp,nextStep,primary,secondary])=>[key,{header,tone,status,title,description,effect,followUp,nextStep,primary,secondary}]));
     const openScenarioGroups = new Set();
     let scenarioGroupScenario = null;
 
@@ -901,7 +1004,7 @@
       authMobile:'',authPassword:'',kycNationalId:'',kycBirth:'',moneyMode:'deposit',moneyAmount:'',moneyMethod:'gateway',moneyTransferRail:'bridge',moneyDestination:'bank-1',hasBankCards:true,depositSourceCard:'bank-1',bankCardPickerTarget:'deposit',bankAddReturn:null,featureAsset:'gold',physicalItems:{gold:{},silver:{},copper:{}},physicalUnavailableAsset:null,physicalBalanceOverrides:{},physicalCenter:'tehran-1',targetKind:'alert',targetDirection:'buy',targetPrice:'',targetAmount:'',targetExpiry:'7',hasActiveInstallment:false,installmentTerm:'6',installmentAmount:'10000000',installmentPaid:false,installmentContractTab:'current',installmentTermsAccepted:false,installmentActivationMethod:'gateway',giftMode:'send',giftItems:{gold:{},silver:{},copper:{}},giftPayment:'wallet',giftDelivery:'digital',giftRecipientName:'',giftRecipientMobile:'',giftAddress:'',giftPickupCenter:'tehran-1',giftClaimNumber:'',giftClaimCode:'',giftClaimError:'',giftClaim:null,giftRedeemedCodes:[],giftIssued:null,giftAmount:'',giftRecipient:'',giftCode:'',resultKind:'trade',pendingFeatureKind:null,notificationPrice:true,notificationMarketing:false,twoFactor:false,bankCardNumber:'',bankAdded:false,currentPassword:'',newPassword:'',confirmPassword:''};
     const requestedScenario=new URLSearchParams(location.search).get('scenario');
     if(requestedScenario&&scenarios.some(([,key])=>key===requestedScenario))state.scenario=requestedScenario;
-    const reviewSheets=['wallet-actions','money-methods','bank-card-picker','trade-details','physical-rules','physical-confirm','installment-terms','asset','filters','chart-asset','notifications','profile-info','notification-settings','support','install-pwa','app-version','trade-asset-3','trade-asset-16'];
+    const reviewSheets=['wallet-actions','money-methods','bank-card-picker','trade-details','physical-rules','physical-confirm','installment-terms','chart-asset','notifications','profile-info','notification-settings','support','install-pwa','app-version','trade-asset-3','trade-asset-16'];
     const requestedSheet=new URLSearchParams(location.search).get('sheet');
     if(requestedSheet&&reviewSheets.includes(requestedSheet))state.sheet=requestedSheet;
     const appMain=document.getElementById('app-main'),appHeader=document.querySelector('.app-header'),headerTitle=document.getElementById('header-title');
@@ -938,6 +1041,7 @@
 
     function livePriceAssets(){
       const scenario=state.scenario;
+      if(operationStateConfigs[scenario])return [];
       if(scenario.startsWith('gift-'))return [];
       if(['auth-login','kyc','deposit','deposit-no-card','withdraw','money-preview','physical-preview','physical-failed','physical-success','target-preview','installment-payment','installment-preview','installment-fee-payment','installment-gateway','installment-success','gift-preview','bank-accounts','bank-add','bank-add-preview','security','change-password','licenses','legal','profile','feature-processing','feature-result','trade-preview','trade-processing','receipt'].includes(scenario)||scenario.startsWith('deposit-method-'))return [];
       if(scenario==='market3'||scenario==='market16'||scenario.startsWith('trade-'))return [];
@@ -989,6 +1093,8 @@
         </section>`;
       }).join('');
       document.getElementById('scenario-list').innerHTML=`<div class="scenario-list-actions"><button type="button" class="scenario-groups-toggle" data-scenario-groups="${allOpen?'collapse':'expand'}">${allOpen?'بستن همه':'باز کردن همه'}</button></div>${groups}`;
+      const summary=document.getElementById('scenario-summary');
+      if(summary)summary.textContent=`${faNumber(scenarios.length,0)} صفحه و حالت در ${faNumber(scenarioGroups.length,0)} فلو؛ هر فلو را باز کنید یا همه را یک‌جا ببینید. داده‌های بانکی، وزن و کارمزد فعلاً نمونه‌اند.`;
     }
     function setScenario(key){
       state.processingToken++;
@@ -1050,7 +1156,6 @@
     }
     function openOverlay(sheet,trigger){
       overlayTrigger=trigger||document.activeElement;state.sheet=sheet;
-      if(sheet==='filters'){state.draftStatus=state.status;state.draftDate=state.date}
       renderScenarioList();overlay();
     }
     function back(){
@@ -1667,6 +1772,21 @@
       if(a.op==='installment-pay')return installmentPaymentResult(a);
       return `<section class="card"><div class="receipt-head"><div class="receipt-mark">✓</div><span class="inline-status ${a.statusKey==='final'?'success':'warning'}">${a.status}</span><h3>${a.title}</h3><p>جزئیات این عملیات از تاریخچه قابل پیگیری است.</p></div>${m?`<div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>${m.name}</strong><small>${m.grade}</small></div></div>`:''}<div class="receipt-grid"><div class="receipt-row"><span>مقدار</span><strong>${a.amount}</strong></div><div class="receipt-row"><span>زمان</span><strong>${a.time}</strong></div><div class="receipt-row"><span>کد پیگیری</span><strong dir="ltr">${a.tracking}</strong></div></div></section><div class="action-stack"><button class="primary-button" data-open-result-receipt>مشاهده رسید کامل</button><button class="secondary-button" data-result-history>رفتن به تاریخچه</button></div>`;
     }
+    function operationStateAction(action,primary=false){
+      if(!action)return '';
+      const [label,type,target]=action,attribute=type==='sheet'?`data-sheet="${target}"`:`data-go="${target}"`;
+      return `<button class="${primary?'primary-button':'secondary-button'}" type="button" ${attribute}>${label}</button>`;
+    }
+    function operationStatePage(){
+      const c=operationStateConfigs[state.scenario];setChrome(c.header,true,false);
+      const icon=c.tone==='success'?icons.checkCircle:c.tone==='failed'?icons.warn:c.tone==='info'?icons.info:icons.clock;
+      const statusClass=c.tone==='success'?'success':c.tone==='failed'?'danger':c.tone==='warning'||c.tone==='pending'?'warning':'';
+      return `<div class="operation-state-page ${c.tone}">
+        <section class="card operation-state-hero"><span class="operation-state-icon" aria-hidden="true">${icon}</span><span class="inline-status ${statusClass}">${c.status}</span><h3>${c.title}</h3><p>${c.description}</p></section>
+        <section class="card operation-state-facts" aria-label="اثر و اقدام بعدی"><div class="receipt-row"><span>اثر روی موجودی</span><strong>${c.effect}</strong></div><div class="receipt-row"><span>وضعیت پیگیری</span><strong>${c.followUp}</strong></div><div class="receipt-row"><span>اقدام بعدی</span><strong>${c.nextStep}</strong></div></section>
+        <div class="operation-state-note">${icons.shield}<span>این صفحه یک State مستقل برای Review است. متن اثر مالی و Recovery اختصاصی این عملیات است؛ عددها و کدهای نمونه، قانون نهایی کسب‌وکار نیستند.</span></div>
+      </div><div class="action-stack">${operationStateAction(c.primary,true)}${operationStateAction(c.secondary)}</div>`;
+    }
     function singleChart(){
       const m=metals[state.chartAsset];setChrome(`نمودار ${m.name}`,true,false);
       return `<div class="page-lead"><h3>روند قیمت ${m.name}</h3><p>این Context مستقل از فلز انتخاب‌شده در تب معامله است.</p></div>
@@ -1703,17 +1823,12 @@
       </section>`;
     }
     function history(){
-      setChrome('تاریخچه عملیات',true,false); const moneyOnly=['deposit','withdraw'].includes(state.operation);
-      const filterCount=(state.status!=='all'?1:0)+(state.date!=='all'?1:0);
+      setChrome('تاریخچه عملیات',true,false);const hasMetalTabs=metalHistoryOperations.has(state.operation);
       let rows=activities.filter(a=>state.operation==='all'||a.op===state.operation);
-      if(state.metal!=='all'&&!moneyOnly) rows=rows.filter(a=>a.asset===state.metal);
-      if(state.status!=='all') rows=rows.filter(a=>a.statusKey===state.status);
-      if(state.date==='month') rows=rows.filter(a=>a.dateKey==='month');
-      return `<div class="page-lead"><h3>همه عملیات</h3><p>نوع عملیات و فلز دو فیلتر مستقل‌اند.</p></div>
-        <div class="operation-rail" role="tablist" aria-label="نوع عملیات">${operations.map(([id,label])=>`<button type="button" role="tab" aria-selected="${state.operation===id}" class="chip ${state.operation===id?'selected':''}" data-operation="${id}">${label}</button>`).join('')}</div>
-        <div class="filter-row"><button type="button" class="filter-control ${moneyOnly?'hidden':''}" data-sheet="asset">${state.metal==='all'?'همه فلزها':metals[state.metal].name} ▾</button><button type="button" class="filter-control" data-sheet="filters">فیلترها ${filterCount?`<span class="count">${filterCount}</span>`:''}</button><button type="button" class="reset" data-reset>پاک‌کردن فیلترها</button></div>
-        ${moneyOnly?`<p class="market-note">واریز و برداشت فقط مربوط به کیف تومان‌اند؛ فیلتر فلز در این Tab نمایش داده نمی‌شود.</p>`:''}
-        <div class="activity-list">${rows.length?rows.map(activityRow).join(''):`<section class="card empty"><div class="empty-mark">—</div><h3>عملیاتی پیدا نشد</h3><p>فیلتر فلز، وضعیت یا تاریخ را تغییر دهید.</p><button class="secondary-button" data-reset>پاک‌کردن فیلترها</button></section>`}</div>`;
+      if(hasMetalTabs&&state.metal!=='all')rows=rows.filter(a=>a.asset===state.metal);
+      const metalTabs=hasMetalTabs?`<div class="metal-tabs history-metal-tabs" role="tablist" aria-label="فلز عملیات">${[['all','همه'],...Object.entries(metals).map(([id,m])=>[id,m.name])].map(([id,label])=>`<button type="button" role="tab" aria-selected="${state.metal===id}" tabindex="${state.metal===id?'0':'-1'}" class="metal-tab ${state.metal===id?'selected':''}" data-history-metal="${id}"><strong>${label}</strong></button>`).join('')}</div>`:'';
+      return `<div class="operation-rail" role="tablist" aria-label="نوع عملیات">${operations.map(([id,label])=>`<button type="button" role="tab" aria-selected="${state.operation===id}" class="chip ${state.operation===id?'selected':''}" data-operation="${id}">${label}</button>`).join('')}</div>${metalTabs}
+        <div class="activity-list">${rows.length?rows.map(activityRow).join(''):`<section class="card empty"><div class="empty-mark">—</div><h3>عملیاتی پیدا نشد</h3><p>برای این نوع عملیات و فلز هنوز موردی ثبت نشده است.</p></section>`}</div>`;
     }
     function activityRow(a){
       const m=a.asset?metals[a.asset]:null;
@@ -1754,10 +1869,6 @@
         }else if(state.sheet==='installment-terms'){
           const m=metals[state.featureAsset];title=`شرایط خرید اقساطی ${m.name}`;label=title;sheetClass='installment-terms-sheet';
           body=`<div class="installment-terms-copy">${installmentTermsHtml()}</div><div class="sheet-footer" style="grid-template-columns:1fr"><button class="secondary-button" type="button" data-close-sheet>متوجه شدم</button></div>`;
-        }else if(state.sheet==='asset'){
-          title='انتخاب فلز';label=title;body=`<div class="sheet-list">${[['all','همه فلزها'],['gold','طلا'],['silver','نقره'],['copper','مس']].map(([id,name])=>`<button class="sheet-choice ${state.metal===id?'selected':''}" data-metal="${id}"><span>${name}</span><span>${state.metal===id?'انتخاب‌شده':''}</span></button>`).join('')}</div>`;
-        }else if(state.sheet==='filters'){
-          body=`<div class="sheet-list"><div><strong style="font-size:13px">وضعیت</strong></div>${[['all','همه وضعیت‌ها'],['final','نهایی / موفق'],['pending','در حال انجام']].map(([id,name])=>`<button class="sheet-choice ${state.draftStatus===id?'selected':''}" data-draft-status="${id}"><span>${name}</span><span>${state.draftStatus===id?'انتخاب‌شده':''}</span></button>`).join('')}<div style="margin-top:8px"><strong style="font-size:13px">تاریخ</strong></div>${[['all','همه تاریخ‌ها'],['month','ماه جاری']].map(([id,name])=>`<button class="sheet-choice ${state.draftDate===id?'selected':''}" data-draft-date="${id}"><span>${name}</span><span>${state.draftDate===id?'انتخاب‌شده':''}</span></button>`).join('')}</div><div class="sheet-footer"><button class="primary-button" type="button" data-apply-filters>اعمال فیلترها</button><button class="secondary-button" type="button" data-clear-filter-draft>پاک‌کردن</button></div>`;
         }else if(state.sheet==='chart-asset'){
           title='فلز نمودار';label=title;body=`<div class="sheet-list">${Object.entries(metals).map(([id,m])=>`<button class="sheet-choice ${state.chartAsset===id?'selected':''}" data-chart-asset="${id}"><span>${m.name} <span dir="ltr" class="muted">${m.symbol}</span></span><span>${state.chartAsset===id?'انتخاب‌شده':''}</span></button>`).join('')}</div>`;
         }else if(state.sheet==='notifications'){
@@ -1784,7 +1895,8 @@
     }
     function render(){
       renderScenarioList();let html='';
-      if(state.scenario==='auth-login')html=authLogin();
+      if(operationStateConfigs[state.scenario])html=operationStatePage();
+      else if(state.scenario==='auth-login')html=authLogin();
       else if(state.scenario==='kyc')html=kyc();
       else if(state.scenario==='deposit'||state.scenario==='deposit-no-card')html=moneyFlow('deposit');
       else if(state.scenario.startsWith('deposit-method-'))html=depositMethodPage(state.scenario.replace('deposit-method-',''));
@@ -2071,16 +2183,11 @@
       if(t.hasAttribute('data-open-chart-assets')){openOverlay('chart-asset',t);return}
       if(t.dataset.chartAsset){state.chartAsset=t.dataset.chartAsset;state.sheet=null;render();return}
       if(t.hasAttribute('data-trade-from-chart')){state.tradeAsset=state.chartAsset;state.tradeAmount='';state.tradeUseWallet=false;state.quoteActive=false;navigate('trade-gold');return}
-      if(t.dataset.operation){state.operation=t.dataset.operation;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();return}
+      if(t.dataset.operation){state.operation=t.dataset.operation;if(!metalHistoryOperations.has(state.operation))state.metal='all';state.status='all';state.date='all';state.scenario=state.operation==='all'?'history':'history-filtered';render();return}
+      if(t.dataset.historyMetal){state.metal=t.dataset.historyMetal;state.status='all';state.date='all';state.scenario='history-filtered';render();return}
       if(t.dataset.sheet){openOverlay(t.dataset.sheet,t);return}
       if(t.dataset.toggleSetting){state[t.dataset.toggleSetting]=!state[t.dataset.toggleSetting];overlay(false);return}
       if(t.hasAttribute('data-logout')){state.stack=[];state.scenario='auth-login';state.sheet=null;render();showToast('از حساب کاربری خارج شدید.');return}
-      if(t.dataset.metal){state.metal=t.dataset.metal;state.sheet=null;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();return}
-      if(t.dataset.draftStatus){state.draftStatus=t.dataset.draftStatus;overlay(false);return}
-      if(t.dataset.draftDate){state.draftDate=t.dataset.draftDate;overlay(false);return}
-      if(t.hasAttribute('data-clear-filter-draft')){state.draftStatus='all';state.draftDate='all';overlay(false);return}
-      if(t.hasAttribute('data-apply-filters')){state.status=state.draftStatus;state.date=state.draftDate;state.sheet=null;state.scenario=(state.operation==='all'&&state.metal==='all'&&state.status==='all'&&state.date==='all')?'history':'history-filtered';render();showToast('فیلترها اعمال شدند.');return}
-      if(t.hasAttribute('data-reset')){state.metal='all';state.status='all';state.date='all';state.scenario='history';render();return}
       if(t.dataset.receipt){state.receipt=activities.find(a=>a.id===t.dataset.receipt);navigate('receipt');return}
       if(t.hasAttribute('data-back-history')){state.operation=state.receipt.op;state.metal=state.receipt.asset||'all';state.status='all';state.date='all';state.stack=[];state.scenario='history-filtered';render();appMain.scrollTop=0;return}
       if(t.dataset.copy){try{await navigator.clipboard.writeText(t.dataset.copy)}catch{}showToast(`${t.dataset.copyLabel||'مقدار'} کپی شد.`);return}
