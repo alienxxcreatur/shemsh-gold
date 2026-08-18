@@ -5,16 +5,18 @@
 - ممیزی ورودی‌ها: `foundations/phase-1-input-audit.md`
 - نقشه Candidateهای برند قبلی: `foundations/legacy-brand-candidate-map.md`
 - Candidate رنگ: `foundations/color-candidate-v0.1.md`
-- Candidate جایگزین جهت Primary و Sandbox: `foundations/black-neutral-foundations-candidate-v0.2.md`
+- Candidate تاریخی Black-neutral: `foundations/black-neutral-foundations-candidate-v0.2.md`
+- Candidate جاری Navy-first و تقسیم مسئولیت: `foundations/navy-first-palette-candidate-v0.3.md`
 - Candidate تایپوگرافی: `foundations/typography-candidate-v0.1.md`
 - قرارداد جهت بصری و مقدارهای Pilot: `visual-direction-contract-g5-v0.1.md`
 - گزارش تست: `foundations/candidate-v0.1-test-report.md`
 - منبع برند: `legacy-brand/shemshbrand guideline.V.1.pdf`
+- منبع پالت تازه: `sources/shemsh-color-palette-v2-2026-08-17.pdf`
 - هیچ مقدار برندگاید در این مرحله خودکار `Stable` نیست.
 
 | Foundation | تصمیم / توکن | وضعیت | معیار بررسی |
 |---|---|---|---|
-| Color | Semantic colors برای Surface، Text، Action، Status، Financial و Accent فلز | `Candidate v0.2 / In implementation` با Black-neutral؛ هنوز `Stable` نیست؛ D-117/OQ-052/OQ-056 | کنتراست Light/Dark، Device واقعی و Palette فلز/نمودار |
+| Color | Semantic colors برای Surface، Text، Action، Status، Financial و Accent فلز | جهت `Navy-first` تأیید؛ `Candidate v0.3 / Values incomplete / Not Stable`؛ D-202/OQ-052/OQ-056 | تکمیل Ramp هویتی، کنتراست Light/Dark، Device واقعی و Palette فلز/نمودار |
 | Typography | مقیاس فارسی، وزن‌ها، اعداد انسانی/ماشینی | `Tested Candidate v0.1`؛ مجوز و Dynamic Type باز؛ OQ-052 | خوانایی، Fallback و Dynamic Type |
 | Spacing | ریتم محدود ۴/۸ و Scale `4..48` | `G5 Pilot Candidate / Not Stable` | Home/Assets، Form، List و Receipt |
 | Radius | نقش‌های Control/Input/Container/Overlay/Full | `G5 Pilot Candidate` برابر ۱۲/۱۴/۱۶/۲۰/Full؛ Migration نشده | هماهنگی حس برند و مصرف واقعی |

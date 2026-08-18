@@ -1,10 +1,12 @@
 # Candidate Foundations مشکی خنثی — نسخه ۰.۲
 
-وضعیت: `Approved direction / In implementation / Not Stable`
+وضعیت: `Superseded for Primary direction by D-202 / Historical Candidate`
 
 تاریخ: ۱۷ مرداد ۱۴۰۵ / 8 Aug 2026
 
 تصمیم مرجع: D-117
+
+> جهت `Black-neutral` در 18 Aug 2026 با D-202 جای خود را به `Navy-first` داد. این سند برای تاریخچه تصمیم، مقدارهای قبلی و شواهد QA حفظ می‌شود؛ مرجع جدید [`navy-first-palette-candidate-v0.3.md`](navy-first-palette-candidate-v0.3.md) است.
 
 فایل اجرایی: `Shemsh Design System Sandbox` با کلید `1ww36pr21itLXyAFZdouMy`
 

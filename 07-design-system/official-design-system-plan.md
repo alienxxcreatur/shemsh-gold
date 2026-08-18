@@ -46,7 +46,8 @@ Gate: `Complete`
 - [x] تعیین Candidate تایپوگرافی و قرارداد اعداد مالی.
 - [x] تعیین Candidate پالت روشن و تیره و نقش کنترل‌شده Gold.
 - [x] تست اولیه RTL، Light/Dark، محتوای واقعی فارسی و عرض‌های ۳۲۰ و ۳۶۰ پیکسل در `foundations/candidate-v0.1-test-report.md`.
-- [x] ممیزی Sandbox و تأیید جهت `Black-neutral` و استفاده مجدد از Primitive/Semantic/State — D-117.
+- [x] ممیزی Sandbox و تأیید استفاده مجدد از Primitive/Semantic/State — D-117.
+- [x] جایگزینی جهت Black-neutral با Navy-first و ثبت شکاف‌ها/مالکیت تحویل پالت — D-202.
 - [x] ممیزی دوباره Button و تأیید قرارداد ۱۰۸ Variant با محورهای مستقل Emphasis و Tone — D-122.
 - [x] ساخت صفحه `10 Button` و Pilot شش‌حالته، اتصال Propertyها و Variableها و پاس Technical/Stress audit.
 - [x] تأیید بصری مالک محصول برای Pilot.
@@ -69,7 +70,7 @@ Gate: `Complete`
 - [x] بازسازی Set کامل Amount Input با ۱۶ Variant، ۷ Property متنی، ۵ Toggle نمایشی، قرارداد مشترک Input family و Validation ساختاری/بصری صفر Issue — D-143.
 - [x] ادغام Text Input، Amount Input و رفرنس UNTITLED در صفحه واحد `15 Inputs` با مستندات و لیبل‌های State/Size — D-143.
 - [ ] تأیید بصری Amount Input پیش از Promote و شروع OTP Input.
-- [ ] بازنگاشت Color Candidate از Purple/Blue Primary به Black-neutral و همگام‌سازی Text Styleها با Yekan Bakh.
+- [ ] ساخت `Palette v2 / Pilot` و بازنگاشت Primary از Neutral فعلی به Navy-first پس از تکمیل Ramp هویتی؛ Typography Semantic حفظ می‌شود — D-202.
 - [ ] ساخت و تست Candidate Set برای Spacing، Grid، Radius، Border و Elevation.
 - [ ] تعیین Iconography، تصویر و Motion foundation.
 - [ ] اجرای تست‌های باقی‌مانده Dynamic Type تا ۲۰۰٪، Fallback، Screen Reader و Device واقعی پیش از `Stable`.

@@ -450,7 +450,7 @@
         <label for="result-state">نتیجه آزمایشی واریز</label>
         <select id="result-state">
           <option value="charged">شارژشده</option>
-          <option value="matching">در حال تطبیق</option>
+          <option value="unknown">نتیجه نامشخص</option>
           <option value="failed">ناموفق</option>
           <option value="returned">برگشتی</option>
         </select>
@@ -460,7 +460,7 @@
         <button class="secondary-button" type="button" id="width-toggle">عرض ۳۲۰px</button>
         <button class="secondary-button" type="button" id="reset-prototype">بازنشانی</button>
       </div>
-      <div class="panel-note">مسیرهای تست: مبلغ ← روش ← تأیید/ثبت ← نتیجه؛ Gate نقش‌ها؛ قطعی سراسری؛ مبلغ بالای ۴۰۰ میلیون به‌صورت Concept وابسته.</div>
+      <div class="panel-note">مسیر درگاه: مبلغ ← انتقال مستقیم به درگاه ← موفق/ناموفق/نامشخص. روش‌های انتقالی، Gate نقش‌ها، قطعی سراسری و مبلغ بالای ۴۰۰ میلیون جداگانه بررسی می‌شوند.</div>
     </aside>
   </div>
 
@@ -660,9 +660,9 @@
         const method = currentMethod() || methods[0];
         const configs = {
           charged:{ pill:'شارژشده', cls:'', icon:icons.check, title:'کیف پول شارژ شد', copy:`${formatNumber(state.amount)} تومان به موجودی قابل استفاده شما اضافه شد.` },
-          matching:{ pill:'در حال تطبیق', cls:'warning', icon:icons.clock, title:'پرداخت در حال بررسی است', copy:'نتیجه بانک هنوز به شمش نرسیده است. تا مشخص‌شدن وضعیت دوباره واریز نکنید.' },
+          unknown:{ pill:'نتیجه نامشخص', cls:'warning', icon:icons.clock, title:'نتیجه واریز هنوز مشخص نیست', copy:'اگر مبلغ از حساب بانکی شما کسر شده باشد، حداکثر تا ۷۲ ساعت به همان حساب برمی‌گردد. تا مشخص‌شدن وضعیت دوباره پرداخت نکنید.' },
           failed:{ pill:'ناموفق', cls:'failed', icon:icons.close, title:'واریز انجام نشد', copy:'موجودی کیف پول شما تغییر نکرد. می‌توانید همان مبلغ را با روشی دیگر امتحان کنید.' },
-          returned:{ pill:'برگشتی', cls:'warning', icon:icons.refresh, title:'وجه به مبدأ برمی‌گردد', copy:'این مبلغ وارد کیف پول نشده و بازگشت آن به همان مبدأ بانکی پیگیری می‌شود.' }
+          returned:{ pill:'برگشت وجه', cls:'warning', icon:icons.refresh, title:'وجه در مسیر بازگشت به حساب مبدأ است', copy:'این مبلغ وارد کیف پول نشده و حداکثر تا ۷۲ ساعت در همان حساب بانکی مبدأ قابل مشاهده خواهد بود.' }
         };
         return { ...configs[state.outcome], method };
       }
@@ -670,7 +670,7 @@
       function renderResult() {
         const config = resultConfig();
         const isCharged = state.outcome === 'charged';
-        const statusTime = state.outcome === 'matching' ? config.method.time : state.outcome === 'returned' ? 'طبق چرخه بانکی همان مبدأ' : '—';
+        const statusTime = state.outcome === 'unknown' || state.outcome === 'returned' ? 'حداکثر تا ۷۲ ساعت' : '—';
         return `
           <section class="result">
             <div class="result-icon ${config.cls}">${config.icon}</div><span class="status-pill ${config.cls}">${config.pill}</span>
@@ -683,7 +683,7 @@
               <div class="summary-row"><span>تاریخ</span><strong>۱۷ مرداد ۱۴۰۵، ۲۱:۱۰</strong></div>
               <div class="summary-row"><span>کد پیگیری</span><strong dir="ltr">DP-1405-7421</strong></div>
             </div>
-            ${state.outcome==='matching'?`<div class="notice warning" style="margin-top:16px;text-align:right"><span class="inline-icon">${icons.info}</span><div><strong>این وضعیت در تاریخچه ذخیره شده است</strong>پس از عبور از زمان مورد انتظار، مسیر پشتیبانی فعال می‌شود.</div></div>`:''}
+            ${state.outcome==='unknown'?`<div class="notice warning" style="margin-top:16px;text-align:right"><span class="inline-icon">${icons.info}</span><div><strong>پرداخت را تکرار نکنید</strong>نتیجه و کد پیگیری از تاریخچه قابل مشاهده است.</div></div>`:''}
             <div class="button-stack">
               <button class="secondary-button" type="button" data-action="transactions">تاریخچه عملیات</button>
               ${state.outcome==='failed'?'<button class="text-button" type="button" data-action="retry">انتخاب روش دیگر</button>':''}
@@ -698,7 +698,8 @@
           actionBar.innerHTML = `<button class="primary-button" type="button" data-action="show-methods" ${hasValidAmount()?'':'disabled'}>${isLarge()?'بررسی مسیر مبلغ بالا':'مشاهده روش‌های واریز'}</button>`;
         } else if (state.view === 'methods') {
           if (state.allUnavailable) { actionBar.hidden = true; actionBar.innerHTML=''; return; }
-          actionBar.innerHTML = `<button class="primary-button" type="button" data-action="continue-method" ${state.methodId?'':'disabled'}>ادامه با روش انتخاب‌شده</button>`;
+          const gateway=state.methodId==='gateway',label=state.processing?'در حال انتقال به درگاه':gateway?'پرداخت از درگاه':'ادامه با روش انتخاب‌شده';
+          actionBar.innerHTML = `<button class="primary-button" type="button" data-action="continue-method" ${state.methodId&&!state.processing?'':'disabled'}>${label}</button>`;
         } else if (state.view === 'detail') {
           const method = currentMethod();
           const label = method?.mode === 'evidence' ? 'مشاهده اطلاعات پرداخت' : state.processing ? 'در حال انتقال به بانک' : 'ادامه و پرداخت';
@@ -706,7 +707,7 @@
         } else if (state.view === 'evidence') {
           actionBar.innerHTML = `<button class="primary-button" type="button" data-action="submit-evidence" ${state.reference.trim()?'':'disabled'}>${state.processing?'در حال ثبت':'ثبت برای بررسی'}</button>`;
         } else if (state.view === 'result') {
-          const label = state.outcome === 'charged' ? (state.context === 'purchase' ? 'بازگشت به خرید با نرخ تازه' : 'مشاهده کیف پول') : state.outcome === 'matching' ? 'بازگشت به خانه' : state.outcome === 'failed' ? 'تلاش دوباره' : 'بازگشت به خانه';
+          const label = state.outcome === 'charged' ? (state.context === 'purchase' ? 'بازگشت به خرید با نرخ تازه' : 'مشاهده کیف پول') : state.outcome === 'unknown' ? 'بازگشت به خانه' : state.outcome === 'failed' ? 'تلاش دوباره' : 'بازگشت به خانه';
           const action = state.outcome === 'charged' && state.context === 'purchase' ? 'return-purchase' : state.outcome === 'charged' ? 'wallet' : state.outcome === 'failed' ? 'retry' : 'home';
           actionBar.innerHTML = `<button class="primary-button" type="button" data-action="${action}">${label}</button>`;
         } else if (state.view === 'large') {
@@ -795,7 +796,7 @@
           'quick-amount':() => { state.amount=Number(trigger.dataset.amount); state.amountText=formatNumber(state.amount); render(); document.getElementById('deposit-amount')?.focus(); },
           'show-methods':() => { if (!hasValidAmount()) return; state.methodId=''; navigate(isLarge()?'large':'methods'); },
           'select-method':() => { state.methodId=trigger.dataset.method; render(); },
-          'continue-method':() => gateOrContinue(() => navigate('detail')),
+          'continue-method':() => gateOrContinue(() => currentMethod()?.id==='gateway' ? processDeposit() : navigate('detail')),
           'method-help':openMethodHelp,
           'source-picker':openSourcePicker,
           'submit-method':() => gateOrContinue(() => currentMethod()?.mode==='evidence' ? navigate('evidence') : processDeposit()),

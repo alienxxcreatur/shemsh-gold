@@ -1,8 +1,8 @@
 # Candidate Set رنگ — نسخه ۰.۱
 
-وضعیت: `Partially superseded for Primary by D-117 / Historical Tested Candidate`
+وضعیت: `Superseded for Primary by D-117 and D-202 / Historical Tested Candidate`
 
-> جهت Purple به‌عنوان Primary با D-117 جایگزین شده است. Rampها و تست‌های این سند به‌عنوان شاهد تاریخی حفظ می‌شوند؛ مرجع اجرای تازه `black-neutral-foundations-candidate-v0.2.md` است.
+> جهت Purple ابتدا با Black-neutral در D-117 و سپس Black-neutral با Navy-first در D-202 جایگزین شد. Rampها و تست‌های این سند شاهد تاریخی‌اند؛ مرجع جاری [`navy-first-palette-candidate-v0.3.md`](navy-first-palette-candidate-v0.3.md) است.
 
 تاریخ: ۱۷ مرداد ۱۴۰۵ / 8 Aug 2026
 

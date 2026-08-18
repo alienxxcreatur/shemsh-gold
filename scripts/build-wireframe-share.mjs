@@ -8,6 +8,7 @@ const outputRoot = join(projectRoot, "dist-wireframes");
 const filesToPublish = [
   "06-wireframes-and-testing/artifacts/multi-metal-waves-1-and-3-wireframe.html",
   "06-wireframes-and-testing/artifacts/wave-1-auth-kyc-wireframe.html",
+  "06-wireframes-and-testing/artifacts/password-policy.js",
   "07-design-system/legacy-brand/typogaphy/YekanBakh3 - Pro  Plus/Yekan Bakh Variable/webfonts/YekanBakhFaNum-VF.woff2",
 ];
 

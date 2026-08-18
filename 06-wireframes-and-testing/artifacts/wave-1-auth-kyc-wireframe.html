@@ -1130,6 +1130,7 @@
     </aside>
   </main>
 
+  <script src="./password-policy.js"></script>
   <script>
     (() => {
       "use strict";
@@ -1189,6 +1190,8 @@
         otpError: "",
         passwordError: "",
         kycError: "",
+        kycServiceError: "",
+        kycAttempts: 0,
         loggedIn: false,
         verified: false,
         verifyingOtp: false,
@@ -1207,16 +1210,17 @@
         pickerYear: 1370
       };
 
-      // App Shell can send an authenticated user directly to identity verification.
-      // A representative mobile number keeps the standalone prototype screen realistic.
-      if (window.location.hash === "#kyc") {
-        Object.assign(state, {
-          screen: "kycForm",
-          mobile: "09121234567",
-          loggedIn: true,
-          authMode: "login"
-        });
-      }
+      // App Shell and the all-screens overview can deep-link to representative Auth/KYC states.
+      const authRoute = window.location.hash.slice(1);
+      const authRouteStates = {
+        password: { screen: "password", mobile: "09121234567", authMode: "login" },
+        otp: { screen: "otp", mobile: "09120000000", authMode: "signup", otpExpiresAt: Date.now() + 180000, resendAvailableAt: Date.now() + 60000 },
+        "set-password": { screen: "setPassword", mobile: "09120000000", authMode: "signup" },
+        kyc: { screen: "kycForm", mobile: "09121234567", loggedIn: true, authMode: "login" },
+        "kyc-loading": { screen: "kycLoading", mobile: "09121234567", loggedIn: true, authMode: "login" },
+        "kyc-error": { screen: "kycForm", mobile: "09121234567", loggedIn: true, authMode: "login", nationalId: "1111111111", birthDate: "1370/06/15", kycServiceError: "ارتباط با سامانه بررسی هویت برقرار نشد. اطلاعات شما حفظ شده است.", kycAttempts: 1 }
+      };
+      if (authRouteStates[authRoute]) Object.assign(state, authRouteStates[authRoute]);
 
       const escapeHtml = (value) =>
         String(value ?? "")
@@ -1361,23 +1365,7 @@
           </form>
         </section>`;
 
-      const getPasswordRequirements = (value) => [
-        {
-          key: "length",
-          label: "حداقل ۸ کاراکتر",
-          met: Array.from(value).length >= 8
-        },
-        {
-          key: "letter",
-          label: "حداقل یک حرف انگلیسی",
-          met: /[A-Za-z]/.test(value)
-        },
-        {
-          key: "number",
-          label: "حداقل یک عدد",
-          met: /[0-9]/.test(value)
-        }
-      ];
+      const getPasswordRequirements = (value) => window.ShemshPasswordPolicy.evaluate(value);
 
       const passwordRequirements = (value) => `
         <ul class="password-requirements" id="password-requirements" aria-label="شرایط رمز عبور">
@@ -1520,11 +1508,13 @@
                 value="${escapeHtml(state.referral)}">
             </div>
 
-            ${state.kycError ? `<p id="kyc-help" class="error-text">${escapeHtml(state.kycError)}</p>` : ""}
+            ${state.kycError ? `<p id="kyc-help" class="error-text" role="alert">${escapeHtml(state.kycError)}</p>` : ""}
           </form>
 
+          ${state.kycServiceError ? `<div class="notice danger" role="alert">${icons.alert}<span><strong>بررسی احراز هویت انجام نشد</strong><br>${escapeHtml(state.kycServiceError)}</span></div>` : ""}
+
           <div class="actions">
-            <button class="button primary" type="button" data-action="submit-kyc">تأیید اطلاعات</button>
+            <button class="button primary" type="button" data-action="${state.kycServiceError ? "retry-kyc-check" : "submit-kyc"}">${state.kycServiceError ? "تلاش دوباره" : "تأیید اطلاعات"}</button>
             <button class="button text" type="button" data-action="defer-kyc">بعداً انجام می‌دهم</button>
           </div>
         </section>`;
@@ -1539,21 +1529,6 @@
           </div>
         </section>`;
 
-      const kycErrorScreen = () => `
-        ${header({ title: "احراز هویت" })}
-        <section class="screen centered" data-screen="kycError">
-          <div class="center-copy">
-            <div class="status-mark danger">${icons.alert}</div>
-            <h2 class="title">فعلاً امکان بررسی اطلاعات نیست</h2>
-            <p class="description">اطلاعات شما تأیید نشده است. دوباره تلاش کنید یا بعداً ادامه دهید.</p>
-          </div>
-
-          <div class="actions">
-            <button class="button primary" type="button" data-action="retry-kyc">تلاش دوباره</button>
-            <button class="button secondary" type="button" data-action="defer-kyc">بعداً انجام می‌دهم</button>
-          </div>
-        </section>`;
-
       const renderers = {
         phone: phoneScreen,
         password: passwordScreen,
@@ -1561,8 +1536,7 @@
         setPassword: setPasswordScreen,
         home: homeScreen,
         kycForm: kycFormScreen,
-        kycLoading: kycLoadingScreen,
-        kycError: kycErrorScreen
+        kycLoading: kycLoadingScreen
       };
 
       const clearTimer = () => {
@@ -1817,6 +1791,10 @@
         app.innerHTML = renderers[state.screen]();
         app.scrollTop = 0;
 
+        if (state.screen === "home" && window.parent !== window) {
+          window.parent.postMessage({ type: "shemsh-auth-complete" }, "*");
+        }
+
         if (state.screen === "otp") {
           updateTimer();
           state.timerId = window.setInterval(updateTimer, 1000);
@@ -2012,38 +1990,12 @@
         startOtp();
       };
 
-      const commonPasswords = new Set([
-        "12345678",
-        "1234567890",
-        "12345678910",
-        "password1",
-        "password123",
-        "qwerty12345",
-        "shemsh12",
-        "shemsh1234"
-      ]);
-
       const savePassword = () => {
         state.password = document.getElementById("new-password")?.value || "";
         state.passwordError = "";
-        const length = Array.from(state.password).length;
-        if (length < 8) {
-          state.passwordError = "رمز عبور باید حداقل ۸ کاراکتر باشد.";
-          render({ focus: true });
-          return;
-        }
-        if (!/[A-Za-z]/.test(state.password)) {
-          state.passwordError = "رمز عبور باید حداقل یک حرف انگلیسی داشته باشد.";
-          render({ focus: true });
-          return;
-        }
-        if (!/[0-9]/.test(state.password)) {
-          state.passwordError = "رمز عبور باید حداقل یک عدد داشته باشد.";
-          render({ focus: true });
-          return;
-        }
-        if (commonPasswords.has(state.password.toLowerCase())) {
-          state.passwordError = "این رمز خیلی رایج است. رمز دیگری انتخاب کنید.";
+        const validation = window.ShemshPasswordPolicy.validate(state.password);
+        if (!validation.valid) {
+          state.passwordError = validation.message;
           render({ focus: true });
           return;
         }
@@ -2127,6 +2079,7 @@
       const submitKyc = () => {
         captureKycDraft();
         state.kycError = "";
+        state.kycServiceError = "";
 
         if (!/^\d{10}$/.test(state.nationalId) || !/^\d{4}\/\d{2}\/\d{2}$/.test(state.birthDate)) {
           state.kycError = "کد ملی و تاریخ تولد را کامل کنید.";
@@ -2157,11 +2110,13 @@
           return;
         }
 
-        const outcome = state.nationalId === "1111111111" ? "error" : "success";
+        const outcome = state.nationalId === "1111111111" && state.kycAttempts === 0 ? "error" : "success";
+        state.kycAttempts += 1;
         go("kycLoading");
         window.setTimeout(() => {
           if (outcome === "error") {
-            go("kycError", { push: false });
+            state.kycServiceError = "ارتباط با سامانه بررسی هویت برقرار نشد. اطلاعات شما حفظ شده است.";
+            go("kycForm", { push: false });
             return;
           }
           state.verified = true;
@@ -2196,6 +2151,8 @@
           otpError: "",
           passwordError: "",
           kycError: "",
+          kycServiceError: "",
+          kycAttempts: 0,
           loggedIn: false,
           verified: false,
           verifyingOtp: false,
@@ -2317,8 +2274,12 @@
           case "start-kyc":
           case "retry-kyc":
             state.kycError = "";
+            state.kycServiceError = "";
             state.history = [];
             go("kycForm", { push: false, focus: true });
+            break;
+          case "retry-kyc-check":
+            submitKyc();
             break;
           case "open-date-picker":
             openDatePicker();

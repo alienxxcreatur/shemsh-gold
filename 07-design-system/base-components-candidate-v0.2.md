@@ -4,12 +4,13 @@
 
 تاریخ: 8 Aug 2026
 
-این سند قرارداد اجرایی Base Componentهای مستقل از فلز است. جهت Black-neutral، مهاجرت به `Yekan Bakh FaNum` و استفاده از Variableهای موجود Sandbox طبق D-117 تأیید شده‌اند. قرارداد Button این نسخه با D-122 و `button-component-contract-v0.3.md` جایگزین شده است.
+این سند قرارداد اجرایی Base Componentهای مستقل از فلز است. ساختار Variableهای Sandbox و مهاجرت به `Yekan Bakh FaNum` طبق D-117 حفظ می‌شوند، اما جهت رنگ Black-neutral با D-202 به Navy-first تغییر کرده است. قرارداد Button این نسخه با D-122 و `button-component-contract-v0.3.md` جایگزین شده است.
 
 ## نتیجه‌ی اجرای فعلی
 
 - **Observed fact:** مجموعه `Button` در Figma با شناسه `36:1545` همچنان دقیقاً ۷۲ Variant دارد: `4 Hierarchy × 3 Size × 6 State`.
 - **Observed fact:** Primary در Light به neutral تیره و در Dark به neutral روشن بازنگاشت شده است.
+- **Observed fact:** این نگاشت وضعیت فعلی Figma است، نه جهت هدف پس از D-202؛ Pilot Navy-first باید از Aliasهای Semantic انجام شود.
 - **Observed fact:** Primary Focus و Loading دیگر fallback آبی ندارند؛ Focus از `state/color/focus/ring` استفاده می‌کند و Loading از container عادی همان Hierarchy.
 - **Observed fact:** هر ۷۲ Label به Style `semantic/typography/label/large` متصل است؛ این انتخاب با Typography Candidate سازگار است.
 - **Observed fact:** ممیزی تازه ۱۴۰ ناسازگاری fallback/resolved میان ۲۵۶ Paint متصل و ساختار Focus ناهماهنگ یافت.

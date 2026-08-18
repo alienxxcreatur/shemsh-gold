@@ -490,11 +490,11 @@
     .metric span{font-size:11px;color:var(--muted)}
     .metric strong{font-size:14px;font-variant-numeric:tabular-nums}
     /* Trade entry visual alignment: light, type-led and deliberately close to the supplied mobile reference. */
-    .trade-asset-tabs{height:58px;flex:0 0 58px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--surface);padding-inline:8px}
+    .trade-asset-tabs{height:58px;flex:0 0 58px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--surface)}
     .trade-asset-tab{position:relative;min-width:0;min-height:44px;border:0;background:transparent;color:var(--muted);padding:4px 6px;display:grid;place-items:center;text-align:center;cursor:pointer}
-    .trade-asset-tab strong{min-width:0;font-size:13px;font-weight:560;line-height:1.25;white-space:nowrap}
+    .trade-asset-tab strong{min-width:0;font-size:12px;font-weight:560;line-height:1.25;white-space:nowrap}
     .trade-asset-tab.selected{color:var(--text)}
-    .trade-asset-tab.selected strong{font-weight:800}
+    .trade-asset-tab.selected strong{font-weight:700}
     .trade-asset-tab:focus-visible{outline:2px solid var(--primary);outline-offset:-3px}
     .segment{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--strong);border-radius:var(--r-sm);padding:4px}
     .segment button{height:44px;border:0;background:transparent;border-radius:8px;font-size:13px}
@@ -515,31 +515,29 @@
     .quote-row{display:flex;justify-content:space-between;gap:12px;font-size:12px}
     .quote-row span{color:var(--muted)}
     .quote-row strong{font-variant-numeric:tabular-nums}
-    .trade-layout{flex:1;min-height:0;padding:8px 16px 0;display:flex;flex-direction:column;background:var(--surface)}
-    .trade-toolbar{direction:rtl;min-height:66px;flex:0 0 66px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .trade-mode-switch{direction:rtl;flex:0 0 106px;height:48px;display:grid;grid-template-columns:1fr 1fr;padding:2px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
-    .trade-mode-switch button{position:relative;min-width:0;min-height:44px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:11px}
-    .trade-mode-switch button::before{content:"";position:absolute;inset:0}
+    .trade-layout{flex:1;min-height:0;padding:0 16px;display:flex;flex-direction:column;background:var(--surface)}
+    .trade-toolbar{direction:rtl;min-height:58px;flex:0 0 58px;padding-top:5px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .trade-mode-switch{direction:rtl;flex:0 0 106px;height:38px;display:grid;grid-template-columns:1fr 1fr;padding:2px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
+    .trade-mode-switch button{position:relative;min-width:0;min-height:32px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:10px}
+    .trade-mode-switch button::before{content:"";position:absolute;inset:-6px 0}
     .trade-mode-switch button.selected{background:var(--primary);color:#fff;font-weight:750}
-    .trade-context-summary{min-width:0;display:grid;justify-items:start;gap:0;text-align:right}
-    .trade-context-summary>span{font-size:10px;line-height:1.5;color:var(--muted)}
-    .trade-context-summary>strong{direction:ltr;font-size:12px;line-height:1.55;font-weight:720;font-variant-numeric:tabular-nums;white-space:nowrap}
-    .trade-context-summary>small{direction:rtl;margin-top:1px;color:var(--muted);font-size:9px;line-height:1.45;white-space:nowrap}
-    .trade-context-summary>small b{direction:ltr;color:var(--text);font-weight:620;font-variant-numeric:tabular-nums}
-    .trade-amount-zone{flex:1;min-height:0;display:grid;place-items:center;align-content:center;padding:0 0 4px;text-align:center}
-    .trade-amount-label{justify-self:stretch;width:100%;color:var(--muted);font-size:10px;line-height:1.5;margin:0 0 2px;padding-inline:4px;text-align:right}
-    .trade-amount-control{direction:ltr;width:100%;display:grid;grid-template-columns:68px minmax(0,1fr) 68px;grid-template-areas:"unit amount spacer";align-items:center}
-    .trade-amount-control input{grid-area:amount;direction:ltr;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:48px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
+    .trade-context-summary{direction:rtl;min-width:0;margin-top:4px;display:grid;justify-items:start;gap:0;text-align:right}
+    .trade-context-summary>span{font-size:9px;line-height:1.55;color:var(--muted)}
+    .trade-context-summary>strong{direction:ltr;font-size:11px;line-height:1.7;font-weight:720;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .trade-amount-zone{flex:1;min-height:0;display:grid;justify-items:stretch;align-content:start;padding:11px 0 0;text-align:right}
+    .trade-amount-label{width:100%;color:var(--muted);font-size:10px;line-height:1.5;margin:0 0 1px;padding-inline-end:4px;text-align:right}
+    .trade-amount-control{direction:ltr;width:100%;display:grid;grid-template-columns:78px minmax(0,1fr);grid-template-areas:"unit amount";align-items:center}
+    .trade-amount-control input{grid-area:amount;direction:ltr;width:100%;min-width:0;height:54px;padding:0 8px 0 0;border:0;background:transparent;outline:0;color:var(--text);font-size:48px;font-weight:720;line-height:1;text-align:right;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
     .trade-amount-control input::placeholder{color:#c4c8cc;opacity:1}
-    .trade-unit-toggle{grid-area:unit;direction:rtl;justify-self:start;min-width:68px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:6px 5px;border:0;border-radius:9px;background:transparent;font-size:12px;font-weight:560}
+    .trade-unit-toggle{grid-area:unit;direction:rtl;justify-self:start;min-width:78px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:6px 5px;border:0;border-radius:9px;background:transparent;font-size:12px;font-weight:560}
     .trade-unit-toggle svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
-    .trade-amount-spacer{grid-area:spacer;width:68px;height:1px}
-    .trade-conversion{direction:rtl;min-height:34px;display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:0;color:var(--muted);font-size:12px}
+    .trade-conversion{direction:rtl;justify-self:end;min-height:32px;display:inline-flex;align-items:center;justify-content:flex-start;gap:7px;margin-top:0;padding-inline-end:4px;color:var(--muted);font-size:12px}
     .trade-conversion svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
     .trade-conversion strong{direction:rtl;color:var(--text);border-bottom:1px solid currentColor;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.55}
-    .trade-input-message{min-height:18px;margin-top:2px;color:var(--danger);font-size:10px;font-weight:650}
+    .trade-input-message{min-height:18px;margin-top:0;padding-inline-end:4px;color:var(--danger);font-size:10px;font-weight:650;text-align:right}
     .trade-submit{width:100%;min-height:44px;flex:0 0 44px;margin:0 0 8px;border-radius:9px;font-size:13px}
-    .trade-keypad{direction:ltr;flex:0 0 190px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,1fr);gap:0;padding:2px 0 8px;border-top:0;background:var(--surface)}
+    .trade-submit:disabled{opacity:1;background:color-mix(in srgb,var(--primary) 42%,var(--surface));border-color:transparent;color:#fff}
+    .trade-keypad{direction:ltr;flex:0 0 187px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,1fr);gap:0;padding:2px 0 8px;border-top:0;background:var(--surface)}
     .trade-key{min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:20px;font-weight:620;font-variant-numeric:tabular-nums;cursor:pointer}
     .trade-key svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
     .trade-key:active{background:var(--strong)}
@@ -549,7 +547,7 @@
     .phone:has(.app-main.trade-compact) .nav-item{min-height:56px;font-size:10px;gap:1px}
     .phone:has(.app-main.trade-compact) .nav-item svg{width:20px;height:20px;stroke-width:1.65}
     @media (hover:hover) and (pointer:fine){.trade-key:hover:not([disabled]),.trade-unit-toggle:hover{background:var(--strong)}}
-    @media(max-width:350px){.trade-layout{padding-inline:14px}.trade-toolbar{gap:10px}.trade-mode-switch{flex-basis:102px}.trade-context-summary>strong{font-size:11px}.trade-context-summary>small{font-size:8px}.trade-amount-control{grid-template-columns:62px minmax(0,1fr) 62px}.trade-unit-toggle{min-width:62px}.trade-amount-spacer{width:62px}.trade-keypad{flex-basis:180px}}
+    @media(max-width:350px){.trade-layout{padding-inline:16px}.trade-toolbar{gap:10px}.trade-mode-switch{flex-basis:104px}.trade-context-summary>strong{font-size:11px}.trade-amount-control{grid-template-columns:76px minmax(0,1fr)}.trade-unit-toggle{min-width:76px}.trade-keypad{flex-basis:187px}}
     .app-main.trade-review{background:var(--surface)}
     .trade-review-intro{margin:0 2px 14px}
     .trade-review-intro h3{font-size:20px;margin:0 0 4px}.trade-review-intro p{font-size:12px;color:var(--muted);margin:0}
@@ -1154,8 +1152,8 @@
       setChrome('معامله',state.stack.length>0,true,'معامله');
       return `<div class="trade-asset-tabs" role="tablist" aria-label="انتخاب فلز معامله">${assetTabs}</div>
         <section class="trade-layout" id="trade-panel" role="tabpanel">
-          <div class="trade-toolbar"><div class="trade-mode-switch" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div><div class="trade-context-summary" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?'۳۸٬۶۰۰٬۰۰۰ تومان':m.weight+' گرم'}</strong><small>نرخ ${action} هر گرم <b>${m.rate} تومان</b></small></div></div>
-          <section class="trade-amount-zone"><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="${byToman?'numeric':'decimal'}" autocomplete="off" enterkeyhint="done" value="${state.tradeAmount}" placeholder="۰" aria-describedby="trade-input-help trade-equivalent trade-input-message" aria-invalid="${exceedsBalance}" style="font-size:${amountSize}px"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button><span class="trade-amount-spacer" aria-hidden="true"></span></div><span class="sr-only" id="trade-input-help">می‌توانید از صفحه‌کلید داخلی، صفحه‌کلید دستگاه، Paste یا صفحه‌کلید فیزیکی استفاده کنید.</span><div class="trade-conversion" id="trade-equivalent">${icons.trade}<strong>${hasAmount?(byToman?calc.weightLabel+' گرم '+m.name:calc.amountLabel+' تومان'):(byToman?'۰ گرم '+m.name:'۰ تومان')}</strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
+          <div class="trade-toolbar"><div class="trade-mode-switch" aria-label="جهت معامله"><button type="button" class="${state.tradeMode==='buy'?'selected':''}" data-trade-mode="buy" aria-pressed="${state.tradeMode==='buy'}">خرید</button><button type="button" class="${state.tradeMode==='sell'?'selected':''}" data-trade-mode="sell" aria-pressed="${state.tradeMode==='sell'}">فروش</button></div><div class="trade-context-summary" aria-live="polite"><span>${state.tradeMode==='buy'?'موجودی کیف تومان':'موجودی قابل فروش '+m.name}</span><strong>${state.tradeMode==='buy'?'۳۸٬۶۰۰٬۰۰۰ تومان':m.weight+' گرم'}</strong><span class="sr-only">نرخ ${action} هر گرم ${m.name}، ${m.rate} تومان</span></div></div>
+          <section class="trade-amount-zone"><label class="trade-amount-label" for="trade-amount">${byToman?'مبلغ':'وزن'} ${action}</label><div class="trade-amount-control"><input id="trade-amount" inputmode="${byToman?'numeric':'decimal'}" autocomplete="off" enterkeyhint="done" value="${state.tradeAmount}" placeholder="۰" aria-describedby="trade-input-help trade-equivalent trade-input-message" aria-invalid="${exceedsBalance}" style="font-size:${amountSize}px"><button class="trade-unit-toggle" type="button" data-toggle-trade-unit aria-label="تغییر واحد از ${byToman?'تومان به گرم':'گرم به تومان'}"><span>${byToman?'تومان':'گرم'}</span>${icons.trade}</button></div><span class="sr-only" id="trade-input-help">می‌توانید از صفحه‌کلید داخلی، صفحه‌کلید دستگاه، Paste یا صفحه‌کلید فیزیکی استفاده کنید.</span><div class="trade-conversion" id="trade-equivalent">${icons.trade}<strong>${hasAmount?(byToman?calc.weightLabel+' گرم '+m.name:calc.amountLabel+' تومان'):(byToman?'۰ گرم '+m.name:'۰ تومان')}</strong></div><div class="trade-input-message" id="trade-input-message" role="alert">${inputError}</div></section>
           <button class="primary-button trade-submit" type="button" ${hasAmount&&!exceedsBalance?'':'disabled'} data-trade-preview>${action} ${m.name}</button>
           <div class="trade-keypad" role="group" aria-label="صفحه‌کلید عددی معامله">${keypad}<button type="button" class="trade-key" data-trade-key="decimal" aria-label="ممیز" ${decimalDisabled?'disabled':''}>٫</button><button type="button" class="trade-key" data-trade-key="0" aria-label="۰">۰</button><button type="button" class="trade-key" data-trade-key="backspace" aria-label="پاک کردن رقم آخر">${icons.erase}</button></div>
         </section>`;

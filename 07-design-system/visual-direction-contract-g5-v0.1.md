@@ -1,6 +1,6 @@
 # قرارداد جهت بصری G5 — نسخه ۰.۱
 
-وضعیت: `Candidate / Pilot-ready / Not Stable`
+وضعیت: `Candidate / Needs Navy-first color revision / Not Stable`
 
 تاریخ: ۲۶ مرداد ۱۴۰۵ / 17 Aug 2026
 
@@ -21,9 +21,9 @@
 
 ## منابع و اولویت تعارض
 
-1. تصمیم‌ها و قواعد قطعی شمش، به‌ویژه D-105، D-115، D-117، D-140، D-141، D-144، D-150، D-151، D-159 و D-163.
+1. تصمیم‌ها و قواعد قطعی شمش، به‌ویژه D-105، D-115، D-140، D-141، D-144، D-150، D-151، D-159، D-163 و D-202.
 2. [`binance-global-to-shemsh-mapping-g4.md`](../02-research-and-audit/competitors/binance/binance-global-to-shemsh-mapping-g4.md).
-3. [`black-neutral-foundations-candidate-v0.2.md`](foundations/black-neutral-foundations-candidate-v0.2.md) و [`typography-candidate-v0.1.md`](foundations/typography-candidate-v0.1.md).
+3. [`navy-first-palette-candidate-v0.3.md`](foundations/navy-first-palette-candidate-v0.3.md) و [`typography-candidate-v0.1.md`](foundations/typography-candidate-v0.1.md).
 4. اصول طراحی، دسترس‌پذیری و قراردادهای Component فعلی شمش.
 5. Pattern رقبا و ابزارهای توصیه طراحی فقط به‌عنوان Evidence ثانویه.
 
@@ -38,13 +38,13 @@
 | Title hierarchy | سه Tier روشن: Root anchor، App-bar detail، Task lead | تکرار هم‌زمان عنوان بزرگ و App-bar title، Hero تبلیغاتی در Flow مالی |
 | Numeric hierarchy | یک Numeric anchor در هر View یا Module؛ Equivalent/Unit/PNL ثانویه | چند عدد هم‌وزن پشت سر هم، عدد تزئینی یا Count-up |
 | Grouping | `Whitespace → Label → Divider/Surface → Border/Card → Overlay elevation` | Border و Shadow پیش‌فرض برای همه Groupها |
-| Brand | Black-neutral برای Action/Structure؛ Accent فلز کمکی و همراه Label/Icon | زرد بایننس، رنگ فلز به‌عنوان تنها حامل معنا |
+| Brand | Navy-first برای Brand/Primary؛ Neutral برای Structure؛ Accent فلز کمکی و همراه Label/Icon | Primary مشکی، زرد بایننس، رنگ فلز به‌عنوان تنها حامل معنا |
 
 ## ۱. قرارداد Surface و Neutral
 
 ### نقش‌های Light/Dark
 
-مقادیر زیر Override آزمایشی G5 هستند. تغییر `Canvas Light` از `#FAFAFA` فعلی به سفید باید در Pilot مقایسه شود؛ هنوز Migration رسمی Variableها نیست.
+مقادیر زیر Override آزمایشی G5 پیش از D-202 هستند. Canvas/Surface سفید همچنان قابل آزمایش است، اما `surface.inverse` و Actionهای متأثر باید در Pilot Navy-first دوباره نگاشت و QA شوند؛ هنوز Migration رسمی Variableها نیست.
 
 | Token role | Light pilot | Dark pilot | کاربرد |
 |---|---:|---:|---|

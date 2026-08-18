@@ -5,10 +5,11 @@
 ## وضعیت فعلی
 
 - مرحله فعال داخلی: **مرحله ۶ — وایرفریم کل اپ چندفلزی**
-- زیرمرحله فعال: **Review و اصلاح جزئی Prototype کامل `MM-W0..MM-W8` — D-133**
+- زیرمرحله فعال: **Gate آماده‌سازی Pre-Binance؛ PB-1 ممیزی Current-state همه نماها — D-211**
 - مسیر موازی بیرونی: **تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی اعداد پورتفوی**
-- قدم بعدی قطعی: Review و اصلاح جزئی موج‌به‌موج روی Prototype کامل ۳۳State؛ پوشش ساخت و QA افقی همه `MM-W0..MM-W8` انجام شده و بلوغ هر موج ۷۵٪ است. Featureهای باز Capability-gated و OQ-054 موازی می‌مانند — D-127/D-130/D-131/D-133
-- مسیر موازی داخلی: **Foundations و Base componentهای مستقل از فلز در مرحله ۷ طبق D-117 ادامه دارند؛ Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند؛ Text Input ۱۴تایی Final audit صفر Issue را پاس کرده و منتظر تأیید بصری مالک محصول است؛ Icon Button و Checkbox نیز هنوز منتظر تأیید بصری‌اند و اجزای فلزمحور از `Candidate` فراتر نمی‌روند — D-134/D-136**
+- مسیر Business-gated تمیزکاری: **طبق D-206 تا Review فلوهای دریافت، اقساط، هدیه، سفارش، مجوزها و پشتیبانی با Business Owner متوقف است؛ پیش‌فرض‌های فعلی فقط `Design assumption` هستند**
+- قدم بعدی قطعی: بازاعتبارسنجی همه ۱۴۷ نما پس از V-146 و تولید Punch list تازه با سه مسیر `Fix now / Safe to defer / Business-gated`؛ سپس اجرای PB-2 تا PB-7 و Freeze Baseline برای Handoff بایننس. واریز درگاه با D-210/V-144 به مسیر مستقیم موفق/ناموفق/نامشخص و Copy بازگشت حداکثر ۷۲ساعته همگام شده است — D-210/D-211
+- مسیر موازی داخلی: **Foundations و Base componentهای مستقل از فلز در مرحله ۷ ادامه دارند؛ جهت رنگ با D-202 از Black-neutral به Navy-first تغییر کرده و تا تکمیل مقادیر/QA `Not Stable` است. Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند؛ Text Input ۱۴تایی Final audit صفر Issue را پاس کرده و منتظر تأیید بصری مالک محصول است؛ Icon Button و Checkbox نیز هنوز منتظر تأیید بصری‌اند و اجزای فلزمحور از `Candidate` فراتر نمی‌روند — D-134/D-136/D-202**
 - مسیر موازی استخراج بصری: **G2/G3، G4 Candidate mapping و G5 Visual Direction Contract v0.1 کامل‌اند و Pilot غیرمخرب Home/Assets در کپی مستقل اجرا شده است. Canvas سفید، یک Numeric anchor، Cardهای Object محدود، کیف/Shortcut تخت و صفحه ترکیب دارایی با نمودار مستقل و Rowهای تخت اکنون برای Review مالک محصول آماده‌اند؛ H05 Dynamic Type 200% هنوز بازآزمایی دستی می‌خواهد و Foundation/Figma اصلی و وایرفریم مرجع تغییر نکرده‌اند — D-163/D-177/D-180 / V-111**
 - جریان‌های حفظ‌شده: **خروجی‌های Auth/KYC و زیرساخت ریالی حفظ می‌شوند؛ App Shell، معامله، دارایی و نمودار تا بازتنظیم `Needs revision` هستند**
 
