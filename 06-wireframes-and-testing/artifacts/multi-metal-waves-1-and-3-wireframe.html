@@ -420,16 +420,20 @@
     .installment-contract-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--strong)}
     .installment-contract-tab{min-width:0;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--muted);padding:6px;font-size:12px;font-weight:650}
     .installment-contract-tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-    .installment-tab-panel{display:grid;gap:12px}
-    .installment-contract-card{display:grid;gap:16px}
+    .installment-tab-panel{display:grid;gap:8px}
+    .installment-contract-card{display:grid;gap:12px}
     .installment-contract-card .asset-proof{margin:0}
-    .installment-contract-id{display:block;margin-top:2px;color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums}
+    .installment-asset-proof{align-items:center}
+    .installment-asset-copy{display:grid;gap:1px;min-width:0;flex:1}
+    .installment-asset-detail{min-width:0;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--text);display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 2px;font-size:11px;font-weight:750;white-space:nowrap}
+    .installment-asset-detail svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;color:var(--muted);flex:0 0 17px}
     .installment-contract-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .installment-overview-item{display:grid;gap:3px;padding:11px 12px;border-radius:var(--r-sm);background:var(--strong)}
     .installment-overview-item span{font-size:11px;color:var(--muted)}
     .installment-overview-item strong{font-size:14px;font-variant-numeric:tabular-nums}
-    .installment-contract-link{width:100%;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--text);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 2px;font-size:12px;font-weight:750;text-align:right}
-    .installment-contract-link span:last-child{font-size:18px;color:var(--muted)}
+    .installment-contract-link{width:100%;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--text);display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:8px 2px;font-size:12px;font-weight:750;text-align:right}
+    .installment-contract-link-icon{width:20px;height:20px;display:grid;place-items:center;color:var(--muted);flex:0 0 20px}
+    .installment-contract-link-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .installment-progress{display:grid;gap:9px;padding-top:14px;border-top:1px solid var(--border)}
     .installment-progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .installment-progress-head span{font-size:12px;color:var(--muted)}
@@ -439,11 +443,12 @@
     .installment-progress-labels{display:grid;grid-template-columns:repeat(6,1fr);direction:ltr;color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums;text-align:center}
     .installment-progress-labels span{direction:rtl}
     .installment-progress-labels .paid{color:var(--text);font-weight:750}
-    .installment-next-card{display:grid;gap:14px}
+    .installment-next-card{display:grid;gap:10px}
+    .installment-contract-card .installment-next-card{padding:12px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--subtle)}
     .installment-next-head{display:flex;align-items:start;justify-content:space-between;gap:12px}
     .installment-next-head h3{margin:0;font-size:16px}.installment-next-head p{margin:3px 0 0;color:var(--muted);font-size:11px}
-    .installment-next-amount{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px;border-radius:var(--r-sm);background:var(--strong)}
-    .installment-next-amount span{font-size:12px;color:var(--muted)}.installment-next-amount strong{font-size:20px;font-variant-numeric:tabular-nums}
+    .installment-next-amount{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:var(--r-sm);background:var(--strong)}
+    .installment-next-amount span{font-size:12px;color:var(--muted)}.installment-next-amount strong{font-size:16px;font-variant-numeric:tabular-nums}
     .installment-next-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .installment-next-meta div{display:grid;gap:3px}
     .installment-next-meta span{font-size:11px;color:var(--muted)}
@@ -529,7 +534,7 @@
     .trade-balance-context strong{direction:ltr;color:var(--text);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
     .trade-amount-label{color:var(--muted);font-size:11px;margin-bottom:5px}
     .trade-amount-control{direction:ltr;width:100%;display:grid;grid-template-columns:70px minmax(0,1fr) 70px;grid-template-areas:"unit amount spacer";align-items:center}
-    .trade-amount-control input{grid-area:amount;direction:rtl;unicode-bidi:isolate;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:30px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
+    .trade-amount-control input{grid-area:amount;direction:rtl;unicode-bidi:isolate;width:100%;min-width:0;height:70px;padding:0;border:0;background:transparent;outline:0;color:var(--text);font-size:21px;font-weight:720;line-height:1;text-align:center;letter-spacing:0;caret-color:transparent;font-variant-numeric:tabular-nums}
     .trade-amount-control input::placeholder{color:#c4c8cc;opacity:1}
     .trade-unit-toggle{grid-area:unit;justify-self:start;min-width:70px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 7px;border:0;border-radius:9px;background:transparent;font-size:13px;font-weight:750}
     .trade-unit-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -767,6 +772,7 @@
     const icons = {
       back:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>`,
       chevronLeft:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>`,
+      chevronRight:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>`,
       bell:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>`,
       user:`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>`,
       home:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></svg>`,
@@ -989,7 +995,7 @@
       ['referral-failed','معرفی دوستان','failed','ناموفق','دعوت واجد شرایط پاداش نشد','شرط کمپین یا کنترل ریسک تکمیل نشده است.','اعتباری اضافه نشده','علت قابل نمایش و مسیر اعتراض ارائه می‌شود','مشاهده علت یا ثبت پیگیری',['مشاهده دعوت‌ها','go','referral'],['ثبت پیگیری','sheet','support']],
 
       ['history-loading','تاریخچه','pending','در حال بارگذاری','عملیات در حال دریافت است','آخرین فیلترهای انتخاب‌شده حفظ شده‌اند.','هیچ اثر مالی تازه‌ای ندارد','Skeleton جای نتیجه قطعی را نمی‌گیرد','انتظار یا تلاش دوباره',['تلاش دوباره','go','history'],['بازگشت به خانه','go','home']],
-      ['history-empty','تاریخچه','info','بدون نتیجه','عملیاتی با این فیلتر پیدا نشد','این حالت به معنی نداشتن دارایی یا حذف رسیدها نیست.','هیچ اثر مالی ندارد','فیلترها قابل پاک‌کردن‌اند','پاک‌کردن فیلتر و دیدن همه عملیات',['مشاهده همه عملیات','go','history'],['بازگشت به خدمات','go','services']],
+      ['history-empty','تاریخچه','info','بدون نتیجه','عملیاتی برای این انتخاب پیدا نشد','این حالت به معنی نداشتن دارایی یا حذف رسیدها نیست.','هیچ اثر مالی ندارد','Tab نوع عملیات یا فلز را تغییر دهید','بازگشت به تاریخچه',['مشاهده تاریخچه','go','history'],['بازگشت به خدمات','go','services']],
       ['history-failed','تاریخچه','failed','خطای دریافت','تاریخچه به‌روز نشد','آخرین زمان به‌روزرسانی باید دیده شود و موفقیت عملیات از روی خطا حدس زده نشود.','هیچ اثر مالی تازه‌ای ندارد','رسیدهای قبلی حذف نمی‌شوند','تلاش دوباره یا پشتیبانی',['تلاش دوباره','go','history'],['پشتیبانی','sheet','support']],
 
       ['support-case-created','پشتیبانی','success','ثبت‌شده','پرونده پشتیبانی ساخته شد','موضوع، عملیات مرتبط و کد پیگیری ذخیره شده است.','به‌خودی‌خود موجودی را تغییر نمی‌دهد','هر اصلاح مالی رکورد جبرانی جدا دارد','پیگیری پرونده و اعلان‌ها',['مشاهده تاریخچه','go','history'],['بازگشت به خانه','go','home']],
@@ -1313,7 +1319,7 @@
           <div class="periods">${[['day','روزانه'],['month','ماهانه'],['year','سالانه']].map(([id,label])=>`<button class="period ${state.period===id?'selected':''}" type="button" data-period="${id}" aria-pressed="${state.period===id}">${label}</button>`).join('')}</div>${chart(state.period)}</section>
         <div class="section"><button class="primary-button" style="width:100%" type="button" data-trade-asset="${key}">معامله ${m.name}</button></div>`;
     }
-    const TRADE_MAX_DIGITS={toman:11,gram:10},TRADE_MIN_WEIGHT=.001,TRADE_MAX_TOMAN=50000000000,TRADE_MAX_WEIGHT=10000,TRADE_WALLET_BALANCE=38600000;
+    const TRADE_MAX_DIGITS={toman:10,gram:10},TRADE_MIN_WEIGHT=.001,TRADE_WALLET_BALANCE=38600000;
     function tradePrecision(key=state.tradeAsset){return key==='gold'?3:key==='silver'?2:0}
     function formatTradeInput(value,unit=state.tradeInputUnit){
       const localized=String(value||'').replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)]).replace(/[٬,\s]/g,'').replace('.', '٫');
@@ -1361,8 +1367,6 @@
     function tradeValidation(calc=tradeCalculation()){
       const hasExplicitInput=String(state.tradeAmount||'').trim().length>0;
       if(hasExplicitInput&&calc.weight<TRADE_MIN_WEIGHT)return 'حداقل مقدار معامله ۱ سوت است.';
-      if(calc.amount>TRADE_MAX_TOMAN)return `حداکثر مبلغ معامله ${faNumber(TRADE_MAX_TOMAN,0)} تومان است.`;
-      if(calc.weight>TRADE_MAX_WEIGHT)return `حداکثر وزن معامله ${faNumber(TRADE_MAX_WEIGHT,0)} گرم است.`;
       return '';
     }
     function tradeWalletPayment(calc=tradeCalculation()){
@@ -1619,7 +1623,7 @@
     }
     function installmentCurrentPanel(){
       const m=metals.silver,data=activeInstallmentData();
-      return `<div class="installment-tab-panel" role="tabpanel"><section class="card installment-contract-card"><div class="section-head"><div><span class="installment-contract-id">قرارداد SH-INST-247381</span><h3>خرید قسطی ${m.name}</h3></div><span class="inline-status success">جاری</span></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>دارایی قفل‌شده · قرارداد ۶ ماهه</small></div></div><div class="installment-contract-overview"><div class="installment-overview-item"><span>اعتبار خرید</span><strong>${data.credit} تومان</strong></div><div class="installment-overview-item"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div></div>${installmentProgress(data)}<button class="installment-contract-link" type="button" data-installment-detail><span>جزئیات قرارداد</span><span aria-hidden="true">‹</span></button></section><section class="card installment-next-card"><div class="installment-next-head"><div><h3>قسط بعدی</h3><p>قسط ${faNumber(data.installmentNumber,0)} از ۶</p></div><span class="inline-status warning">قابل پرداخت</span></div><div class="installment-next-amount"><span>مبلغ قابل پرداخت</span><strong>${data.amountDue}</strong></div><div class="installment-next-meta"><div><span>سررسید</span><strong>${data.dueDate}</strong></div><div><span>جریمه تا این لحظه</span><strong>۰ تومان</strong></div></div></section>${installmentSchedule(data)}<div class="installment-locked-note card">${icons.shield}<span><strong>دارایی تا تسویه کامل قفل است</strong>پس از پرداخت تمام اقساط، کل دارایی قرارداد آزاد می‌شود.</span></div><div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت ${data.amountDue}</button></div></div>`;
+      return `<div class="installment-tab-panel" role="tabpanel"><section class="card installment-contract-card"><div class="section-head"><h3>خرید قسطی ${m.name}</h3></div><div class="asset-proof installment-asset-proof"><span class="metal-symbol">${m.mark}</span><div class="installment-asset-copy"><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>دارایی قفل‌شده · قرارداد ۶ ماهه</small></div><button class="installment-asset-detail" type="button" data-installment-detail><span>جزئیات قرارداد</span><span aria-hidden="true">${icons.chevronRight}</span></button></div><div class="installment-contract-overview"><div class="installment-overview-item"><span>اعتبار خرید</span><strong>${data.credit} تومان</strong></div><div class="installment-overview-item"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div></div>${installmentProgress(data)}<div class="installment-next-card"><div class="installment-next-head"><div><h3>قسط بعدی</h3><p>قسط ${faNumber(data.installmentNumber,0)} از ۶</p></div><span class="inline-status warning">قابل پرداخت</span></div><div class="installment-next-amount"><span>مبلغ قابل پرداخت</span><strong>${data.amountDue}</strong></div><div class="installment-next-meta"><div><span>سررسید</span><strong>${data.dueDate}</strong></div><div><span>جریمه تا این لحظه</span><strong>۰ تومان</strong></div></div></div></section><div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت ${data.amountDue}</button></div></div>`;
     }
     function installmentEmptyContracts(tab){
       const settled=tab==='settled';
@@ -1631,7 +1635,7 @@
     }
     function installmentContractDetail(){
       const m=metals.silver,data=activeInstallmentData();setChrome('جزئیات قرارداد',true,false);
-      return `<section class="card installment-detail-card"><div class="section-head"><div><span class="installment-contract-id">SH-INST-247381</span><h3>خرید قسطی ${m.name}</h3></div><span class="inline-status success">جاری</span></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>قفل‌شده تا تسویه کامل</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>اعتبار خرید</span><strong>${data.credit} تومان</strong></div><div class="receipt-row"><span>تعداد اقساط</span><strong>۶ قسط</strong></div><div class="receipt-row"><span>مبلغ هر قسط</span><strong>${data.amountDue}</strong></div><div class="receipt-row"><span>مجموع بازپرداخت</span><strong>${data.total} تومان</strong></div><div class="receipt-row"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div><div class="receipt-row"><span>تاریخ شروع</span><strong>۲۵ اسفند ۱۴۰۴</strong></div></div><button class="installment-contract-link" type="button" data-sheet="installment-terms"><span>مشاهده شرایط قرارداد</span><span aria-hidden="true">‹</span></button><div class="installment-locked-note">${icons.shield}<span><strong>آزادسازی یک‌باره دارایی</strong>دارایی پس از تسویه کامل قرارداد آزاد می‌شود؛ آزادسازی مرحله‌ای در این قرارداد وجود ندارد.</span></div></section>${installmentSchedule(data)}<div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت قسط ${faNumber(data.installmentNumber,0)}</button></div>`;
+      return `<section class="card installment-detail-card"><div class="section-head"><h3>خرید قسطی ${m.name}</h3></div><div class="asset-proof"><span class="metal-symbol">${m.mark}</span><div><strong>۲۴٫۰۵ گرم ${m.name}</strong><small>قفل‌شده تا تسویه کامل</small></div></div><div class="receipt-grid"><div class="receipt-row"><span>اعتبار خرید</span><strong>${data.credit} تومان</strong></div><div class="receipt-row"><span>تعداد اقساط</span><strong>۶ قسط</strong></div><div class="receipt-row"><span>مبلغ هر قسط</span><strong>${data.amountDue}</strong></div><div class="receipt-row"><span>مجموع بازپرداخت</span><strong>${data.total} تومان</strong></div><div class="receipt-row"><span>مانده قرارداد</span><strong>${data.remaining} تومان</strong></div><div class="receipt-row"><span>تاریخ شروع</span><strong>۲۵ اسفند ۱۴۰۴</strong></div></div><button class="installment-contract-link" type="button" data-sheet="installment-terms"><span class="installment-contract-link-icon" aria-hidden="true">${icons.document}</span><span>مشاهده شرایط قرارداد</span></button><div class="installment-locked-note">${icons.shield}<span><strong>آزادسازی یک‌باره دارایی</strong>دارایی پس از تسویه کامل قرارداد آزاد می‌شود؛ آزادسازی مرحله‌ای در این قرارداد وجود ندارد.</span></div></section>${installmentSchedule(data)}<div class="action-stack"><button class="primary-button" type="button" data-installment-pay>پرداخت قسط ${faNumber(data.installmentNumber,0)}</button></div>`;
     }
     function installmentPage(){
       setChrome('خرید اقساطی',true,false);

@@ -1,7 +1,7 @@
 # ماتریس پوشش حالت‌های عملیات در Prototype
 
 تاریخ: ۲۶ مرداد ۱۴۰۵ / 17 Aug 2026  
-تصمیم مرتبط: D-192  
+تصمیم مرتبط: D-193
 Artifact: `artifacts/multi-metal-waves-1-and-3-wireframe.html`
 
 ## هدف
@@ -10,7 +10,7 @@ Artifact: `artifacts/multi-metal-waves-1-and-3-wireframe.html`
 
 ## قرارداد پوشش
 
-- `Observed fact` — Prototype پیش از D-192 تعداد ۴۱ صفحه/حالت در ۱۰ Accordion داشت و چند مسیر عمومی همیشه به نتیجه موفق می‌رفتند.
+- `Observed fact` — Prototype پیش از D-193 تعداد ۴۱ صفحه/حالت در ۱۰ Accordion داشت و چند مسیر عمومی همیشه به نتیجه موفق می‌رفتند.
 - `Business decision` — طبق درخواست مستقیم مالک محصول، Stateهای ضروری همه عملیات باید در ستون Review قابل انتخاب باشند، نه فقط خرید.
 - `Design assumption` — متن‌ها، عددها و کدهای صفحات State نمونه‌اند و تصمیم مالی/حقوقی تازه ایجاد نمی‌کنند.
 - `Risk` — نمایش یک State به‌معنی تأیید قاعده بیزینسی آن نیست؛ قواعد باز در OQ-003/OQ-005/OQ-006/OQ-020/OQ-040/OQ-043/OQ-044/OQ-053/OQ-054/OQ-061 همچنان Gate UI نهایی‌اند.
