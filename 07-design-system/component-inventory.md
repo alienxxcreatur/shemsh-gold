@@ -2,7 +2,7 @@
 
 وضعیت سند: `Draft / Design assumption`
 
-تاریخ بازبینی: 20 Jul 2026
+تاریخ بازبینی: 19 Aug 2026
 
 این سند خروجی قدم ۸ از مسیر `Design System Prep` است. Inventory براساس موج‌های تأییدشده Release اول در D-082، Capability Map و معماری تجربه بازچینی شده است. حضور یک مورد در این سند به معنی ساخته‌شدن یا `Stable` بودن آن نیست؛ فقط نیاز، زمان بررسی و وابستگی آن را ثبت می‌کند.
 
@@ -58,9 +58,9 @@
 | BASE-ACT-03 | Text Link | ۱ | قوانین، راهنما، اقدام ثانویه | default, hover, focus, visited در صورت نیاز | Confirmed | پس از قرارداد Navigation/Content |
 | BASE-INP-01 | Text Input / Form Field | ۱ | موبایل، کد ملی، متن و شناسه | empty, filled, hover, focus, error, disabled, read-only | Confirmed | `Candidate v0.2` در صفحه مشترک `15 Inputs` با ۱۴ Variant، ۱۲ Property عمومی، Geometry مشترک ۳۲۰/۴۸/۵۶، Text Styleهای Semantic و Audit صفر Issue؛ منتظر تأیید بصری |
 | BASE-INP-02 | Amount Input پایه | ۱ | تومان، وزن و قیمت هدف | empty, filled, hover, focus, error, disabled, read-only, loading | Confirmed | `Candidate v0.2` در صفحه مشترک `15 Inputs` با ۱۶ Variant، Geometry/Typography/RTL مشترک و Helper/Balance برابر ۱۵۶ ساخته شد؛ بدون قانون مالی نهایی و منتظر تأیید بصری |
-| BASE-INP-03 | OTP Input | ۱ | ورود و احراز مجدد | empty, filled, focus, invalid, expired, loading, throttled | Confirmed | Draft امن در قدم ۹؛ OQ-029 برای Throttle |
+| BASE-INP-03 | OTP Input | ۱ | ورود و احراز مجدد | empty, partial, filled, hover, focus, error, disabled, success | Confirmed | `Candidate v0.1` با ۳۲ Variant `Digits × Size × State`، ۱۶ Property و Final technical audit صفر Issue ساخته شد؛ Success گذرا طبق D-148 و تأیید بصری نهایی باز است. Throttle فنی خارج Scope طراحی است — OQ-029 |
 | BASE-INP-04 | Date Input | ۱ | تاریخ تولد و انقضای سفارش | empty, filled, focus, error, disabled | Confirmed | پس از Flow احراز؛ Calendar جدا هنوز قطعی نیست |
-| BASE-INP-05 | Search Input | ۴ | مرکز تحویل، کاتالوگ و Help | empty, filled, focus, loading, no-result | Confirmed | هنگام موج ۴ |
+| BASE-INP-05 | Search Input | ۴ | مرکز تحویل، کاتالوگ و Help | empty, filled, hover, focus, disabled, loading | Confirmed | `Candidate v0.1` با ۱۲ Variant `Size × State`، هفت Property عمومی و Final technical/agent-visual audit صفر Issue ساخته شد؛ No-result در Composition مصرف‌کننده می‌ماند و تأیید بصری نهایی باز است |
 | BASE-INP-06 | Select / Combobox | ۲ | روش واریز، مقصد و گزینه‌های بلند | closed, open, focus, selected, error, disabled | Conditional | پس از مشخص شدن الگوی انتخاب هر Flow |
 | BASE-INP-07 | Textarea | ۳ | پشتیبانی، اعتراض و پیام هدیه | empty, filled, focus, error, disabled | Confirmed | هنگام Flow پشتیبانی؛ موج ۷ برای پیام هدیه |
 | BASE-INP-08 | File Upload | ۳ | مدرک پشتیبانی، واریز کلان، تحویل و اقساط | empty, uploading, success, failed, disabled | Conditional | پس از قرارداد فایل، امنیت و Flow |
@@ -323,6 +323,6 @@
 
 ## گیت وضعیت فعلی
 
-وضعیت: `Sufficient to proceed for Step 9`
+وضعیت: `Sufficient to proceed with controlled pilot / Needs Navy-first color QA`
 
-توضیح: Inventory از یک فهرست عمومی به نقشه نیازمحور Base componentها، Data componentها، Patternهای افقی و Patternهای هشت موج تبدیل شد. ده Component کم‌ریسک برای Draft در Sandbox مشخص‌اند؛ Patternهای مالی تا رسیدن Flow و تصمیم‌های وابسته `Inventory only` می‌مانند.
+توضیح: Inventory از یک فهرست عمومی به نقشه نیازمحور Base componentها، Data componentها، Patternهای افقی و Patternهای هشت موج تبدیل شد. Button، Icon Button، Selection controlها، خانواده Input و Feedbackهای ثبت‌شده در Sandbox ساخته شده‌اند، اما اغلب برای Promote به Review انسانی و همه برای جهت Navy-first به Color QA دوباره نیاز دارند. Patternهای مالی تا رسیدن Flow و تصمیم‌های وابسته `Inventory only` می‌مانند؛ مسیر Pilot با D-220 مستقل و غیرمخرب است.

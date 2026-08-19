@@ -4,13 +4,13 @@
 
 ## وضعیت فعلی
 
-- مرحله فعال داخلی: **مرحله ۶ — وایرفریم کل اپ چندفلزی**
-- زیرمرحله فعال: **Gate آماده‌سازی Pre-Binance؛ PB-1 ممیزی Current-state همه نماها — D-211**
+- مرحله فعال داخلی: **مرحله ۸ — تبدیل کپی HTML وایرفریم فریز‌شده به High-fidelity**
+- زیرمرحله فعال: **Pattern layer v0.1 روی بخش‌های اصلی Home/Asset/Trade/History/Operation detail با شواهد Binance و بدون Write در Figma — D-219/D-223**
 - مسیر موازی بیرونی: **تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی اعداد پورتفوی**
 - مسیر Business-gated تمیزکاری: **طبق D-206 تا Review فلوهای دریافت، اقساط، هدیه، سفارش، مجوزها و پشتیبانی با Business Owner متوقف است؛ پیش‌فرض‌های فعلی فقط `Design assumption` هستند**
-- قدم بعدی قطعی: بازاعتبارسنجی همه ۱۴۷ نما پس از V-146 و تولید Punch list تازه با سه مسیر `Fix now / Safe to defer / Business-gated`؛ سپس اجرای PB-2 تا PB-7 و Freeze Baseline برای Handoff بایننس. واریز درگاه با D-210/V-144 به مسیر مستقیم موفق/ناموفق/نامشخص و Copy بازگشت حداکثر ۷۲ساعته همگام شده است — D-210/D-211
-- مسیر موازی داخلی: **Foundations و Base componentهای مستقل از فلز در مرحله ۷ ادامه دارند؛ جهت رنگ با D-202 از Black-neutral به Navy-first تغییر کرده و تا تکمیل مقادیر/QA `Not Stable` است. Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند؛ Text Input ۱۴تایی Final audit صفر Issue را پاس کرده و منتظر تأیید بصری مالک محصول است؛ Icon Button و Checkbox نیز هنوز منتظر تأیید بصری‌اند و اجزای فلزمحور از `Candidate` فراتر نمی‌روند — D-134/D-136/D-202**
-- مسیر موازی استخراج بصری: **G2/G3، G4 Candidate mapping و G5 Visual Direction Contract v0.1 کامل‌اند و Pilot غیرمخرب Home/Assets در کپی مستقل اجرا شده است. Canvas سفید، یک Numeric anchor، Cardهای Object محدود، کیف/Shortcut تخت و صفحه ترکیب دارایی با نمودار مستقل و Rowهای تخت اکنون برای Review مالک محصول آماده‌اند؛ H05 Dynamic Type 200% هنوز بازآزمایی دستی می‌خواهد و Foundation/Figma اصلی و وایرفریم مرجع تغییر نکرده‌اند — D-163/D-177/D-180 / V-111**
+- قدم بعدی قطعی: مالک محصول فایل `08-final-design-and-handoff/artifacts/multi-metal-high-fidelity-v0.1.html` را از نظر معماری بصری Review می‌کند؛ پس از اصلاح این Pattern layer، پالت v2 و Typography/visual polish روی همین فایل اعمال می‌شوند. انتقال به Figma فقط با دستور صریح تازه مجاز است. Artifact فریز‌شده و D-206/OQ-055/OQ-056 دست‌نخورده می‌مانند — D-219/D-223
+- مسیر Figma: **متوقف تا دستور صریح مالک محصول. خروجی Page `20 Screen-led / Home` و H01/H02 ردشده و Non-authoritative است و مبنای ادامه نیست. Variableها و Componentهای موجود حذف نمی‌شوند، اما هیچ Write تازه‌ای مجاز نیست — D-223**
+- مسیر استخراج بصری: **G2/G3، G4 Candidate mapping و G5 Visual Direction Contract v0.1 فقط به‌عنوان Evidence حفظ‌اند. در Pattern layer v0.1، Canvas سفید، یک Numeric anchor، Card taxonomy محدود، Rowهای تخت و CTA اصلی روی کپی HTML مرحله ۸ اعمال شده‌اند؛ پالت نهایی، H05، Device QA و Review مالک هنوز بازند — D-163/D-177/D-223**
 - جریان‌های حفظ‌شده: **خروجی‌های Auth/KYC و زیرساخت ریالی حفظ می‌شوند؛ App Shell، معامله، دارایی و نمودار تا بازتنظیم `Needs revision` هستند**
 
 برای جزئیات روز، `00-project-management/project-status.md` را بخوانید.

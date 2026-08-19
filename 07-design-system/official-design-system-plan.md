@@ -69,8 +69,15 @@ Gate: `Complete`
 - [ ] تأیید بصری Text Input پیش از Promote.
 - [x] بازسازی Set کامل Amount Input با ۱۶ Variant، ۷ Property متنی، ۵ Toggle نمایشی، قرارداد مشترک Input family و Validation ساختاری/بصری صفر Issue — D-143.
 - [x] ادغام Text Input، Amount Input و رفرنس UNTITLED در صفحه واحد `15 Inputs` با مستندات و لیبل‌های State/Size — D-143.
-- [ ] تأیید بصری Amount Input پیش از Promote و شروع OTP Input.
-- [ ] ساخت `Palette v2 / Pilot` و بازنگاشت Primary از Neutral فعلی به Navy-first پس از تکمیل Ramp هویتی؛ Typography Semantic حفظ می‌شود — D-202.
+- [ ] تأیید بصری Amount Input پیش از Promote.
+- [x] ساخت و Final technical audit مجموعه OTP Input با ۳۲ Variant؛ تأیید بصری نهایی مالک محصول باز است — D-148.
+- [x] تکمیل Phase 0 محلی مسیر کنترل‌شده، ثبت Scope/Gaps و Mapping ده نما — D-220.
+- [x] Reconnect Figma و تکمیل Inspection/Library search/Conflict check بدون Write — D-220.
+- [x] تأیید صریح Phase 1 و جایگزینی Pilot جدا با Migration مستقیم Sandbox اصلی — D-221.
+- [x] افزودن ۴۵ Source primitive Palette v2، بازنگاشت ۴۹ Semantic و شش State، افزودن ۱۲ Role فلز/مالی و اصلاح Scope/Code syntax با حفظ Typography Semantic و API/Variant کامپوننت‌ها — D-202/D-221.
+- [x] QA فنی و agent-visual هشت صفحه Component در Light/Dark/RTL؛ ۳۴۷ Variable، صفر Broken alias/ALL_SCOPES، Source hardcode مؤثر صفر و Rollback ledger کامل.
+- [x] تأیید روش `Screen-led systemization` برای شروع Mapping ده نما بدون Promote یا Stableکردن رنگ — D-222.
+- [x] ساخت فنی موج Home default/zero انجام شد، اما با D-223 رد و `Non-authoritative` اعلام شد؛ هیچ استخراج یا ادامه‌ای از آن مجاز نیست.
 - [ ] ساخت و تست Candidate Set برای Spacing، Grid، Radius، Border و Elevation.
 - [ ] تعیین Iconography، تصویر و Motion foundation.
 - [ ] اجرای تست‌های باقی‌مانده Dynamic Type تا ۲۰۰٪، Fallback، Screen Reader و Device واقعی پیش از `Stable`.
@@ -127,7 +134,7 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 ## زیرتسک فعال
 
-فاز ۱ — G2/G3 سراسری، G4 Candidate mapping و G5 Visual Direction Contract v0.1 کامل‌اند. زیرتسک بعدی Pilot غیرمخرب Home/Assets و ثبت Findingهاست؛ Pilot Trust/Receipt پس از آن می‌آید. Reviewهای بصری Candidateهای فعلی باز است و هیچ Migration یا Promote/Demote خودکاری انجام نمی‌شود — D-163/D-177.
+فاز ۱ در Figma با D-223 متوقف است. G2/G3، G4 Mapping، G5 Visual Direction و Migration رنگ فقط به‌عنوان Evidence/زیرساخت حفظ می‌شوند. زیرتسک فعال در مرحله ۸ و روی کپی HTML است؛ هیچ Write، استخراج، Promote یا ادامه‌ی Trade/Operation detail در Figma تا دستور صریح مالک محصول انجام نمی‌شود.
 
 ## Guardrailها
 
@@ -143,6 +150,6 @@ Gate: معیارهای `07-design-system/README.md` پوشش داده و Finding
 
 فاز ۰: `Complete`
 
-فاز ۱: `In progress / Sufficient to pilot` — Color/Typography، Radio و Switch در وضعیت `Tested Candidate` هستند؛ Button کامل ۱۰۸تایی، Icon Button کامل ۷۲تایی، Checkbox ۱۲تایی و خانواده Input Final audit صفر Issue را پاس کرده‌اند. G5 v0.1 مقدارهای Pilot و قواعد مصرف را بسته؛ Pilotهای Home/Assets و Trust/Receipt و تأیید بصری مالک بازند و هیچ Foundation یا Component هنوز `Stable` نیست.
+فاز ۱: `Paused for Figma write / D-223` — Migration مستقیم Palette v2 حفظ شده، اما موج Home رد شده است. Patternهای Binance ابتدا در کپی HTML مرحله ۸ Review می‌شوند و هیچ Foundation، Component یا Composition تازه‌ای `Stable` یا حتی Candidate رسمی نمی‌شود.
 
 مرحله ۷: `Sufficient to proceed`

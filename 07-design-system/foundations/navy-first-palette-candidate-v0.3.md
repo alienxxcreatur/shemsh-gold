@@ -76,5 +76,6 @@
 - Brief گرافیست: `Complete / Ready to send`
 - تکمیل مقادیر هویتی: `Blocked by graphic design handoff`
 - معماری Semantic/State و Pilot داخلی: `Sufficient to proceed`
-- Migration سراسری Figma: `Not approved yet`
+- Migration کنترل‌شده Sandbox اصلی: `Executed / Technical + agent-visual QA PASS / Owner review pending — D-221`
+- Migration به فایل‌های محصول یا Code production: `Not approved yet`
 - Stable: `Not issued`

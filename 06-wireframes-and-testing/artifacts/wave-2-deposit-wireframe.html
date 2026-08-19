@@ -452,7 +452,6 @@
           <option value="charged">شارژشده</option>
           <option value="unknown">نتیجه نامشخص</option>
           <option value="failed">ناموفق</option>
-          <option value="returned">برگشتی</option>
         </select>
       </div>
       <label class="check-control"><input type="checkbox" id="all-unavailable"> قطعی هم‌زمان همه روش‌ها</label>
@@ -661,8 +660,7 @@
         const configs = {
           charged:{ pill:'شارژشده', cls:'', icon:icons.check, title:'کیف پول شارژ شد', copy:`${formatNumber(state.amount)} تومان به موجودی قابل استفاده شما اضافه شد.` },
           unknown:{ pill:'نتیجه نامشخص', cls:'warning', icon:icons.clock, title:'نتیجه واریز هنوز مشخص نیست', copy:'اگر مبلغ از حساب بانکی شما کسر شده باشد، حداکثر تا ۷۲ ساعت به همان حساب برمی‌گردد. تا مشخص‌شدن وضعیت دوباره پرداخت نکنید.' },
-          failed:{ pill:'ناموفق', cls:'failed', icon:icons.close, title:'واریز انجام نشد', copy:'موجودی کیف پول شما تغییر نکرد. می‌توانید همان مبلغ را با روشی دیگر امتحان کنید.' },
-          returned:{ pill:'برگشت وجه', cls:'warning', icon:icons.refresh, title:'وجه در مسیر بازگشت به حساب مبدأ است', copy:'این مبلغ وارد کیف پول نشده و حداکثر تا ۷۲ ساعت در همان حساب بانکی مبدأ قابل مشاهده خواهد بود.' }
+          failed:{ pill:'ناموفق', cls:'failed', icon:icons.close, title:'واریز انجام نشد', copy:'موجودی کیف پول شما تغییر نکرد. می‌توانید همان مبلغ را با روشی دیگر امتحان کنید.' }
         };
         return { ...configs[state.outcome], method };
       }
@@ -670,7 +668,7 @@
       function renderResult() {
         const config = resultConfig();
         const isCharged = state.outcome === 'charged';
-        const statusTime = state.outcome === 'unknown' || state.outcome === 'returned' ? 'حداکثر تا ۷۲ ساعت' : '—';
+        const statusTime = state.outcome === 'unknown' ? 'حداکثر تا ۷۲ ساعت' : '—';
         return `
           <section class="result">
             <div class="result-icon ${config.cls}">${config.icon}</div><span class="status-pill ${config.cls}">${config.pill}</span>
@@ -687,7 +685,6 @@
             <div class="button-stack">
               <button class="secondary-button" type="button" data-action="transactions">تاریخچه عملیات</button>
               ${state.outcome==='failed'?'<button class="text-button" type="button" data-action="retry">انتخاب روش دیگر</button>':''}
-              ${state.outcome==='returned'?'<button class="text-button" type="button" data-action="support">پیگیری بازگشت وجه</button>':''}
             </div>
           </section>`;
       }

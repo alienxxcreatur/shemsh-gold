@@ -1,0 +1,33 @@
+{
+  "runId": "screen-led-home-v0.1-2026-08-19",
+  "phase": "phase4-complete",
+  "step": "owner-visual-review",
+  "entities": {
+    "pages": {
+      "20 Screen-led / Home": "499:229"
+    },
+    "sections": {
+      "candidateScreens": "499:234",
+      "candidateBuildingBlocks": "499:235"
+    },
+    "frames": {
+      "homeDefault": "499:236",
+      "homeZero": "514:310"
+    },
+    "components": {
+      "assetObject": "501:755",
+      "shortcut": "504:229",
+      "navItem": "508:248"
+    }
+  },
+  "pendingValidations": [
+    "owner-visual-review"
+  ],
+  "completedSteps": [
+    "phase0",
+    "phase1-existing-foundations",
+    "phase2-page-structure",
+    "phase3-candidate-components",
+    "phase4-home-default-zero-technical-qa"
+  ]
+}

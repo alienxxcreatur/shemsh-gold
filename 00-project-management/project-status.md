@@ -1,27 +1,43 @@
 # وضعیت فعلی پروژه
 
-آخرین به‌روزرسانی: ۲۷ مرداد ۱۴۰۵ / 18 Aug 2026
+آخرین به‌روزرسانی: ۲۸ مرداد ۱۴۰۵ / 19 Aug 2026
 
 ## خلاصه
 
 | مورد | وضعیت |
 |---|---|
-| مرحله فعال داخلی | ۶ — وایرفریم کل اپ چندفلزی |
-| زیرمرحله فعال | Gate آماده‌سازی Pre-Binance — PB-1 ممیزی Current-state همه نماها؛ Review موازی OQ-054 |
-| ارزیابی فعلی | 🟡 پوشش ساخت افقی همه موج‌ها کامل است: ۲۸ خروجی هدف، پنج State اتصال W0 و چهار حالت Review دریافت فیزیکی در Prototype وجود دارند. بلوغ همه `MM-W0..MM-W8` برابر **۷۵٪** می‌ماند؛ Review جزئی مالک محصول و تصمیم‌های باز شرط ۱۰۰٪ هستند |
+| مرحله فعال داخلی | ۸ — طراحی نهایی روی کپی HTML نسخه‌دار |
+| زیرمرحله فعال | Pattern layer v0.1 روی Home/Zero، Asset detail، Trade/Preview، History و Operation detail؛ Figma تا دستور صریح متوقف است — D-223 |
+| ارزیابی فعلی | 🟡 پوشش ساخت افقی همه موج‌ها کامل است: پس از حذف دو صفحه فهرست فلز در D-215، ۲۶ خروجی هدف، پنج State اتصال W0 و چهار حالت Review دریافت فیزیکی در Prototype وجود دارند. بلوغ همه `MM-W0..MM-W8` برابر **۷۵٪** می‌ماند؛ Review جزئی مالک محصول و تصمیم‌های باز شرط ۱۰۰٪ هستند |
 | مسئول تصمیم نهایی | مالک محصول / بیزینس |
-| سند فعال | `06-wireframes-and-testing/pre-binance-wireframe-readiness-plan-v0.1.md`؛ Artifact: `06-wireframes-and-testing/artifacts/multi-metal-waves-1-and-3-wireframe.html` |
-| آخرین اصلاح قابل Review | پاک‌سازی حساب/اعتماد: KYC error داخل فرم، Guest هم‌ساختار خانه، سیاست رمز مشترک، حذف تأیید جداگانه کارت و تفکیک خطای ورودی از نتیجه سرویس، محتوای پنج مجوز و Dividerها — D-213 / V-146 |
-| قدم بعدی | اجرای PB-1: بازاعتبارسنجی Current-state همه ۱۴۷ نما پس از V-146 و ساخت Punch list تازه P0/P1/P2؛ ممیزی تاریخی فقط ورودی است |
-| مسیر موازی داخلی | جهت رنگ با D-202 از Black-neutral به `Navy-first` تغییر کرد؛ پالت v2 ورودی رسمی Candidate و سند تقسیم مسئولیت گرافیست/Design System آماده است. معماری Token و Candidateهای Component حفظ می‌شوند، اما رنگ همه آن‌ها پیش از Stable دوباره QA می‌شود. Radio ۸تایی و Switch ۱۰تایی `Tested Candidate` هستند؛ خانواده Input، Alert و Toast Final technical audit صفر Issue دارند. Migration سراسری Figma تا تکمیل Ramp هویتی و Pilot مجاز نیست؛ Palette نمودار، Accent و اجزای فلزمحور تا OQ-056 Candidate می‌مانند — D-134/D-136/D-143/D-148/D-202 |
+| سند فعال | `08-final-design-and-handoff/high-fidelity-html-workflow-v0.1.md`؛ Artifact: `08-final-design-and-handoff/artifacts/multi-metal-high-fidelity-v0.1.html` |
+| آخرین اصلاح قابل Review | یک کپی مستقل از Baseline D-219 ساخته شد؛ لایه ساختاری Binance با یک Numeric anchor، Card taxonomy محدود، Utilityهای تخت، Trade amount hero، Preview anchor و History/Detail scan-first روی بخش‌های اصلی اعمال شد. دو بلوک JavaScript Parse شدند و Hash سورس اصلی ثابت ماند — D-223 |
+| قدم بعدی | Review بصری مالک محصول روی Pattern layer v0.1؛ سپس اصلاح ساختار و فقط بعد از تأیید، اعمال Palette v2 و Visual polish روی همین HTML |
+| مسیر Figma | متوقف تا دستور صریح مالک محصول. Migration رنگ موجود حفظ می‌شود، اما Page `20 Screen-led / Home` و H01/H02 ردشده/Non-authoritative هستند و هیچ Write تازه مجاز نیست — D-223 |
 | مسیر موازی استخراج بصری | G2/G3، G4 Candidate mapping و G5 Visual Direction Contract v0.1 کامل‌اند؛ Pilot غیرمخرب Home/Assets/Trade و نمونه مستقل نتیجه/رسید «خرید موفق طلا» ساخته شده‌اند. QA بصری تازه Trade، H05 Dynamic Type 200% و Review مالک محصول بازند. اسناد Foundation برای Navy-first همگام شدند، اما Variableهای Figma، Prototype مرجع و Componentها هنوز تغییر نکرده‌اند — D-163/D-177/D-180/D-197/D-198/D-202 / V-111/V-129/V-130/V-132 / R-016 |
 | مسیر موازی بیرونی | هشت تأیید مالی/حسابداری OQ-055؛ `Blocked by external decision` فقط برای UI نهایی عددهای پورتفوی |
 
 ## آنچه تا امروز داریم
 
-- مسیر واریز درگاه کوتاه شد: CTA بدون Preview/تأیید داخلی پس از Loading انتقال مستقیماً به موفق، ناموفق یا نتیجه نامشخص می‌رود. دو State «در حال بررسی/تطبیق» از درگاه حذف شدند؛ Unknown منع پرداخت تکراری و بازگشت مبلغ کسرشده حداکثر تا ۷۲ ساعت به همان حساب را نمایش می‌دهد. برگشت وجه فقط State بعدی تاریخچه و تطبیق مختص روش‌های انتقالی است. JavaScript Parse، ۸ Assertion، مسیر تعاملی هر دو Prototype، عرض ۳۹۰px، Console صفر و Inventory تازه ۱۴۷ نما شامل ۷۵ Page/۵۵ State/۱۷ Overlay پاس شد — D-210 / V-144
+- مالک محصول مسیر Figma موج D-222 و خروجی Home آن را رد و D-223 را جایگزین کرد: هیچ Write تازه در Figma تا دستور صریح مجاز نیست؛ خروجی Page `20 Screen-led / Home` و H01/H02 Non-authoritative است و مبنای ادامه محسوب نمی‌شود.
+- از Baseline فریز‌شده D-219 یک کپی نسخه‌دار در مرحله ۸ ساخته شد. Pattern layer v0.1 روی Home/Zero، Asset detail، Trade entry/preview، History و Operation detail اعمال شد؛ سورس مرحله ۶ با Hash `CFE3BFB166B3D1D1F4BB35CD57E92FF3D8317E30F0F3D08C99898FA2BC4081C6` بدون تغییر ماند — D-223.
+- این موج فقط Hierarchy/Grouping/Density/Card taxonomy را از Evidence بایننس می‌گیرد. Palette v2، Visual polish، Motion و Promote به Design System تا Review Pattern layer انجام نمی‌شوند؛ قواعد D-206 و OQ-055/OQ-056 باز می‌مانند.
+- Migration رنگ D-221 در Sandbox حذف یا Rollback نشده است، اما ادامه آن و هر تغییر Figma فعلاً متوقف است؛ مقادیر موجود همچنان `Candidate / Not Stable` هستند.
+- PB-7 با تأیید مالک محصول اجرا شد: Baseline `Pre-Binance 1.0 / V-159` بدون ساخت کپی اجرایی دوم با Hash سه فایل اجرایی و Change control فریز شد. `binance-structural-handoff-brief-v1.0.md` مرزهای قطعی، ۹ P1 Business-gated، ده نمای Pilot، روش `Adopt / Adapt / Reject / Defer` و متن آماده شروع چت دیگر را ثبت می‌کند. Gate نهایی `Sufficient for Binance structural handoff` است — D-219
+- ممیزی Current-state در PB-1 همه `147 = 77 Page + 53 State + 17 Overlay` را پوشش داد: ۱۰۱ سناریوی دستی، ۳۲ Page اضافه و هر ۱۷ Overlay با یافته‌های تاریخی تطبیق داده شدند. P0 جاری صفر است؛ دو P1 مستقل از بیزینس در V-158 اصلاح شدند و ۹ P1 باقی‌مانده همگی Business-gated، دارای Owner و مسیر حل‌اند. Punch list ثبت‌شده اجازه نمی‌دهد شکاف شناخته‌شده‌ای فقط در چت بماند؛ Gate PB-1 برابر `Complete` است — `06-wireframes-and-testing/pre-binance-current-state-punch-list.md`
+- Preview خصوصی روی `https://shemsh-wireframe-qa-20260819.shemshgpt.chatgpt.site/wireframe/` در V-158 تا نسخه ۵ منتشر شد. منبع Deploy با Build از Artifact فعال، Auth/KYC، سیاست رمز و فونت همگام است؛ دسترسی Owner-only حفظ شد.
+- QA کامل PB-5 اجرا شد: `320 / 375 / 390` و `812×375`، Scroll/Fixed CTA، Touch/Focus، Sheet/Dialog، Auth/KYC، Overview و Runtime Console آزموده شدند. Landscape تمام‌صفحه، Targetهای ۴۴px، Auth سفید و Focus Overview اصلاح شدند؛ Overview هر ۱۴۷ نما را بدون Blank ساخت و Console نشست پاک Home/Auth صفر Error/Warning داشت. Gate PB-5 برابر `Complete` است — V-157
+- همگام‌سازی PB-6 اجرا شد: `current-wireframe-inventory-v0.1.md` فایل فعال، Auth/KYC، Candidate و Archive را تفکیک می‌کند و Audit مستقیم HTML شمارش ۱۴۷ = ۷۷ Page + ۵۳ State + ۱۷ Overlay، ۱۰۱ سناریوی دستی، ۱۴ گروه، ۳۲ Page و ۱۴ Overlay مستقل را بدون Duplicate/Missing تأیید می‌کند. State matrix، README و Plan با این Baseline همگام شدند؛ Gate PB-6 برابر `Sufficient to proceed` است — V-155
+- پاک‌سازی محتوایی PB-2 اجرا شد: قرارداد `content-and-terminology-contract-v0.1.md` نام کیف ریالی، دارایی فلزی، تاریخچه، جزئیات عملیات، درخواست، قرارداد و Statusها را تثبیت می‌کند. Artifact مرجع از «کیف پول/کیف فلزی»، اشاره کاربر به رسید جدا، رکورد/دفترکل/status/Hub/Quote/U2 و توضیح موفقیت تکراری پاک شد. JavaScript Parse و جست‌وجوی معکوس پاس شد و QA بصری در PB-5/V-157 بسته شد — V-151/V-157
+- اتصال فلو/State/ناوبری PB-3 اجرا شد: `pre-binance-flow-reachability-matrix-v0.1.md` خانواده‌های فلو را از Entry تا Recovery تفکیک می‌کند؛ Back نتیجه به Processing، مقصد اعلان خرید، Retry کد هدیه، حفظ Draft معامله و Deep link Routeهای خودکشف اصلاح شدند. Audit تکرارپذیر ۱۰۱ Scenario، ۳۹ مقصد فعال یکتا، ۹۷ قرارداد تعاملی و ۱۱ Action Auth/KYC را بدون Failure یا Button فعال بی‌عمل تأیید کرد. موارد D-206 جدا باقی است و QA بصری/لمسی در PB-5/V-157 بسته شد — V-152/V-157
+- قرارداد ساختار خانواده صفحات PB-4 اجرا شد: `page-family-structure-contract-v0.1.md` Header/Page shell، Form، Bottom Sheet، Dialog، Empty/Loading/Error، Fixed CTA و Operation detail را تثبیت می‌کند. ۱۳ Schema عملیات محتوا را نوع/وضعیت‌محور نگه می‌دارند؛ تلاش معامله، قسط ناموفق و هدیه منقضی از Label عمومی یا قطعی نادرست پاک شدند و Error فرم‌های اصلی به Control مربوط متصل است. Audit ساختاری بدون Failure پاس و D-206 باز اما جداست — D-218/V-153
+- قرارداد خطاهای KYC کامل شد: اختلال سرویس با فاصله ۱۶px، متن کوتاه و Retry در همان فرم می‌ماند؛ کد ملی/تاریخ نامعتبر زیر فیلد مربوط، عدم تطابق با مسیر «ورود با شماره دیگر» و زیر ۱۸ سال به‌صورت نتیجه شرط سنی نمایش داده می‌شوند. خانه مهمان Cardهای دارایی و کیف شخصی ندارد و Activation ورود/ساخت حساب را با Shortcut، Campaign و Navigation مشترک خانه نشان می‌دهد. چهار سناریوی Review تازه افزوده شد و QA واقعی ۳۹۰px، ARIA/Focus، Console صفر و Inventory جاری ۱۴۷ نما شامل ۷۷ Page/۵۳ State/۱۷ Overlay و ۱۰۱ سناریو را تأیید کرد — D-217 / V-150
+- مقصدهای مستقل `WF-MM-003/004` برای «همه فلزها — ۳/۱۶» از Prototype، Review و Inventory فعال حذف شدند. Card هر فلز در خانه مستقیماً جزئیات همان فلز را باز می‌کند؛ انتخاب فلز معامله و فیلتر تاریخچه حفظ شدند. Snapshot کامل پیش از تغییر در `99-archive/2026-08-19-all-metals-pages/` باقی است — D-215 / V-148
+- وضعیت‌های واریز/برداشت اصلاح شدند: Screen «بازگشت وجه» واریز حذف شد؛ «بررسی نهایی برداشت» در گروه برداشت قرار گرفت؛ هشدار برداشت ۱۲px از محتوای بعد فاصله گرفت؛ تأیید برداشت بدون Screen «در حال ثبت» مستقیم به «ثبت‌شده» می‌رسد؛ و «برداشت برگشتی» با Unknown و Copy بازگشت به کیف/پشتیبانی پس از ۷۲ ساعت جایگزین شد. JavaScript هر دو Prototype Parse شد و Inventory جاری ۱۴۷ نما شامل ۷۷ Page/۵۳ State/۱۷ Overlay و ۱۰۱ سناریو است — D-216 / V-149
+- Activation card حالت پورتفوی خالی به یک اقدام اصلی کاهش یافت: دکمه «دیدن قیمت فلزها» حذف و CTA تمام‌عرض «شروع خرید» با آیکن SVG معامله حفظ شد؛ مسیر معامله، کیف صفر، Shortcutها و Campaign تغییری نکردند — D-214 / V-147
+- مسیر واریز درگاه کوتاه شد: CTA بدون Preview/تأیید داخلی پس از Loading انتقال مستقیماً به موفق، ناموفق یا نتیجه نامشخص می‌رود. دو State «در حال بررسی/تطبیق» از درگاه حذف شدند؛ Unknown منع پرداخت تکراری و بازگشت مبلغ کسرشده حداکثر تا ۷۲ ساعت به همان حساب را نمایش می‌دهد. Screen مستقل «بازگشت وجه» نیز با D-216 حذف شد و تطبیق مختص روش‌های انتقالی است — D-210/D-216 / V-144/V-149
 - پاک‌سازی حساب و اعتماد اجرا شد: خطای سرویس احراز با حفظ داده و Retry داخل فرم است؛ Guest همان Renderer خانه را دارد؛ ساخت/تغییر رمز از `password-policy.js` تغذیه می‌شوند؛ افزودن کارت صفحه تأیید مستقل ندارد و Picker فقط انتخاب مبدأ/مقصد تأییدشده است. صفحه مجوزها پنج مورد و جای تصویر دارد؛ Asset رسمی تصاویر در OQ-063 باز است — D-213 / V-146
-- حالت خانه بدون دارایی در Prototype مرجع ساخته شد: Rail دارایی/CTA عادی فقط در `WF-MM-018` با Activation card «هنوز دارایی فلزی نداری» جایگزین می‌شود؛ شروع خرید به معامله و مشاهده قیمت به بازار وصل است. کیف تومان صفر، Shortcutها و Campaign بدون اسلاید خرید اول باقی می‌مانند. JavaScript Parse و ۱۱ Assertion ساختاری/مسیر/Touch پاس شدند؛ QA بصری مستقیم `file://` طبق سیاست Browser مسدود و Review مالک محصول باز است — D-212 / V-145
+- حالت خانه بدون دارایی در Prototype مرجع ساخته شد: Rail دارایی/CTA عادی فقط در `WF-MM-018` با Activation card «هنوز دارایی فلزی نداری» جایگزین می‌شود؛ پس از D-214 فقط CTA آیکن‌دار شروع خرید به معامله وصل است. کیف تومان صفر، Shortcutها و Campaign بدون اسلاید خرید اول باقی می‌مانند. JavaScript Parse و Assertionهای ساختاری/مسیر/Touch پاس شدند؛ QA بصری مستقیم `file://` طبق سیاست Browser مسدود و Review مالک محصول باز است — D-212/D-214 / V-145/V-147
 - برنامه رسمی Pre-Binance در هفت بسته ثبت شد: ممیزی Current-state، محتوا/اصطلاحات، فلو/State، قراردادهای ساختاری، QA، همگام‌سازی منبع حقیقت و Freeze/Handoff. P0/P1 مستقل از بیزینس پیش از تحویل بسته می‌شوند؛ D-206/OQ-055 می‌توانند باز اما صریح بمانند و Pilot قدیمی باید از Baseline تازه بازسازی شود — D-211
 - ممیزی هدفمند Mobbin برای `WF-MM-018` کامل و پیشنهاد آن با D-212 در Prototype مرجع اجرا شد: نمونه‌های N26، Greenlight، Lightyear، Public، Fuse، MoonPay و Revolut نشان می‌دهند Empty state بهتر فقط ماژول بدون داده را تغییر می‌دهد و Home shell را حفظ می‌کند. گزارش و برنامه تست A/B در `06-wireframes-and-testing/home-zero-portfolio-mobbin-pattern-audit-2026-08-18.md` باقی است
 - «اثر عملیات» دیگر Row ثابت رسید نیست. خرید، فروش، واریز، برداشت، پرداخت قسط و هدیه موفق وقتی عنوان/مقدار/فیلدها همان معنا را دارند آن را نشان نمی‌دهند؛ Failed/Pending و حالت‌های برگشت، جبران، رزرو، قفل یا کسر متفاوت «وضعیت موجودی» را حفظ می‌کنند — D-209 / V-143
@@ -30,7 +46,7 @@
 - مالک محصول تصمیم گرفت مرحله ۵ Business-gated فعلاً اجرا نشود. فلوهای دریافت فیزیکی، اقساط، هدیه، سفارش/هشدار، مجوزها و پشتیبانی با پیش‌فرض‌های موجود فقط برای Review نگه داشته می‌شوند و تکمیل آن‌ها به جلسه با Business Owner وابسته است. این توقف فقط همین لایه را `Blocked by external decision` می‌کند و وضعیت کلی مرحله ۶ برای Review همچنان `Sufficient to proceed` است — D-206
 - مرحله ۴ ممیزی تمیزکاری کامل شد: هیچ CTA نمایشی `data-toast` باقی نماند. واریز Empty state به فلو واقعی، نقشه به خروج مرورگر، اشتراک دعوت به Web Share/Copy fallback، رسید به Support context و FAQ به صفحه داخلی وصل شدند. نصب PWA فقط هنگام ارائه Prompt مرورگر فعال است؛ گفت‌وگوی زنده تا اتصال سرویس واقعاً Disabled و دانلود قوانین بدون فایل رسمی حذف شد. QA Headless Chrome در ۳۷۵px و Landscape، Inventory برابر ۱۴۸ شامل ۷۵ Page/۵۶ State/۱۷ Overlay، قاب خالی صفر، Overflow افقی صفر و Console Error صفر را تأیید کرد — D-205 / V-140
 - مرحله ۳ ممیزی تمیزکاری کامل شد: `canonicalOperationModel` Config وضعیت را با Receipt/Asset واقعی ترکیب و `canonicalOperationSummary` Hero، اثر موجودی، پیگیری و اقدام بعدی را در هر دو مسیر Render می‌کند. معامله/رسید، دریافت فیزیکی، فعال‌سازی و پرداخت اقساط، Stateهای معوق/جریمه/تسویه، صدور/دریافت هدیه و Feature Result متصل‌اند. Deep Link قسط معوق اکنون «نقره قرارداد» را نشان می‌دهد و نتیجه واقعی Asset Receipt را مقدم می‌داند. QA Chrome کل Inventory ۱۴۷تایی، قاب خالی صفر و Console صفر را حفظ کرد — D-204 / V-139
-- مرحله ۲ ممیزی تمیزکاری کامل شد: نمای کلی به‌جای اتکا به فهرست دستی سناریوها، Routeهای صریح Page را از `render()` و Overlayها را از Renderer پنجره‌ها کشف و موارد تکراری را یکی می‌کند. خروجی فعلی پس از D-210 برابر ۱۴۷ نمای یکتا شامل ۷۵ Page، ۵۵ State و ۱۷ Overlay در همان ۱۴ گروه است؛ Badge نوع، Deep link `?overview=1` و بازکردن هر مورد در حالت تعاملی فعال‌اند. QA مرورگری، Console صفر و شمارش ۱۴۷ را تأیید کرد — D-203/D-210 / V-138/V-144
+- مرحله ۲ ممیزی تمیزکاری کامل شد: نمای کلی به‌جای اتکا به فهرست دستی سناریوها، Routeهای صریح Page را از `render()` و Overlayها را از Renderer پنجره‌ها کشف و موارد تکراری را یکی می‌کند. خروجی فعلی پس از D-217 برابر ۱۴۷ نمای یکتا شامل ۷۷ Page، ۵۳ State و ۱۷ Overlay در همان ۱۴ گروه است؛ Badge نوع، Deep link `?overview=1` و بازکردن هر مورد در حالت تعاملی فعال‌اند — D-203/D-210/D-215/D-216/D-217 / V-138/V-144/V-148/V-149/V-150
 - مالک محصول خروج از Primary مشکی و جهت `Navy-first` را تأیید کرد. منبع خام پالت v2 داخل Stage 7 حفظ و Candidate v0.3 با ممیزی کنتراست و تقسیم مسئولیت ساخته شد: گرافیست مسئول Rampهای Navy/Lime، Swatchهای هویتی Metal، Art direction و Logo usage است؛ تیم Design System مسئول Semantic/State، دسترس‌پذیری، Chart behavior و Pilot است. Black-neutral v0.2 تاریخی ماند و Figma هنوز Migration نشده است — D-202
 - نمای کلی گروه «ورود و احراز هویت» دیگر کارت‌های عمومی فلو قبلی را نشان نمی‌دهد. هفت State واقعی `ورود/ثبت‌نام، ورود با رمز، OTP، ساخت رمز، فرم KYC، در حال تطبیق و خطای بررسی` با Deep Linkهای فایل تخصصی جایگزین شده‌اند؛ مهمان و حساب کاربری نیز در همان گروه حفظ شده‌اند. تعداد کل ۱۰۲ صفحه/۱۴ گروه، Syntax و Integrity بدون Missing/Duplicate/Ungrouped پاس شد — D-201 / V-137
 - مرحله ۱ ممیزی تمیزکاری کامل شد: Copyهای داخلی Test/Prototype/Review/Recovery، Placeholderهای مجوز/لوگو و کنترل‌های تست هدیه از سطح موبایل حذف یا به متن قابل‌فهم کاربر تبدیل شدند. یادداشت‌های Reviewer در پنل دسکتاپ حفظ شده‌اند؛ JavaScript Parse و Assertion نبود الگوهای داخلی پاس شد و ۱۰۲ سناریوی Navigation بدون تغییر باقی ماندند — V-136
@@ -386,10 +402,14 @@
 - [x] یکدست‌سازی محاسبات خرید، CTA ثابت ۳۲۰px و Transition مستقیم App Shell به KYC با D-101
 - [x] بستن موج ۱ برای عبور موج‌محور و فعال‌کردن رسمی مرحله ۷ — D-102
 - [x] ثبت اینکه Gate 6 کل `Complete` نیست و موج‌های بعدی ورودی موازی سیستم طراحی‌اند
+- [x] اجرای PB-1 تا PB-6: ممیزی ۱۴۷ نما، محتوا، Reachability، قرارداد خانواده‌ها، QA و Inventory — V-151..158
+- [x] اجرای PB-7 و فریز Baseline Pre-Binance 1.0 با Manifest/Brief مستقل — D-219/V-159
+- [ ] اجرای Mapping ده نما روی Home/Trade/Operation detail پس از Review بصری رنگ؛ Pilot جدا برای Design System با D-221 لغو شده است
 - [x] بازتنظیم موج ۲ و شروع با واریز ریالی بدون بازطراحی خرید/فروش/رسید موج ۱ — D-103
 - [x] تکمیل `wave-2-deposit-flow-readiness-pack.md` با نتیجه `Sufficient to prototype` برای مسیر عادی
 - [x] ساخت و QA فایل مستقل وایرفریم واریز موج ۲
 - [x] حذف تأیید داخلی و Stateهای بررسی/تطبیق از مسیر درگاه، افزودن نتیجه نامشخص و Copy بازگشت حداکثر ۷۲ساعته، همگام‌سازی Prototype مرجع/مستقل و QA تعاملی — D-210 / V-144
+- [x] حذف Screen بازگشت وجه واریز و Stateهای «در حال ثبت/برگشتی» برداشت، انتقال Preview برداشت به گروه درست، افزودن فاصله Alert و تعریف Unknown برداشت با Recovery ۷۲ساعته — D-216 / V-149
 - [ ] Review مالک محصول روی Prototype واریز موج ۲
 - [x] فعال‌کردن موازی موج ۳ برای برداشت ریالی و بازیابی مالی، با کنترل حذف انتقال — D-104
 - [x] تکمیل `wave-3-withdrawal-flow-readiness-pack.md` با نتیجه `Sufficient to prototype` برای مسیر عادی
@@ -460,13 +480,13 @@
 
 ## نزدیک‌ترین کارهای بعدی
 
-1. ساخت Pilot غیرمخرب Home/Assets براساس `visual-direction-contract-g5-v0.1.md` در کپی مستقل، با Stateهای Hidden/Visible/Partial/Outage و QA عرض ۳۲۰/۳۹۰، RTL، Dynamic Type، Dark و Reduced Motion؛ فایل مرجع و Figma اصلی تغییر نکنند — D-177
-2. Review دستی فلو زنده `WF-MM-014` و حالت‌های `014A..014D` توسط مالک محصول در مسیر موازی وایرفریم
-3. ثبت اصلاحات MM-W4 و سپس ادامه جزئیات موج‌به‌موج؛ ارتقا از ۷۵٪ به ۱۰۰٪ فقط پس از تأیید
-4. Review موازی ماتریس `Feature × Asset` پیش از نهایی‌کردن `MM-W5..MM-W8` — D-127/D-130/D-131/D-133/OQ-054
-5. نگه‌داشت Candidateهای فعلی Figma و تکمیل Reviewهای مالک؛ بازتنظیم گسترده Visual Foundation فقط پس از تأیید G4 و قرارداد G5 انجام شود
-6. ساخت Feedback باقی‌مانده، یعنی Skeleton، فقط در صورت عدم تعارض با مسیر استخراج و طبق `07-design-system/base-components-candidate-v0.2.md`
-7. اخذ تأییدهای مالی/حسابداری باقی‌مانده OQ-055 — مسیر موازی D-118
+1. [x] افزودن ۴۵ Source primitive Navy/Warm Neutral/Lime/Metal/Status به Collection موجود — D-202/D-221
+2. [x] بازنگاشت ۴۹ Semantic و شش State و افزودن ۱۲ Role فلز/مالی با حفظ API/Variant — D-221
+3. [x] اصلاح Scope/Code syntax و Audit با نتیجه ۳۴۷ Variable، صفر Broken alias و صفر `ALL_SCOPES`
+4. [x] QA عامل Light/Dark/RTL و ثبت Changelog/Rollback ledger روی هشت صفحه Component
+5. [x] ثبت خروجی ردشده‌ی Home در Figma به‌عنوان `Non-authoritative` و توقف Write — D-223
+6. [x] ساخت کپی HTML نسخه‌دار و اعمال Pattern layer v0.1 روی بخش‌های اصلی — D-223
+7. [ ] Review بصری مالک محصول روی HTML؛ سپس اصلاح Pattern layer و در صورت تأیید شروع Palette v2/visual polish روی همان فایل
 
 ## موانع و وابستگی‌های مهم
 
@@ -492,7 +512,8 @@
 - مصوبه معاملات برخط طلا و ضوابط تازه خزانه‌داری هنوز ممکن است بر مدل کیف، روش‌های واریز، خزانه، ثبت مالکیت و دریافت فیزیکی اثر بگذارد؛ انتقال کاربر‌به‌کاربر با D-087 از نسخه فعلی حذف شده است — OQ-045.
 - منبع رسمی قیمت/API، مدل حقوقی کارت هدیه خریدنی توسط کاربر، جزئیات VIP برای مبالغ خیلی بالا، مرز دقیق شروع جریمه و جزئیات اجرایی اقساط و تأیید حقوقی باید قبل از UI نهایی Gate بمانند — OQ-005، OQ-006، OQ-020، OQ-039، OQ-045.
 - آستانه مسیر واریز کلان بیشتر از ۴۰۰ میلیون تومان با سقف تجمیعی روزانه ۴۰۰ میلیون تومان نیازمند یکسان‌سازی قبل UI نهایی است — OQ-031.
-- جهت Navy-first تأیید و ساختار پایه Foundations حفظ شده، اما تکمیل Ramp هویتی، Pilot رنگ، تست Device، Dynamic Type، Screen Reader، فونت NoEn و بخش‌های فلزمحور پیش از `Stable` شدن بازند — D-202، OQ-052/OQ-056.
+- جهت Navy-first در Sandbox اصلی اجرا و ساختار پایه Foundations حفظ شد، اما تکمیل Ramp هویتی، Review مالک محصول، تست Device، Dynamic Type، Screen Reader، فونت NoEn و بخش‌های فلزمحور پیش از `Stable` شدن بازند — D-202/D-221، OQ-052/OQ-056.
+- Phase 0 و Migration مستقیم D-221 کامل و QA فنی/عامل پاس است. مقادیر هویتی ناقص و نقش‌های فلزمحور تا QA انسانی و OQ-052/OQ-056 `Candidate / Not Stable` می‌مانند.
 - timeout سرویس بررسی خودکار مجوز نوشتن پس از تأیید صریح مالک محصول رفع شد. Button کامل ۱۰۸تایی و Icon Button کامل ۷۲تایی ساخته و audit شده‌اند؛ هر دو برای Promote به تأیید بصری نهایی مالک محصول وابسته‌اند.
 - ادامه موازی موج‌های ۲ تا ۸ ممکن است Variant یا Pattern تازه کشف کند؛ Governance و وضعیت‌های `Draft/Candidate/Tested/Stable` باید جلوی تثبیت زودهنگام را بگیرند — D-102.
 

@@ -13,8 +13,11 @@
 - `interaction-patterns.md`
 - `accessibility-checklist.md`
 - `official-design-system-plan.md`
+- `stage-7-controlled-pilot-plan-v0.1.md`
+- `binance-ten-view-mapping-v0.1.md`
 - `visual-direction-contract-g5-v0.1.md`
 - `foundations/navy-first-palette-candidate-v0.3.md`
+- `navy-first-direct-migration-ledger-v0.1.md`
 - `sources/shemsh-color-palette-v2-2026-08-17.pdf`
 - `base-components-candidate-v0.2.md`
 - `component-set-workflow-v1.0.md`
@@ -29,7 +32,7 @@
 - [ ] موبایل، تبلت و وب رفتار Responsive مشخص داشته باشند.
 - [ ] UI با محتوای واقعی فارسی و اعداد واقعی تست شده باشد.
 
-## وضعیت پس از D-202 و D-122
+## وضعیت پس از D-202، D-122 و D-221
 
 - فاز ۱: تثبیت زبان بصری و Foundations واقعی
 - ورودی اصلی: خروجی بسته‌شده موج ۱ و اسناد `Design System Prep`
@@ -57,6 +60,6 @@
 - Alert در صفحه مستقل `16 Alert` با ID `411:344` به Set کامل ۱۰تایی `Tone=Neutral/Info/Success/Warning/Danger × Layout=Inline/Stacked` اضافه شد. رنگ‌ها از `semantic/color/status/{tone}/*`، Radius از `semantic/dimension/radius/container` و Typography از Styleهای Semantic می‌آید؛ Propertyهای عمومی `Title`، `Description`، `Action label`، `Show action`، `Show dismiss`، `Show icon` و `Icon` وصل شده‌اند. Final structural/agent-visual audit صفر Issue است و Ledger در `alert-figma-state-ledger-v0.1.md` ثبت شد.
 - Toast در صفحه مستقل `17 Toast` با Page ID `424:269` و Set ID `426:1647` به Set کامل ۵تایی `Tone=Neutral/Info/Success/Warning/Danger` اضافه شد. `Message` متنی، `Action` و `Dismiss` بولی و `Icon` از نوع Instance Swap است؛ رنگ‌ها از `semantic/color/status/{tone}/*`، Typography از Styleهای Semantic `Yekan Bakh FaNum` و Geometry از Tokenهای معنایی می‌آید. Final technical audit صفر Issue و Visual QA واقعی Light/Dark/RTL/متن بلند پاس شد؛ Ledger در `toast-figma-state-ledger-v0.1.md` است.
 
-وضعیت: `In progress / Needs revision for color migration / Sufficient to proceed with pilot` با D-202/D-122. Radio و Switch در وضعیت `Tested Candidate` هستند، اما رنگ همه Candidateها پس از نگاشت Navy-first دوباره QA می‌شود؛ Button، Icon Button، Checkbox، Text Input، Amount Input، OTP Input، Search Input، Alert و Toast تا عبور QA انسانی و وابستگی‌های ثبت‌شده `Stable` اعلام نمی‌شوند.
+وضعیت: `Paused for Figma write / Foundations preserved` با D-223. Migration رنگ D-221 حذف نشده است، اما Home default/zero در Page `20 Screen-led / Home` و تمام Building blockهای همان موج ردشده و `Non-authoritative` هستند. هیچ Write، استخراج یا Promote تازه در Figma تا دستور صریح مالک محصول مجاز نیست.
 
-اولویت اجرایی فعلی: `Pilot Home/Assets غیرمخرب → ثبت Findingها → Pilot Trust/Receipt → Foundation Candidate تازه`. G5 v0.1 فقط قرارداد Candidate/Pilot است؛ کپی Figma با صفحه `18 Trade G4 Pilot` Reference board می‌ماند و صفحات/Componentهای فعلی دست‌نخورده‌اند. بازطراحی بصری گسترده، Migration یا Promote پیش از عبور Pilotها و Governance انجام نمی‌شود.
+نتیجه D-223: Baseline D-219 و Foundationهای موجود حفظ‌اند، اما ادامه‌ی بصری از `../08-final-design-and-handoff/artifacts/multi-metal-high-fidelity-v0.1.html` انجام می‌شود. نخست Patternهای تکرارشونده در Context واقعی HTML Review می‌شوند؛ فقط پس از تأیید مالک می‌توان درباره بازگشت به DS یا Figma تصمیم گرفت. G5 v0.1 فقط Evidence است.
